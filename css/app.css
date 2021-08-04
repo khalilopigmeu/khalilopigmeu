@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script&display=swap');
+
+.cursive{
+    font-family: 'Dancing Script', cursive;
+}
+
+legend{
+    background: #fff !important;
+}
+.listahome li{
+    list-style: none;
+    margin-bottom: 10px;
+}
+
+#menu-toggle{
+    position: absolute;
+    z-index: 99999;
+    opacity: .4;
+}
+
+#menu-toggle:hover{
+    opacity: 1;
+}
+
+body{
+    background: #fff;
+}
+
+fieldset,legend{
+    background: #ccc;
+}
+
+.seloq-img{
+    height: 25vh !important;
+}
+
+#wrapper{
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.form-control{
+    width: 100% !important;
+}
+
+form{
+    width: 60%;
+}
+
+*:hover:required{
+    border-color: goldenrod;
+}
+
+.multiopt{
+    height: 25vh;
+    max-height: 25vh;
+    overflow-y: scroll; 
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #ccc;
+}
+
+iframe{
+    width: 100%;
+    height: 100vh;
+}
+
+.tblslc,.mousein{
+    background: #000 !important;
+    color:#fff !important;
+}
+
+a[class^="rc-"]:hover{
+    background: #000 !important;
+    color:#fff !important;
+}

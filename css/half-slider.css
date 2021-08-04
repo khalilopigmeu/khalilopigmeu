@@ -1,0 +1,35 @@
+.carousel-item {
+    height: 450px;
+}
+
+.carousel-item div{
+    background-repeat: repeat;
+}
+
+.carousel-item img{
+    height: 450px;
+}
+
+.carousel-caption h4{
+    font-size: 2.5rem;
+}
+.carousel-caption p{
+    font-size: 1.7rem;
+}
+.carousel-caption {
+    position: absolute;
+    right: 0;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    color: #fff;
+    text-align: center;
+    font-family: 'Courgette', cursive !important;
+}
+
+.img-vendedor{
+    height: 35vh !important;
+    min-height: 0px !important;
+}
