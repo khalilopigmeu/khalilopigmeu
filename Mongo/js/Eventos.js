@@ -13,6 +13,7 @@ app["Eventos"] = new Vue({
         ELtitle: null,
         Icon: '<i class="far fa-calendar-alt"></i>',
         pesqTbl: "",
+        Host: "Bienestar/Agenda/Eventos/",
 
         CategoriaSrc: null,
         groupId: null,
@@ -48,6 +49,7 @@ app["Eventos"] = new Vue({
         Clientesrc: null,
         procedimento: [],
         Procedimentosrc: null,
+        Consultasrc: null,
 
         Juros: null,
         Referencia: null,
@@ -58,60 +60,44 @@ app["Eventos"] = new Vue({
         Modalidade: null,
         calendar: null,
     },
-    created: function (e) {
-        this.populate();
-        this.evtDataCal = "cad";
-        $(function () {
-            $("#Eventos .modal-body .nav-link").removeClass("active show");
-            $("#Eventos .modal-body .tab-pane").removeClass("active show");
-            $("#Eventos .modal-body .nav-link").eq(0).addClass("active show");
-            $("#Eventos .modal-body .tab-pane").eq(0).addClass("active show");
-        });
-    },
     methods: {
-        populate: function (e) {
-            this.clear();
-            if (!this.ravec(1)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-                $(function () {
-                    this.biencode = {};
-                    this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                    var d = new Date();
-                    var m = d.getMonth() + 1;
-                    var y = d.getFullYear();
-                    this.biencode.inicio = y + "-" + m;
-                    if (app.CategoriaEventos.src.length > 0) {
-                        this.biencode.grupo = "";
-                        for (var i = 0; i <= app.CategoriaEventos.src.length - 1; i++) {
-                            this.biencode.grupo += app.CategoriaEventos.src[i]._id['$oid'];
-                            if (i < app.CategoriaEventos.src.length - 1) {
-                                this.biencode.grupo += ",";
-                            }
+        populate: function () {
+            $(function () {
+                this.biencode = {};
+                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+                var d = new Date();
+                var m = d.getMonth() + 1;
+                var y = d.getFullYear();
+                this.biencode.inicio = y + "-" + m;
+                if (app.CategoriaEventos.src.length > 0) {
+                    this.biencode.grupo = "";
+                    for (var i = 0; i <= app.CategoriaEventos.src.length - 1; i++) {
+                        this.biencode.grupo += app.CategoriaEventos.src[i]._id['$oid'];
+                        if (i < app.CategoriaEventos.src.length - 1) {
+                            this.biencode.grupo += ",";
                         }
                     }
-                    if (app.calendar.iniciopesq !== null) {
-                        this.biencode.inicio = app.calendar.iniciopesq;
-                    }
-                    if (app.calendar.fimpesq !== null) {
-                        this.biencode.fim = app.calendar.fimpesq;
-                    }
-                    var data = {
-                        biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                    };
-                    var ws = $(window).Decrypt(host("Bienestar", "Agenda.Evento", "listar"));
-                    var p = (post(ws, data));
-                    app.Eventos.eventos = $(window).Decrypt(p);
-                    app.calendar.eventosSrc = eval(app.Eventos.eventos);
-                    if (app.Eventos.calendar !== null) {
-                        app.Eventos.calendar.destroy();
-                    }
-                    app.Eventos.calendar = instanceCalendar("calendarTabContent", app.Eventos.eventos, "#Eventos");
-                    app.calendar.diaevento = formatadata(app.Eventos.calendar.formatIso(app.Eventos.calendar.getDate()));
-                });
-            }
+                }
+                if (app.calendar.iniciopesq !== null) {
+                    this.biencode.inicio = app.calendar.iniciopesq;
+                }
+                if (app.calendar.fimpesq !== null) {
+                    this.biencode.fim = app.calendar.fimpesq;
+                }
+                var data = {
+                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
+                };
+                app.sys.crud(app.Eventos.href, "listar", data);
+                app.Eventos.eventos = app.Eventos.src;
+                app.Eventos.src = null;
+                app.calendar.eventosSrc = eval(app.Eventos.eventos);
+                if (app.Eventos.calendar !== null) {
+                    app.Eventos.calendar.destroy();
+                }
+                app.Eventos.calendar = instanceCalendar("calendarTabContent", app.Eventos.eventos, "#Eventos");
+                app.calendar.diaevento = formatadata(app.Eventos.calendar.formatIso(app.Eventos.calendar.getDate()));
+            });
+            app.sys.tabs(this.href);
         },
         clear: function () {
             this.groupId = null;
@@ -153,11 +139,8 @@ app["Eventos"] = new Vue({
             this.endTime = this.evt.endTime;
             this.startRecur = this.evt.startRecur;
             this.endRecur = this.evt.endRecur;
-            CKEDITOR.instances['observacaoagenda'].destroy(true);
             this.observacao = this.extendedProps.descricao;
-            CKEDITOR.replace('observacaoagenda', {
-                customConfig: '../../js/configEditor.js'
-            });
+            CKEDITOR.instances['observacaoagenda'].setData(unescapeHTML(this.observacao))
             this.cliente = this.extendedProps.cliente;
             this.procedimento = this.extendedProps.procedimento;
             this.Modalidade = this.extendedProps.modelo;
@@ -228,74 +211,16 @@ app["Eventos"] = new Vue({
              }*/
         },
         cadastrar: function () {
-            if (!this.ravec(2)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-                this.checkForm();
-                if (!app.erros.valida()) {
-                    var data = {
-                        "biencode": $(window).Encrypt(JSON.stringify(this.biencode))
-                    };
-                    var ws = $(window).Decrypt(host("Bienestar", "Agenda.Evento", "add"));
-                    var p = (post(ws, data));
-                    var rs = $(window).Decrypt(p);
-                    $(window).NotifyInfo(rs);
-
-                    this.populate();
-                }
-            }
+            app.sys.crud(this.href, "add", null);
         },
         alterar: function () {
-            if (!this.ravec(3)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-                this.checkForm();
-                if (!app.erros.valida()) {
-                    this.biencode.id = this.evt.extendedProps._id.$oid;
-                    var data = {
-                        "biencode": $(window).Encrypt(JSON.stringify(this.biencode))
-                    };
-                    var ws = $(window).Decrypt(host("Bienestar", "Agenda.Evento", "edt"));
-                    var p = (post(ws, data));
-                    var rs = $(window).Decrypt(p);
-                    $(window).NotifyInfo(rs);
-
-                    this.populate();
-                }
-            }
+            app.sys.crud(this.href, "edt", null);
         },
         excluir: function () {
-            if (!this.ravec(4)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-                this.checkForm();
-                if (!app.erros.valida()) {
-                    this.biencode.id = this.evt.extendedProps._id.$oid;
-                    var data = {
-                        "biencode": $(window).Encrypt(JSON.stringify(this.biencode))
-                    };
-                    var ws = $(window).Decrypt(host("Bienestar", "Agenda.Evento", "exc"));
-                    var p = (post(ws, data));
-                    var rs = $(window).Decrypt(p);
-                    $(window).NotifyInfo(rs);
-
-                    this.populate();
-                }
-            }
+            app.sys.crud(this.href, "exc", null);
         },
         relatorio: function () {
-            if (!this.ravec(5)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-            }
+            app.sys.crud(this.href, "rel", null);
         },
         cad: function () {
             this.evtDataCal = "cad";
@@ -321,8 +246,8 @@ app["Eventos"] = new Vue({
             this.Valor = Real(value).format();
         },
         ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && typeof app.Ravec.acesso[this.stepkey][this.href] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null && app.Ravec.acesso[this.stepkey][this.href] !== null) {
-                if (app.Ravec.acesso[this.stepkey][this.href].nivel >= nivel) {
+            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
+                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
                     return true;
                 } else {
                     return false;

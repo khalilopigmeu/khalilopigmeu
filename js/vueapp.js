@@ -13,6 +13,8 @@ app["SocialMedia"] = new Vue({
         googleapikey: "",
         cliente_oauth: "",
         chave: "",
+        empresa:null,
+        login:null,
     },
     created: function () {
     },
@@ -42,6 +44,8 @@ app["SocialMedia"] = new Vue({
                 $("#modal").modal();
                 $("#modal").avisoMsg("Seja Bem Vindo(a)!");
             }
+            this.empresa = window.localStorage.getItem("Empresa");
+            this.login = window.localStorage.getItem("Nome");
             /*this.profileImageFB();
              this.profileNameFB();
              app.sidebarR.fblog = this.fblog;

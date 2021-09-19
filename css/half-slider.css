@@ -1,22 +1,22 @@
-.carousel-item {
+#Carousel .carousel-item {
     height: 450px;
 }
 
-.carousel-item div{
+#Carousel .carousel-item div{
     background-repeat: repeat;
 }
 
-.carousel-item img{
+#Carousel .carousel-item img{
     height: 450px;
 }
 
-.carousel-caption h4{
+#Carousel .carousel-caption h4{
     font-size: 2.5rem;
 }
-.carousel-caption p{
+#Carousel .carousel-caption p{
     font-size: 1.7rem;
 }
-.carousel-caption {
+#Carousel .carousel-caption {
     position: absolute;
     right: 0;
     top: 0;
@@ -29,7 +29,7 @@
     font-family: 'Courgette', cursive !important;
 }
 
-.img-vendedor{
+#Carousel .img-vendedor{
     height: 35vh !important;
     min-height: 0px !important;
 }

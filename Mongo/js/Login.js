@@ -13,6 +13,7 @@ app["Login"] = new Vue({
         ELtitle: null,
         Icon: '<i class="far fa-id-badge"></i>',
         pesqTbl: "",
+        Host: "Bienestar/Gerenciamento/Login/",
 
         Funcionariosrc: null,
         Clientesrc: null,
@@ -35,37 +36,26 @@ app["Login"] = new Vue({
         RAVEC: null,
         DataCadastro: null,
     },
-    created: function (e) {
-        this.populate();
-        $(function () {
-            $("#Login .modal-body .nav-link").removeClass("active show");
-            $("#Login .modal-body .tab-pane").removeClass("active show");
-            $("#Login .modal-body .nav-link").eq(0).addClass("active show");
-            $("#Login .modal-body .tab-pane").eq(0).addClass("active show");
-        });
-    },
     methods: {
-        populate: function (e) {
-            this.clear();
-            if (!this.ravec(1)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-                $(function () {
-                    this.biencode = {};
-                    this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                    var data = {
-                        biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                    };
-                    var ws = $(window).Decrypt(host("Bienestar", "Login", "listar"));
-                    var p = (post(ws, data));
-
-                    app.Login.src = eval($(window).Decrypt(p));
-                    app.CategoriaEventos.Loginsrc = app.Login.src;
-                    app.Ravec.Loginsrc = app.Login.src;
-                });
-            }
+        populate: function () {
+            $(function () {
+                this.biencode = {};
+                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+                var data = {
+                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
+                };
+                app.sys.crud(app.Login.href, "listar", data);
+                app.CategoriaEventos.Loginsrc = app.Login.src;
+                app.Anuncio.Loginsrc = app.Login.src;
+                app.CategoriaAnuncio.Loginsrc = app.Login.src;
+                app.ChamadoAnuncio.Loginsrc = app.Login.src;
+                app.Mural.Loginsrc = app.Login.src;
+                app.Page.Loginsrc = app.Login.src;
+                app.Voucher.Loginsrc = app.Login.src;
+                app.Voucher.Loginsrc = app.Login.src;
+                app.RootAccess.LoginSrc = app.Login.src;
+            });
+            app.sys.tabs(this.href);
         },
         clear: function () {
             this.IdRevenda = null;
@@ -121,72 +111,16 @@ app["Login"] = new Vue({
             this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
         },
         cadastrar: function () {
-            if (!this.ravec(2)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-                this.checkForm();
-                if (!app.erros.valida()) {
-                    var data = {
-                        "biencode": $(window).Encrypt(JSON.stringify(this.biencode))
-                    };
-                    var ws = $(window).Decrypt(host("Bienestar", "Login", "add"));
-                    var p = (post(ws, data));
-                    var rs = $(window).Decrypt(p);
-                    $(window).NotifyInfo(rs);
-
-                    this.populate();
-                }
-            }
+            app.sys.crud(this.href, "add", null);
         },
         alterar: function () {
-            if (!this.ravec(3)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-                this.checkForm();
-                if (!app.erros.valida()) {
-                    var data = {
-                        "biencode": $(window).Encrypt(JSON.stringify(this.biencode))
-                    };
-                    var ws = $(window).Decrypt(host("Bienestar", "Login", "edt"));
-                    var p = (post(ws, data));
-                    var rs = $(window).Decrypt(p);
-                    $(window).NotifyInfo(rs);
-
-                    this.populate();
-                }
-            }
+            app.sys.crud(this.href, "edt", null);
         },
         excluir: function () {
-            if (!this.ravec(4)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-                this.checkForm();
-                if (!app.erros.valida()) {
-                    var data = {
-                        "biencode": $(window).Encrypt(JSON.stringify(this.biencode))
-                    };
-                    var ws = $(window).Decrypt(host("Bienestar", "Login", "exc"));
-                    var p = (post(ws, data));
-                    var rs = $(window).Decrypt(p);
-                    $(window).NotifyInfo(rs);
-
-                    this.populate();
-                }
-            }
+            app.sys.crud(this.href, "exc", null);
         },
         relatorio: function () {
-            if (!this.ravec(5)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-            }
+            app.sys.crud(this.href, "rel", null);
         },
         cad: function () {
             this.evtDataCal = "cad";
@@ -202,8 +136,8 @@ app["Login"] = new Vue({
             this.evtDataCal = "exc";
         },
         ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && typeof app.Ravec.acesso[this.stepkey][this.href] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null && app.Ravec.acesso[this.stepkey][this.href] !== null) {
-                if (app.Ravec.acesso[this.stepkey][this.href].nivel >= nivel) {
+            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
+                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
                     return true;
                 } else {
                     return false;

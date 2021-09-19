@@ -11,78 +11,77 @@ app["Seo"] = new Vue({
         stepkey: 0,
         href: null,
         ELtitle: null,
-        Icon: '<i class="fas fa-angle-double-right"></i>',
+        Icon: '<i class="fas fa-search"></i>',
         pesqTbl: "",
+        Host: "Bienestar/Seo/SEO/",
 
         URLPage: null,
         NomeSite: null,
         TituloSite: null,
         DescriSite: null,
         Keyword: null,
-        UrlTW: null,
-        Ldjson: null,
+        PageId: null,
         UrlFB: null,
         UrlImage: null,
-    },
-    created: function (e) {
-        //this.populate();
-    },
+    }, 
     methods: {
-        populate: function (e) {
-            this.clear();
-            if (!this.ravec(1)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-                e.preventDefault();
-                var data = {};
-                var ws = host("Bienestar", "Seo", "listar");
-                data[""] = $(window).Encrypt();
-                var p = (post(ws, data));
-                this.src = $(window).Decrypt(p);
-            }
+        populate: function () {
+            $(function () {
+                this.biencode = {};
+                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+                var data = {
+                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
+                };
+                app.sys.crud(app.Seo.href, "listar", data);
+            });
+            app.sys.tabs(this.href);
         },
         clear: function () {
-            this.item = null;
+            this.URLPage = null;
+            this.NomeSite = null;
+            this.TituloSite = null;
+            this.DescriSite = null;
+            this.Keyword = null;
+            this.PageId = null;
+            this.UrlFB = null;
+            this.UrlImage = null;
         },
         autocomplete: function () {
-            this.item = this.row[0];
+            this.id = this.row[0];
+            this.URLPage = this.row[1];
+            this.NomeSite = this.row[2];
+            this.TituloSite = this.row[3];
+            this.DescriSite = this.row[4];
+            this.Keyword = this.row[5];
+            this.PageId = this.row[7];
+            this.UrlFB = this.row[6];
+            this.UrlImage = this.row[8];
         },
         checkForm: function () {
             app.erros.errors = {};
+            this.biencode = {};
+            this.biencode.URLPage = this.URLPage;
+            this.biencode.NomeSite = this.NomeSite;
+            this.biencode.TituloSite = this.TituloSite;
+            this.biencode.DescriSite = this.DescriSite;
+            this.biencode.Keyword = this.Keyword;
+            this.biencode.PageId = this.PageId;
+            this.biencode.UrlFB = this.UrlFB;
+            this.biencode.UrlImage = this.UrlImage;
+            this.biencode.id = this.id;
+            this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
         },
         cadastrar: function () {
-            if (!this.ravec(2)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-            }
+            app.sys.crud(this.href, "add", null);
         },
         alterar: function () {
-            if (!this.ravec(3)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-            }
+            app.sys.crud(this.href, "edt", null);
         },
         excluir: function () {
-            if (!this.ravec(4)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-            }
+            app.sys.crud(this.href, "exc", null);
         },
         relatorio: function () {
-            if (!this.ravec(5)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-            }
+            app.sys.crud(this.href, "rel", null);
         },
         cad: function () {
             this.evtDataCal = "cad";
@@ -97,8 +96,8 @@ app["Seo"] = new Vue({
             this.evtDataCal = "exc";
         },
         ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && typeof app.Ravec.acesso[this.stepkey][this.href] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null && app.Ravec.acesso[this.stepkey][this.href] !== null) {
-                if (app.Ravec.acesso[this.stepkey][this.href].nivel >= nivel) {
+            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
+                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
                     return true;
                 } else {
                     return false;

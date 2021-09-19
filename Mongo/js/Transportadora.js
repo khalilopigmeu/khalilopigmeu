@@ -11,8 +11,9 @@ app["Transportadora"] = new Vue({
         stepkey: 0,
         href: null,
         ELtitle: null,
-        Icon: '<i class="fas fa-angle-double-right"></i>',
+        Icon: '<i class="fas fa-truck"></i>',
         pesqTbl: "",
+        Host: "Bienestar/Gerenciamento/Transporatadora/",
 
         UF: null,
         CNAE: null,
@@ -36,36 +37,17 @@ app["Transportadora"] = new Vue({
         Cidade: null,
         optCad: "",
     },
-    created: function (e) {
-        this.populate();
-        $(function () {
-            $("#Transportadora .modal-body .nav-link").removeClass("active show");
-            $("#Transportadora .modal-body .tab-pane").removeClass("active show");
-            $("#Transportadora .modal-body .nav-link").eq(0).addClass("active show");
-            $("#Transportadora .modal-body .tab-pane").eq(0).addClass("active show");
-            app.SocialMedia.mascara();
-        });
-    },
     methods: {
-        populate: function (e) {
-            this.clear();
-            if (!this.ravec(1)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-                $(function () {
-                    this.biencode = {};
-                    this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                    var data = {
-                        biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                    };
-                    var ws = $(window).Decrypt(host("Bienestar", "Transportadora", "listar"));
-                    var p = (post(ws, data));
-
-                    app.Transportadora.src = eval($(window).Decrypt(p));
-                });
-            }
+        populate: function () {
+            $(function () {
+                this.biencode = {};
+                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+                var data = {
+                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
+                };
+                app.sys.crud(app.Transportadora.href, "listar", data);
+            });
+            app.sys.tabs(this.href);
         },
         clear: function () {
             this.UF = null;
@@ -147,69 +129,16 @@ app["Transportadora"] = new Vue({
             this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
         },
         cadastrar: function () {
-            if (!this.ravec(2)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-                this.checkForm();
-                if (!app.erros.valida()) {
-                    var data = {
-                        "biencode": $(window).Encrypt(JSON.stringify(this.biencode))
-                    };
-                    var ws = $(window).Decrypt(host("Bienestar", "Transportadora", "add"));
-                    var p = (post(ws, data));
-                    var rs = $(window).Decrypt(p);
-                    $(window).NotifyInfo(rs);
-                    this.populate();
-                }
-            }
+            app.sys.crud(this.href, "add", null);
         },
         alterar: function () {
-            if (!this.ravec(3)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-                this.checkForm();
-                if (!app.erros.valida()) {
-                    var data = {
-                        "biencode": $(window).Encrypt(JSON.stringify(this.biencode))
-                    };
-                    var ws = $(window).Decrypt(host("Bienestar", "Transportadora", "alt"));
-                    var p = (post(ws, data));
-                    var rs = $(window).Decrypt(p);
-                    $(window).NotifyInfo(rs);
-                    this.populate();
-                }
-            }
+            app.sys.crud(this.href, "edt", null);
         },
         excluir: function () {
-            if (!this.ravec(4)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-                this.checkForm();
-                if (!app.erros.valida()) {
-                    var data = {
-                        "biencode": $(window).Encrypt(JSON.stringify(this.biencode))
-                    };
-                    var ws = $(window).Decrypt(host("Bienestar", "Transportadora", "exc"));
-                    var p = (post(ws, data));
-                    var rs = $(window).Decrypt(p);
-                    $(window).NotifyInfo(rs);
-                    this.populate();
-                }
-            }
+            app.sys.crud(this.href, "exc", null);
         },
         relatorio: function () {
-            if (!this.ravec(5)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-            }
+            app.sys.crud(this.href, "rel", null);
         },
         cad: function () {
             this.evtDataCal = "cad";
@@ -224,8 +153,8 @@ app["Transportadora"] = new Vue({
             this.evtDataCal = "exc";
         },
         ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && typeof app.Ravec.acesso[this.stepkey][this.href] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null && app.Ravec.acesso[this.stepkey][this.href] !== null) {
-                if (app.Ravec.acesso[this.stepkey][this.href].nivel >= nivel) {
+            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
+                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
                     return true;
                 } else {
                     return false;

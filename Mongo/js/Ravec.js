@@ -1,7 +1,7 @@
 app["Ravec"] = new Vue({
     el: '#Ravec',
     data: {
-        evtDataCal: "cad",
+        evtDataCal: null,
         src: null,
         biencode: null,
         row: null,
@@ -11,6 +11,7 @@ app["Ravec"] = new Vue({
         ELtitle: null,
         Icon: '<i class="fas fa-lock-open"></i>',
         pesqTbl: "",
+        Host: "Bienestar///",
 
         opcoes: [],
         acesso: [],
@@ -24,8 +25,8 @@ app["Ravec"] = new Vue({
             setAuth(newAuth);
             $(window).Decrypt(window.localStorage.getItem("RAVEC"), "tufsqulu")
             app.Ravec.acesso = eval($(window).Decrypt(window.localStorage.getItem("RAVEC"), "tufsqulu"));
-            app.Ravec.opcoes = app.Ravec.acesso;
             setAuth(authbkp);
+            console.log(app.Ravec.acesso);
             app.SocialMedia.Conectado();
         });
     },
@@ -99,16 +100,16 @@ app["Ravec"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
-        check: function (nivel, index, arr, event) {
+        check: function (nivel, index, event) {
             if (event.target.checked) {
-                this.opcoes[index]["" + arr].nivel = nivel;
+                this.opcoes[index].nivel = nivel;
             } else {
-                this.opcoes[index]["" + arr].nivel = parseInt(nivel) - 1;
+                this.opcoes[index].nivel = parseInt(nivel) - 1;
             }
         },
-        ravecmenu: function (href, index, nivel) {
-            if (typeof this.acesso[index] !== "undefined" && typeof this.acesso[index][href] !== "undefined" && this.acesso[index] !== null && this.acesso[index][href] !== null) {
-                if (this.acesso[index][href].nivel >= nivel) {
+        ravecmenu: function (index, nivel) {
+            if (typeof this.acesso[index] !== "undefined" && this.acesso[index] !== null) {
+                if (this.acesso[index].nivel >= nivel) {
                     return true;
                 } else {
                     return false;
@@ -143,6 +144,22 @@ app["Ravec"] = new Vue({
                     setAuth(newAuth);
                     this.acesso = eval($(window).Decrypt(this.Loginsrc[i].RAVEC, "tufsqulu"));
                     setAuth(authbkp);
+                    this.opcoes = [];
+                    for (var i = 0; i <= Object.keys(app).length - 1; i++) {
+                        var nomeOP = app[Object.keys(app)[i]].ELtitle;
+                        if (typeof nomeOP !== "undefined") {
+                            var nivel = 0;
+                            for (var j = 0; j <= this.acesso.length - 1; j++) {
+                                var nomeAC = this.acesso[j].nome;
+                                if (nomeOP === nomeAC) {
+                                    nivel = this.acesso[j].nivel;
+                                    break;
+                                }
+                            }
+                            this.opcoes.push({nome: nomeOP, nivel: nivel});
+                        }
+                    }
+                    break;
                 }
             }
         },
@@ -152,17 +169,14 @@ app["Ravec"] = new Vue({
                 var authbkp = getAuth();
                 var newAuth = app.Ravec.Acessos;
                 setAuth(newAuth);
-                console.log(newAuth);
                 app.Login.biencode.RAVEC = $(window).Encrypt(JSON.stringify(app.Ravec.opcoes), "tufsqulu");
                 setAuth(authbkp);
-                console.log(authbkp);
                 app.Login.biencode.id = String(app.Ravec.Acessos);
                 app.Login.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
-                console.log(app.Login.biencode);
                 var data = {
                     "biencode": $(window).Encrypt(JSON.stringify(app.Login.biencode))
                 };
-                var ws = $(window).Decrypt(host("Bienestar", "Login", "edt"));
+                var ws = "Bienestar/Gerenciamento/Login/edt";
                 var p = (post(ws, data));
                 var rs = $(window).Decrypt(p);
                 $(window).NotifyInfo(rs);

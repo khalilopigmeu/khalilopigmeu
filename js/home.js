@@ -1,8 +1,8 @@
 "use strict";
-app["Carousel"] = new Vue({
-    el: '#Carousel',
+app["Home"] = new Vue({
+    el: '#Home',
     created: function () {
-        window.localStorage.clear();
+     
     },
     data: {
         banner: [
@@ -71,14 +71,8 @@ app["Carousel"] = new Vue({
                 mensagem: "\"Depois de algum tempo você aprende que realmente a vida tem valor e que você tem valor diante da vida!\"",
                 active: ""
             }
-        ]
-    }
-});
-
-app["sobreBien"] = new Vue({
-    el: '#sobreBien',
-    data: {
-        itens: [
+        ],
+          itens: [
             {
                 boxclass: "py-2 my-2 col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4",
                 class: "far fa-heart",
@@ -121,13 +115,8 @@ app["sobreBien"] = new Vue({
                 nome: "Ciclo",
                 texto: "Estar de acordo com o tempo, como saber se adequar ao mesmo"
             }
-        ]
-    }
-});
-app["Pricing"] = new Vue({
-    el: '#Pricing',
-    data: {
-        itens: [
+        ],
+        itensPricing: [
             {
                 class: "far fa-calendar-alt",
                 nome: "Recepção",
@@ -184,53 +173,6 @@ app["Pricing"] = new Vue({
                 contras: [],
                 link: "#5"
             }
-        ]
-    }
-});
-app["ClientPricing"] = new Vue({
-    el: '#ClientPricing',
-    data: {
-        itens: [
-            {
-                class: "far fa-handshake",
-                nome: "Gratuito",
-                preco: "00,00",
-                pros: ["teste pro", "teste pro2"],
-                contras: [],
-                link: "#1"
-            },
-            {
-                class: "fas fa-hand-holding-usd",
-                nome: "Básico",
-                preco: "15,00",
-                pros: ["teste pro", "teste pro2"],
-                contras: [],
-                link: "#2"
-            },
-            {
-                class: "fas fa-medal",
-                nome: "Intermediário",
-                preco: "35,00",
-                pros: ["teste pro", "teste pro2"],
-                contras: [],
-                link: "#3"
-            },
-            {
-                class: "fas fa-trophy",
-                nome: "Plus",
-                preco: "55,00",
-                pros: ["teste pro", "teste pro2"],
-                contras: [],
-                link: "#4"
-            },
-            {
-                class: "far fa-gem",
-                nome: "Vip",
-                preco: "70,00",
-                pros: ["teste pro", "teste pro2"],
-                contras: [],
-                link: "#5"
-            }
-        ]
+        ],
     }
 });

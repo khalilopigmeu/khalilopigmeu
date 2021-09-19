@@ -14,7 +14,7 @@ $(function () {
         $("*:required").attr("data-toggle", "tooltip");
         $("*:required").attr("title", acentuar("Obrigatório"));
         $("*:required").attr("data-original-title", acentuar("Obrigatório"));
-        //$("*:required").tooltip();
+        $("*:required").tooltip();
         var ind = $("*:required").length;
         for (var i = 0; i <= ind - 1; i++) {
             $("*:required").eq(i).prev("label").text($("*:required").eq(i).prev("label").text() + " *");
@@ -65,7 +65,7 @@ $(function () {
         $.notify(msg, {className: "info", position: "bottom right"});
     };
     $.fn.NotifyRavec = function (title) {
-       // $.notify("Você não possui permissão para realizar essa operação em " + title, {className: "error", position: "bottom right"});
+        // $.notify("Você não possui permissão para realizar essa operação em " + title, {className: "error", position: "bottom right"});
     };
 
 
@@ -348,6 +348,10 @@ function XmlToJson(xml, ref) {
         }
     }
     return JSON.parse(json);
+}
+
+function unescapeHTML(escapedHTML) {
+    return escapedHTML.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
 }
 
 function apiFB(fn, el) {

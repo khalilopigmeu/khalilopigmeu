@@ -13,122 +13,70 @@ app["Page"] = new Vue({
         ELtitle: null,
         Icon: '<i class="fas fa-globe"></i>',
         pesqTbl: "",
+        Host: "Bienestar/Pagina/pagina/",
 
+        Titulo: null,
         UrlPage: null,
         ContentPage: null,
-    },
-    created: function (e) {
-        this.populate();
-        $(function () {
-            $("#Page .modal-body .nav-link").removeClass("active show");
-            $("#Page .modal-body .tab-pane").removeClass("active show");
-            $("#Page .modal-body .nav-link").eq(0).addClass("active show");
-            $("#Page .modal-body .tab-pane").eq(0).addClass("active show");
-        });
-        this.evtDataCal = "cad";
+        Acessos: null,
+        Loginsrc: null,
     },
     methods: {
-        populate: function (e) {
-            this.clear();
-            if (!this.ravec(1)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-                $(function () {
-                    this.biencode = {};
-                    this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                    var data = {
-                        biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                    };
-                    var ws = $(window).Decrypt(host("Bienestar", "Pagina", "listar"));
-                    var p = (post(ws, data));
-
-                    app.Page.src = eval($(window).Decrypt(p));
-                });
-            }
+        populate: function () {
+            $(function () {
+                this.biencode = {};
+                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+                this.biencode.acesso = window.localStorage.getItem("IdLogin");
+                var data = {
+                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
+                };
+                app.sys.crud(app.Page.href, "listar", data);
+            });
+            app.sys.tabs(this.href);
         },
         clear: function () {
             this.UrlPage = null;
+            this.Titulo = null;
             this.ContentPage = null;
         },
         autocomplete: function () {
-            this.ContentPage = this.row[2];
-            this.UrlPage = this.row[1];
+            this.ContentPage = this.row[3];
+            CKEDITOR.instances['conteudo'].setData(unescapeHTML(this.ContentPage));
+            this.Titulo = this.row[1];
+            this.UrlPage = this.row[2];
             this.id = this.row[0];
+            var x = String(app.sys.foreignKeyRestore(this.Loginsrc, "Login", this.row[4]));
+            this.Acessos = eval(x.split(","));
         },
         checkForm: function () {
             app.erros.errors = {};
+            this.biencode = {};
             this.ContentPage = CKEDITOR.instances['conteudo'].getData();
             this.biencode.ContentPage = this.ContentPage;
+            this.biencode.Titulo = this.Titulo;
             this.biencode.UrlPage = this.UrlPage;
             this.biencode.id = this.id;
             this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
+            var ac = "";
+            for (var i = 0; i <= this.Acessos.length - 1; i++) {
+                ac += this.Acessos[i];
+                if (i < this.Acessos.length - 1) {
+                    ac += ";";
+                }
+            }
+            this.biencode.Acessos = ac;
         },
         cadastrar: function () {
-            if (!this.ravec(2)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-                this.checkForm();
-                if (!app.erros.valida()) {
-                    var data = {
-                        "biencode": $(window).Encrypt(JSON.stringify(this.biencode))
-                    };
-                    var ws = $(window).Decrypt(host("Bienestar", "Pagina", "add"));
-                    var p = (post(ws, data));
-                    var rs = $(window).Decrypt(p);
-                    $(window).NotifyInfo(rs);
-                    this.populate();
-                }
-            }
+            app.sys.crud(this.href, "add", null);
         },
         alterar: function () {
-            if (!this.ravec(3)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-                this.checkForm();
-                if (!app.erros.valida()) {
-                    var data = {
-                        "biencode": $(window).Encrypt(JSON.stringify(this.biencode))
-                    };
-                    var ws = $(window).Decrypt(host("Bienestar", "Pagina", "edt"));
-                    var p = (post(ws, data));
-                    var rs = $(window).Decrypt(p);
-                    $(window).NotifyInfo(rs);
-                    this.populate();
-                }
-            }
+            app.sys.crud(this.href, "edt", null);
         },
         excluir: function () {
-            if (!this.ravec(4)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-                this.checkForm();
-                if (!app.erros.valida()) {
-                    var data = {
-                        "biencode": $(window).Encrypt(JSON.stringify(this.biencode))
-                    };
-                    var ws = $(window).Decrypt(host("Bienestar", "Pagina", "exc"));
-                    var p = (post(ws, data));
-                    var rs = $(window).Decrypt(p);
-                    $(window).NotifyInfo(rs);
-                    this.populate();
-                }
-            }
+            app.sys.crud(this.href, "exc", null);
         },
         relatorio: function () {
-            if (!this.ravec(5)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-            }
+            app.sys.crud(this.href, "rel", null);
         },
         cad: function () {
             this.evtDataCal = "cad";
@@ -143,8 +91,8 @@ app["Page"] = new Vue({
             this.evtDataCal = "exc";
         },
         ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && typeof app.Ravec.acesso[this.stepkey][this.href] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null && app.Ravec.acesso[this.stepkey][this.href] !== null) {
-                if (app.Ravec.acesso[this.stepkey][this.href].nivel >= nivel) {
+            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
+                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
                     return true;
                 } else {
                     return false;

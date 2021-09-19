@@ -2,14 +2,13 @@
 var contype = "application/x-www-form-urlencoded";
 var urlSys = false;
 var auth = "";
+var tac = "";
 function authenticate() {
     auth = window.localStorage.getItem("auth");
 }
-function hackCors(url) {
-    return "https://cors-anywhere.herokuapp.com/" + url;
-}
 function post(url, data) {
     authenticate();
+    logSandBox(WebServer(urlSys) + url);
     return $.ajax({
         type: "POST",
         url: WebServer(urlSys) + url,
@@ -38,42 +37,6 @@ function get(url, data) {
         data: data,
         headers: {
             "Authorization": auth,
-            "Content-Type": contype,
-        }
-    }).done(function (result) {
-        logSandBox(result);
-        return result;
-    }).fail(function (result) {
-        logSandBox(result);
-        return result;
-    }).responseText;
-}
-function postCross(url, data) {
-    return $.ajax({
-        type: "POST",
-        url: url,
-        crossDomain: true,
-        async: false,
-        data: data,
-        headers: {
-            "Content-Type": contype,
-        }
-    }).done(function (result) {
-        logSandBox(result);
-        return result;
-    }).fail(function (result) {
-        logSandBox(result);
-        return result;
-    }).responseText;
-}
-function getCross(url, data) {
-    return $.ajax({
-        type: "GET",
-        url: url,
-        crossDomain: true,
-        async: false,
-        data: data,
-        headers: {
             "Content-Type": contype,
         }
     }).done(function (result) {
@@ -155,14 +118,27 @@ function DefaultContentType() {
 function sandBox(amb) {
     urlSys = amb;
 }
+
 function WebServer(amb) {
-    if (window.localStorage.getItem("sandbox") !== null) {
-        amb = window.localStorage.getItem("sandbox");
-    }
-    if (amb) {
-        return "https://rtiempresarial.com.br:8080/staging/api/";
+    var host = window.location.hostname;
+    if (host.includes("rtiempresarial")) {
+        if (window.localStorage.getItem("sandbox") !== null) {
+            amb = window.localStorage.getItem("sandbox");
+        }
+        if (amb) {
+            return "https://rtiempresarial.com.br:8080/staging/api/";
+        } else {
+            return "https://rtiempresarial.com.br:8080/webservice/api/";
+        }
     } else {
-        return "https://rtiempresarial.com.br:8080/webservice/api/";
+        if (window.localStorage.getItem("sandbox") !== null) {
+            amb = window.localStorage.getItem("sandbox");
+        }
+        if (amb) {
+            return "https://bienclube.com.br:8080/staging/api/";
+        } else {
+            return "https://bienclube.com.br:8080/webservice/api/";
+        }
     }
 }
 

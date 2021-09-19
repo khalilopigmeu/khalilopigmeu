@@ -11,67 +11,84 @@ app["Anuncio"] = new Vue({
         stepkey: 0,
         href: null,
         ELtitle: null,
-        Icon: '<i class="fas fa-angle-double-right"></i>',
+        Icon: '<i class="fas fa-bullhorn"></i>',
         pesqTbl: "",
+        Host: "Bienestar/Anuncio/Anunciante/",
 
-        UrlLogo: null,
-        Categorias: null,
+        IdCategoriaAnuncio: null,
+        Conteudo: null,
+        Descricao: null,
+        Tipo: null,
         Keywords: null,
-        DataValidade: null,
-        ResumoProduto: null,
-        NomeProduto: null,
-    },
-    created: function (e) {
-        //this.populate();
+        Acessos: null,
+        Loginsrc: null,
+        CategoriaAnuncioSrc: null,
+
     },
     methods: {
-        populate: function (e) {
-            this.clear();
-            if (!this.ravec(1)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-                e.preventDefault();
-                var data = {};
-                var ws = host("Bienestar", "Anuncio", "listar");
-                data[""] = $(window).Encrypt();
-                var p = (post(ws, data));
-                this.src = $(window).Decrypt(p);
-            }
+        populate: function () {
+            $(function () {
+                this.biencode = {};
+                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+                var data = {
+                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
+                };
+                app.sys.crud(app.Anuncio.href, "listar", data);
+            });
+            app.sys.tabs(this.href);
         },
         clear: function () {
-            this.item = null;
+            this.Conteudo = null;
+            this.IdCategoriaAnuncio = null;
+            this.Keywords = null;
+            this.Descricao = null;
+            this.Tipo = null;
+            this.Acessos = null;
         },
         autocomplete: function () {
-            this.item = this.row[0];
+            this.id = this.row[0];
+            this.Conteudo = this.row[3];
+            CKEDITOR.instances['conteudoanuncio'].setData(unescapeHTML(this.Conteudo))
+            this.IdCategoriaAnuncio = this.row[1];
+            this.Keywords = this.row[4];
+            this.Descricao = this.row[5];
+            CKEDITOR.instances['descricaoanuncio'].setData(unescapeHTML(this.Descricao))
+            this.Tipo = this.row[2];
+            var x = String(app.sys.foreignKeyRestore(this.Loginsrc, "Login", this.row[6]));
+            this.Acessos = eval(x.split(","));
         },
         checkForm: function () {
             app.erros.errors = {};
+            this.biencode = {};
+            this.Conteudo = CKEDITOR.instances['conteudoanuncio'].getData();
+            this.biencode.Conteudo = this.Conteudo;
+            this.biencode.IdCategoriaAnuncia = this.IdCategoriaAnuncio;
+            this.biencode.Keywords = this.Keywords;
+            this.Descricao = CKEDITOR.instances['descricaoanuncio'].getData();
+            this.biencode.Descricao = this.Descricao;
+            this.biencode.Tipo = this.Tipo;
+            var ac = "";
+            for (var i = 0; i <= this.Acessos.length - 1; i++) {
+                ac += this.Acessos[i];
+                if (i < this.Acessos.length - 1) {
+                    ac += ";";
+                }
+            }
+            this.biencode.Acessos = ac;
+            this.biencode.id = this.id;
+            this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
         },
         cadastrar: function () {
-            if (!this.ravec(2)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-            }
+            app.sys.crud(this.href, "add", null);
         },
         alterar: function () {
-            if (!this.ravec(3)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-            }
+            app.sys.crud(this.href, "edt", null);
         },
         excluir: function () {
-            if (!this.ravec(4)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-            }
+            app.sys.crud(this.href, "exc", null);
+        },
+        relatorio: function () {
+            app.sys.crud(this.href, "rel", null);
         },
         relatorio: function () {
             if (!this.ravec(5)) {
@@ -94,8 +111,8 @@ app["Anuncio"] = new Vue({
             this.evtDataCal = "exc";
         },
         ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && typeof app.Ravec.acesso[this.stepkey][this.href] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null && app.Ravec.acesso[this.stepkey][this.href] !== null) {
-                if (app.Ravec.acesso[this.stepkey][this.href].nivel >= nivel) {
+            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
+                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
                     return true;
                 } else {
                     return false;

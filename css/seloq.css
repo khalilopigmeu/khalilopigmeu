@@ -1,53 +1,134 @@
 @import url('https://fonts.googleapis.com/css?family=Courgette&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Glory:wght@500&display=swap');
 
-@media screen and (max-width: 544px) {  
-    .res {font-size: 55px !important;}
-    .res * {font-size: 55px !important;}
-    .modal * {font-size: 55px !important;border-radius:10px !important;}
-    .modal-dialog {max-width: 90% !important;width: 90% !important;}
-    .form-control {height: 8rem !important;}
+html {
+    font-size: 16px;
+}
+.res {
+    font-size: 16px !important;
+}
+.res *{
+    font-size: 16px !important;
+}
+.modal *{
+    font-size: 16px !important;
+}
+.form-control{
+    font-size: 16px !important;
+}
+@media screen and (min-width: 320px) {
+    html {
+        font-size: calc(20px + 8 * ((100vw - 320px) / 680));
+    }
+    .res {
+        font-size: calc(20px + 8 * ((100vw - 320px) / 680));
+    }
+    .res *{
+        font-size: calc(20px + 8 * ((100vw - 320px) / 680));
+    }
+    .modal *{
+        font-size: calc(20px + 8 * ((100vw - 320px) / 680));
+    }
+    .form-control{
+        font-size: calc(20px + 8 * ((100vw - 320px) / 680));
+    }
+}
+@media screen and (min-width: 1000px) {
+    html {
+        font-size: 18px;
+    }
+    .res {
+        font-size: 18px !important;
+    }
+    .res *{
+        font-size: 18px !important;
+    }
+    .modal *{
+        font-size: 18px !important;
+    }
+    .form-control{
+        font-size: 18px !important;
+    }
 }
 
-@media screen and (max-width: 768px) {  
-    .res {font-size: 45px !important;}
-    .res * {font-size: 45px !important;}
-    .modal * {font-size: 45px !important;border-radius:8px !important;}
-    .modal-dialog {max-width: 80% !important;width: 80% !important;}
-    .form-control {height: 6rem !important;}
+.modal * {
+    border-radius:10px !important;
+}
+.modal-dialog {
+    max-width: 90% !important;
+    width: 90% !important;
+    overflow: auto !important;
 }
 
-@media screen and (max-width: 992px) { 
-    .res {font-size: 35px !important;}
-    .res * {font-size: 35px !important;}
-    .modal * {font-size: 35px !important;border-radius:6px !important;}
-    .modal-dialog {max-width: 70% !important;width: 70% !important;}
-    .form-control {height: 4rem !important;}
+.transition {
+  transition-duration: 2s;
+  transition-timing-function: linear;
+  transition-delay: 1s;
 }
 
-@media screen and (max-width: 1200px) {  
-    .res {font-size: 18px !important;}
-    .res * {font-size: 18px !important;}
-    .modal * {font-size: 18px !important;border-radius:4px !important;}
-    .modal-dialog {max-width: 60% !important;width: 60% !important;}
-    .form-control {height: 3rem !important;}
+/*
+Dark    #226C3B
+Medium  #38B261
+Light #73D393
+*/
+
+:root {
+    --dark: #226C3B;
+    --medium: #38B261;
+    --light: #73D393;
+}
+fieldset,legend{
+    background: var(--light);
 }
 
-@media print {
-    html,body{
-        page-break-after: avoid !important;
-        page-break-before: avoid !important;
-    }
-    * {
-        visibility: hidden;
-    }
-    #printArea, #printArea * {
-        visibility: visible !important;
-    }
-    #printArea {
-        position: absolute;
-        left: 0;
-        top: 0;
-    }
+.navbar-light .navbar-toggler{
+    color:  var(--dark) !important;
+}
+
+.logofield{
+    border-bottom: 2px solid var(--dark);
+}
+
+.color-l{
+    color: var(--light) !important;
+}
+.color-m{
+    color: var(--medium) !important;
+}
+.color-d{
+    color: var(--dark) !important;
+}
+.bg-l{
+    background: var(--light) !important;
+}
+.bg-m{
+    background: var(--medium) !important;
+}
+.bg-d{
+    background: var(--dark) !important;
+}
+.border-l{
+    border-color: var(--light) !important;
+}
+.border-m{
+    border-color: var(--medium) !important;
+}
+.border-d{
+    border-color: var(--dark) !important;
+}
+
+.navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
+    color: #fff;
+}
+.navbar-light .navbar-nav .nav-link {
+    color: #fff;
+}
+.navbar-light .navbar-nav .nav-link:hover {
+    color: var(--light);
+}
+
+.fa{
+    font-family: "Font Awesome 5 Free", Open Sans;
 }
 
 #menu-toggle{
@@ -72,21 +153,8 @@ body{
     background: #fff;
 }
 
-fieldset,legend{
-    background: #abf598;
-    ;
-}
-
-.navbar-light .navbar-toggler{
-    color:  #006633 !important;
-}
-
-.logofield{
-    border-bottom: 2px solid #006633;
-}
-
 .logofield img{
-    max-width: 100%;
+    max-width: 60%;
 }
 
 #wrapper{
@@ -203,16 +271,6 @@ section.pricing {
     opacity: 0.7;
 }
 
-.pricing .btn {
-    font-size: 80%;
-    border-radius: 5rem;
-    letter-spacing: .1rem;
-    font-weight: bold;
-    padding: 1rem;
-    opacity: 0.7;
-    transition: all 0.2s;
-}
-
 @media screen and (max-width: 992px) {
     .pricing .card:hover {
         margin-top: -.25rem;
@@ -236,4 +294,39 @@ section.pricing {
     justify-content: center !important;
     align-items: center !important;
     text-align: center;
+}
+
+.glory{
+    font-family: 'Glory', sans-serif;
+}
+
+.list-group-item.active{
+    background: var(--medium) !important;
+}
+
+.borda-top{
+    border-image: url(../img/bordah.png) 30 round !important;
+    border-top: 1vw solid transparent !important;
+}
+.borda-bottom{
+    border-image: url(../img/bordah.png) 30 round !important;
+    border-bottom: 1vw solid transparent !important;
+}
+.borda-left{
+    border-image: url(../img/bordav.png) 30 round !important;
+    border-left: 1vw solid transparent !important;
+}
+.borda-right{
+    border-image: url(../img/bordav.png) 30 round !important;
+    border-right: 1vw solid transparent !important;
+}
+.borda-x{
+    border-image: url(../img/bordav.png) 30 round !important;
+    border-right: 1vw solid transparent !important;
+    border-left: 1vw solid transparent !important;
+}
+.borda-y{
+    border-image: url(../img/bordah.png) 30 round !important;
+    border-top: 1vw solid transparent !important;
+    border-bottom: 1vw solid transparent !important;
 }

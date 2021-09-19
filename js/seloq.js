@@ -1,9 +1,31 @@
 "use strict";
 var ancestor;
-var app = {};
 var table = {};
 const Real = value => currency(value, {symbol: 'R$', decimal: '.', separator: ''});
+var cdn;
 $(function () {
+    var urlSite = window.location.href;
+    window.addEventListener('popstate', function (e) {
+        urlSite = window.location.href;
+        var urlclean = urlSite.split("?");
+        var modal = urlclean[0].split("#");
+        if ($("#" + modal[1]).hasClass("modal")) {
+            $("#" + modal[1]).modal('show');
+        } else {
+            app.sys.page = modal[1];
+            app.paginabienclube.pg = getParameterByName('pg')
+        }
+    });
+
+    if (urlSite.includes("rtiempresarial")) {
+        if (urlSite.includes("sys") || urlSite.includes("ws")) {
+            cdn = "../../"
+        } else if (urlSite.includes("Mongo")) {
+            cdn = "../"
+        }
+    } else {
+        cdn = "https://cdn.pongongo.com.br/";
+    }
     $("form").attr("autocomplete", "off");
     $("body").on("click", "#menu-toggle", function () {
         $("#wrapper").toggleClass("toggled");
@@ -40,5 +62,8 @@ $(function () {
             $("#modal .modal-title").text("Problema com o CEP");
             $("#modal .modal-body").text(result);
         }
-    })
+    });
+
+    $(".carousel.carousel-multi-item .carousel-item").eq(0).addClass("active");
+    $("#Carousel,#Pricing").carousel();
 });
