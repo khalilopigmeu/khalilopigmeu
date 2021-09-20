@@ -5,6 +5,14 @@ const Real = value => currency(value, {symbol: 'R$', decimal: '.', separator: ''
 var cdn;
 $(function () {
     var urlSite = window.location.href;
+    if (getParameterByName('uuid') !== null) {
+        window.localStorage.setItem("uuid", getParameterByName('uuid'));
+        if (urlSite.includes("rtiempresarial")) {
+            window.location.href = "https://www.rtiempresarial.com.br/index.php";
+        } else {
+            window.location.href = "https://www.bienclube.com.br/index.php";
+        }
+    }
     window.onhashchange = function () {
         urlSite = window.location.href;
         var urlclean = urlSite.split("?");
