@@ -5,7 +5,7 @@ const Real = value => currency(value, {symbol: 'R$', decimal: '.', separator: ''
 var cdn;
 $(function () {
     var urlSite = window.location.href;
-    window.addEventListener('popstate', function (e) {
+    window.onhashchange = function () {
         urlSite = window.location.href;
         var urlclean = urlSite.split("?");
         var modal = urlclean[0].split("#");
@@ -15,7 +15,7 @@ $(function () {
             app.sys.page = modal[1];
             app.paginabienclube.pg = getParameterByName('pg')
         }
-    });
+    };
 
     if (urlSite.includes("rtiempresarial")) {
         if (urlSite.includes("sys") || urlSite.includes("ws")) {
