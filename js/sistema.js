@@ -6,6 +6,7 @@ app["sys"] = new Vue({
         refid: "613e9d1fb8f611d6e202902b",
         bien: "SFBQZ29BWjhuRUhBdldCTHdCdnp6ZWdFRmoxVCtSZVRoSmR3QVZ3eTNJMEg0WlNkRHRNVFc2dEJCNU9pUW40c294TFcrcjQzT0lqUURnL282U1c5S29oM1htYkxyMTFoTkpoaEdTZ0JWZkpDS2daMW9CeTlMNHR5WDlFNk1zdE4vS1NCUmJtVVVZa0lwdk9oSG9xMVNBPT0jRjYwRjgxNjRCMDg2MzdFNEMyRjdCMjg1MzBDOUU2REYjQjI3RThEOTc3NjY4QkNBNkFFQTVEQjczOEY5MzA0MkM=",
         page: "index",
+        gapi: atob("QUl6YVN5QWZCdVpnZzZyWDJTbFFRd2UySFRJRzNqcmVRTFphbHRr")
     },
     methods: {
         sorter: function (arr, model, field) {
