@@ -61,9 +61,9 @@ html {
 }
 
 .transition {
-  transition-duration: 2s;
-  transition-timing-function: linear;
-  transition-delay: 1s;
+    transition-duration: 2s;
+    transition-timing-function: linear;
+    transition-delay: 1s;
 }
 
 /*
@@ -329,4 +329,45 @@ section.pricing {
     border-image: url(../img/bordah.png) 30 round !important;
     border-top: 1vw solid transparent !important;
     border-bottom: 1vw solid transparent !important;
+}
+
+.socialink {
+    opacity: 0.7;
+}
+
+.socialink:hover {
+    opacity: 1;
+}
+
+.table td{
+    max-height: 200px;
+    overflow: hidden;
+}
+
+.listA:link {
+    color: var(--medium);
+    font-size: 20px;
+    font-family: 'Courgette', cursive;
+}
+
+
+
+.listA:visited {
+    color: var(--dark);
+    font-size: 20px;
+    font-family: 'Courgette', cursive;
+}
+
+
+
+.listA:active {
+    color: var(--dark);
+    font-size: 20px;
+    font-family: 'Courgette', cursive;
+}
+
+.spanCli{
+    font-size: 20px;
+    font-family: 'Courgette', cursive;
+    color: var(--dark);
 }

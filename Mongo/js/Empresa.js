@@ -46,7 +46,7 @@ app["Empresa"] = new Vue({
                     biencode: $(window).Encrypt(JSON.stringify(this.biencode))
                 };
                 app.sys.crud(app.Empresa.href, "listar", data);
-                app.RootAccess.EmpresaSrc = app.Empresa.src;
+                //app.RootAccess.EmpresaSrc = app.Empresa.src;
             });
             app.sys.tabs(this.href);
         },

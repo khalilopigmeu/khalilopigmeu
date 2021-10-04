@@ -41,6 +41,7 @@ app["Configuracao"] = new Vue({
         EmailsEstoque: null,
         Ghost: null,
         SaldoCaixa: null,
+        LogoURL: null,
         Site: null,
         Instagram: null,
         Facebook: null,
@@ -93,6 +94,7 @@ app["Configuracao"] = new Vue({
             this.EmailsEstoque = null;
             this.Ghost = null;
             this.SaldoCaixa = null;
+            this.LogoURL = null;
             this.Site = null;
             this.Instagram = null;
             this.Facebook = null;
@@ -133,6 +135,7 @@ app["Configuracao"] = new Vue({
             this.Ghost = this.row[2];
             this.SaldoCaixa = this.row[3];
             this.Site = this.row[4];
+            this.LogoURL = this.row[37];
             this.Instagram = this.row[5];
             this.Facebook = this.row[6];
             this.FtpUrl = this.row[7];
@@ -174,6 +177,7 @@ app["Configuracao"] = new Vue({
             this.biencode.Ghost = this.Ghost;
             this.biencode.SaldoCaixa = this.SaldoCaixa;
             this.biencode.Site = this.Site;
+            this.biencode.LogoURL = this.LogoURL;
             this.biencode.Instagram = this.Instagram;
             this.biencode.Facebook = this.Facebook;
             this.biencode.FtpUrl = this.FtpUrl;

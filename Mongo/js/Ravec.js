@@ -139,27 +139,47 @@ app["Ravec"] = new Vue({
         updateAcesso: function () {
             for (var i = 0; i <= this.Loginsrc.length - 1; i++) {
                 if (this.Loginsrc[i]._id['$oid'] === this.Acessos) {
-                    var authbkp = getAuth();
-                    var newAuth = window.localStorage.getItem("IdLogin");
-                    setAuth(newAuth);
-                    this.acesso = eval($(window).Decrypt(this.Loginsrc[i].RAVEC, "tufsqulu"));
-                    setAuth(authbkp);
-                    this.opcoes = [];
-                    for (var i = 0; i <= Object.keys(app).length - 1; i++) {
-                        var nomeOP = app[Object.keys(app)[i]].ELtitle;
-                        if (typeof nomeOP !== "undefined") {
-                            var nivel = 0;
-                            for (var j = 0; j <= this.acesso.length - 1; j++) {
-                                var nomeAC = this.acesso[j].nome;
-                                if (nomeOP === nomeAC) {
-                                    nivel = this.acesso[j].nivel;
-                                    break;
+                    if (typeof this.Loginsrc[i].RAVEC !== "undefined") {
+                        var authbkp = getAuth();
+                        var newAuth = window.localStorage.getItem("IdLogin");
+                        setAuth(newAuth);
+                        this.acesso = eval($(window).Decrypt(this.Loginsrc[i].RAVEC, "tufsqulu"));
+                        setAuth(authbkp);
+                        this.opcoes = [];
+                        for (var i = 0; i <= Object.keys(app).length - 1; i++) {
+                            var nomeOP = app[Object.keys(app)[i]].ELtitle;
+                            if (typeof nomeOP !== "undefined") {
+                                var nivel = 0;
+                                for (var j = 0; j <= this.acesso.length - 1; j++) {
+                                    var nomeAC = this.acesso[j].nome;
+                                    if (nomeOP === nomeAC) {
+                                        nivel = this.acesso[j].nivel;
+                                        break;
+                                    }
                                 }
+                                this.opcoes.push({nome: nomeOP, nivel: nivel});
                             }
-                            this.opcoes.push({nome: nomeOP, nivel: nivel});
                         }
+                        break;
+                    }else{
+                        this.acesso = eval($(window).Decrypt(window.localStorage.getItem("RAVEC"), "tufsqulu"));
+                        this.opcoes = [];
+                        for (var i = 0; i <= Object.keys(app).length - 1; i++) {
+                            var nomeOP = app[Object.keys(app)[i]].ELtitle;
+                            if (typeof nomeOP !== "undefined") {
+                                var nivel = 0;
+                                for (var j = 0; j <= this.acesso.length - 1; j++) {
+                                    var nomeAC = this.acesso[j].nome;
+                                    if (nomeOP === nomeAC) {
+                                        nivel = this.acesso[j].nivel;
+                                        break;
+                                    }
+                                }
+                                this.opcoes.push({nome: nomeOP, nivel: 1});
+                            }
+                        }
+                        break;
                     }
-                    break;
                 }
             }
         },

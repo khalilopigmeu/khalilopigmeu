@@ -2,7 +2,7 @@
 app["Home"] = new Vue({
     el: '#Home',
     created: function () {
-     
+
     },
     data: {
         banner: [
@@ -72,7 +72,7 @@ app["Home"] = new Vue({
                 active: ""
             }
         ],
-          itens: [
+        itens: [
             {
                 boxclass: "py-2 my-2 col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4",
                 class: "far fa-heart",
@@ -118,61 +118,132 @@ app["Home"] = new Vue({
         ],
         itensPricing: [
             {
-                class: "far fa-calendar-alt",
-                nome: "Recepção",
-                preco: "15,00",
-                pros: ["teste pro", "teste pro2"],
+                icon: "far fa-map",
+                nome: "Mensal",
+                preco: "55,00",
+                pros: [],
                 contras: [],
-                link: "#1"
+                link: "https://wa.me/5511940007917?text=Pagina-Mensal",
+                prazo: "Mês"
             },
             {
-                class: "fas fa-hand-holding-usd",
-                nome: "Financeiro",
-                preco: "20,00",
-                pros: ["teste pro", "teste pro2"],
+                icon: "far fa-map",
+                nome: "Trimestral",
+                preco: "159,50",
+                pros: ["5% de desconto"],
                 contras: [],
-                link: "#2"
+                link: "https://wa.me/5511940007917?text=Pagina-Trimestral",
+                prazo: "Trimestre"
             },
             {
-                class: "fas fa-users",
-                nome: "Administrativo",
-                preco: "15,00",
-                pros: ["teste pro", "teste pro2"],
+                icon: "far fa-map",
+                nome: "Semestral",
+                preco: "321,75",
+                pros: ["10% de desconto"],
                 contras: [],
-                link: "#3"
+                link: "https://wa.me/5511940007917?text=Pagina-Semestral",
+                prazo: "Semestre"
             },
             {
-                class: "fas fa-warehouse",
-                nome: "Estoque",
-                preco: "20,00",
-                pros: ["teste pro", "teste pro2"],
+                icon: "far fa-map",
+                nome: "Anual",
+                preco: "649,00",
+                pros: ["15% de desconto"],
                 contras: [],
-                link: "#4"
+                link: "https://wa.me/5511940007917?text=Pagina-Anual",
+                prazo: "Anual"
             },
             {
-                class: "fas fa-tags",
-                nome: "E-tag",
-                preco: "20,00",
-                pros: ["teste pro", "teste pro2"],
+                icon: "fas fa-bullhorn",
+                nome: "Mensal",
+                preco: "40,00",
+                pros: [],
                 contras: [],
-                link: "#5"
+                link: "https://wa.me/5511940007917?text=Anuncio-mensal",
+                prazo: "Mês"
             },
             {
-                class: "fas fa-mobile-alt",
-                nome: "Dispositivos",
-                preco: "10,00",
-                pros: ["teste pro", "teste pro2"],
+                icon: "fas fa-bullhorn",
+                nome: "Trimestral",
+                preco: "116,00",
+                pros: ["5% de desconto"],
                 contras: [],
-                link: "#5"
+                link: "https://wa.me/5511940007917?text=Anuncio-Trimestral",
+                prazo: "Trimestre"
             },
             {
-                class: "fas fa-project-diagram",
-                nome: "Processos",
-                preco: "20,00",
-                pros: ["teste pro", "teste pro2"],
+                icon: "fas fa-bullhorn",
+                nome: "Semestral",
+                preco: "234,00",
+                pros: ["10% de desconto"],
                 contras: [],
-                link: "#5"
-            }
+                link: "https://wa.me/5511940007917?text=Anuncio-Semestral",
+                prazo: "Semestre"
+            },
+            {
+                icon: "fas fa-bullhorn",
+                nome: "Anual",
+                preco: "472,00",
+                pros: ["15% de desconto"],
+                contras: [],
+                link: "https://wa.me/5511940007917?text=Anuncio-Anual",
+                prazo: "Anual"
+            }/*,
+            {
+                icon: "",
+                nome: "Mensal",
+                preco: "",
+                pros: [],
+                contras: [],
+                link: "https://wa.me/5511940007917?text=",
+                prazo: "Mês"
+            },
+            {
+                icon: "",
+                nome: "Trimestral",
+                preco: "",
+                pros: ["5% de desconto"],
+                contras: [],
+                link: "https://wa.me/5511940007917?text=",
+                prazo: "Trimestre"
+            },
+            {
+                icon: "",
+                nome: "Semestral",
+                preco: "",
+                pros: ["10% de desconto"],
+                contras: [],
+                link: "https://wa.me/5511940007917?text=",
+                prazo: "Semestre"
+            },
+            {
+                icon: "",
+                nome: "Anual",
+                preco: "",
+                pros: ["15% de desconto"],
+                contras: [],
+                link: "https://wa.me/5511940007917?text=",
+                prazo: "Anual"
+            },*/
         ],
+    },
+    created: function () {
+        this.seo();
+    },
+    methods: {
+        seo: function () {
+            var preauth = getAuth();
+            setAuth("encodedstring");
+            var auth = $(window).Decrypt(app.sys.bien);
+            setAuth(auth);
+            this.biencode = {};
+            this.biencode.empresa = app.sys.refid;
+            this.biencode.urlpage = window.location.href;
+            var ws = "/Bienestar/Seo/SEO/site";
+            var p = (post(ws, data));
+            var rs = $(window).Decrypt(p);
+            document.getElementsByTagName("head").appendChild(rs);
+            setAuth(preauth);
+        }
     }
 });

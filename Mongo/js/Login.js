@@ -33,7 +33,6 @@ app["Login"] = new Vue({
         Login: null,
         Email: null,
         Ask: null,
-        RAVEC: null,
         DataCadastro: null,
     },
     methods: {
@@ -52,8 +51,8 @@ app["Login"] = new Vue({
                 app.Mural.Loginsrc = app.Login.src;
                 app.Page.Loginsrc = app.Login.src;
                 app.Voucher.Loginsrc = app.Login.src;
-                app.Voucher.Loginsrc = app.Login.src;
-                app.RootAccess.LoginSrc = app.Login.src;
+                app.Ravec.Loginsrc = app.Login.src;
+                app.CategoriaPlanoSistema.Loginsrc = app.Login.src;
             });
             app.sys.tabs(this.href);
         },
@@ -105,7 +104,6 @@ app["Login"] = new Vue({
             this.biencode.Login = this.Login;
             this.biencode.Email = this.Email;
             this.biencode.Ask = this.Ask;
-            this.biencode.RAVEC = this.RAVEC;
             this.biencode.DataCadastro = this.DataCadastro;
             this.biencode.id = this.id;
             this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");

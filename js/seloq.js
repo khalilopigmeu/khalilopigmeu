@@ -1,10 +1,11 @@
 "use strict";
 var ancestor;
 var table = {};
+var qrcode;
+var urlSite = window.location.href;
 const Real = value => currency(value, {symbol: 'R$', decimal: '.', separator: ''});
 var cdn;
 $(function () {
-    var urlSite = window.location.href;
     if (getParameterByName('uuid') !== null) {
         window.localStorage.setItem("uuid", getParameterByName('uuid'));
         if (urlSite.includes("rtiempresarial")) {
@@ -13,17 +14,28 @@ $(function () {
             window.location.href = "https://www.bienclube.com.br/index.php";
         }
     }
+
+    qrcode = new QRCode(document.getElementById("qrcode"), {
+        text: urlSite,
+        logo: "../img/logobien.png",
+        width: 155,
+        height: 155,
+        logoWidth: undefined,
+        logoHeight: undefined,
+        logoBackgroundColor: '#ffffff',
+        logoBackgroundTransparent: false
+    });
+
     window.onhashchange = function () {
-        urlSite = window.location.href;
-        var urlclean = urlSite.split("?");
-        var modal = urlclean[0].split("#");
-        if ($("#" + modal[1]).hasClass("modal")) {
-            $("#" + modal[1]).modal('show');
-        } else {
-            app.sys.page = modal[1];
-            app.paginabienclube.pg = getParameterByName('pg')
-        }
+        urlRead();
     };
+
+    window.onload = function () {
+        urlSite = window.location.href;
+        if (urlSite.includes("#") || urlSite.includes("?")) {
+            urlRead();
+        }
+    }
 
     if (urlSite.includes("rtiempresarial")) {
         if (urlSite.includes("sys") || urlSite.includes("ws")) {
@@ -75,3 +87,24 @@ $(function () {
     $(".carousel.carousel-multi-item .carousel-item").eq(0).addClass("active");
     $("#Carousel,#Pricing").carousel();
 });
+
+function urlRead() {
+    app.anunciante.pgid = null;
+    app.paginabienclube.pg = null;
+    urlSite = window.location.href;
+    var urlclean = urlSite.split("?");
+    var modal = urlclean[0].split("#");
+    if ($("#" + modal[1]).hasClass("modal")) {
+        $("#" + modal[1]).modal('show');
+    } else {
+        app.sys.page = modal[1];
+        if (getParameterByName('pgid')) {
+            app.anunciante.pgid = getParameterByName('pgid');
+            app.anunciante.buscar();
+            app.configuracao.buscar();
+        }
+        app.paginabienclube.pg = getParameterByName('pg');
+        app.paginabienclube.buscar();
+    }
+    qrcode.makeCode(urlSite);
+}

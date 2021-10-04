@@ -16,6 +16,8 @@ app["CategoriaPlanoSistema"] = new Vue({
         Host: "Bienestar/Financeiro/CategoriaPlanoSistema/",
 
         NomeCategoria: null,
+        Loginsrc: null,
+        Acessos: null,
 
     },
     methods: {
@@ -35,16 +37,27 @@ app["CategoriaPlanoSistema"] = new Vue({
         clear: function () {
             this.id = null;
             this.NomeCategoria = null;
+            this.Acessos = null;
         },
         autocomplete: function () {
             this.id = this.row[0];
             this.NomeCategoria = this.row[1];
+            var x = String(app.sys.foreignKeyRestore(this.Loginsrc, "Login", this.row[2]));
+            this.Acessos = eval(x.split(","));
         },
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
             this.biencode.id = this.id;
             this.biencode.NomeCategoria = this.NomeCategoria;
+            var ac = "";
+            for (var i = 0; i <= this.Acessos.length - 1; i++) {
+                ac += this.Acessos[i];
+                if (i < this.Acessos.length - 1) {
+                    ac += ";";
+                }
+            }
+            this.biencode.Acessos = ac;
             this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
         },
         cadastrar: function () {

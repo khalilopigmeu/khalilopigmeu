@@ -193,6 +193,14 @@ app["sys"] = new Vue({
                 }
             }
         },
+        pgUrl: function (url) {
+            var ref = window.location.href;
+            return ref.replace(/(pg=)[^\&]+/, '$1' + url);
+        },
+        pgidUrl: function (url) {
+            var ref = window.location.href;
+            return ref.replace(/(pgid=)[^\&]+/, '$1' + url);
+        },
         ravec: function (appcontrol, nivel) {
             if (typeof app.Ravec.acesso[app[appcontrol].stepkey] !== "undefined" && app.Ravec.acesso[app[appcontrol].stepkey] !== null) {
                 if (app.Ravec.acesso[app[appcontrol].stepkey].nivel >= nivel) {

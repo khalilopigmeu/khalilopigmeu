@@ -44,21 +44,22 @@ app["PlanoSistema"] = new Vue({
         },
         autocomplete: function () {
             this.id = this.row[0];
-            this.IdCategoriaEvento = app.sys.foreignKeyRestore(this.CategoriaPlanoSistemaSrc, "NomeCategoria", this.row[1]);
+            this.IdCategoriaPlanoSistema = app.sys.foreignKeyRestore(this.CategoriaPlanoSistemaSrc, "NomeCategoria", this.row[1]);
             this.CodPlano = this.row[2];
             this.Descricao = this.row[3];
-            this.Valor = this.row[3];
-            this.Link = this.row[4];
+            this.Valor = this.row[4];
+            this.Link = this.row[5];
         },
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
-            this.biencode.IdCategoriaEvento = this.IdCategoriaEvento;
+            this.biencode.IdCategoriaPlanoSistema = this.IdCategoriaPlanoSistema;
             this.biencode.CodPlano = this.CodPlano;
             this.biencode.Descricao = this.Descricao;
             this.biencode.Valor = this.Valor;
             this.biencode.Descricao = this.Descricao;
             this.biencode.Link = this.Link;
+            this.biencode.id = this.id;
             this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
         },
         cadastrar: function () {
