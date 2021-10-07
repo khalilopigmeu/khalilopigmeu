@@ -31,6 +31,9 @@ app["clientLogin"] = new Vue({
         Celular: null,
         Cidade: null,
         optCad: "",
+        eula: false,
+        lgpd: false,
+        loginbtn: null
     },
     created: function () {
         this.getRandomNumber();
@@ -98,16 +101,7 @@ app["clientLogin"] = new Vue({
             };
             var ws = "Bienestar/Gerenciamento/Login/CadCliente";
             var p = (post(ws, data));
-            var rs = $(window).Decrypt(p);
-            rs = JSON.parse(rs);
-            window.localStorage.setItem("Empresa", rs.Empresa);
-            window.localStorage.setItem("IdEmpresa", rs.CodEmpresa);
-            window.localStorage.setItem("IdLogin", rs.IdLogin);
-            window.localStorage.setItem("Nome", rs.Nome);
-            window.localStorage.setItem("RAVEC", rs.Ravec);
-            window.localStorage.setItem("firstLogin", true);
-            window.localStorage.setItem("auth", rs.Credencial.replace(/(\r\n|\n|\r)/gm, ""));
-            window.location.href = "/ws/Agenda/eventos.php";
+            this.loginbtn = true;
         },
         login: function (e) {
             setAuth("UkdWdGIwVlNVQT09DQotUkdWdGIwVlNVQT09DQotWkdWdGJ6RXlNdz09DQot");
@@ -125,17 +119,12 @@ app["clientLogin"] = new Vue({
                 $(window).NotifyErr("Informe o Senha");
                 flag = false;
             }
-            /*if (!this.Cod && this.Cod.length > 0) {
-             $(window).NotifyErr("Informe o Código");
-             flag = false;
-             }*/
             if (flag) {
                 var biencode = {};
                 biencode.Modelo = "Empresa";
                 biencode.Empresa = this.Empresa;
                 biencode.Login = this.Login;
                 biencode.Senha = this.Senha;
-                //biencode.Cod = this.Cod;
                 biencode.Cod = window.atob("MDc3eEY=");
                 biencode.Posicao = this.posicao;
                 var data = {
