@@ -2,6 +2,7 @@
 var contype = "application/x-www-form-urlencoded";
 var urlSys = false;
 var auth = "";
+var preAuth = null;
 var tac = "";
 function authenticate() {
     auth = window.localStorage.getItem("auth");

@@ -119,120 +119,120 @@ app["Home"] = new Vue({
         itensPricing: [
             {
                 icon: "far fa-map",
-                nome: "Mensal",
+                nome: "Seção: Página - Mensal",
                 preco: "55,00",
                 pros: [],
                 contras: [],
-                link: "https://wa.me/5511940007917?text=Pagina-Mensal",
+                link: "Pagina-Mensal",
                 prazo: "Mês"
             },
             {
                 icon: "far fa-map",
-                nome: "Trimestral",
+                nome: "Seção: Página - Trimestral",
                 preco: "159,50",
                 pros: ["5% de desconto"],
                 contras: [],
-                link: "https://wa.me/5511940007917?text=Pagina-Trimestral",
+                link: "Pagina-Trimestral",
                 prazo: "Trimestre"
             },
             {
                 icon: "far fa-map",
-                nome: "Semestral",
+                nome: "Seção: Página - Semestral",
                 preco: "321,75",
                 pros: ["10% de desconto"],
                 contras: [],
-                link: "https://wa.me/5511940007917?text=Pagina-Semestral",
+                link: "Pagina-Semestral",
                 prazo: "Semestre"
             },
             {
                 icon: "far fa-map",
-                nome: "Anual",
+                nome: "Seção: Página - Anual",
                 preco: "649,00",
                 pros: ["15% de desconto"],
                 contras: [],
-                link: "https://wa.me/5511940007917?text=Pagina-Anual",
+                link: "Pagina-Anual",
                 prazo: "Anual"
             },
             {
                 icon: "fas fa-bullhorn",
-                nome: "Mensal",
+                nome: "Seção: Anúncio - Mensal",
                 preco: "40,00",
                 pros: [],
                 contras: [],
-                link: "https://wa.me/5511940007917?text=Anuncio-mensal",
+                link: "Anuncio-mensal",
                 prazo: "Mês"
             },
             {
                 icon: "fas fa-bullhorn",
-                nome: "Trimestral",
+                nome: "Seção: Anúncio - Trimestral",
                 preco: "116,00",
                 pros: ["5% de desconto"],
                 contras: [],
-                link: "https://wa.me/5511940007917?text=Anuncio-Trimestral",
+                link: "Anuncio-Trimestral",
                 prazo: "Trimestre"
             },
             {
                 icon: "fas fa-bullhorn",
-                nome: "Semestral",
+                nome: "Seção: Anúncio - Semestral",
                 preco: "234,00",
                 pros: ["10% de desconto"],
                 contras: [],
-                link: "https://wa.me/5511940007917?text=Anuncio-Semestral",
+                link: "Anuncio-Semestral",
                 prazo: "Semestre"
             },
             {
                 icon: "fas fa-bullhorn",
-                nome: "Anual",
+                nome: "Seção: Anúncio - Anual",
                 preco: "472,00",
                 pros: ["15% de desconto"],
                 contras: [],
-                link: "https://wa.me/5511940007917?text=Anuncio-Anual",
+                link: "Anuncio-Anual",
                 prazo: "Anual"
             }/*,
-            {
-                icon: "",
-                nome: "Mensal",
-                preco: "",
-                pros: [],
-                contras: [],
-                link: "https://wa.me/5511940007917?text=",
-                prazo: "Mês"
-            },
-            {
-                icon: "",
-                nome: "Trimestral",
-                preco: "",
-                pros: ["5% de desconto"],
-                contras: [],
-                link: "https://wa.me/5511940007917?text=",
-                prazo: "Trimestre"
-            },
-            {
-                icon: "",
-                nome: "Semestral",
-                preco: "",
-                pros: ["10% de desconto"],
-                contras: [],
-                link: "https://wa.me/5511940007917?text=",
-                prazo: "Semestre"
-            },
-            {
-                icon: "",
-                nome: "Anual",
-                preco: "",
-                pros: ["15% de desconto"],
-                contras: [],
-                link: "https://wa.me/5511940007917?text=",
-                prazo: "Anual"
-            },*/
+             {
+             icon: "",
+             nome: "Mensal",
+             preco: "",
+             pros: [],
+             contras: [],
+             link: "",
+             prazo: "Mês"
+             },
+             {
+             icon: "",
+             nome: "Trimestral",
+             preco: "",
+             pros: ["5% de desconto"],
+             contras: [],
+             link: "",
+             prazo: "Trimestre"
+             },
+             {
+             icon: "",
+             nome: "Semestral",
+             preco: "",
+             pros: ["10% de desconto"],
+             contras: [],
+             link: "",
+             prazo: "Semestre"
+             },
+             {
+             icon: "",
+             nome: "Anual",
+             preco: "",
+             pros: ["15% de desconto"],
+             contras: [],
+             link: "",
+             prazo: "Anual"
+             },*/
         ],
     },
     created: function () {
-        this.seo();
+        //this.seo();
     },
     methods: {
         seo: function () {
-            var preauth = getAuth();
+            preauth = getAuth();
             setAuth("encodedstring");
             var auth = $(window).Decrypt(app.sys.bien);
             setAuth(auth);

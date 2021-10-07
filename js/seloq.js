@@ -68,8 +68,7 @@ $(function () {
             "biencode": $(window).Encrypt(JSON.stringify(biencode))
         };
         var appVue = $(this).attr("data-vue");
-        var url = $(window).Decrypt(host("Bienestar", "BuscaCEP", "busca"));
-        var rs = $(window).Decrypt(post(url, data));
+        var rs = $(window).Decrypt(post("Bienestar/Correio/BuscaCEP/busca", data));
         if (rs.indexOf(";") > 0) {
             var k = acentuar(rs);
             var x = k.split(";");

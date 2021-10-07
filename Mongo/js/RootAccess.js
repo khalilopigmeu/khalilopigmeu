@@ -13,35 +13,60 @@ app["RootAccess"] = new Vue({
         ELtitle: null,
         Icon: '<i class="far fa-edit"></i>',
         pesqTbl: "",
-        Host: "Bienestar/Agenda/Anotacoes/",
+        Host: "Bienestar/Gerenciamento/Empresa/",
 
         EmpresaSrc: null,
-        LoginSrc: null
+        LoginSrc: null,
+        selEmpresa: null,
+        selLogin: null
     },
     methods: {
         populate: function () {
-            
+            this.Host = "Bienestar/Gerenciamento/Empresa/";
+            $(function () {
+                this.biencode = {};
+                this.biencode.all = window.localStorage.getItem("IdEmpresa");
+                var data = {
+                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
+                };
+                app.sys.crud(app.RootAccess.href, "listar", data);
+                app.RootAccess.EmpresaSrc = app.Empresa.src;
+            });
+            app.sys.tabs(this.href);
+        },
+        login: function () {
+            this.Host = "Bienestar/Gerenciamento/Login/";
+            $(function () {
+                this.biencode = {};
+                this.biencode.empresa = app.RootAccess.selEmpresa;
+                var data = {
+                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
+                };
+                app.sys.crud(app.RootAccess.href, "listar", data);
+                app.RootAccess.LoginSrc = app.Empresa.src;
+            });
+            app.sys.tabs(this.href);
         },
         clear: function () {
-            
+
         },
         autocomplete: function () {
-            
+
         },
         checkForm: function () {
-           
+
         },
         cadastrar: function () {
-           
+
         },
         alterar: function () {
-           
+
         },
         excluir: function () {
-           
+
         },
         relatorio: function () {
-           
+
         },
         cad: function () {
 

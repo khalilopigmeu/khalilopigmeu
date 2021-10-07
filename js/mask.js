@@ -256,7 +256,6 @@ function validarCNPJ(cnpj) {
         return false;
     }
 
-// Valida DVs
     tamanho = cnpj.length - 2
     numeros = cnpj.substring(0, tamanho);
     digitos = cnpj.substring(tamanho);
@@ -268,12 +267,11 @@ function validarCNPJ(cnpj) {
             pos = 9;
     }
     resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-    if (resultado !== digitos.charAt(0)) {
+    if (resultado != digitos.charAt(0)) {
         valida = "Digito validador 1 incorreto";
         $(window).NotifyErr(valida);
         return false;
     }
-
     tamanho = tamanho + 1;
     numeros = cnpj.substring(0, tamanho);
     soma = 0;
@@ -284,12 +282,11 @@ function validarCNPJ(cnpj) {
             pos = 9;
     }
     resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-    if (resultado !== digitos.charAt(1)) {
+    if (resultado != digitos.charAt(1)) {
         valida = "Digito validador 2 incorreto";
         $(window).NotifyErr(valida);
         return false;
     }
-
     $(window).NotifySucesso("CNPJ Válido");
     return true;
 }

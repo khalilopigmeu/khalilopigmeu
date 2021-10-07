@@ -41,12 +41,11 @@ app["Empresa"] = new Vue({
         populate: function () {
             $(function () {
                 this.biencode = {};
-                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+                this.biencode.id = window.localStorage.getItem("IdEmpresa");
                 var data = {
                     biencode: $(window).Encrypt(JSON.stringify(this.biencode))
                 };
                 app.sys.crud(app.Empresa.href, "listar", data);
-                //app.RootAccess.EmpresaSrc = app.Empresa.src;
             });
             app.sys.tabs(this.href);
         },

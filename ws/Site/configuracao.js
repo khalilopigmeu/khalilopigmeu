@@ -9,7 +9,7 @@ app["configuracao"] = new Vue({
     methods: {
         buscar: function () {
             $(function () {
-                var preauth = getAuth();
+                preauth = getAuth();
                 setAuth("encodedstring");
                 var auth = $(window).Decrypt(app.sys.bien);
                 setAuth(auth);
