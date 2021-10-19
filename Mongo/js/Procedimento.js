@@ -43,6 +43,7 @@ app["Procedimento"] = new Vue({
             this.Nome = this.row[1];
             this.Valor = this.row[2];
             this.Descricao = this.row[3];
+            CKEDITOR.instances['procedimentodescricao'].setData(unescapeHTML(this.Descricao));
             app.SocialMedia.mascara();
         },
         checkForm: function () {

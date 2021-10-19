@@ -8,7 +8,7 @@ app["anunciobienclube"] = new Vue({
     methods: {
         buscar: function () {
             $(function () {
-                preauth = getAuth();
+                var preauth = getAuth();
                 setAuth("encodedstring");
                 var auth = $(window).Decrypt(app.sys.bien);
                 setAuth(auth);

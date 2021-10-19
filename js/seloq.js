@@ -17,7 +17,7 @@ $(function () {
 
     qrcode = new QRCode(document.getElementById("qrcode"), {
         text: urlSite,
-        logo: "../img/logobien.png",
+        logo: "/img/logobien.png",
         width: 155,
         height: 155,
         logoWidth: undefined,
@@ -97,13 +97,24 @@ function urlRead() {
         $("#" + modal[1]).modal('show');
     } else {
         app.sys.page = modal[1];
-        if (getParameterByName('pgid')) {
-            app.anunciante.pgid = getParameterByName('pgid');
-            app.anunciante.buscar();
-            app.configuracao.buscar();
+        if (app.sys.page === "anunciante") {
+            if (getParameterByName('pgid')) {
+                app.anunciante.pgid = getParameterByName('pgid');
+                app.anunciante.buscar();
+                app.configuracao.buscar();
+                app.paginabienclube.buscar();
+            } else {
+                app.anunciante.buscar();
+            }
         }
-        app.paginabienclube.pg = getParameterByName('pg');
-        app.paginabienclube.buscar();
+        if (app.sys.page === "paginas") {
+            if (getParameterByName('pg')) {
+                app.paginabienclube.pg = getParameterByName('pg');
+                app.paginabienclube.buscar();
+            } else {
+                app.paginabienclube.buscar();
+            }
+        }
     }
     qrcode.makeCode(urlSite);
 }

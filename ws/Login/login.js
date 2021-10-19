@@ -101,7 +101,24 @@ app["clientLogin"] = new Vue({
             };
             var ws = "Bienestar/Gerenciamento/Login/CadCliente";
             var p = (post(ws, data));
-            this.loginbtn = true;
+            alert("cadastrado com sucesso! A administração irá entrar em contato com você.");
+            window.location.href = "https://www.bienclube.com.br/index.php#modalLoginSys";
+        },
+        recuperar: function () {
+            var biencode = {};
+            biencode.Modelo = "Empresa";
+            biencode.Empresa = this.Empresa;
+            biencode.Login = this.Login;
+            biencode.Cod = window.atob("MDc3eEY=");
+            biencode.Posicao = this.posicao;
+            var data = {
+                "biencode": $(window).Encrypt(JSON.stringify(biencode))
+            };
+            var ws = "Bienestar/Gerenciamento/Login/RecuperaSenha";
+            var p = (post(ws, data));
+            var rs = $(window).Decrypt(p);
+            alert(rs);
+            $(window).NotifySucesso(rs);
         },
         login: function (e) {
             setAuth("UkdWdGIwVlNVQT09DQotUkdWdGIwVlNVQT09DQotWkdWdGJ6RXlNdz09DQot");

@@ -8,7 +8,7 @@ app["voucherbienclube"] = new Vue({
     methods: {
         buscar: function () {
             $(function () {
-                preAuth = getAuth();
+                var preAuth = getAuth();
                 setAuth("encodedstring");
                 var auth = $(window).Decrypt(app.sys.bien);
                 setAuth(auth);

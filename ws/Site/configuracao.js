@@ -9,13 +9,12 @@ app["configuracao"] = new Vue({
     methods: {
         buscar: function () {
             $(function () {
-                preauth = getAuth();
+                var preauth = getAuth();
                 setAuth("encodedstring");
                 var auth = $(window).Decrypt(app.sys.bien);
                 setAuth(auth);
                 this.biencode = {};
                 this.biencode.pgid = getParameterByName("pgid");
-                //this.biencode.empresa = getParameterByName("pgid");
                 var data = {
                     biencode: $(window).Encrypt(JSON.stringify(this.biencode))
                 };

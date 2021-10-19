@@ -26,7 +26,6 @@ app["Ravec"] = new Vue({
             $(window).Decrypt(window.localStorage.getItem("RAVEC"), "tufsqulu")
             app.Ravec.acesso = eval($(window).Decrypt(window.localStorage.getItem("RAVEC"), "tufsqulu"));
             setAuth(authbkp);
-            console.log(app.Ravec.acesso);
             app.SocialMedia.Conectado();
         });
     },

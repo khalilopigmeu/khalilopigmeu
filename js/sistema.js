@@ -6,7 +6,9 @@ app["sys"] = new Vue({
         refid: "613e9d1fb8f611d6e202902b",
         bien: "SFBQZ29BWjhuRUhBdldCTHdCdnp6ZWdFRmoxVCtSZVRoSmR3QVZ3eTNJMEg0WlNkRHRNVFc2dEJCNU9pUW40c294TFcrcjQzT0lqUURnL282U1c5S29oM1htYkxyMTFoTkpoaEdTZ0JWZkpDS2daMW9CeTlMNHR5WDlFNk1zdE4vS1NCUmJtVVVZa0lwdk9oSG9xMVNBPT0jRjYwRjgxNjRCMDg2MzdFNEMyRjdCMjg1MzBDOUU2REYjQjI3RThEOTc3NjY4QkNBNkFFQTVEQjczOEY5MzA0MkM=",
         page: "index",
-        gapi: atob("QUl6YVN5QWZCdVpnZzZyWDJTbFFRd2UySFRJRzNqcmVRTFphbHRr")
+        gapi: atob("QUl6YVN5QWZCdVpnZzZyWDJTbFFRd2UySFRJRzNqcmVRTFphbHRr"),
+        keycodeSecurity: "QnNvNndsSmtBaXdBVWJzWnVnNmxRdHNFUkI1UUxkQU1IVFdYaW0reWJEMD0jOWY5MzczNWNhOTdmOWM2NDQzOTBjMWFmNWU2ZmMwMWQjNmQ2NzkzNTBhMDU5NWNiYjkxMzlhOGIyYTg3NzQwMGY=",
+        urlSite: window.location.href,
     },
     methods: {
         sorter: function (arr, model, field) {
@@ -196,11 +198,27 @@ app["sys"] = new Vue({
         },
         pgUrl: function (url) {
             var ref = window.location.href;
-            return ref.replace(/(pg=)[^\&]+/, '$1' + url);
+            if (getParameterByName('pg')) {
+                return ref.replace(/(pg=)[^\&]+/, '$1' + url);
+            } else {
+                if (ref.includes("?")) {
+                    return ref + "&pg=" + url;
+                } else {
+                    return ref + "?pg=" + url;
+                }
+            }
         },
         pgidUrl: function (url) {
             var ref = window.location.href;
-            return ref.replace(/(pgid=)[^\&]+/, '$1' + url);
+            if (getParameterByName('pgid')) {
+                return ref.replace(/(pgid=)[^\&]+/, '$1' + url);
+            } else {
+                if (ref.includes("?")) {
+                    return ref + "&pgid=" + url;
+                } else {
+                    return ref + "?pgid=" + url;
+                }
+            }
         },
         ravec: function (appcontrol, nivel) {
             if (typeof app.Ravec.acesso[app[appcontrol].stepkey] !== "undefined" && app.Ravec.acesso[app[appcontrol].stepkey] !== null) {

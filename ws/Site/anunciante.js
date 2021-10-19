@@ -17,7 +17,7 @@ app["anunciante"] = new Vue({
         buscar: function () {
             Vue.config.devtools = true;
             $(function () {
-                preauth = getAuth();
+                var preauth = getAuth();
                 setAuth("encodedstring");
                 var auth = $(window).Decrypt(app.sys.bien);
                 setAuth(auth);
