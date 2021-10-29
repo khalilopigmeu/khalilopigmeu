@@ -1,9 +1,9 @@
 "use strict";
-app["voucherbienclube"] = new Vue({
-    el: '#voucherbienclube',
+app["albumsite"] = new Vue({
+    el: '#albumsite',
     data: {
         src: null,
-        Host: "Bienestar/Anuncio/Voucher/"
+        Host: "Bienestar/Album/Albuns/"
     },
     methods: {
         buscar: function () {
@@ -18,8 +18,8 @@ app["voucherbienclube"] = new Vue({
                 var data = {
                     biencode: $(window).Encrypt(JSON.stringify(this.biencode))
                 };
-                app.sys.crud("voucherbienclube", "listar", data);
-                setAuth(preauth);
+                app.sys.crud("albumsite", "listar", data);
+                setAuth(preAuth);
             });
         },
         clear: function () {

@@ -24,29 +24,7 @@ app["sys"] = new Vue({
                 }
             }
         },
-        pesq: function (arr, pesq) {
-            let filteredList = arr.filter(field => app.sys.valida(field, pesq));
-            return filteredList;
-        },
-        valida: function (field, pesq) {
-            if (pesq !== null || pesq !== "") {
-                var keys = Object.keys(field);
-                var flag = false;
-                for (var i = 0; i <= keys.length - 1; i++) {
-                    try {
-                        var p = field[keys[i]].toLowerCase().indexOf(pesq.toLowerCase());
-                        if (p >= 0) {
-                            flag = true;
-                        }
-                    } catch (e) {
-
-                    }
-                }
-                return flag;
-            } else {
-                return true;
-            }
-        }, mascara: function () {
+        mascara: function () {
             $("input.telefone").attr("maxlength", "15");
             $("input.celular").attr("maxlength", "15");
             $("input.cep").attr("maxlength", "9");
@@ -229,6 +207,77 @@ app["sys"] = new Vue({
                 }
             } else {
                 return false;
+            }
+        },
+        seo: function (url, id) {
+            var preauth = getAuth();
+            setAuth("encodedstring");
+            var auth = $(window).Decrypt(app.sys.bien);
+            setAuth(auth);
+            this.biencode = {};
+            if (typeof id === 'undefined') {
+                this.biencode.empresa = app.sys.refid;
+            } else {
+                this.biencode.empresa = id;
+            }
+            this.biencode.urlpage = url;
+            console.log(JSON.stringify(this.biencode))
+            var data = {
+                biencode: $(window).Encrypt(JSON.stringify(this.biencode))
+            };
+
+            var ws = "Bienestar/Seo/SEO/site";
+            var p = (post(ws, data));
+            var rs = $(window).Decrypt(p);
+            $("#seotpl").html(rs);
+            console.log(rs);
+            setAuth(preauth);
+        },
+        infield: function (field, pesq) {
+            if (pesq !== null || pesq !== "") {
+                var keys = Object.keys(field);
+                var flag = false;
+                for (var i = 0; i <= keys.length - 1; i++) {
+                    try {
+                        var p = field[keys[i]].toLowerCase().indexOf(pesq.toLowerCase());
+                        if (p >= 0) {
+                            flag = true;
+                        }
+                    } catch (e) {
+
+                    }
+                }
+                return flag;
+            } else {
+                return true;
+            }
+        },
+        searchall: function (arr, pesq) {
+            let filteredList = arr.filter(field => app.sys.infield(field, pesq));
+            return filteredList;
+        },
+        search: function (src, search, fieldname) {
+            if (search !== null) {
+                if (src.length > 0) {
+                    var tempSrc = src.filter(i => i[fieldname] === search);
+                    return tempSrc;
+                }
+            }
+        },
+        searchAprox: function (src, search, fieldname) {
+            if (search !== null) {
+                if (src.length > 0) {
+                    var tempSrc = src.filter(i => i[fieldname].includes(search));
+                    return tempSrc;
+                }
+            }
+        },
+        searchinArray: function (src, search, fieldname) {
+            if (search !== null) {
+                if (src.length > 0) {
+                    var tempSrc = src.filter(i => search.includes(i[fieldname]));
+                    return tempSrc;
+                }
             }
         }
     }

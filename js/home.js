@@ -228,22 +228,8 @@ app["Home"] = new Vue({
         ],
     },
     created: function () {
-        //this.seo();
     },
     methods: {
-        seo: function () {
-            preauth = getAuth();
-            setAuth("encodedstring");
-            var auth = $(window).Decrypt(app.sys.bien);
-            setAuth(auth);
-            this.biencode = {};
-            this.biencode.empresa = app.sys.refid;
-            this.biencode.urlpage = window.location.href;
-            var ws = "/Bienestar/Seo/SEO/site";
-            var p = (post(ws, data));
-            var rs = $(window).Decrypt(p);
-            document.getElementsByTagName("head").appendChild(rs);
-            setAuth(preauth);
-        }
+        
     }
 });

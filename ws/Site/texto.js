@@ -1,10 +1,9 @@
 "use strict";
-app["paginasite"] = new Vue({
-    el: '#paginasite',
+app["textosite"] = new Vue({
+    el: '#textosite',
     data: {
         src: null,
-        Host: "Bienestar/Pagina/pagina/",
-        pg: null,
+        Host: "Bienestar/Texto/Postagem/"
     },
     methods: {
         buscar: function () {
@@ -14,22 +13,13 @@ app["paginasite"] = new Vue({
                 var auth = $(window).Decrypt(app.sys.bien);
                 setAuth(auth);
                 this.biencode = {};
-                if (app.paginasite.pg !== null) {
-                    this.biencode.urlpage = getParameterByName("pg");
-                }
-                if (app.anunciante.pgid !== null) {
-                    this.biencode.empresa = getParameterByName("pgid");
-                } else {
-                    this.biencode.empresa = app.sys.refid;
-                }
+                this.biencode.empresa = app.sys.refid;
+                this.biencode.nome = getParameterByName("cod");
                 var data = {
                     biencode: $(window).Encrypt(JSON.stringify(this.biencode))
                 };
-                app.sys.crud("paginasite", "listar", data);
+                app.sys.crud("textosite", "listar", data);
                 setAuth(preauth);
-                if (app.anunciante.pgid !== null) {
-                    app.anunciante.paginas = app.paginasite.src;
-                }
             });
         },
         clear: function () {

@@ -38,7 +38,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="td in app.sys.sorter(app.sys.pesq(src,pesqTbl),'DESC','id')">
+                                        <tr v-for="td in app.sys.sorter(app.sys.searchall(src,pesqTbl),'DESC','id')">
                                             <td>{{ td._id['$oid'] }}</td>
                                             <?php
                                             if (count($tdvue[$page]) > 0) {

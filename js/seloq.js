@@ -3,6 +3,7 @@ var ancestor;
 var table = {};
 var qrcode;
 var urlSite = window.location.href;
+var path;
 const Real = value => currency(value, {symbol: 'R$', decimal: '.', separator: ''});
 var cdn;
 $(function () {
@@ -17,7 +18,7 @@ $(function () {
 
     qrcode = new QRCode(document.getElementById("qrcode"), {
         text: urlSite,
-        logo: "/img/logobien.png",
+        logo: "/img/sobre.png",
         width: 155,
         height: 155,
         logoWidth: undefined,
@@ -31,11 +32,9 @@ $(function () {
     };
 
     window.onload = function () {
-        urlSite = window.location.href;
-        if (urlSite.includes("#") || urlSite.includes("?")) {
-            urlRead();
-        }
-    }
+        urlRead();
+    };
+
 
     if (urlSite.includes("rtiempresarial")) {
         if (urlSite.includes("sys") || urlSite.includes("ws")) {
@@ -61,6 +60,10 @@ $(function () {
         }
     });
     $(".cep").blur(function () {
+        var preauth = getAuth();
+        setAuth("encodedstring");
+        var auth = $(window).Decrypt(app.sys.bien);
+        setAuth(auth);
         var CEP = $(this).val();
         var biencode = {};
         biencode.CEP = CEP;
@@ -69,6 +72,7 @@ $(function () {
         };
         var appVue = $(this).attr("data-vue");
         var rs = $(window).Decrypt(post("Bienestar/Correio/BuscaCEP/busca", data));
+        setAuth(preauth);
         if (rs.indexOf(";") > 0) {
             var k = acentuar(rs);
             var x = k.split(";");
@@ -79,7 +83,7 @@ $(function () {
         } else {
             $("#modal").modal();
             $("#modal .modal-title").text("Problema com o CEP");
-            $("#modal .modal-body").text(result);
+            $("#modal .modal-body").text(rs);
         }
     });
 
@@ -89,31 +93,37 @@ $(function () {
 
 function urlRead() {
     app.anunciante.pgid = null;
-    app.paginabienclube.pg = null;
+    app.paginasite.pg = null;
     urlSite = window.location.href;
-    var urlclean = urlSite.split("?");
-    var modal = urlclean[0].split("#");
-    if ($("#" + modal[1]).hasClass("modal")) {
-        $("#" + modal[1]).modal('show');
-    } else {
-        app.sys.page = modal[1];
-        if (app.sys.page === "anunciante") {
-            if (getParameterByName('pgid')) {
-                app.anunciante.pgid = getParameterByName('pgid');
-                app.anunciante.buscar();
-                app.configuracao.buscar();
-                app.paginabienclube.buscar();
-            } else {
-                app.anunciante.buscar();
-            }
+    if (urlSite.includes("#") || urlSite.includes("?")) {
+        var urlclean = urlSite.split("?");
+        var modal = urlclean[0].split("#");
+        if ($("#" + modal[1]).hasClass("modal")) {
+            $("#" + modal[1]).modal('show');
+        } else {
+            app.sys.page = modal[1];
         }
-        if (app.sys.page === "paginas") {
-            if (getParameterByName('pg')) {
-                app.paginabienclube.pg = getParameterByName('pg');
-                app.paginabienclube.buscar();
-            } else {
-                app.paginabienclube.buscar();
-            }
+    }
+    if (app.sys.page === "anunciante") {
+        if (getParameterByName('pgid')) {
+            app.anunciante.pgid = getParameterByName('pgid');
+            app.anunciante.buscar();
+            app.configuracao.buscar();
+            app.paginasite.buscar();
+            app.sys.seo(urlSite, getParameterByName('pgid'));
+        } else {
+            app.anunciante.buscar();
+            app.sys.seo(urlSite);
+        }
+    }
+    if (app.sys.page === "paginas") {
+        if (getParameterByName('pg')) {
+            app.paginasite.pg = getParameterByName('pg');
+            app.paginasite.buscar();
+            app.sys.seo(urlSite);
+        } else {
+            app.paginasite.buscar();
+            app.sys.seo(urlSite);
         }
     }
     qrcode.makeCode(urlSite);
