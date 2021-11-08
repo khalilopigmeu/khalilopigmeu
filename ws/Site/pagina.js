@@ -17,8 +17,12 @@ app["paginasite"] = new Vue({
                 if (app.paginasite.pg !== null) {
                     this.biencode.urlpage = getParameterByName("pg");
                 }
-                if (typeof app.anunciante === 'undefined' && app.anunciante.pgid !== null) {
-                    this.biencode.empresa = getParameterByName("pgid");
+                if (typeof app.anunciante === 'undefined') {
+                    if (app.anunciante.pgid !== null) {
+                        this.biencode.empresa = getParameterByName("pgid");
+                    } else {
+                        this.biencode.empresa = app.sys.refid;
+                    }
                 } else {
                     this.biencode.empresa = app.sys.refid;
                 }
