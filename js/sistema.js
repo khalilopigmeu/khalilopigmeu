@@ -9,6 +9,15 @@ app["sys"] = new Vue({
         gapi: atob("QUl6YVN5QWZCdVpnZzZyWDJTbFFRd2UySFRJRzNqcmVRTFphbHRr"),
         keycodeSecurity: "QnNvNndsSmtBaXdBVWJzWnVnNmxRdHNFUkI1UUxkQU1IVFdYaW0reWJEMD0jOWY5MzczNWNhOTdmOWM2NDQzOTBjMWFmNWU2ZmMwMWQjNmQ2NzkzNTBhMDU5NWNiYjkxMzlhOGIyYTg3NzQwMGY=",
         urlSite: window.location.href,
+        sandbox: false,
+        currentPage: 0,
+        itemsPerPage: 6,
+        resultCount: 0
+    },
+    computed: {
+        totalPages: function () {
+            return Math.ceil(this.resultCount / this.itemsPerPage)
+        }
     },
     methods: {
         sorter: function (arr, model, field) {
@@ -221,7 +230,6 @@ app["sys"] = new Vue({
                 this.biencode.empresa = id;
             }
             this.biencode.urlpage = url;
-            console.log(JSON.stringify(this.biencode))
             var data = {
                 biencode: $(window).Encrypt(JSON.stringify(this.biencode))
             };
@@ -230,7 +238,6 @@ app["sys"] = new Vue({
             var p = (post(ws, data));
             var rs = $(window).Decrypt(p);
             $("#seotpl").html(rs);
-            console.log(rs);
             setAuth(preauth);
         },
         infield: function (field, pesq) {
@@ -278,6 +285,21 @@ app["sys"] = new Vue({
                     var tempSrc = src.filter(i => search.includes(i[fieldname]));
                     return tempSrc;
                 }
+            }
+        },
+        setPage: function (pageNumber) {
+            this.currentPage = pageNumber
+        },
+        paginate: function (list) {
+            if (list !== null) {
+                this.resultCount = list.length
+                if (this.currentPage >= this.totalPages) {
+                    this.currentPage = this.totalPages - 1
+                }
+                var index = this.currentPage * this.itemsPerPage
+                return list.slice(index, index + this.itemsPerPage)
+            } else {
+                return [];
             }
         }
     }

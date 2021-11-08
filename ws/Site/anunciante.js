@@ -5,9 +5,9 @@ app["anunciante"] = new Vue({
         src: null,
         Host: "Bienestar/Gerenciamento/Empresa/",
         pgid: null,
-        fb: null,
-        insta: null,
-        site: null,
+        fb: 'null',
+        insta: 'null',
+        site: 'null',
         logo: null,
         paginas: null,
         vouchers: null,
@@ -15,7 +15,6 @@ app["anunciante"] = new Vue({
     },
     methods: {
         buscar: function () {
-            Vue.config.devtools = true;
             $(function () {
                 var preauth = getAuth();
                 setAuth("encodedstring");
@@ -32,6 +31,7 @@ app["anunciante"] = new Vue({
                 };
                 app.sys.crud("anunciante", "listar", data);
                 setAuth(preauth);
+                app.anunciante.src = app.sys.randomList(app.anunciante.src);
             });
         },
         cleanwap: function (number) {
@@ -43,7 +43,45 @@ app["anunciante"] = new Vue({
         },
         ravec: function (nivel) {
             return true;
-        }
-    }
+        },
+        getLogo: function (id) {
+            var temp = app.sys.search(app.configuracao.src, id, 'IdEmpresa');
+            if (temp.length > 0) {
+                return temp[0].LogoURL;
+            } else {
+                return "";
+            }
+        },
+        getFB: function (id) {
+            var temp = app.sys.search(app.configuracao.src, id, 'IdEmpresa');
+            if (temp.length > 0) {
+                var fb = temp[0].Facebook;
+                if (fb) {
+                    return fb.replace("@", "");
+                }
+            } else {
+                return null;
+            }
+        },
+        getInsta: function (id) {
+            var temp = app.sys.search(app.configuracao.src, id, 'IdEmpresa');
+            if (temp.length > 0) {
+                var ins = temp[0].Instagram;
+                if (ins) {
+                    return ins.replace("@", "");
+                }
+            } else {
+                return null;
+            }
+        },
+        getSite: function (id) {
+            var temp = app.sys.search(app.configuracao.src, id, 'IdEmpresa');
+            if (temp.length > 0) {
+                return temp[0].Site;
+            } else {
+                return null;
+            }
+        },
+    },
 });
         

@@ -371,3 +371,32 @@ section.pricing {
     font-family: 'Courgette', cursive;
     color: var(--dark);
 }
+
+.logoanunciante{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+@media (min-width: 576px) { 
+    .logoanunciante{
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) { 
+    .logoanunciante{
+        width: 75%;
+    }
+}
+
+@media (min-width: 992px) { 
+    .logoanunciante{
+        width: 50%;
+    }
+}
+
+@media (min-width: 1200px) { 
+    .logoanunciante{
+        width: 50%;
+    }
+}

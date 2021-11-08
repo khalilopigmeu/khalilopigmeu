@@ -144,7 +144,7 @@ function WebServer(amb) {
 }
 
 function logSandBox(logs) {
-    if (urlSys) {
+    if (urlSys === true || app.sys.sandbox === true) {
         console.log($(window).Decrypt(logs));
         console.log(logs);
     }

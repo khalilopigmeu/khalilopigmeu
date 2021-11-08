@@ -25,10 +25,20 @@ app["configuracao"] = new Vue({
                 app.sys.crud("configuracao", "listar", data);
                 setAuth(preauth);
                 if (app.anunciante.pgid !== null) {
-                    app.anunciante.fb = app.configuracao.src[0].Facebook;
-                    app.anunciante.insta = app.configuracao.src[0].Instagram;
-                    app.anunciante.site = app.configuracao.src[0].Site;
-                    app.anunciante.logo = app.configuracao.src[0].LogoURL;
+                    if (app.configuracao.src.length > 0) {
+                        if (app.configuracao.src[0].Facebook) {
+                            app.anunciante.fb = app.configuracao.src[0].Facebook.replace("@","");
+                        }
+                        if (app.configuracao.src[0].Instagram) {
+                            app.anunciante.insta = app.configuracao.src[0].Instagram.replace("@","");
+                        }
+                        if (app.configuracao.src[0].Site) {
+                            app.anunciante.site = app.configuracao.src[0].Site;
+                        }
+                        if (app.configuracao.src[0].LogoURL) {
+                            app.anunciante.logo = app.configuracao.src[0].LogoURL;
+                        }
+                    }
                 } else {
                     var path = (window.location.pathname).split("/");
                     var search = path[path.length - 1];
