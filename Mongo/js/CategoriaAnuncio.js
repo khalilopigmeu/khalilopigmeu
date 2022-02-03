@@ -16,7 +16,6 @@ app["CategoriaAnuncio"] = new Vue({
         Host: "Bienestar/Anuncio/CategoriaAnuncio/",
 
         Nome: null,
-        Acessos: null,
         Loginsrc: null,
 
     },
@@ -25,7 +24,6 @@ app["CategoriaAnuncio"] = new Vue({
             $(function () {
                 this.biencode = {};
                 this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                this.biencode.acesso = window.localStorage.getItem("IdLogin");
                 var data = {
                     biencode: $(window).Encrypt(JSON.stringify(this.biencode))
                 };
@@ -107,6 +105,3 @@ app["CategoriaAnuncio"] = new Vue({
 
     }
 });
-function update(picker) {
-    app.CategoriaAnuncio.Cor = picker.dataset.currentColor;
-}

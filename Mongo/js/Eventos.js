@@ -45,20 +45,20 @@ app["Eventos"] = new Vue({
         modelo: null,
         eventos: null,
 
-        cliente: null,
-        Clientesrc: null,
-        procedimento: [],
-        Procedimentosrc: null,
-        Consultasrc: null,
-
-        Juros: null,
-        Referencia: null,
-        NotaFiscal: null,
-        Valor: null,
-        Forma: null,
-        Status: null,
-        Modalidade: null,
         calendar: null,
+
+        FichaAtendimento: null,
+        FichaAtendimentoSrc: [],
+        LancamentoFinanceiro: null,
+        LancamentoFinanceiroSrc: [],
+        PedidoDeVenda: null,
+        PedidoDeVendaSrc: [],
+        OrdemServico: null,
+        OrdemServicoSrc: [],
+        OrdemProducao: null,
+        OrdemProducaoSrc: [],
+        
+        importar:null,
     },
     methods: {
         populate: function () {
@@ -98,6 +98,7 @@ app["Eventos"] = new Vue({
                 app.calendar.diaevento = formatadata(app.Eventos.calendar.formatIso(app.Eventos.calendar.getDate()));
             });
             app.sys.tabs(this.href);
+            this.itensporpagina = app.sys.itemsPerPage;
         },
         clear: function () {
             this.groupId = null;
@@ -133,23 +134,23 @@ app["Eventos"] = new Vue({
             this.backgroundColor = this.evt.backgroundColor;
             this.borderColor = this.evt.borderColor;
             this.textColor = this.evt.textColor;
-            this.extendedProps = this.evt.extendedProps;
             this.daysOfWeek = this.evt.daysOfWeek;
             this.startTime = this.evt.startTime;
             this.endTime = this.evt.endTime;
             this.startRecur = this.evt.startRecur;
             this.endRecur = this.evt.endRecur;
+
+            this.extendedProps = this.evt.extendedProps;
             this.observacao = this.extendedProps.descricao;
             CKEDITOR.instances['observacaoagenda'].setData(unescapeHTML(this.observacao))
+
             this.cliente = this.extendedProps.cliente;
-            this.procedimento = this.extendedProps.procedimento;
-            this.Modalidade = this.extendedProps.modelo;
-            this.Juros = this.extendedProps.Juros;
-            this.Referencia = this.extendedProps.Referencia;
-            this.NotaFiscal = this.extendedProps.NotaFiscal;
-            this.Valor = this.extendedProps.Valor;
-            this.Forma = this.extendedProps.Forma;
-            this.Status = this.extendedProps.Status;
+            this.FichaAtendimento = this.extendedProps.FichaAtendimento;
+            this.LancamentoFinanceiro = this.extendedProps.LancamentoFinanceiro;
+            this.PedidoDeVenda = this.extendedProps.PedidoDeVenda;
+            this.OrdemServico = this.extendedProps.OrdemServico;
+            this.OrdemProducao = this.extendedProps.OrdemProducao;
+
             app.SocialMedia.mascara();
         },
         checkForm: function () {
@@ -186,15 +187,11 @@ app["Eventos"] = new Vue({
             var extendedProps = {};
             extendedProps.empresa = window.localStorage.getItem("IdEmpresa");
             extendedProps.descricao = this.observacao;
-            extendedProps.cliente = this.cliente;
-            extendedProps.procedimento = this.procedimento;
-            extendedProps.modelo = this.Modalidade;
-            extendedProps.Juros = this.Juros;
-            extendedProps.Referencia = this.Referencia;
-            extendedProps.NotaFiscal = this.NotaFiscal;
-            extendedProps.Valor = this.Valor;
-            extendedProps.Forma = this.Forma;
-            extendedProps.Status = this.Status;
+            extendedProps.FichaAtendimento = this.FichaAtendimento;
+            extendedProps.LancamentoFinanceiro = this.LancamentoFinanceiro;
+            extendedProps.PedidoDeVenda =this.PedidoDeVenda;
+            extendedProps.OrdemServico = this.OrdemServico;
+            extendedProps.OrdemProducao = this.OrdemProducao;
 
             this.extendedProps = extendedProps;
             this.biencode.extendedProps = this.extendedProps;
@@ -234,17 +231,6 @@ app["Eventos"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
-        procedimentos: function () {
-            var value = 0;
-            for (var j = 0; j <= this.procedimento.length - 1; j++) {
-                for (var i = 0; i <= this.Procedimentosrc.length - 1; i++) {
-                    if (this.Procedimentosrc[i]._id.$oid === this.procedimento[j]) {
-                        value = currency(value).add(this.Procedimentosrc[i].Valor);
-                    }
-                }
-            }
-            this.Valor = Real(value).format();
-        },
         ravec: function (nivel) {
             if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
                 if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
@@ -255,6 +241,6 @@ app["Eventos"] = new Vue({
             } else {
                 return false;
             }
-        }
+        },
     }
 });

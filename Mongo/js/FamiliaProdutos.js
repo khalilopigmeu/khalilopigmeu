@@ -27,6 +27,7 @@ app["FamiliaProdutos"] = new Vue({
                 app.sys.crud(app.FamiliaProdutos.href, "listar", data);
                 app.ClasseProdutos.FamiliaSrc = app.FamiliaProdutos.src;
                 app.Produto.FamiliaSrc = app.FamiliaProdutos.src;
+                app.ListaCompra.familiaprodutos = app.FamiliaProdutos.src;
             });
             app.sys.tabs(this.href);
         },

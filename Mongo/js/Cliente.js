@@ -47,8 +47,10 @@ app["Cliente"] = new Vue({
                 };
                 app.sys.crud(app.Cliente.href, "listar", data);
                 app.Login.Clientesrc = app.Cliente.src;
-                app.Eventos.Clientesrc = app.Cliente.src;
+                app.FichaAtendimento.Clientesrc = app.Cliente.src;
                 app.ControlaMensalidade.Clientesrc = app.Cliente.src;
+                app.PedidoVenda.Clientesrc = app.Cliente.src;
+                app.ListaCompra.Clientesrc = app.Cliente.src;
             });
             app.sys.tabs(this.href);
         },

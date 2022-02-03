@@ -1,4 +1,3 @@
-"use strict";
 CKEDITOR.editorConfig = function (config) {
     config.toolbar = [
         ["Bold", "Italic", "Underline", "StrikeThrough", "-", "Undo", "Redo", "-", "Cut",

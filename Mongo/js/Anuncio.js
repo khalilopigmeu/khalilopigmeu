@@ -20,7 +20,6 @@ app["Anuncio"] = new Vue({
         Descricao: null,
         Tipo: null,
         Keywords: null,
-        Acessos: null,
         Loginsrc: null,
         CategoriaAnuncioSrc: null,
 
@@ -43,7 +42,6 @@ app["Anuncio"] = new Vue({
             this.Keywords = null;
             this.Descricao = null;
             this.Tipo = null;
-            this.Acessos = null;
         },
         autocomplete: function () {
             this.id = this.row[0];
@@ -54,8 +52,6 @@ app["Anuncio"] = new Vue({
             this.Descricao = this.row[5];
             CKEDITOR.instances['descricaoanuncio'].setData(unescapeHTML(this.Descricao))
             this.Tipo = this.row[2];
-            var x = String(app.sys.foreignKeyRestore(this.Loginsrc, "Login", this.row[6]));
-            this.Acessos = eval(x.split(","));
         },
         checkForm: function () {
             app.erros.errors = {};
@@ -67,14 +63,6 @@ app["Anuncio"] = new Vue({
             this.Descricao = CKEDITOR.instances['descricaoanuncio'].getData();
             this.biencode.Descricao = this.Descricao;
             this.biencode.Tipo = this.Tipo;
-            var ac = "";
-            for (var i = 0; i <= this.Acessos.length - 1; i++) {
-                ac += this.Acessos[i];
-                if (i < this.Acessos.length - 1) {
-                    ac += ";";
-                }
-            }
-            this.biencode.Acessos = ac;
             this.biencode.id = this.id;
             this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
         },
@@ -89,14 +77,6 @@ app["Anuncio"] = new Vue({
         },
         relatorio: function () {
             app.sys.crud(this.href, "rel", null);
-        },
-        relatorio: function () {
-            if (!this.ravec(5)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
-            } else {
-            }
         },
         cad: function () {
             this.evtDataCal = "cad";

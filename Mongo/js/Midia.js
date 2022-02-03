@@ -30,6 +30,9 @@ app["Midia"] = new Vue({
         AlbumSrc: null,
         CategoriaSrc: null,
         ProdutoSrc: null,
+        pesqAlbum: "",
+        pesqCategoria: "",
+        pesqProduto: "",
     },
     methods: {
         populate: function () {

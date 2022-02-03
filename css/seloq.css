@@ -66,17 +66,6 @@ html {
     transition-delay: 1s;
 }
 
-/*
-Dark    #226C3B
-Medium  #38B261
-Light #73D393
-*/
-
-:root {
-    --dark: #226C3B;
-    --medium: #38B261;
-    --light: #73D393;
-}
 fieldset,legend{
     background: var(--light);
 }

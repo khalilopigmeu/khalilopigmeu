@@ -29,7 +29,7 @@ app["Procedimento"] = new Vue({
                     biencode: $(window).Encrypt(JSON.stringify(this.biencode))
                 };
                 app.sys.crud(app.Procedimento.href, "listar", data);
-                app.Eventos.Procedimentosrc = app.Procedimento.src;
+                app.FichaAtendimento.Procedimentosrc = app.Procedimento.src;
             });
             app.sys.tabs(this.href);
         },

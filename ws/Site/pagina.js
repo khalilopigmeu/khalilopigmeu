@@ -31,8 +31,13 @@ app["paginasite"] = new Vue({
                 };
                 app.sys.crud("paginasite", "listar", data);
                 setAuth(preauth);
-                if (app.anunciante.pgid !== null) {
-                    app.anunciante.paginas = app.paginasite.src;
+                if (typeof app.Promocao !== 'undefined') {
+                    app.Promocao.paginasSrc = app.paginasite.src;
+                }
+                if (typeof app.anunciante !== 'undefined') {
+                    if (app.anunciante.pgid !== null) {
+                        app.anunciante.paginas = app.paginasite.src;
+                    }
                 }
             });
         },

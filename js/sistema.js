@@ -12,7 +12,9 @@ app["sys"] = new Vue({
         sandbox: false,
         currentPage: 0,
         itemsPerPage: 6,
-        resultCount: 0
+        resultCount: 0,
+        steper: 0,
+        count: 0
     },
     computed: {
         totalPages: function () {
@@ -21,16 +23,22 @@ app["sys"] = new Vue({
     },
     methods: {
         sorter: function (arr, model, field) {
-            if (arr !== null) {
-                if (model === "ASC") {
-                    return arr.slice().sort(function (a, b) {
-                        return a[field] - b[field];
-                    });
+            if (typeof arr !== "undefined") {
+                if (arr !== null) {
+                    if (model === "ASC") {
+                        return arr.slice().sort(function (a, b) {
+                            return a[field] - b[field];
+                        });
+                    } else {
+                        return arr.slice().sort(function (a, b) {
+                            return b[field] - a[field];
+                        });
+                    }
                 } else {
-                    return arr.slice().sort(function (a, b) {
-                        return b[field] - a[field];
-                    });
+                    return [];
                 }
+            } else {
+                return [];
             }
         },
         mascara: function () {
@@ -138,7 +146,13 @@ app["sys"] = new Vue({
                         } else {
                             app[appcontrol].src = eval($(window).Decrypt(p));
                         }
-
+                    }
+                    this.count++;
+                    if (typeof app.calendar !== "undefined") {
+                        app.calendar.progress += parseFloat(parseFloat(Math.fround(this.steper).toFixed(2)).toFixed(2));
+                        if (this.count === (100 / this.steper) - 1) {
+                            app.calendar.progress = 100;
+                        }
                     }
                 } else if (op.includes("add") || op.includes("edt") || op.includes("exc") || op.includes("rel")) {
                     var nivel = 0;
@@ -233,7 +247,6 @@ app["sys"] = new Vue({
             var data = {
                 biencode: $(window).Encrypt(JSON.stringify(this.biencode))
             };
-
             var ws = "Bienestar/Seo/SEO/site";
             var p = (post(ws, data));
             var rs = $(window).Decrypt(p);
@@ -260,32 +273,79 @@ app["sys"] = new Vue({
             }
         },
         searchall: function (arr, pesq) {
-            let filteredList = arr.filter(field => app.sys.infield(field, pesq));
-            return filteredList;
+            if (arr !== null) {
+                if (pesq !== null) {
+                    let filteredList = arr.filter(field => app.sys.infield(field, pesq));
+                    return filteredList;
+                } else {
+                    return arr;
+                }
+            } else {
+                return [];
+            }
         },
         search: function (src, search, fieldname) {
-            if (search !== null) {
-                if (src.length > 0) {
+            if (src !== null) {
+                if (search !== null) {
                     var tempSrc = src.filter(i => i[fieldname] === search);
                     return tempSrc;
+                } else {
+                    return src;
                 }
+            } else {
+                return [];
             }
         },
         searchAprox: function (src, search, fieldname) {
-            if (search !== null) {
-                if (src.length > 0) {
-                    var tempSrc = src.filter(i => i[fieldname].includes(search));
-                    return tempSrc;
+            if (src !== null) {
+                if (search !== null) {
+                    if (src.length > 0) {
+                        var tempSrc = src.filter(i => i[fieldname].includes(search));
+                        return tempSrc;
+                    } else {
+                        return src;
+                    }
+                } else {
+                    return src;
                 }
+            } else {
+                return [];
             }
         },
         searchinArray: function (src, search, fieldname) {
-            if (search !== null) {
-                if (src.length > 0) {
-                    var tempSrc = src.filter(i => search.includes(i[fieldname]));
-                    return tempSrc;
+            if (src !== null) {
+                if (search !== null) {
+                    if (src.length > 0 || search.length > 0) {
+                        var tempSrc = src.filter(i => search.includes(i[fieldname]));
+                        return tempSrc;
+                    } else {
+                        return src;
+                    }
+                } else {
+                    return src;
                 }
+            } else {
+                return [];
             }
+        },
+        searchByID: function (src, search) {
+            if (src !== null) {
+                if (search !== null) {
+                    if (src.length > 0 || search.length > 0) {
+                        var tempSrc = src.filter(i => search.includes(i._id['$oid']));
+                        return tempSrc;
+                    } else {
+                        return src;
+                    }
+                } else {
+                    return src;
+                }
+            } else {
+                return [];
+            }
+        },
+        onlyUnique: function (value, index, self) {
+            return self.indexOf(value) === index;
         },
         setPage: function (pageNumber) {
             this.currentPage = pageNumber
@@ -294,12 +354,38 @@ app["sys"] = new Vue({
             if (list !== null) {
                 this.resultCount = list.length
                 if (this.currentPage >= this.totalPages) {
-                    this.currentPage = this.totalPages - 1
+                    this.currentPage = 0
                 }
-                var index = this.currentPage * this.itemsPerPage
-                return list.slice(index, index + this.itemsPerPage)
+                var index = parseInt(this.currentPage) * parseInt(this.itemsPerPage);
+                return list.slice(index, index + parseInt(this.itemsPerPage))
             } else {
                 return [];
+            }
+        },
+        buscaCEP: function (appVue) {
+            var preauth = getAuth();
+            setAuth("encodedstring");
+            var auth = $(window).Decrypt(app.sys.bien);
+            setAuth(auth);
+            var CEP = app[appVue].CEP;
+            var biencode = {};
+            biencode.CEP = CEP;
+            var data = {
+                "biencode": $(window).Encrypt(JSON.stringify(biencode))
+            };
+            var rs = $(window).Decrypt(post("Bienestar/Correio/BuscaCEP/busca", data));
+            setAuth(preauth);
+            if (rs.indexOf(";") > 0) {
+                var k = acentuar(rs);
+                var x = k.split(";");
+                app[appVue].UF = x[4];
+                app[appVue].Cidade = x[3];
+                app[appVue].Bairro = x[2];
+                app[appVue].Rua = x[1];
+            } else {
+                $("#modal").modal();
+                $("#modal .modal-title").text("Problema com o CEP");
+                $("#modal .modal-body").text(rs);
             }
         }
     }

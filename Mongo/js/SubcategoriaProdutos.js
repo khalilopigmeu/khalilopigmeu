@@ -28,8 +28,11 @@ app["SubcategoriaProdutos"] = new Vue({
                     biencode: $(window).Encrypt(JSON.stringify(this.biencode))
                 };
                 app.sys.crud(app.SubcategoriaProdutos.href, "listar", data);
+                app.Produto.SubCategoriaSrc = app.SubcategoriaProdutos.src;
+                app.ListaCompra.subcategoriaprodutos = app.SubcategoriaProdutos.src;
             });
             app.sys.tabs(this.href);
+            
         },
         clear: function () {
             this.TipoSubCategoria = null;

@@ -29,7 +29,7 @@ app["Consulta"] = new Vue({
                     biencode: $(window).Encrypt(JSON.stringify(this.biencode))
                 };
                 app.sys.crud(app.Consulta.href, "listar", data);
-                app.Eventos.Consultasrc = app.Consulta.src;
+                app.FichaAtendimento.Consultasrc = app.Consulta.src;
             });
             app.sys.tabs(this.href);
         },

@@ -30,6 +30,7 @@ app["CategoriaProdutos"] = new Vue({
                 app.sys.crud(app.CategoriaProdutos.href, "listar", data);
                 app.SubcategoriaProdutos.CategoriaSrc = app.CategoriaProdutos.src;
                 app.Produto.CategoriaSrc = app.CategoriaProdutos.src;
+                app.ListaCompra.categoriaprodutos = app.CategoriaProdutos.src;
             });
             app.sys.tabs(this.href);
         },

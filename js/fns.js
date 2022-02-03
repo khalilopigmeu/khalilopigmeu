@@ -657,6 +657,11 @@ function sortTableNumber(id) {
 function lastModal() {
     if (window.localStorage.getItem("modalLast") !== null) {
         $("#" + window.localStorage.getItem("modalLast")).modal();
+        try {
+            app[window.localStorage.getItem("modalLast")].populate();
+        } catch (e) {
+            //$(window).NotifyErr(e);
+        }
         window.localStorage.removeItem("modalLast");
         window.localStorage.removeItem("modalFocus");
     }

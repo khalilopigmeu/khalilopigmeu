@@ -28,6 +28,7 @@ function instanceCalendar(el, rs, evtModal) {
                 text: 'Recarregar',
                 click: function () {
                     app.Eventos.calendar.destroy();
+                    app.calendar.progress = 0;
                     app.Ravec.ravecUpdate();
                 }
             }

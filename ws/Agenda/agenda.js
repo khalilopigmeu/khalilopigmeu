@@ -14,7 +14,9 @@ app.calendar = new Vue({
         tempSrc: null,
         tempClass: null,
         grpslc: [],
-        data: []
+        data: [],
+        LancamentoFinanceiroSrc: [],
+        progress: 0
     },
     created: function () {
     },
@@ -32,8 +34,8 @@ app.calendar = new Vue({
             this.grafico();
         },
         grafico: function () {
-          /*  var itens = [];
-            this.eventosSrc = this.sorter(this.eventosSrc, "DESC", "start");
+            var itens = [];
+            this.eventosSrc = app.sys.sorter(this.eventosSrc, "DESC", "start");
             if (this.grpslc.length > 0) {
                 this.tempSrc = this.eventosSrc.filter(i => this.grpslc.includes(i.groupId));
                 this.tempClass = eval(this.CategoriaSrc).filter(i => this.grpslc.includes(i._id["$oid"]))
@@ -41,7 +43,14 @@ app.calendar = new Vue({
                     itens = [];
                     for (var j = 0; j <= this.tempSrc.length - 1; j++) {
                         if (this.tempSrc[j].groupId === this.tempClass[i]._id["$oid"]) {
-                            itens.push({x: formatadata(app.Eventos.calendar.formatIso(this.tempSrc[j].start)), y: this.random()});
+                            var fin = this.tempSrc[j].extendedProps.LancamentoFinanceiro;
+                            if (fin !== null) {
+                                var item = app.sys.searchByID(this.LancamentoFinanceiroSrc, fin)[0];
+                                itens.push({
+                                    x: formatadata(app.Eventos.calendar.formatIso(this.tempSrc[j].start)),
+                                    y: Real(item.Valor).value
+                                });
+                            }
                         }
                     }
                     this.data[i] = {
@@ -57,7 +66,16 @@ app.calendar = new Vue({
                     itens = [];
                     for (var j = 0; j <= this.eventosSrc.length - 1; j++) {
                         if (this.eventosSrc[j].groupId === this.CategoriaSrc[i]._id["$oid"]) {
-                            itens.push({x: formatadata(app.Eventos.calendar.formatIso(this.eventosSrc[j].start)), y: this.random()});
+                            var fin = this.eventosSrc[j].extendedProps.LancamentoFinanceiro;
+                            if (typeof fin !== "undefined") {
+                                if (fin !== null) {
+                                    var item = app.sys.searchByID(this.LancamentoFinanceiroSrc, fin)[0];
+                                    itens.push({
+                                        x: formatadata(app.Eventos.calendar.formatIso(this.eventosSrc[j].start)),
+                                        y: Real(item.Valor).value
+                                    });
+                                }
+                            }
                         }
                     }
                     if (itens.length > 0) {
@@ -84,11 +102,11 @@ app.calendar = new Vue({
                         }
                     }
                 }
-            });*/
+            });
         },
         updateChart: function () {
-            /*this.chart.destroy();
-            this.grafico();*/
+            this.chart.destroy();
+            this.grafico();
         },
         updateFC: function () {
             if (this.grpslc !== null) {
@@ -106,22 +124,6 @@ app.calendar = new Vue({
                 app.Eventos.calendar.destroy();
                 app.Eventos.calendar = instanceCalendar("calendarTabContent", JSON.stringify(this.eventosSrc), "#Eventos");
                 this.updateChart();
-            }
-        },
-        random: function () {
-            return parseInt(Math.random() * (100 - 5) + 5);
-        },
-        sorter: function (arr, model, field) {
-            if (arr !== null) {
-                if (model === "ASC") {
-                    return arr.slice().sort(function (a, b) {
-                        return a[field] - b[field];
-                    });
-                } else {
-                    return arr.slice().sort(function (a, b) {
-                        return b[field] - a[field];
-                    });
-                }
             }
         }
     }

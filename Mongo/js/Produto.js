@@ -14,7 +14,6 @@ app["Produto"] = new Vue({
         Icon: '<i class="fas fa-warehouse"></i>',
         pesqTbl: "",
         Host: "Bienestar/Estoque/Produtos/",
-
         QtdMin: null,
         Caracteristicas: null,
         EspecificacaoProduto: null,
@@ -39,13 +38,17 @@ app["Produto"] = new Vue({
         Contas: null,
         Tipo: null,
         Uso: null,
-
         FamiliaSrc: null,
         ClasseSrc: null,
         SubCategoriaSrc: null,
         CategoriaSrc: null,
         FornecedorSrc: null,
         AlbumSrc: null,
+        familiaselect: null,
+        classeselect: null,
+        categoriaselect: null,
+        subcategoriaselect: null,
+        produtoselect: null,
     },
     methods: {
         populate: function () {
@@ -56,7 +59,9 @@ app["Produto"] = new Vue({
                     biencode: $(window).Encrypt(JSON.stringify(this.biencode))
                 };
                 app.sys.crud(app.Produto.href, "listar", data);
-                app.Midia.ProdutoSrc = app.Procedimento.src;
+                app.Midia.ProdutoSrc = app.Produto.src;
+                app.ListaCompra.produtos = app.Produto.src;
+                app.PedidoVenda.Produtosrc = app.Produto.src;
             });
             app.sys.tabs(this.href);
         },
@@ -90,9 +95,13 @@ app["Produto"] = new Vue({
         autocomplete: function () {
             this.id = this.row[0];
             this.IdFamilia = app.sys.foreignKeyRestore(this.FamiliaSrc, "TipoFamilia", this.row[1]);
+            this.familiaselect = this.IdFamilia;
             this.IdClasse = app.sys.foreignKeyRestore(this.ClasseSrc, "TipoClasse", this.row[2]);
+            this.classeselect = this.IdClasse;
             this.IdCategoriaProduto = app.sys.foreignKeyRestore(this.CategoriaSrc, "TipoCategoria", this.row[3]);
+            this.categoriaselect = this.IdCategoriaProduto;
             this.IdSubCategoriaProduto = app.sys.foreignKeyRestore(this.SubCategoriaSrc, "TipoSubCategoria", this.row[4]);
+            this.subcategoriaselect = this.IdSubCategoriaProduto;
             this.IdFornecedor = app.sys.foreignKeyRestore(this.FornecedorSrc, "Nome", this.row[5]);
             this.IdAlbum = app.sys.foreignKeyRestore(this.AlbumSrc, "Nome", this.row[6]);
             this.CodProduto = this.row[7];
@@ -119,7 +128,7 @@ app["Produto"] = new Vue({
             app.erros.errors = {};
             this.biencode = {};
             this.biencode.QtdMin = this.QtdMin;
-            this.Caracteristicas = CKEDITOR.instances['caracteristicas'].getData();
+            this.Caracteristicas = CKEDITOR.instances['caracteristica'].getData();
             this.biencode.Caracteristicas = this.Caracteristicas;
             this.EspecificacaoProduto = CKEDITOR.instances['especificacao'].getData();
             this.biencode.EspecificacaoProduto = this.EspecificacaoProduto;
@@ -182,6 +191,77 @@ app["Produto"] = new Vue({
             } else {
                 return false;
             }
+        },
+        onselect: function (element) {
+            switch (element) {
+                case "familia":
+                    this.familiaselect = this.IdFamilia;
+                    break;
+                case "classe":
+                    this.classeselect = this.IdClasse;
+                    break;
+                case "categoria":
+                    this.categoriaselect = this.IdCategoriaProduto;
+                    break;
+                case "subcategoria":
+                    this.subcategoriaselect = this.IdSubCategoriaProduto;
+                    break;
+                case "produtos":
+                    this.produtoselect = this.id;
+                    break;
+            }
+        },
+        getFamilia: function (srcpesq) {
+            let list = [];
+            let source;
+            if (srcpesq === null) {
+                source = this.src;
+            } else {
+                source = srcpesq;
+            }
+            for (var i = 0; i <= source.length - 1; i++) {
+                list.push(source[i].IdFamilia);
+            }
+            return list.filter(app.sys.onlyUnique);
+        },
+        getClasse: function (srcpesq) {
+            let list = [];
+            let source;
+            if (srcpesq === null) {
+                source = this.src;
+            } else {
+                source = srcpesq;
+            }
+            for (var i = 0; i <= source.length - 1; i++) {
+                list.push(source[i].IdClasse);
+            }
+            return list.filter(app.sys.onlyUnique);
+        },
+        getCategoria: function (srcpesq) {
+            let list = [];
+            let source;
+            if (srcpesq === null) {
+                source = this.src;
+            } else {
+                source = srcpesq;
+            }
+            for (var i = 0; i <= source.length - 1; i++) {
+                list.push(source[i].IdClasse);
+            }
+            return list.filter(app.sys.onlyUnique);
+        },
+        getSubcategoria: function (srcpesq) {
+            let list = [];
+            let source;
+            if (srcpesq === null) {
+                source = this.src;
+            } else {
+                source = srcpesq;
+            }
+            for (var i = 0; i <= source.length - 1; i++) {
+                list.push(source[i].IdSubCategoriaProduto);
+            }
+            return list.filter(app.sys.onlyUnique);
         }
     }
 });

@@ -127,13 +127,16 @@ app["Ravec"] = new Vue({
             }
         },
         ravecUpdate: function () {
+            var steps = 0;
             for (var i = 0; i <= Object.keys(app).length - 1; i++) {
                 try {
                     app[Object.keys(app)[i]].populate();
+                    steps++;
                 } catch (e) {
                     console.log(e)
                 }
             }
+            app.sys.steper = 100 / steps;
         },
         updateAcesso: function () {
             for (var i = 0; i <= this.Loginsrc.length - 1; i++) {
@@ -160,7 +163,7 @@ app["Ravec"] = new Vue({
                             }
                         }
                         break;
-                    }else{
+                    } else {
                         this.acesso = eval($(window).Decrypt(window.localStorage.getItem("RAVEC"), "tufsqulu"));
                         this.opcoes = [];
                         for (var i = 0; i <= Object.keys(app).length - 1; i++) {

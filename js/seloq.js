@@ -97,20 +97,29 @@ function urlRead() {
     urlSite = window.location.href;
     if (urlSite.includes("#") || urlSite.includes("?")) {
         var urlclean = urlSite.split("?");
-        var modal = urlclean[0].split("#");
-        if ($("#" + modal[1]).hasClass("modal")) {
-            $("#" + modal[1]).modal('show');
+        var element = urlclean[0].split("#");
+        if ($("#" + element[1]).hasClass("modal")) {
+            $("#" + element[1]).modal('show');
         } else {
-            app.sys.page = modal[1];
+            app.sys.page = element[1];
         }
+    }
+    if (app.sys.page === "promocao") {
+        app.paginasite.buscar();
+        app.sys.seo(urlSite, getParameterByName('pgid'));
     }
     if (app.sys.page === "anunciante") {
         if (getParameterByName('pgid')) {
             app.anunciante.pgid = getParameterByName('pgid');
             app.anunciante.buscar();
-            app.configuracao.buscar();
+            app.configuracaosite.buscar();
             app.paginasite.buscar();
             app.sys.seo(urlSite, getParameterByName('pgid'));
+            app.FamiliaProdutosSite.buscar();
+            app.ClasseProdutosSite.buscar();
+            app.CategoriaProdutosSite.buscar();
+            app.SubcategoriaProdutosSite.buscar();
+            app.ProdutosSite.buscar();
         } else {
             app.anunciante.buscar();
             app.sys.seo(urlSite);
