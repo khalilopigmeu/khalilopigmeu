@@ -20,7 +20,7 @@ app["CategoriaProdutosSite"] = new Vue({
                 };
                 app.sys.crud("CategoriaProdutosSite", "listar", data);
                 setAuth(preauth);
-                app.anunciante.categoriaprodutos = app.CategoriaProdutosSite.src;
+                app.empresasanunciando.categoriaprodutos = app.CategoriaProdutosSite.src;
             });
         },
         clear: function () {

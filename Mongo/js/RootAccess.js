@@ -64,8 +64,6 @@ app["RootAccess"] = new Vue({
                     if (this.EmpresaSrc[i].Cnpj !== null) {
                         this.biencode.Empresa = this.EmpresaSrc[i].NomeFantasia;
                         Empresa = this.EmpresaSrc[i].NomeFantasia;
-                        this.biencode.Empresa = this.EmpresaSrc[i].Nome;
-                        Nome = this.EmpresaSrc[i].Nome;
                     } else {
                         this.biencode.Empresa = this.EmpresaSrc[i].Nome;
                         Nome = this.EmpresaSrc[i].Nome;

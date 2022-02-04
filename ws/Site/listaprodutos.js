@@ -14,8 +14,8 @@ app["ListaProdutosSite"] = new Vue({
                 var auth = $(window).Decrypt(app.sys.bien);
                 setAuth(auth);
                 this.biencode = {};
-                if (app.anunciante.pgid !== null) {
-                    this.biencode.empresa = app.anunciante.pgid;
+                if (app.empresasanunciando.pgid !== null) {
+                    this.biencode.empresa = app.empresasanunciando.pgid;
                 } else {
                     this.biencode.all = "";
                 }
@@ -24,8 +24,8 @@ app["ListaProdutosSite"] = new Vue({
                 };
                 app.sys.crud("ListaProdutosSite", "listar", data);
                 setAuth(preauth);
-                if (app.anunciante.pgid !== null) {
-                    app.anunciante.listaprodutos = app.ListaProdutosSite.src;
+                if (app.empresasanunciando.pgid !== null) {
+                    app.empresasanunciando.listaprodutos = app.ListaProdutosSite.src;
                 }
             });
         },

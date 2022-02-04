@@ -14,7 +14,7 @@ app["anunciante"] = new Vue({
                 var auth = $(window).Decrypt(app.sys.bien);
                 setAuth(auth);
                 this.biencode = {};
-                this.biencode.all = "";
+                this.biencode.all = "all";
                 var data = {
                     biencode: $(window).Encrypt(JSON.stringify(this.biencode))
                 };

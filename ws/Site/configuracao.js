@@ -14,8 +14,8 @@ app["configuracaosite"] = new Vue({
                 var auth = $(window).Decrypt(app.sys.bien);
                 setAuth(auth);
                 this.biencode = {};
-                if (app.anunciante.pgid !== null) {
-                    this.biencode.pgid = app.anunciante.pgid;
+                if (app.empresasanunciando.pgid !== null) {
+                    this.biencode.pgid = app.empresasanunciando.pgid;
                 } else {
                     this.biencode.all = "";
                 }
@@ -24,19 +24,19 @@ app["configuracaosite"] = new Vue({
                 };
                 app.sys.crud("configuracaosite", "listar", data);
                 setAuth(preauth);
-                if (app.anunciante.pgid !== null) {
+                if (app.empresasanunciando.pgid !== null) {
                     if (app.configuracaosite.src.length > 0) {
                         if (app.configuracaosite.src[0].Facebook) {
-                            app.anunciante.fb = app.configuracaosite.src[0].Facebook.replace("@", "");
+                            app.empresasanunciando.fb = app.configuracaosite.src[0].Facebook.replace("@", "");
                         }
                         if (app.configuracaosite.src[0].Instagram) {
-                            app.anunciante.insta = app.configuracaosite.src[0].Instagram.replace("@", "");
+                            app.empresasanunciando.insta = app.configuracaosite.src[0].Instagram.replace("@", "");
                         }
                         if (app.configuracaosite.src[0].Site) {
-                            app.anunciante.site = app.configuracaosite.src[0].Site;
+                            app.empresasanunciando.site = app.configuracaosite.src[0].Site;
                         }
                         if (app.configuracaosite.src[0].LogoURL) {
-                            app.anunciante.logo = app.configuracaosite.src[0].LogoURL;
+                            app.empresasanunciando.logo = app.configuracaosite.src[0].LogoURL;
                         }
                     }
                 } else {

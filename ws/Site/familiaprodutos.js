@@ -20,7 +20,7 @@ app["FamiliaProdutosSite"] = new Vue({
                 };
                 app.sys.crud("FamiliaProdutosSite", "listar", data);
                 setAuth(preauth);
-                app.anunciante.familiaprodutos = app.FamiliaProdutosSite.src;
+                app.empresasanunciando.familiaprodutos = app.FamiliaProdutosSite.src;
             });
         },
         clear: function () {

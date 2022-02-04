@@ -20,7 +20,7 @@ app["SubcategoriaProdutosSite"] = new Vue({
                 };
                 app.sys.crud("SubcategoriaProdutosSite", "listar", data);
                 setAuth(preauth);
-                app.anunciante.subcategoriaprodutos = app.SubcategoriaProdutosSite.src;
+                app.empresasanunciando.subcategoriaprodutos = app.SubcategoriaProdutosSite.src;
             });
         },
         clear: function () {

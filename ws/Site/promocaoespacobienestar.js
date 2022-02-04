@@ -187,6 +187,17 @@ app["PromocaoEspacoBienestar"] = new Vue({
                     lote5: 210,
                 }
             },
+            {
+                icon: "<i class='fas fa-percent'></i>",
+                link: "reiki",
+                valor: {
+                    lote1: 95,
+                    lote2: 115,
+                    lote3: 135,
+                    lote4: 155,
+                    lote5: 175,
+                }
+            },
         ],
     },
     created: function () {

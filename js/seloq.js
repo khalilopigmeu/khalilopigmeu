@@ -95,6 +95,7 @@ function urlRead() {
     app.anunciante.pgid = null;
     app.paginasite.pg = null;
     urlSite = window.location.href;
+    app.Customizar.defaultColor();
     if (urlSite.includes("#") || urlSite.includes("?")) {
         var urlclean = urlSite.split("?");
         var element = urlclean[0].split("#");
@@ -111,7 +112,9 @@ function urlRead() {
     if (app.sys.page === "anunciante") {
         if (getParameterByName('pgid')) {
             app.anunciante.pgid = getParameterByName('pgid');
+            app.empresasanunciando.pgid = getParameterByName('pgid');
             app.anunciante.buscar();
+            app.empresasanunciando.buscar();
             app.configuracaosite.buscar();
             app.paginasite.buscar();
             app.sys.seo(urlSite, getParameterByName('pgid'));
@@ -121,6 +124,8 @@ function urlRead() {
             app.SubcategoriaProdutosSite.buscar();
             app.ProdutosSite.buscar();
         } else {
+            app.configuracaosite.buscar();
+            app.empresasanunciando.buscar();
             app.anunciante.buscar();
             app.sys.seo(urlSite);
         }

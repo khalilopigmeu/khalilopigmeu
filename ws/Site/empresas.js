@@ -188,7 +188,7 @@ app["empresasanunciando"] = new Vue({
             }
         },
         Empresa: function (id) {
-            return app.sys.searchByID(this.src, id);
+            return app.sys.searchByID(this.src, id)[0];
         }
     },
 });

@@ -17,8 +17,8 @@ app["paginasite"] = new Vue({
                 if (app.paginasite.pg !== null) {
                     this.biencode.urlpage = getParameterByName("pg");
                 }
-                if (typeof app.anunciante !== 'undefined') {
-                    if (app.anunciante.pgid !== null) {
+                if (typeof app.empresasanunciando !== 'undefined') {
+                    if (app.empresasanunciando.pgid !== null) {
                         this.biencode.empresa = getParameterByName("pgid");
                     } else {
                         this.biencode.empresa = app.sys.refid;
@@ -34,9 +34,9 @@ app["paginasite"] = new Vue({
                 if (typeof app.Promocao !== 'undefined') {
                     app.Promocao.paginasSrc = app.paginasite.src;
                 }
-                if (typeof app.anunciante !== 'undefined') {
-                    if (app.anunciante.pgid !== null) {
-                        app.anunciante.paginas = app.paginasite.src;
+                if (typeof app.empresasanunciando !== 'undefined') {
+                    if (app.empresasanunciando.pgid !== null) {
+                        app.empresasanunciando.paginas = app.paginasite.src;
                     }
                 }
             });

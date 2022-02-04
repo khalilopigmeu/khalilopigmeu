@@ -1,5 +1,4 @@
 "use strict";
-var app = {};
 app["Customizar"] = new Vue({
     el: '#Customizar',
     data: {
@@ -17,7 +16,7 @@ app["Customizar"] = new Vue({
         linhaeven: null,
         linhaodd: null,
     },
-    created: {
+    methods: {
         defaultColor: function () {
             if (urlSite.includes("borealmystic")) {
                 this.dark = "#011006";
@@ -29,9 +28,7 @@ app["Customizar"] = new Vue({
                 this.light = "#73D393";
             }
             this.changeColorSystem();
-        }
-    },
-    methods: {
+        },
         changeColorSystem: function () {
             var cor1 = window.localStorage.getItem("dark");
             var cor2 = window.localStorage.getItem("medium");
@@ -75,9 +72,9 @@ app["Customizar"] = new Vue({
                 }
             }
             document.getElementsByTagName("style")[0].textContent = ":root{"
-                    + "--dark:" + dark + ";"
-                    + "--medium:" + medium + ";"
-                    + "--light:" + light + ";"
+                    + "--dark:" + this.dark + ";"
+                    + "--medium:" + this.medium + ";"
+                    + "--light:" + this.light + ";"
                     + ""
                     + "}";
         },
