@@ -41,6 +41,7 @@ app["LancamentoFinanceiro"] = new Vue({
                 app.calendar.LancamentoFinanceiroSrc = app.LancamentoFinanceiro.src;
             });
             app.sys.tabs(this.href);
+            app.SocialMedia.mascara();
         },
         clear: function () {
             this.Modalidade = null;

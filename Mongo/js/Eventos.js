@@ -57,8 +57,8 @@ app["Eventos"] = new Vue({
         OrdemServicoSrc: [],
         OrdemProducao: null,
         OrdemProducaoSrc: [],
-        
-        importar:null,
+
+        importar: null,
     },
     methods: {
         populate: function () {
@@ -150,7 +150,7 @@ app["Eventos"] = new Vue({
             this.PedidoDeVenda = this.extendedProps.PedidoDeVenda;
             this.OrdemServico = this.extendedProps.OrdemServico;
             this.OrdemProducao = this.extendedProps.OrdemProducao;
-
+            this.id = this.extendedProps._id.$oid;
             app.SocialMedia.mascara();
         },
         checkForm: function () {
@@ -183,16 +183,16 @@ app["Eventos"] = new Vue({
             this.biencode.backgroundColor = this.backgroundColor;
             this.biencode.textColor = this.textColor;
             this.biencode.borderColor = this.borderColor;
-
+            this.biencode.id = this.id;
             var extendedProps = {};
             extendedProps.empresa = window.localStorage.getItem("IdEmpresa");
             extendedProps.descricao = this.observacao;
             extendedProps.FichaAtendimento = this.FichaAtendimento;
             extendedProps.LancamentoFinanceiro = this.LancamentoFinanceiro;
-            extendedProps.PedidoDeVenda =this.PedidoDeVenda;
+            extendedProps.PedidoDeVenda = this.PedidoDeVenda;
             extendedProps.OrdemServico = this.OrdemServico;
             extendedProps.OrdemProducao = this.OrdemProducao;
-
+            
             this.extendedProps = extendedProps;
             this.biencode.extendedProps = this.extendedProps;
             /*if (this.repetir) {
