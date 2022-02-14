@@ -71,9 +71,9 @@
         <h2 class="spanCli m-2 p-2">Associado:</h2>
         <div class="row justify-content-center text-center text-capitalize">
             <div class="col-md-12 col-lg-12 col-xl-12 col-12 m-3 p-3 mb-4">
-                <img v-if="logo"  v-bind:src="getLogo(Empresa(pgid)._id['$oid'])" class="img-thumbnail rounded mx-auto d-block">
+                <img v-bind:src="getLogo(Empresa(pgid)._id['$oid'])" class="img-thumbnail rounded mx-auto d-block">
             </div>
-            <div v-if="Empresa(pgid).NomeFantasia" class="col-md-12 col-lg-12 col-xl-12 col-12 row">
+            <div v-if="typeof Empresa(pgid).NomeFantasia !== 'undefined'" class="col-md-12 col-lg-12 col-xl-12 col-12 row">
                 <div class="col-md-12 col-lg-4 col-xl-4 col-12" v-if="Empresa(pgid).NomeFantasia!='null'"><span class='spanCli m-2 p-2'>Empresa:</span> {{Empresa(pgid).NomeFantasia}}</div>
                 <div class="col-md-12 col-lg-4 col-xl-4 col-12" v-if="Empresa(pgid).Cnpj!='null'"><span class='spanCli m-2 p-2'>CNPJ:</span> {{Empresa(pgid).Cnpj}}</div>
                 <div class="col-md-12 col-lg-4 col-xl-4 col-12" v-if="Empresa(pgid).Nome!='null'"><span class='spanCli m-2 p-2'>Responsável:</span> {{Empresa(pgid).Nome}}</div>
@@ -100,11 +100,11 @@
             <div class="col-md-12 col-lg-4 col-xl-4 col-12" v-if="getFB(pgid)!=null"><span class='spanCli m-2 p-2'><i class="fab fa-facebook-f"></i> Facebook:</span> <a class='listA' target="_blank" v-bind:href="'https://facebook.com/'+getFB(Empresa(pgid)._id['$oid'])">@{{getFB(Empresa(pgid)._id['$oid'])}}</a></div>
             <div class="col-md-12 col-lg-4 col-xl-4 col-12" v-if="getInsta(pgid)!=null"><span class='spanCli m-2 p-2'><i class="fab fa-instagram"></i> Instagram:</span> <a class='listA' target="_blank" v-bind:href="'https://instagram.com/'+getInsta(Empresa(pgid)._id['$oid'])">@{{getInsta(Empresa(pgid)._id['$oid'])}}</a></div>
             <div class="col-md-12 col-lg-4 col-xl-4 col-12" v-if="getSite(pgid)!=null"><span class='spanCli m-2 p-2'><i class="fas fa-globe"></i> Site:</span> <a class='listA' target="_blank" v-bind:href="getSite(Empresa(pgid)._id['$oid'])">
-                    <span v-if="Empresa(itens.IdEmpresa).NomeFantasia">
-                        {{Empresa(itens.IdEmpresa).NomeFantasia}}
+                    <span v-if="Empresa(pgid).NomeFantasia">
+                        {{Empresa(pgid).NomeFantasia}}
                     </span>
                     <span class="spanCli" v-else>
-                        {{Empresa(itens.IdEmpresa).Nome}}    
+                        {{Empresa(pgid).Nome}}    
                     </span>
                 </a></div>
         </div>
@@ -118,9 +118,9 @@
                 v-bind:src="'https://www.google.com/maps/embed/v1/place?key='+app.sys.gapi+'&q='+Empresa(pgid).Rua+','+Empresa(pgid).Num" allowfullscreen>
         </iframe>
         <br>
-        <hr>
-        <h2 class="spanCli m-2 p-2">Conheça nosso conteúdo:</h2>
-        <div class="row">
+        <hr v-if="paginas!==null">
+        <h2 class="spanCli m-2 p-2" v-if="paginas!==null">Conheça nosso conteúdo:</h2>
+        <div class="row" v-if="paginas!==null">
             <nav class="navbar bg-m navbar-light res col-md-12 col-lg-3 col-xl-3 col-12" id="navbarCliente">
                 <div class="container-fluid justify-content-center w-100">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsiveCli" aria-controls="navbarResponsiveCli" aria-expanded="false" aria-label="Toggle navigation">
@@ -143,9 +143,9 @@
             </div>
         </div>
         <br>
-        <hr>
-        <h2 class="spanCli m-2 p-2">Conheça nossos produtos:</h2>
-        <div class="row">
+        <hr v-if="produtos!==null && produtos.length>0">
+        <h2 class="spanCli m-2 p-2" v-if="produtos!==null && produtos.length>0">Conheça nossos produtos:</h2>
+        <div class="row"  v-if="produtos!==null && produtos.length>0">
             <nav class="navbar bg-m navbar-light res col-md-12 col-lg-3 col-xl-3 col-12" id="navbarProdutos">
                 <div class="container-fluid justify-content-center w-100">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsivePro" aria-controls="navbarResponsivePro" aria-expanded="false" aria-label="Toggle navigation">

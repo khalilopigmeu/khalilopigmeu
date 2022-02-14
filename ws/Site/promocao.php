@@ -1,5 +1,5 @@
-<div id="Promocao" v-if="app.sys.page==='promocao'" >
-    <section id="servicos" class="p-2 rounded">
+<div id="Promocao" v-if="app.sys.page=='promocao'" >
+    <section v-if="servicos" id="servicos" class="p-2 rounded">
         <div class="container justify-content-center text-center">
             <h2>Serviços</h2>
             <br>
@@ -30,7 +30,7 @@
         </div>
     </section>
     <hr>
-    <section id="servicosPlataforma" class="p-2 rounded">
+    <section v-if="pacotes" id="servicosPlataforma" class="p-2 rounded">
         <div class="container justify-content-center text-center">
             <h2>Pacotes</h2>
             <br>
@@ -74,4 +74,4 @@
         </div>
     </section>
 </div>
-
+<script src="<?php echo $cdn; ?>ws/Site/promocao.js"></script>

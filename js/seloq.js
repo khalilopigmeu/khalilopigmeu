@@ -105,27 +105,29 @@ function urlRead() {
             app.sys.page = element[1];
         }
     }
-    if(app.sys.page=="promocaoespacobienestar"){
-        window.location.href="https://www.bienclube.com.br/index.php#promocao?pgid=61fbb5a965ac59817653d77c";
+    if (app.sys.page == "promocaoespacobienestar") {
+        window.location.href = "https://www.bienclube.com.br/index.php#promocao?pgid=61fbb5a965ac59817653d77c";
     }
     if (app.sys.page === "promocao") {
-        var script = document.createElement("script");
-        script.type = "text/javascript";
-        script.addEventListener("load", function (event) {
-            app.paginasite.buscar();
-            app.sys.seo(urlSite);
-        });
-        if (getParameterByName('pgid')) {
+        if (getParameterByName('pgid') !== null) {
             app.anunciante.pgid = getParameterByName('pgid');
             app.empresasanunciando.pgid = getParameterByName('pgid');
-            script.src = "/ws/Site/promocao_" + getParameterByName('pgid') + ".js";
+            app.paginasite.buscar();
+            app.sys.seo(urlSite);
+            app.Promocao.servicos = eval("app.Promocao.servicos_" + getParameterByName('pgid'));
+            app.Promocao.pacotes = null
         } else {
-            script.src = "/ws/Site/promocao.js";
+            app.anunciante.pgid = null;
+            app.empresasanunciando.pgid = null;
+            app.paginasite.buscar();
+            app.sys.seo(urlSite);
+            app.Promocao.servicos = app.Promocao.servicosBienestar;
+            app.Promocao.pacotes = app.Promocao.pacotesBienestar;
         }
-        document.body.appendChild(script);
+
     }
     if (app.sys.page === "anunciante") {
-        if (getParameterByName('pgid')) {
+        if (getParameterByName('pgid') !== null) {
             app.anunciante.pgid = getParameterByName('pgid');
             app.empresasanunciando.pgid = getParameterByName('pgid');
             app.anunciante.buscar();
@@ -139,6 +141,8 @@ function urlRead() {
             app.SubcategoriaProdutosSite.buscar();
             app.ProdutosSite.buscar();
         } else {
+            app.anunciante.pgid = null;
+            app.empresasanunciando.pgid = null;
             app.configuracaosite.buscar();
             app.empresasanunciando.buscar();
             app.anunciante.buscar();

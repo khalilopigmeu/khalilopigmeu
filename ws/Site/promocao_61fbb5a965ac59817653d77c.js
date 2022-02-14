@@ -27,11 +27,11 @@ app["Promocao"] = new Vue({
                 icon: "<i class='fas fa-percent'></i>",
                 link: "fengshui",
                 valor: {
-                    lote1: 95,
-                    lote2: 115,
-                    lote3: 135,
-                    lote4: 155,
-                    lote5: 175,
+                    lote1: 100,
+                    lote2: 125,
+                    lote3: 150,
+                    lote4: 175,
+                    lote5: 200,
                 }
             },
             {
@@ -82,44 +82,44 @@ app["Promocao"] = new Vue({
                 icon: "<i class='fas fa-percent'></i>",
                 link: "acupunturaeterica",
                 valor: {
-                    lote1: 95,
-                    lote2: 115,
-                    lote3: 135,
-                    lote4: 155,
-                    lote5: 175,
+                    lote1: 65,
+                    lote2: 80,
+                    lote3: 95,
+                    lote4: 110,
+                    lote5: 125,
                 }
             },
             {
                 icon: "<i class='fas fa-percent'></i>",
                 link: "auriculoterapiaesfera",
                 valor: {
-                    lote1: 95,
-                    lote2: 115,
-                    lote3: 135,
-                    lote4: 155,
-                    lote5: 175,
+                    lote1: 70,
+                    lote2: 90,
+                    lote3: 110,
+                    lote4: 130,
+                    lote5: 150,
                 }
             },
             {
                 icon: "<i class='fas fa-percent'></i>",
                 link: "auriculoterapiachoque",
                 valor: {
-                    lote1: 95,
-                    lote2: 115,
-                    lote3: 135,
-                    lote4: 155,
-                    lote5: 175,
+                    lote1: 100,
+                    lote2: 120,
+                    lote3: 140,
+                    lote4: 160,
+                    lote5: 180,
                 }
             },
             {
                 icon: "<i class='fas fa-percent'></i>",
                 link: "auriculoterapialaser",
                 valor: {
-                    lote1: 95,
-                    lote2: 115,
-                    lote3: 135,
-                    lote4: 155,
-                    lote5: 175,
+                    lote1: 175,
+                    lote2: 195,
+                    lote3: 215,
+                    lote4: 235,
+                    lote5: 255,
                 }
             },
             {
