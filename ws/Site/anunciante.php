@@ -28,7 +28,14 @@
             </div>
             <div v-if="getSite(itens.IdEmpresa)!=null">
                 <span class='spanCli'><i class="fas fa-globe"></i> Site:</span>
-                <a class='listA' target="_blank" v-bind:href="getSite(itens.IdEmpresa)">{{getSite(itens.IdEmpresa)}}</a>
+                <a class='listA' target="_blank" v-bind:href="getSite(itens.IdEmpresa)">
+                    <span v-if="Empresa(itens.IdEmpresa).NomeFantasia">
+                        {{Empresa(itens.IdEmpresa).NomeFantasia}}
+                    </span>
+                    <span class="spanCli" v-else>
+                        {{Empresa(itens.IdEmpresa).Nome}}    
+                    </span>
+                </a>
                 <br>
             </div>
             <br>
@@ -92,7 +99,14 @@
             <div class="col-md-12 col-lg-4 col-xl-4 col-12" v-if="Empresa(pgid).Celular!='null'"><span class='spanCli m-2 p-2'><i class="fab fa-whatsapp"></i> whatsapp:</span> <a class='listA' target="_blank" v-bind:href="'https://wa.me/55'+cleanwap(Empresa(pgid).Celular)">{{Empresa(pgid).Celular}}</a></div>
             <div class="col-md-12 col-lg-4 col-xl-4 col-12" v-if="getFB(pgid)!=null"><span class='spanCli m-2 p-2'><i class="fab fa-facebook-f"></i> Facebook:</span> <a class='listA' target="_blank" v-bind:href="'https://facebook.com/'+getFB(Empresa(pgid)._id['$oid'])">@{{getFB(Empresa(pgid)._id['$oid'])}}</a></div>
             <div class="col-md-12 col-lg-4 col-xl-4 col-12" v-if="getInsta(pgid)!=null"><span class='spanCli m-2 p-2'><i class="fab fa-instagram"></i> Instagram:</span> <a class='listA' target="_blank" v-bind:href="'https://instagram.com/'+getInsta(Empresa(pgid)._id['$oid'])">@{{getInsta(Empresa(pgid)._id['$oid'])}}</a></div>
-            <div class="col-md-12 col-lg-4 col-xl-4 col-12" v-if="getSite(pgid)!=null"><span class='spanCli m-2 p-2'><i class="fas fa-globe"></i> Site:</span> <a class='listA' target="_blank" v-bind:href="getSite(Empresa(pgid)._id['$oid'])">{{getSite(Empresa(pgid)._id['$oid'])}}</a></div>
+            <div class="col-md-12 col-lg-4 col-xl-4 col-12" v-if="getSite(pgid)!=null"><span class='spanCli m-2 p-2'><i class="fas fa-globe"></i> Site:</span> <a class='listA' target="_blank" v-bind:href="getSite(Empresa(pgid)._id['$oid'])">
+                    <span v-if="Empresa(itens.IdEmpresa).NomeFantasia">
+                        {{Empresa(itens.IdEmpresa).NomeFantasia}}
+                    </span>
+                    <span class="spanCli" v-else>
+                        {{Empresa(itens.IdEmpresa).Nome}}    
+                    </span>
+                </a></div>
         </div>
         <br>
         <hr>

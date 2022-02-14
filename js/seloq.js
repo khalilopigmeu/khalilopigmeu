@@ -105,9 +105,24 @@ function urlRead() {
             app.sys.page = element[1];
         }
     }
+    if(app.sys.page=="promocaoespacobienestar"){
+        window.location.href="https://www.bienclube.com.br/index.php#promocao?pgid=61fbb5a965ac59817653d77c";
+    }
     if (app.sys.page === "promocao") {
-        app.paginasite.buscar();
-        app.sys.seo(urlSite, getParameterByName('pgid'));
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.addEventListener("load", function (event) {
+            app.paginasite.buscar();
+            app.sys.seo(urlSite);
+        });
+        if (getParameterByName('pgid')) {
+            app.anunciante.pgid = getParameterByName('pgid');
+            app.empresasanunciando.pgid = getParameterByName('pgid');
+            script.src = "/ws/Site/promocao_" + getParameterByName('pgid') + ".js";
+        } else {
+            script.src = "/ws/Site/promocao.js";
+        }
+        document.body.appendChild(script);
     }
     if (app.sys.page === "anunciante") {
         if (getParameterByName('pgid')) {

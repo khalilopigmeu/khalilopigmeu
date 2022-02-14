@@ -10,7 +10,7 @@ app["Promocao"] = new Vue({
         anual: 0.2,
         max: 4,
         min: 0,
-        servicosGraficos: [
+        servicos: [
             {
                 icon: "<i class='fas fa-percent'></i>",
                 link: "promocaologonovo",
@@ -154,7 +154,7 @@ app["Promocao"] = new Vue({
                     lote5: 4500,
                 }
             }, ],
-        servicosSistema: [
+        pacotes: [
             {
                 icon: "<i class='fas fa-percent'></i>",
                 link: "promocaodirecionado",

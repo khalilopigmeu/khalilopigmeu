@@ -1,10 +1,10 @@
-<div id="Promocao"  v-if="app.sys.page==='promocao'" >
-    <section id="servicosGraficos" class="p-2 rounded">
+<div id="Promocao" v-if="app.sys.page==='promocao'" >
+    <section id="servicos" class="p-2 rounded">
         <div class="container justify-content-center text-center">
-            <h2>Serviços Gráficos</h2>
+            <h2>Serviços</h2>
             <br>
             <div class="row justify-content-center text-center">
-                <div v-for="item in servicosGraficos" class='bg-light m-2 p-2 rounded border col-9'>
+                <div v-for="item in servicos" class='bg-light m-2 p-2 rounded border col-9'>
                     <h5 class="card-title text-muted text-uppercase text-center"><i v-bind:class="item.icon"></i>{{titulo(item.link)}}</h5>
                     <h6 class="card-price text-center">de <del>R$ {{item.valor[Object.keys(item.valor)[max]]}}</del> por R$ {{item.valor[Object.keys(item.valor)[min]]}}</h6>
                     <div v-html='conteudo(item.link)'></div>
@@ -32,7 +32,7 @@
     <hr>
     <section id="servicosPlataforma" class="p-2 rounded">
         <div class="container justify-content-center text-center">
-            <h2>Serviços da plataforma</h2>
+            <h2>Pacotes</h2>
             <br>
             <h4>
                 <label>Modalidade:</label>
@@ -45,7 +45,7 @@
             </h4>
             <br>
             <div class="row justify-content-center text-center">
-                <div v-for="item in servicosSistema" class='bg-light m-2 p-2 rounded border col-9'>
+                <div v-for="item in pacotes" class='bg-light m-2 p-2 rounded border col-9'>
                     <h5 class="card-title text-muted text-uppercase text-center"><i v-bind:class="item.icon"></i>{{titulo(item.link)}}</h5>
                     <h6 class="card-price text-center">
                         de <del>R$ {{atualizaPreco(item.valor[Object.keys(item.valor)[max]])}}</del> 
@@ -74,4 +74,4 @@
         </div>
     </section>
 </div>
-<script src="<?php echo $cdn; ?>ws/Site/promocao.js"></script>
+
