@@ -189,6 +189,7 @@ app["sys"] = new Vue({
                             var p = (post(ws, data));
                             var rs = $(window).Decrypt(p);
                             $(window).NotifyInfo(rs);
+                            app[appcontrol].clear();
                             app[appcontrol].populate();
                         } else {
                             $(window).NotifyInfo("Erro ao executar a operação");
