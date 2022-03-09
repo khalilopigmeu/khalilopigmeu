@@ -1,119 +1,207 @@
 @import url('https://fonts.googleapis.com/css?family=Courgette&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Glory:wght@500&display=swap');
 
+h1 {
+    font-size: 8vw !important;
+}
+h2 {
+    font-size: 7vh !important;
+}
+h3 {
+    font-size: 6vh !important;
+}
+h4 {
+    font-size: 5.5vh !important;
+}
+h5 {
+    font-size: 4.5vh !important;
+}
+h6 {
+    font-size: 4vh !important;
+}
+p {
+    font-size: 3vh;
+}
 html {
-    font-size: 16px;
+    font-size: 3vh;
 }
-.res {
-    font-size: 16px !important;
+body {
+    font-size: 3vh;
 }
-.res *{
-    font-size: 16px !important;
+table {
+    font-size: 3vh;
 }
-.modal *{
-    font-size: 16px !important;
+td {
+    font-size: 3vh;
 }
-.form-control{
-    font-size: 16px !important;
+.btn,button{
+    font-size: 3vh;
+    background: var(--botoesbg);
+    font-family: var(--botoesfont) !important;
+    color: var(--botoescolor) !important;
 }
-@media screen and (min-width: 320px) {
-    html {
-        font-size: calc(20px + 8 * ((100vw - 320px) / 680));
-    }
-    .res {
-        font-size: calc(20px + 8 * ((100vw - 320px) / 680));
-    }
-    .res *{
-        font-size: calc(20px + 8 * ((100vw - 320px) / 680));
-    }
-    .modal *{
-        font-size: calc(20px + 8 * ((100vw - 320px) / 680));
-    }
-    .form-control{
-        font-size: calc(20px + 8 * ((100vw - 320px) / 680));
-    }
+
+button:disabled,.btn:disabled{
+    background: var(--botoesoff);
 }
-@media screen and (min-width: 1000px) {
-    html {
-        font-size: 18px;
-    }
-    .res {
-        font-size: 18px !important;
-    }
-    .res *{
-        font-size: 18px !important;
-    }
-    .modal *{
-        font-size: 18px !important;
-    }
-    .form-control{
-        font-size: 18px !important;
-    }
+
+a:disabled,a.btn:disabled{
+    color: var(--botoesoff);
+}
+
+a:visited,a.btn:visited{
+    color: var(--botoesoff);
+}
+
+button:disabled,.btn:disabled{
+    background: var(--botoesoff);
+}
+
+button:hover,.btn:hover{
+    background: var(--botoesout);
+}
+
+.btn.btn-warning {
+    color: #212529;
+    background-color: #ffc107 !important;
+    border-color: #ffc107 !important;
+}
+.btn.btn-warning:hover {
+    background-color: #f1ca57 !important;
+    border-color: #333 !important;
+}
+
+.btn.btn-danger{
+    color: #fff;
+    background-color: #bd2130 !important;
+    border-color: #b21f2d !important;
+}
+.btn.btn-danger:hover{
+    background-color: #d1424f !important;
+    border-color: #333 !important;
+}
+
+a:hover,a.btn:hover{
+    color: var(--botoesout);
+}
+
+.bg-d{
+    background: var(--navbarbg) !important;
+}
+
+#sobreBien h4{
+    color: var(--navbarbg) !important;
+}
+
+.spanCli {
+    font-size: 4vh !important;
+    font-family: courgette,cursive;
+    color: var(--navbarbg);
+}
+
+.listA{
+    color: var(--hrefcolor) !important;
+}
+
+.socialink i{
+    font-size: 5vh !important;
+    color: var(--navbarbg);
+    border: 2px solid;
+    padding: 2vh;
+    border-radius: 10px;
+    width: 9vh;
+    height: 9vh;
+}
+
+
+.navbar{
+    background: var(--navbarbg) !important;
+}
+
+.navbar .nav-link{
+    font-family: var(--navbarfont) !important;
+    color: var(--navbarcolor) !important;
+    border-radius: 15px;
+}
+
+.navbar .nav-link:hover{
+    background: var(--botoesout);
 }
 
 .modal * {
     border-radius:10px !important;
 }
+.modal-header,.modal-content,.modal-footer {
+    background: var(--modalbg) !important;
+}
+
 .modal-dialog {
     max-width: 90% !important;
     width: 90% !important;
     overflow: auto !important;
+    background: var(--modalbg) !important;
+    font-family: var(--modalfont) !important;
+    color: var(--modalcolor) !important;
+}
+
+fieldset,legend{
+    background: var(--fieldesetbg) !important;
+    font-family: var(--fieldsetfont) !important;
+    color: var(--fieldsetcolor) !important;
+}
+
+input{
+    background: #eee !important;
+    color: #000 !important;
+}
+
+.tab-content{
+    background: var(--tabbg) !important;
+}
+
+.nav-tabs .nav-link{
+    background: var(--tabbg) !important;
+    font-family: var(--tabfont) !important;
+    color: var(--tabcolor) !important;
+}
+
+.nav-tabs .nav-link.active{
+    background: var(--navbarbg) !important;
+    font-family: var(--navbarfont) !important;
+    color: var(--navbarcolor) !important;
+}
+
+table thead tr{
+    background: var(--tableheadbg) !important;
+    font-family: var(--tableheadfont) !important;
+    color: var(--tableheadcolor) !important;;
+}
+
+table tr:hover{
+    background: var(--tableheadbg) !important;
+    font-family: var(--tableheadfont) !important;
+    color: var(--tableheadcolor) !important;;
+}
+
+tr:nth-child(even) {
+    background: var(--rowevenbg) !important;
+    color: var(--rowevencolor) !important;
+}
+tr:nth-child(odd) {
+    background: var(--rowoddbg) !important;
+    color: var(--rowoddcolor) !important;
+}
+
+table tfoot tr{
+    background: var(--tablebg) !important;
+    font-family: var(--tablefont) !important;
+    color: var(--tablecolor) !important;
 }
 
 .transition {
     transition-duration: 2s;
     transition-timing-function: linear;
     transition-delay: 1s;
-}
-
-fieldset,legend{
-    background: var(--light);
-}
-
-.navbar-light .navbar-toggler{
-    color:  var(--dark) !important;
-}
-
-.logofield{
-    border-bottom: 2px solid var(--dark);
-}
-
-.color-l{
-    color: var(--light) !important;
-}
-.color-m{
-    color: var(--medium) !important;
-}
-.color-d{
-    color: var(--dark) !important;
-}
-.bg-l{
-    background: var(--light) !important;
-}
-.bg-m{
-    background: var(--medium) !important;
-}
-.bg-d{
-    background: var(--dark) !important;
-}
-.border-l{
-    border-color: var(--light) !important;
-}
-.border-m{
-    border-color: var(--medium) !important;
-}
-.border-d{
-    border-color: var(--dark) !important;
-}
-
-.navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
-    color: #fff;
-}
-.navbar-light .navbar-nav .nav-link {
-    color: #fff;
-}
-.navbar-light .navbar-nav .nav-link:hover {
-    color: var(--light);
 }
 
 .fa{
@@ -136,10 +224,6 @@ fieldset,legend{
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
-}
-
-body{
-    background: #fff;
 }
 
 .logofield img{
@@ -169,60 +253,14 @@ body{
     overflow-y: scroll; 
 }
 
-.table-striped tbody tr:nth-of-type(odd) {
-    background-color: #abf598;
-}
 
 iframe{
     width: 100%;
     height: 100vh;
 }
 
-.tblslc,.mousein{
-    background: #006633 !important;
-    color:#fff !important;
-}
-
-a[class^="rc-"]:hover{
-    background: #abf598 !important;
-    color:#fff !important;
-}
-
-.list-group .list-group-item .nav-link{
-    color: #000 !important;
-}
-
-.color-green{
-    color: #006633 !important;
-}
-
-.btn-dark {
-    color: #fff;
-    background-color: #006633 !important;
-    border-color: #006633 !important;
-}
-.fc-button-primary {
-    color: #fff;
-    background-color: #257d69 !important;
-    border-color: #257d69 !important;
-}
-.fc-button-primary:not(:disabled):active, .fc-button-primary:not(:disabled).fc-button-active {
-    color: #fff;
-    background-color:#006633 !important;
-    border-color: #006633 !important;
-}
-
-.bg-whitegreen{
-    background: #006633;
-}
-
 form{
     width: 100%;
-}
-
-section.pricing {
-    background: #009543;
-    background: linear-gradient(to right, #009543, #006633);
 }
 
 .pricing .card {
@@ -289,10 +327,6 @@ section.pricing {
     font-family: 'Glory', sans-serif;
 }
 
-.list-group-item.active{
-    background: var(--medium) !important;
-}
-
 .borda-top{
     border-image: url(../img/bordah.png) 30 round !important;
     border-top: 1vw solid transparent !important;
@@ -320,46 +354,12 @@ section.pricing {
     border-bottom: 1vw solid transparent !important;
 }
 
-.socialink {
-    opacity: 0.7;
-}
-
-.socialink:hover {
-    opacity: 1;
-}
 
 .table td{
     max-height: 200px;
     overflow: hidden;
 }
 
-.listA:link {
-    color: var(--medium);
-    font-size: 20px;
-    font-family: 'Courgette', cursive;
-}
-
-
-
-.listA:visited {
-    color: var(--dark);
-    font-size: 20px;
-    font-family: 'Courgette', cursive;
-}
-
-
-
-.listA:active {
-    color: var(--dark);
-    font-size: 20px;
-    font-family: 'Courgette', cursive;
-}
-
-.spanCli{
-    font-size: 20px;
-    font-family: 'Courgette', cursive;
-    color: var(--dark);
-}
 
 .logoanunciante{
     max-width: 100%;

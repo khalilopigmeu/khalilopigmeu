@@ -14,7 +14,8 @@ app["sys"] = new Vue({
         itemsPerPage: 6,
         resultCount: 0,
         steper: 0,
-        count: 0
+        count: 0,
+        pallete: 0,
     },
     computed: {
         totalPages: function () {

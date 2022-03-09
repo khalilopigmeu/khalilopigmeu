@@ -1,7 +1,7 @@
 <div id="empresasanunciando" v-if="app.sys.page==='anunciante'" class="border rounded glory m-3 p-3 shadow-lg borda-x text-center justify-content-center">
     <div v-if="pgid==null" class="row text-center justify-content-center">
         <h2 class="spanCli m-2 p-2 mb-3 col-12">Conheça nossos clientes:</h2>
-        <div class="col-md-12 col-lg-3 col-xl-3 col-12 border m-1 p-1" v-for="itens in app.sys.paginate(anunciosSrc)">
+        <div v-if=itens.Ativo==='true' class="col-md-12 col-lg-3 col-xl-3 col-12 border m-1 p-1" v-for="itens in app.sys.paginate(anunciosSrc)">
             <img class="logoanunciante img-fluid rounded" 
                  v-bind:src="getLogo(itens.IdEmpresa)">
             <br>
@@ -39,11 +39,26 @@
                 <br>
             </div>
             <br>
-            <a v-if="app.sys.page=='loja'" class="btn btn-dark py-2 my-2" v-bind:href="'#loja?pgid='+itens.IdEmpresa">
-                Clique para saber mais <i class="fas fa-angle-double-right"></i>
+            <a v-if="itens.Tipo==='1'" class="btn btn-dark py-2 my-2" v-bind:href="'#anunciante?pgid='+itens.IdEmpresa">
+                Clique para ver a página <i class="fas fa-angle-double-right"></i>
             </a>
-            <a v-if="app.sys.page==='anunciante'" class="btn btn-dark py-2 my-2" v-bind:href="'#anunciante?pgid='+itens.IdEmpresa">
-                Clique para saber mais <i class="fas fa-angle-double-right"></i>
+            <a v-if="itens.Tipo==='2'" class="btn btn-dark py-2 my-2" v-bind:href="'#loja?pgid='+itens.IdEmpresa">
+                Clique para ver a loja <i class="fas fa-angle-double-right"></i>
+            </a>
+            <a v-if="itens.Tipo==='3'" class="btn btn-dark py-2 my-2" v-bind:href="'#anunciante?pgid='+itens.IdEmpresa">
+                Clique para ver a página <i class="fas fa-angle-double-right"></i>
+            </a>
+            <a v-if="itens.Tipo==='4'" target="_blank" class="btn btn-dark py-2 my-2" v-bind:href="getSite(itens.IdEmpresa)">
+                Clique para ver o Site <i class="fas fa-angle-double-right"></i>
+            </a>
+            <a v-if="itens.Tipo==='5'" target="_blank" class="btn btn-dark py-2 my-2" v-bind:href="'https://wa.me/55'+cleanwap(Empresa(itens.IdEmpresa).Celular)">
+                Clique para falar no Whatsapp <i class="fas fa-angle-double-right"></i>
+            </a>
+            <a v-if="itens.Tipo==='6'" target="_blank" class="btn btn-dark py-2 my-2" v-bind:href="'https://facebook.com/'+getFB(itens.IdEmpresa)">
+                Clique para ir ao Facebook<i class="fas fa-angle-double-right"></i>
+            </a>
+            <a v-if="itens.Tipo==='7'" target="_blank" class="btn btn-dark py-2 my-2" v-bind:href="'https://instagram.com/'+getInsta(itens.IdEmpresa)">
+                Clique para ir ao Instagram <i class="fas fa-angle-double-right"></i>
             </a>
         </div>
         <nav class="col-12" aria-label="Page navigation">

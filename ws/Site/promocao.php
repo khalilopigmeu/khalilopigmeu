@@ -8,20 +8,30 @@
                     <h5 class="card-title text-muted text-uppercase text-center"><i v-bind:class="item.icon"></i>{{titulo(item.link)}}</h5>
                     <h6 class="card-price text-center">de <del>R$ {{item.valor[Object.keys(item.valor)[max]]}}</del> por R$ {{item.valor[Object.keys(item.valor)[min]]}}</h6>
                     <div v-html='conteudo(item.link)'></div>
-                    <div class="row justify-content-center text-center">
-                        <div class="col-xl-3 col-lg-3 col-md-8 col-sm-8 col-8 m-2 p-2">
-                            <a v-bind:href="'https://wa.me/5511940007917?text='+item.link" target="_blank">
-                                <img src="<?php echo $refUrl; ?>img/whatsapp.png" class="socialink rounded img-fluid w-50" alt="" title="">
+                    <div class="row justify-content-center text-center socialink">
+                        <div class="col-xl-1 col-lg-1 col-md-1 col-sm-8 col-8 m-2">
+                            <a href="https://www.facebook.com/bienestarclube" target="_blank">
+                                <i class="fab fa-facebook-f"></i>
                             </a>
                         </div>
-                        <div class="col-xl-3 col-lg-3 col-md-8 col-sm-8 col-8 m-2 p-2">
-                            <a v-bind:href="'https://t.me/Bienestarclube'" target="_blank">
-                                <img src="<?php echo $refUrl; ?>img/telegram.png" class="socialink rounded img-fluid w-50" alt="" title="">
+                        <div class="col-xl-1 col-lg-1 col-md-1 col-sm-8 col-8 m-2">
+                            <a href="https://www.instagram.com/bienestarclube/" target="_blank">
+                                <i class="fab fa-instagram"></i>
                             </a>
                         </div>
-                        <div class="col-xl-3 col-lg-3 col-md-8 col-sm-8 col-8 m-2 p-2">
-                            <a v-bind:href="'https://www.messenger.com/t/bienestarclube'" target="_blank">
-                                <img src="<?php echo $refUrl; ?>img/messenger.png" class="socialink rounded img-fluid w-50" alt="" title="">
+                        <div class="col-xl-1 col-lg-1 col-md-1 col-sm-8 col-8 m-2">
+                            <a href="https://wa.me/5511940007917" target="_blank">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
+                        <div class="col-xl-1 col-lg-1 col-md-1 col-sm-8 col-8 m-2">
+                            <a href="https://t.me/Bienestarclube" target="_blank">
+                                <i class="fab fa-telegram"></i>
+                            </a>
+                        </div>
+                        <div class="col-xl-1 col-lg-1 col-md-1 col-sm-8 col-8 m-2">
+                            <a href="https://www.messenger.com/t/bienestarclube" target="_blank">
+                                <i class="fab fa-facebook-messenger"></i>
                             </a>
                         </div>
                     </div>
@@ -52,20 +62,30 @@
                         por R$ {{atualizaPreco(item.valor[Object.keys(item.valor)[min]])}}
                     </h6>
                     <div v-html='conteudo(item.link)'></div>
-                    <div class="row justify-content-center text-center">
-                        <div class="col-xl-3 col-lg-3 col-md-8 col-sm-8 col-8 m-2 p-2">
-                            <a v-bind:href="'https://wa.me/5511940007917?text='+item.link" target="_blank">
-                                <img src="<?php echo $refUrl; ?>img/whatsapp.png" class="socialink rounded img-fluid w-50" alt="" title="">
+                    <div class="row justify-content-center text-center socialink">
+                        <div class="col-xl-1 col-lg-1 col-md-1 col-sm-8 col-8 m-2">
+                            <a href="https://www.facebook.com/bienestarclube" target="_blank">
+                                <i class="fab fa-facebook-f"></i>
                             </a>
                         </div>
-                        <div class="col-xl-3 col-lg-3 col-md-8 col-sm-8 col-8 m-2 p-2">
-                            <a v-bind:href="'https://t.me/Bienestarclube'" target="_blank">
-                                <img src="<?php echo $refUrl; ?>img/telegram.png" class="socialink rounded img-fluid w-50" alt="" title="">
+                        <div class="col-xl-1 col-lg-1 col-md-1 col-sm-8 col-8 m-2">
+                            <a href="https://www.instagram.com/bienestarclube/" target="_blank">
+                                <i class="fab fa-instagram"></i>
                             </a>
                         </div>
-                        <div class="col-xl-3 col-lg-3 col-md-8 col-sm-8 col-8 m-2 p-2">
-                            <a v-bind:href="'https://www.messenger.com/t/bienestarclube'" target="_blank">
-                                <img src="<?php echo $refUrl; ?>img/messenger.png" class="socialink rounded img-fluid w-50" alt="" title="">
+                        <div class="col-xl-1 col-lg-1 col-md-1 col-sm-8 col-8 m-2">
+                            <a href="https://wa.me/5511940007917" target="_blank">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
+                        <div class="col-xl-1 col-lg-1 col-md-1 col-sm-8 col-8 m-2">
+                            <a href="https://t.me/Bienestarclube" target="_blank">
+                                <i class="fab fa-telegram"></i>
+                            </a>
+                        </div>
+                        <div class="col-xl-1 col-lg-1 col-md-1 col-sm-8 col-8 m-2">
+                            <a href="https://www.messenger.com/t/bienestarclube" target="_blank">
+                                <i class="fab fa-facebook-messenger"></i>
                             </a>
                         </div>
                     </div>

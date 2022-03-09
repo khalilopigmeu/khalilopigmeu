@@ -23,16 +23,16 @@ body {
 .sidebar-nav li a {
     display: block;
     text-decoration: none;
-    color:#eee !important;
+    color:var(--navbarcolor) !important;
     padding-left: 15px;
 }
 
 .sidebar-nav h3,.sidebar-nav h4{
-    color:#eee !important;
+    color:var(--navbarcolor) !important;
 }
 
 .sidebar-nav hr{
-    background:#eee !important;
+    background:var(--navbarcolor) !important;
 }
 
 .sidebar-nav li a:hover {
@@ -52,11 +52,11 @@ body {
 }
 
 .sidebar-nav>.sidebar-brand a {
-    color: #ddd;
+    color: var(--navbarcolor);
 }
 
 .sidebar-nav>.sidebar-brand a:hover {
-    color: #fff;
+    color: var(--navbarcolor);
     background: none;
 }
 
@@ -68,7 +68,7 @@ body {
     left: 60%;
     width: 0;
     height: 100%;
-    background: #006633;
+    background: var(--navbarbg);
     margin-left: -60%;
     overflow-y: auto;
     border-right: 1px solid #006633;
@@ -113,7 +113,7 @@ body {
     height: 100%;
     margin-right: -60%;
     overflow-y: auto;
-    background: #006633;
+    background: var(--navbarbg);
     border-left: 1px solid #006633;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;

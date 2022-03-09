@@ -2,86 +2,218 @@
 app["Customizar"] = new Vue({
     el: '#Customizar',
     data: {
+        src: null,
+        Host: "Bienestar/",
         dark: null,
-        medium: null,
-        light: null,
-        fssistema: null,
-        fundoform: null,
-        fsform: null,
-        cabecalhotabela: null,
-        fscabecalho: null,
-        rodapetabela: null,
-        fsrodape: null,
-        fstabela: null,
-        linhaeven: null,
-        linhaodd: null,
+        navbarbg: null,
+        navbarfont: null,
+        navbarcolor: null,
+
+        modalbg: null,
+        modalfont: null,
+        modalcolor: null,
+
+        fieldesetbg: null,
+        fieldsetfont: null,
+        fieldsetcolor: null,
+
+        tabbg: null,
+        tabfont: null,
+        tabcolor: null,
+
+        tableheadbg: null,
+        tableheadfont: null,
+        tableheadcolor: null,
+
+        rowevenbg: null,
+        rowevencolor: null,
+
+        rowoddbg: null,
+        rowoddcolor: null,
+
+        tablefootbg: null,
+        tablefootfont: null,
+        tablefootcolor: null,
+
+        botoesbg: null,
+        botoesout: null,
+        botoesoff: null,
+        botoesfont: null,
+        botoescolor: null,
+
+        hrefbg: null,
+        hreffont: null,
+        hrefcolor: null,
+
+        anunciobg: null,
+        anunciocolor: null,
+        anunciolink: null,
+        anuncionavbar: null,
+        anunciotitulosfont: null,
+        anuncioconteudofont: null,
     },
     methods: {
-        defaultColor: function () {
-            if (urlSite.includes("borealmystic")) {
-                this.dark = "#011006";
-                this.medium = "#ededed";
-                this.light = "#636464";
-            } else {
-                this.dark = "#226C3B";
-                this.medium = "#38B261";
-                this.light = "#73D393";
+        /*buscar: function () {
+         $(function () {
+         var preauth = getAuth();
+         setAuth("encodedstring");
+         var auth = $(window).Decrypt(app.sys.bien);
+         setAuth(auth);
+         this.biencode = {};
+         this.biencode.empresa = app.sys.refid;
+         var data = {
+         biencode: $(window).Encrypt(JSON.stringify(this.biencode))
+         };
+         app.sys.crud("Customizar", "listar", data);
+         setAuth(preauth);
+         });
+         },*/
+        defaultPallete: function () {
+            var itens = Object.keys(app.Customizar._data);
+            for (var i = 0; i <= itens.length - 1; i++) {
+                if (itens[i] !== "src" || itens[i] !== "Host") {
+                    //app.Customizar[itens[i]] = app.Customizar.src[app.sys.pallete][itens[i]];
+                    app.Customizar[itens[i]] = app.Customizar.src[0][itens[i]];
+                }
             }
+        },
+        readDef: function () {
+            var itens = Object.keys(app.Customizar._data);
+            for (var i = 0; i <= itens.length - 1; i++) {
+                if (itens[i] !== "src" || itens[i] !== "Host") {
+                    var element = window.localStorage.getItem(itens[i]);
+                    if (typeof element === "undefined" || element === null) {
+                        if (app.Customizar[itens[i]] === null) {
+                            this.setDefault(itens[i]);
+                        } else {
+                            window.localStorage.setItem(app.Customizar[itens[i]], app.Customizar[itens[i]]);
+                        }
+                    }
+                }
+            }
+        },
+        setDefault: function (element) {
+            var dflt = {};
+            if (urlSite.includes("borealmystic")) {
+                dflt.navbarbg = "#333333";
+                dflt.navbarfont = "inherit";
+                dflt.navbarcolor = "#ffffff";
+
+                dflt.modalbg = "#e6e6e6";
+                dflt.modalfont = "inherit";
+                dflt.modalcolor = "#000000";
+
+                dflt.fieldesetbg = "#bfbfbf";
+                dflt.fieldsetfont = "inherit";
+                dflt.fieldsetcolor = "#000000";
+
+                dflt.tabbg = "#00004d";
+                dflt.tabfont = "inherit";
+                dflt.tabcolor = "#ffffff";
+
+                dflt.tableheadbg = "#00004d";
+                dflt.tableheadfont = "inherit";
+                dflt.tableheadcolor = "#ffffff";
+
+                dflt.rowevenbg = "#fff";
+                dflt.rowevencolor = "#000";
+
+                dflt.rowoddbg = " #ffcc80";
+                dflt.rowoddcolor = "#333";
+
+                dflt.tablefootbg = "#00004d";
+                dflt.tablefootfont = "inherit";
+                dflt.tablefootcolor = "#ffffff";
+
+                dflt.botoesbg = "#000033";
+                dflt.botoesout = "#ffcc80";
+                dflt.botoesoff = "#808080";
+                dflt.botoesfont = "inherit";
+                dflt.botoescolor = "#fffff";
+
+                dflt.hrefbg = "#454545";
+                dflt.hreffont = "inherit";
+                dflt.hrefcolor = "#ffffff";
+
+                dflt.anunciobg = "#e6e6e6";
+                dflt.anunciocolor = "#000000";
+                dflt.anunciolink = "#454545";
+                dflt.anuncionavbar = "#333333";
+                dflt.anunciotitulosfont = "inherit";
+                dflt.anuncioconteudofont = "inherit";
+            } else {
+                dflt.navbarbg = "#076633";
+                dflt.navbarfont = "inherit";
+                dflt.navbarcolor = "#fff";
+
+                dflt.modalbg = "#ffffff";
+                dflt.modalfont = "inherit";
+                dflt.modalcolor = "#333333";
+
+                dflt.fieldesetbg = "#99cfb3";
+                dflt.fieldsetfont = "inherit";
+                dflt.fieldsetcolor = "#000000";
+
+                dflt.tabbg = "#c4e3d3";
+                dflt.tabfont = "inherit";
+                dflt.tabcolor = "#000";
+
+                dflt.tableheadbg = "#006633";
+                dflt.tableheadfont = "inherit";
+                dflt.tableheadcolor = "#fff";
+
+                dflt.rowevenbg = "#fff";
+                dflt.rowevencolor = "#000";
+
+                dflt.rowoddbg = "#ddd";
+                dflt.rowoddcolor = "#000";
+
+                dflt.tablefootbg = "#006633";
+                dflt.tablefootfont = "inherit";
+                dflt.tablefootcolor = "#fff";
+
+                dflt.botoesbg = "#006633";
+                dflt.botoesout = "#4cbd86";
+                dflt.botoesoff = "#00cc66";
+                dflt.botoesfont = "inherit";
+                dflt.botoescolor = "#fff";
+
+                dflt.hrefbg = "#006633";
+                dflt.hreffont = "inherit";
+                dflt.hrefcolor = "#ff8000";
+
+                dflt.anunciobg = "#fff";
+                dflt.anunciocolor = "#333333";
+                dflt.anunciolink = "#006633";
+                dflt.anuncionavbar = "#006633";
+                dflt.anunciotitulosfont = "inherit";
+                dflt.anuncioconteudofont = "inherit";
+            }
+            app.Customizar[element] = dflt[element];
+            this.changeColorSystem();
+        },
+        defaultColor: function () {
+            this.readDef();
             this.changeColorSystem();
         },
         changeColorSystem: function () {
-            var cor1 = window.localStorage.getItem("dark");
-            var cor2 = window.localStorage.getItem("medium");
-            var cor3 = window.localStorage.getItem("light");
-            if (typeof cor1 === "undefined" || cor1 !== null) {
-                if (this.dark === null) {
-                    if (urlSite.includes("borealmystic")) {
-                        this.dark = "#011006";
-                    } else {
-                        this.dark = "#226C3B";
-                    }
-                } else {
-                    cor1 = this.dark;
-                    window.localStorage.setItem("dark", this.dark);
+            var css = ":root{";
+            var itens = Object.keys(app.Customizar._data);
+            for (var i = 0; i <= itens.length - 1; i++) {
+                if (itens[i] !== "src" || itens[i] !== "Host") {
+                    css += "--" + itens[i] + ": " + app.Customizar[itens[i]] + ";";
                 }
             }
-            if (typeof cor2 === "undefined" || cor2 !== null) {
-                cor2 = this.medium;
-                if (this.medium === null) {
-                    if (urlSite.includes("borealmystic")) {
-                        this.medium = "#ededed";
-                    } else {
-                        this.medium = "#38B261";
-                    }
-                } else {
-                    cor2 = this.medium;
-                    window.localStorage.setItem("medium", this.medium);
-                }
-            }
-            if (typeof cor3 === "undefined" || cor3 !== null) {
-                cor3 = this.light;
-                if (this.light === null) {
-                    if (urlSite.includes("borealmystic")) {
-                        this.light = "#636464";
-                    } else {
-                        this.light = "#73D393";
-                    }
-                } else {
-                    cor3 = this.light;
-                    window.localStorage.setItem("light", this.light);
-                }
-            }
-            document.getElementsByTagName("style")[0].textContent = ":root{"
-                    + "--dark:" + this.dark + ";"
-                    + "--medium:" + this.medium + ";"
-                    + "--light:" + this.light + ";"
-                    + ""
-                    + "}";
+            css += "}";
+            document.getElementsByTagName("style")[0].textContent = css;
         },
         clearColor: function () {
-            window.localStorage.removeItem("dark");
-            window.localStorage.removeItem("medium");
-            window.localStorage.removeItem("light");
+            var itens = Object.keys(app.Customizar._data);
+            for (var i = 0; i <= itens.length - 1; i++) {
+                if (itens[i] !== "src" || itens[i] !== "Host") {
+                    window.localStorage.removeItem(itens[i]);
+                }
+            }
         },
     }
 });

@@ -17,8 +17,8 @@
                     <div id="frmlogin" class="container-fluid">
                         <nav>
                             <div class="nav nav-tabs" id="nav-tabEvt" role="tablist">
-                                <button class="nav-item nav-link active" id="nav-evt-tab" data-toggle="tab" href="#nav-cli" role="tab" aria-controls="nav-cli" aria-selected="true" data-model="1">Cliente</button>
-                                <button class="nav-item nav-link " id="nav-med-tab" data-toggle="tab" href="#nav-emp" role="tab" aria-controls="nav-emp" aria-selected="false" data-model="2">Associado</button>
+                                <a class="nav-item nav-link active" id="nav-evt-tab" data-toggle="tab" href="#nav-cli" role="tab" aria-controls="nav-cli" aria-selected="true" data-model="1">Cliente</a>
+                                <a class="nav-item nav-link " id="nav-med-tab" data-toggle="tab" href="#nav-emp" role="tab" aria-controls="nav-emp" aria-selected="false" data-model="2">Associado</a>
                             </div>
                         </nav>
                         <div class="row justify-content-center mt-4">

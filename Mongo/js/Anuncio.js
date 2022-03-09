@@ -19,6 +19,7 @@ app["Anuncio"] = new Vue({
         Conteudo: null,
         Descricao: null,
         Tipo: null,
+        Ativo: null,
         Keywords: null,
         Loginsrc: null,
         CategoriaAnuncioSrc: null,
@@ -41,6 +42,7 @@ app["Anuncio"] = new Vue({
             this.IdCategoriaAnuncio = null;
             this.Keywords = null;
             this.Descricao = null;
+            this.Ativo = null;
             this.Tipo = null;
         },
         autocomplete: function () {
@@ -48,8 +50,9 @@ app["Anuncio"] = new Vue({
             this.Conteudo = this.row[3];
             CKEDITOR.instances['conteudoanuncio'].setData(unescapeHTML(this.Conteudo))
             this.IdCategoriaAnuncio = this.row[1];
-            this.Keywords = this.row[4];
-            this.Descricao = this.row[5];
+            this.Ativo = this.row[5];
+            this.Keywords = this.row[6];
+            this.Descricao = this.row[4];
             CKEDITOR.instances['descricaoanuncio'].setData(unescapeHTML(this.Descricao))
             this.Tipo = this.row[2];
         },
@@ -63,6 +66,7 @@ app["Anuncio"] = new Vue({
             this.Descricao = CKEDITOR.instances['descricaoanuncio'].getData();
             this.biencode.Descricao = this.Descricao;
             this.biencode.Tipo = this.Tipo;
+            this.biencode.Ativo = this.Ativo;
             this.biencode.id = this.id;
             this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
         },
