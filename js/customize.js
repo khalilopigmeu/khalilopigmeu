@@ -2,9 +2,22 @@
 app["Customizar"] = new Vue({
     el: '#Customizar',
     data: {
+        dark: null,
+        medium: null,
+        light: null,
+        fssistema: null,
+        fundoform: null,
+        fsform: null,
+        cabecalhotabela: null,
+        fscabecalho: null,
+        rodapetabela: null,
+        fsrodape: null,
+        fstabela: null,
+        linhaeven: null,
+        linhaodd: null,
+        
         src: null,
         Host: "Bienestar/",
-        dark: null,
         navbarbg: null,
         navbarfont: null,
         navbarcolor: null,
