@@ -120,11 +120,11 @@ app["Customizar"] = new Vue({
                 dflt.fieldsetfont = "inherit";
                 dflt.fieldsetcolor = "#000000";
 
-                dflt.tabbg = "#00004d";
+                dflt.tabbg = "#3c3ca9";
                 dflt.tabfont = "inherit";
                 dflt.tabcolor = "#ffffff";
 
-                dflt.tableheadbg = "#00004d";
+                dflt.tableheadbg = "#3c3ca9";
                 dflt.tableheadfont = "inherit";
                 dflt.tableheadcolor = "#ffffff";
 
@@ -134,7 +134,7 @@ app["Customizar"] = new Vue({
                 dflt.rowoddbg = " #ffcc80";
                 dflt.rowoddcolor = "#333";
 
-                dflt.tablefootbg = "#00004d";
+                dflt.tablefootbg = "#3c3ca9";
                 dflt.tablefootfont = "inherit";
                 dflt.tablefootcolor = "#ffffff";
 
