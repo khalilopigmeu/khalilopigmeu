@@ -120,7 +120,7 @@ app["Customizar"] = new Vue({
                 dflt.fieldsetfont = "inherit";
                 dflt.fieldsetcolor = "#000000";
 
-                dflt.tabbg = "#c67c2e";
+                dflt.tabbg = "#d5d5d5";
                 dflt.tabfont = "inherit";
                 dflt.tabcolor = "#fff";
 
