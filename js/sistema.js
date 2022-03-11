@@ -252,7 +252,7 @@ app["sys"] = new Vue({
             var ws = "Bienestar/Seo/SEO/site";
             var p = (post(ws, data));
             var rs = $(window).Decrypt(p);
-            $("#seotpl").html(rs);
+            $("head").append(rs);
             setAuth(preauth);
         },
         infield: function (field, pesq) {

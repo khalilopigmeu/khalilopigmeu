@@ -110,43 +110,43 @@ app["Customizar"] = new Vue({
             if (urlSite.includes("borealmystic")) {
                 dflt.navbarbg = "#333333";
                 dflt.navbarfont = "inherit";
-                dflt.navbarcolor = "#ffffff";
+                dflt.navbarcolor = "#fff";
 
-                dflt.modalbg = "#e6e6e6";
+                dflt.modalbg = "#fff";
                 dflt.modalfont = "inherit";
                 dflt.modalcolor = "#000000";
 
-                dflt.fieldesetbg = "#bfbfbf";
+                dflt.fieldesetbg = "#ddd";
                 dflt.fieldsetfont = "inherit";
                 dflt.fieldsetcolor = "#000000";
 
-                dflt.tabbg = "#3c3ca9";
+                dflt.tabbg = "#c67c2e";
                 dflt.tabfont = "inherit";
-                dflt.tabcolor = "#ffffff";
+                dflt.tabcolor = "#fff";
 
-                dflt.tableheadbg = "#3c3ca9";
+                dflt.tableheadbg = "#c67c2e";
                 dflt.tableheadfont = "inherit";
-                dflt.tableheadcolor = "#ffffff";
+                dflt.tableheadcolor = "#fff";
 
                 dflt.rowevenbg = "#fff";
                 dflt.rowevencolor = "#000";
 
-                dflt.rowoddbg = " #ffcc80";
-                dflt.rowoddcolor = "#333";
+                dflt.rowoddbg = " #ccc";
+                dflt.rowoddcolor = "#000";
 
-                dflt.tablefootbg = "#3c3ca9";
+                dflt.tablefootbg = "#c67c2e";
                 dflt.tablefootfont = "inherit";
-                dflt.tablefootcolor = "#ffffff";
+                dflt.tablefootcolor = "#fff";
 
-                dflt.botoesbg = "#000033";
+                dflt.botoesbg = "#c67c2e";
                 dflt.botoesout = "#ffcc80";
                 dflt.botoesoff = "#808080";
                 dflt.botoesfont = "inherit";
-                dflt.botoescolor = "#fffff";
+                dflt.botoescolor = "#fff";
 
                 dflt.hrefbg = "#454545";
                 dflt.hreffont = "inherit";
-                dflt.hrefcolor = "#ffffff";
+                dflt.hrefcolor = "#fff";
 
                 dflt.anunciobg = "#e6e6e6";
                 dflt.anunciocolor = "#000000";
@@ -159,7 +159,7 @@ app["Customizar"] = new Vue({
                 dflt.navbarfont = "inherit";
                 dflt.navbarcolor = "#fff";
 
-                dflt.modalbg = "#ffffff";
+                dflt.modalbg = "#fff";
                 dflt.modalfont = "inherit";
                 dflt.modalcolor = "#333333";
 

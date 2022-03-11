@@ -61,11 +61,13 @@ app["RootAccess"] = new Vue({
             var Empresa = null, Nome = null, Login = null, Ravec = null;
             for (var i = 0; i <= this.EmpresaSrc.length - 1; i++) {
                 if (this.selEmpresa === this.EmpresaSrc[i]._id['$oid']) {
-                    if (this.EmpresaSrc[i].Cnpj !== null) {
+                    if (typeof (this.EmpresaSrc[i].cnpj) !== "undefined") {
                         this.biencode.Empresa = this.EmpresaSrc[i].NomeFantasia;
                         Empresa = this.EmpresaSrc[i].NomeFantasia;
+                        Nome = this.EmpresaSrc[i].Nome;
                     } else {
                         this.biencode.Empresa = this.EmpresaSrc[i].Nome;
+                        Empresa = this.EmpresaSrc[i].Nome;
                         Nome = this.EmpresaSrc[i].Nome;
                     }
                 }
