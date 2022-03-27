@@ -1,77 +1,14 @@
 "use strict";
 app["Home"] = new Vue({
     el: '#Home',
-    created: function () {
-
-    },
     data: {
-        banner: [
-            {
-                id: 5,
-                titulo: "O Menestrel - Veronica A. Shoffstall - William Shakespeare",
-                mensagem: "\"Depois de algum tempo você descobre que se leva <br> anos para construir confiança e apenas segundos para destruí-la. \"",
-                active: "active"
-            }, {
-                id: 0,
-                titulo: "Oscar Wilde",
-                mensagem: "\"Cada um dá o que tem no coração, e cada um recebe com o coração que tem.\"",
-                active: ""
-            },
-            {
-                id: 6,
-                titulo: "O Menestrel - Veronica A. Shoffstall - William Shakespeare",
-                mensagem: "\"Depois de algum tempo você aprende que as circunstâncias <br> e os ambientes têm influência sobre nós, mas nós somos responsáveis por nós mesmos.\"",
-                active: ""
-            },
-            {
-                id: 1,
-                titulo: "Tatiana Vitor",
-                mensagem: "\"É preciso muita força para desistir do que já foi seu mundo um dia...<br>E uma coragem maior ainda para buscar o que você merece.\"",
-                active: ""
-            },
-            {
-                id: 7,
-                titulo: "O Menestrel - Veronica A. Shoffstall - William Shakespeare",
-                mensagem: "\"Depois de algum tempo você começa a aprender que não se deve <br> comparar com os outros, mas com o melhor que pode ser.\"",
-                active: ""
-            },
-            {
-                id: 2,
-                titulo: "O Segredo",
-                mensagem: "<b>Conselhos de vida</b>.<br><b>Escute</b>, mas não perca sua voz.<br><b>Dê</b>, mas não permita que te usem.<br><b>Ame</b>, mas não deixe que abusem do seu coração.<br><b>Confie</b>, mas não seja ingênuo.",
-                active: ""
-            },
-            {
-                id: 8,
-                titulo: "O Menestrel - Veronica A. Shoffstall - William Shakespeare",
-                mensagem: "\"Depois de algum tempo você aprende que não importa onde já chegou, mas para onde está indo…<br> Mas, se você não sabe para onde está indo, qualquer caminho serve\"",
-                active: ""
-            },
-            {
-                id: 3,
-                titulo: "Paulo Coelho",
-                mensagem: "Feche algumas portas.<br> Não por orgulho ou arrogância.<br> Mas porque já não levam a lugar nenhum.",
-                active: ""
-            },
-            {
-                id: 9,
-                titulo: "O Menestrel - Veronica A. Shoffstall - William Shakespeare",
-                mensagem: "\"Depois de algum tempo você aprende que maturidade tem mais a ver com os tipos <br> de experiência que se teve e o que você aprendeu com elas do que com quantos aniversários você celebrou.\"",
-                active: ""
-            },
-            {
-                id: 4,
-                titulo: "Chico Xavier",
-                mensagem: "Aos outros, dou o direito de ser como são. <br> A mim, dou o dever de ser cada dia melhor.",
-                active: ""
-            },
-            {
-                id: 10,
-                titulo: "O Menestrel - Veronica A. Shoffstall - William Shakespeare",
-                mensagem: "\"Depois de algum tempo você aprende que realmente a vida tem valor e que você tem valor diante da vida!\"",
-                active: ""
-            }
-        ],
+        date1: new Date("03/07/2022"),
+        date2: new Date(),
+        diferenca: null,
+        anunciantes: null,
+        portfolio: null,
+        cupons: null,
+        banner: null,
         itens: [
             {
                 boxclass: "py-2 my-2 col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4",
@@ -118,8 +55,50 @@ app["Home"] = new Vue({
         ],
     },
     created: function () {
+
     },
     methods: {
-       
+        diasnoar: function () {
+            app.anunciante.pgid = null;
+            app.empresasanunciando.pgid = null;
+            app.configuracaosite.buscar();
+            app.empresasanunciando.buscar();
+            app.anunciante.buscar();
+
+            var Difference_In_Time = this.date2.getTime() - this.date1.getTime();
+            var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+            this.diferenca = Math.round(Difference_In_Days);
+        },
+        update: function () {
+            this.banner = [
+                {
+                    id: 0,
+                    mensagem: "Data de lançamento - 07/03/2022",
+                    active: "active"
+                },
+                {
+                    id: 1,
+                    mensagem: "Sua plataforma de anúncios à " + this.diferenca + " dias divulgando você",
+                    active: ""
+                },
+                {
+                    id: 2,
+                    mensagem: "<a href=\"#anunciante\">Anunciantes - " + this.anunciantes + " <br><br> Ver mais <i class=\"fas fa-bullhorn\"></i></a>",
+                    active: ""
+                },
+                {
+                    id: 3,
+                    mensagem: "<a href=\"#portfolio\">Projetos - " + this.portfolio + " <br><br> Ver mais <i class=\"far fa-handshake\"></i></a>",
+                    active: ""
+                },
+                {
+                    id: 4,
+                    mensagem: "<a href=\"#vouchers\">Cupons - " + this.cupons + " <br><br> Ver mais <i class=\"fas fa-ticket-alt\"></i></a>",
+                    active: ""
+                },
+            ];
+        }
     }
 });
+
+  

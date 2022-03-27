@@ -21,6 +21,8 @@ app["anunciante"] = new Vue({
                 app.sys.crud("anunciante", "listar", data);
                 setAuth(preauth);
                 app.empresasanunciando.anunciosSrc = app.sys.randomList(app.anunciante.src);
+                app.Home.anunciantes = app.anunciante.src.length;
+                app.Home.update();
             });
         },
         clear: function () {

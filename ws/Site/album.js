@@ -3,7 +3,8 @@ app["albumsite"] = new Vue({
     el: '#albumsite',
     data: {
         src: null,
-        Host: "Bienestar/Album/Albuns/"
+        Host: "Bienestar/Album/Albuns/",
+        id: null,
     },
     methods: {
         buscar: function () {
@@ -13,8 +14,18 @@ app["albumsite"] = new Vue({
                 var auth = $(window).Decrypt(app.sys.bien);
                 setAuth(auth);
                 this.biencode = {};
-                this.biencode.empresa = app.sys.refid;
-                this.biencode.nome = getParameterByName("cod");
+                if (typeof app.empresasanunciando !== 'undefined') {
+                    if (app.empresasanunciando.pgid !== null) {
+                        this.biencode.empresa = getParameterByName("pgid");
+                    } else {
+                        this.biencode.empresa = app.sys.refid;
+                    }
+                } else {
+                    this.biencode.empresa = app.sys.refid;
+                }
+                if (app.albumsite.id !== null) {
+                    this.biencode.id = getParameterByName("id");
+                }
                 var data = {
                     biencode: $(window).Encrypt(JSON.stringify(this.biencode))
                 };

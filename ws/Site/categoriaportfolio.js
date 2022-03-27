@@ -1,10 +1,10 @@
 "use strict";
-app["midiasite"] = new Vue({
-    el: '#midiasite',
+app["categoriaportfolio"] = new Vue({
+    el: '#categoriaportfolio',
     data: {
         src: null,
-        Host: "Bienestar/Album/Midia/",
-        id: null,
+        Host: "Bienestar/Portfolio/CategoriaPortfolio/",
+        pg: null,
     },
     methods: {
         buscar: function () {
@@ -23,14 +23,12 @@ app["midiasite"] = new Vue({
                 } else {
                     this.biencode.empresa = app.sys.refid;
                 }
-                if (app.albumsite.id !== null) {
-                    this.biencode.id = getParameterByName("id");
-                }
                 var data = {
                     biencode: $(window).Encrypt(JSON.stringify(this.biencode))
                 };
-                app.sys.crud("midiasite", "listar", data);
+                app.sys.crud("categoriaportfolio", "listar", data);
                 setAuth(preauth);
+                app.portfolio.catport = app.categoriaportfolio.src;
             });
         },
         clear: function () {

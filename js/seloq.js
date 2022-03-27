@@ -124,7 +124,21 @@ function urlRead() {
             app.Promocao.servicos = app.Promocao.servicosBienestar;
             app.Promocao.pacotes = app.Promocao.pacotesBienestar;
         }
-
+    }
+    if (app.sys.page === "portfolio") {
+        if (getParameterByName('pgid') !== null) {
+            app.anunciante.pgid = getParameterByName('pgid');
+            app.empresasanunciando.pgid = getParameterByName('pgid');
+            app.categoriaportfolio.buscar();
+            app.portfolio.buscar();
+            app.sys.seo(urlSite);
+        } else {
+            app.anunciante.pgid = null;
+            app.empresasanunciando.pgid = null;
+            app.categoriaportfolio.buscar();
+            app.portfolio.buscar();
+            app.sys.seo(urlSite);
+        }
     }
     if (app.sys.page === "anunciante") {
         if (getParameterByName('pgid') !== null) {

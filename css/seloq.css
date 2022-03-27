@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Courgette&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Glory:wght@500&display=swap');
 
+*{
+    word-break: break-all;
+}
+
 h1 {
     font-size: 8vw !important;
 }
@@ -91,14 +95,34 @@ a:hover,a.btn:hover{
     color: var(--navbarcolor) !important;
 }
 
+.borderColor{
+    border-color: var(--navbarbg) !important;
+}
+
 #sobreBien h4{
     color: var(--navbarbg) !important;
 }
 
-.spanCli {
-    font-size: 4vh !important;
+.spanCli,a {
     font-family: courgette,cursive;
     color: var(--navbarbg);
+}
+
+hr{
+    border: 1px solid var(--navbarbg);
+    box-shadow: 1vh 0.6vh 1.5vh 0.1vh var(--botoesout);
+}
+
+.bs{
+    border: 1px solid var(--navbarbg);
+    box-shadow: 1vh 0.6vh 1.5vh 0.1vh var(--botoesout);
+}
+
+.carousel-control-prev-icon,.carousel-control-next-icon{
+    background-color: var(--navbarbg) !important;
+    box-shadow: 1vh 0.6vh 1.5vh 0.1vh var(--botoesout);
+    padding: 3vh;
+    border-radius: 2vh;
 }
 
 .listA{
