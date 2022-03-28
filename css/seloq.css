@@ -1,10 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Courgette&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Glory:wght@500&display=swap');
 
-*{
-    word-break: break-all;
-}
-
 h1 {
     font-size: 8vw !important;
 }
