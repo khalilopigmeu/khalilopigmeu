@@ -6,6 +6,7 @@ app["SocialMedia"] = new Vue({
         fbsai: false,
         gglog: false,
         ggsai: false,
+        imgemp: null,
         imgurl: null,
         socialName: null,
         FB: null,
@@ -13,8 +14,8 @@ app["SocialMedia"] = new Vue({
         googleapikey: "",
         cliente_oauth: "",
         chave: "",
-        empresa:null,
-        login:null,
+        empresa: null,
+        login: null,
     },
     created: function () {
     },
@@ -46,11 +47,6 @@ app["SocialMedia"] = new Vue({
             }
             this.empresa = window.localStorage.getItem("Empresa");
             this.login = window.localStorage.getItem("Nome");
-            /*this.profileImageFB();
-             this.profileNameFB();
-             app.sidebarR.fblog = this.fblog;
-             app.sidebarR.imgurl = this.imgurl;
-             app.sidebarR.socialName = this.socialName;*/
         },
         Status: function () {
             $(function () {

@@ -104,6 +104,15 @@ a:hover,a.btn:hover{
     color: var(--navbarbg);
 }
 
+h3.spanCli{
+    text-transform: lowercase;
+    font-size: 4.5vh !important;
+}
+h3.spanCli:first-letter{
+    text-transform: capitalize;
+    font-size: 5vh !important;
+}
+
 hr{
     border: 1px solid var(--navbarbg);
     box-shadow: 1vh 0.6vh 1.5vh 0.1vh var(--botoesout);

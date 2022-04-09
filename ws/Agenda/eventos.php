@@ -7,8 +7,8 @@ include"../../header.php";
         <div class="text-center progress-bar progress-bar-striped progress-bar-animated" role="progressbar" v-bind:aria-valuenow="progress" aria-valuemin="0" aria-valuemax="100" v-bind:style="'width: '+progress+'%'">{{progress}}%</div>
     </div>
     <div class="row text-center justify-content-center my-2 py-2">
-        <div class="col-7 res">
-            <h3 class=" py-2 my-2 border border-dark rounded" data-toggle="collapse" href="#colcategoria" aria-expanded="false" aria-controls="colcategoria">Categorias <i class="fas fa-ellipsis-v"></i></h3>
+        <div class=" col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 res">
+            <h4 class=" py-2 my-2 border border-dark rounded" data-toggle="collapse" href="#colcategoria" aria-expanded="false" aria-controls="colcategoria">Categorias <i class="fas fa-ellipsis-v"></i></h4>
             <div class="collapse py-2 my-2 border border-dark rounded" id="colcategoria">
                 <button class="btn btn-dark mb-2 addCat " data-toggle="modal" data-target="#CategoriaEventos">Adicionar Categoria</button>
                 <ul v-if="CategoriaSrc!=null" class="list-group ">
@@ -16,8 +16,8 @@ include"../../header.php";
                 </ul>
             </div>
         </div>
-        <form class="col-7 res">
-            <h3 class=" py-2 my-2 border border-dark rounded" data-toggle="collapse" href="#coldata" aria-expanded="false" aria-controls="coldata">Data <i class="fas fa-ellipsis-v"></i></h3>
+        <form class=" col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 res">
+            <h4 class=" py-2 my-2 border border-dark rounded" data-toggle="collapse" href="#coldata" aria-expanded="false" aria-controls="coldata">Data <i class="fas fa-ellipsis-v"></i></h4>
             <div class="collapse py-2 my-2 border border-dark rounded" id="coldata">
                 <div class="form-row align-items-center">
                     <div class="col-3 "><span >Inicio/Fim:</span></div>
@@ -35,11 +35,11 @@ include"../../header.php";
                 </div>
             </div>
         </form>
-        <div class="col-7 res">
-            <h3 class=" py-2 my-2 border border-dark rounded" data-toggle="collapse" href="#colanotacao" aria-expanded="false" aria-controls="colanotacao">Anotação <i class="fas fa-ellipsis-v"></i></h3>
+        <div class=" col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 res">
+            <h4 class=" py-2 my-2 border border-dark rounded" data-toggle="collapse" href="#colanotacao" aria-expanded="false" aria-controls="colanotacao">Anotação <i class="fas fa-ellipsis-v"></i></h4>
             <div class="collapse py-2 my-2 border border-dark rounded" id="colanotacao">
                 <button class="btn btn-dark mb-2" data-toggle="modal" data-target="#AnotacaoAgenda">Adicionar Anotação</button>
-                <h3>{{diaevento}}</h3>
+                <h5>{{diaevento}}</h5>
                 <ul v-if="AnotacaoSrc!=null" class="list-group ">
                     <li class="list-group-item btn " v-for="(el,index) in app.sys.sorter(AnotacaoSrc,'DESC','id')">{{el.Titulo}}</li>
                 </ul>
@@ -104,6 +104,7 @@ include $refUrl . "Mongo/CategoriaPlanoSistema.php";
 include $refUrl . "Mongo/PlanoSistema.php";
 include $refUrl . "Mongo/ControlaMensalidade.php";
 include $refUrl . "Mongo/FichaAtendimento.php";
+include $refUrl . "Mongo/Comissao.php";
 include $refUrl . "Mongo/LancamentoFinanceiro.php";
 include $refUrl . "Mongo/PedidoVenda.php";
 include $refUrl . "Mongo/ListaCompra.php";
@@ -113,57 +114,56 @@ include $refUrl . "ws/Site/anunciante.php";
 ?>
 <script>
 $(function () {
-
     CKEDITOR.replace('observacaoagenda', {
-        customConfig: '<?php echo $refUrl; ?>js/configEditor.js'
+        customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
     });
     CKEDITOR.replace('observacaoatendimento', {
-        customConfig: '<?php echo $refUrl; ?>js/configEditor.js'
+        customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
     });
     CKEDITOR.replace('conteudo', {
-        customConfig: '<?php echo $refUrl; ?>js/configEditor.js'
+        customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
     });
     CKEDITOR.replace('procedimentodescricao', {
-        customConfig: '<?php echo $refUrl; ?>js/configEditor.js'
+        customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
     });
     CKEDITOR.replace('consultadescricao', {
-        customConfig: '<?php echo $cdn; ?>js/configEditor.js'
+        customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
     });
     CKEDITOR.replace('caracteristica', {
-        customConfig: '<?php echo $cdn; ?>js/configEditor.js'
+        customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
     });
     CKEDITOR.replace('especificacao', {
-        customConfig: '<?php echo $cdn; ?>js/configEditor.js'
+        customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
     });
     CKEDITOR.replace('resumo', {
-        customConfig: '<?php echo $cdn; ?>js/configEditor.js'
+        customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
     });
     CKEDITOR.replace('resumotexto', {
-        customConfig: '<?php echo $cdn; ?>js/configEditor.js'
+        customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
     });
     CKEDITOR.replace('conteudotexto', {
-        customConfig: '<?php echo $cdn; ?>js/configEditor.js'
+        customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
     });
     CKEDITOR.replace('chamadatexto', {
-        customConfig: '<?php echo $cdn; ?>js/configEditor.js'
+        customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
     });
     CKEDITOR.replace('conteudoanuncio', {
-        customConfig: '<?php echo $cdn; ?>js/configEditor.js'
+        customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
     });
     CKEDITOR.replace('descricaoanuncio', {
-        customConfig: '<?php echo $cdn; ?>js/configEditor.js'
+        customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
     });
     CKEDITOR.replace('titulochamada', {
-        customConfig: '<?php echo $cdn; ?>js/configEditor.js'
+        customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
     });
     CKEDITOR.replace('mensagemchamada', {
-        customConfig: '<?php echo $cdn; ?>js/configEditor.js'
+        customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
     });
     CKEDITOR.replace('jobtxt', {
-        customConfig: '<?php echo $cdn; ?>js/configEditor.js'
+        customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
     });
     CKEDITOR.replace('casetxt', {
-        customConfig: '<?php echo $cdn; ?>js/configEditor.js'
+        customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
     });
     app.Ravec.ravecUpdate();
 });

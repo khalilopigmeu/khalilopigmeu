@@ -51,6 +51,7 @@ app["Funcionarios"] = new Vue({
                 };
                 app.sys.crud(app.Funcionarios.href, "listar", data);
                 app.Login.Funcionariosrc = app.Funcionarios.src;
+                app.Comissao.Funcionariossrc = app.Funcionarios.src;
             });
             app.sys.tabs(this.href);
         },

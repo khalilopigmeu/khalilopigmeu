@@ -4,9 +4,11 @@ var urlSys = false;
 var auth = "";
 var preAuth = null;
 var tac = "";
+
 function authenticate() {
     auth = window.localStorage.getItem("auth");
 }
+
 function post(url, data) {
     authenticate();
     logSandBox(WebServer(urlSys) + url);
@@ -28,6 +30,7 @@ function post(url, data) {
         return result;
     }).responseText;
 }
+
 function get(url, data) {
     authenticate();
     return $.ajax({
@@ -48,6 +51,7 @@ function get(url, data) {
         return result;
     }).responseText;
 }
+
 function host(path, op, ac) {
     authenticate();
     var link = $.ajax({
@@ -73,6 +77,7 @@ function host(path, op, ac) {
     }).responseText;
     return link;
 }
+
 function gost(path, op, ac) {
     authenticate();
     var link = $.ajax({
@@ -100,6 +105,38 @@ function gost(path, op, ac) {
     return link;
 }
 
+function postCross(url, data) {
+    return $.ajax({
+        type: "POST",
+        url: url,
+        crossDomain: true,
+        async: false,
+        data: data,
+    }).done(function (result) {
+        logSandBox(result);
+        return result;
+    }).fail(function (result) {
+        logSandBox(result);
+        return result;
+    }).responseText;
+}
+
+function getCross(url, data) {
+    return $.ajax({
+        type: "GET",
+        url: url,
+        crossDomain: true,
+        async: false,
+        data: data,
+    }).done(function (result) {
+        logSandBox(result);
+        return result;
+    }).fail(function (result) {
+        logSandBox(result);
+        return result;
+    }).responseText;
+}
+
 function setAuth(key) {
     window.localStorage.setItem("auth", key);
 }
@@ -107,15 +144,19 @@ function setAuth(key) {
 function getAuth() {
     return window.localStorage.getItem("auth");
 }
+
 function setCharset(char) {
     contype = contype + ";" + char;
 }
+
 function setContentType(con) {
     contype = con;
 }
+
 function DefaultContentType() {
     contype = "application/x-www-form-urlencoded";
 }
+
 function sandBox(amb) {
     urlSys = amb;
 }

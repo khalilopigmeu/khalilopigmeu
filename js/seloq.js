@@ -96,6 +96,7 @@ function urlRead() {
     app.paginasite.pg = null;
     urlSite = window.location.href;
     app.Customizar.defaultColor();
+    app.sys.seo("anuncio");
     if (urlSite.includes("#") || urlSite.includes("?")) {
         var urlclean = urlSite.split("?");
         var element = urlclean[0].split("#");
@@ -113,14 +114,14 @@ function urlRead() {
             app.anunciante.pgid = getParameterByName('pgid');
             app.empresasanunciando.pgid = getParameterByName('pgid');
             app.paginasite.buscar();
-            app.sys.seo(urlSite);
+            app.sys.seo("anuncio");
             app.Promocao.servicos = eval("app.Promocao.servicos_" + getParameterByName('pgid'));
             app.Promocao.pacotes = null
         } else {
             app.anunciante.pgid = null;
             app.empresasanunciando.pgid = null;
             app.paginasite.buscar();
-            app.sys.seo(urlSite);
+            app.sys.seo("anuncio");
             app.Promocao.servicos = app.Promocao.servicosBienestar;
             app.Promocao.pacotes = app.Promocao.pacotesBienestar;
         }
@@ -131,13 +132,13 @@ function urlRead() {
             app.empresasanunciando.pgid = getParameterByName('pgid');
             app.categoriaportfolio.buscar();
             app.portfolio.buscar();
-            app.sys.seo(urlSite);
+            app.sys.seo("anuncio");
         } else {
             app.anunciante.pgid = null;
             app.empresasanunciando.pgid = null;
             app.categoriaportfolio.buscar();
             app.portfolio.buscar();
-            app.sys.seo(urlSite);
+            app.sys.seo("anuncio");
         }
     }
     if (app.sys.page === "anunciante") {
@@ -148,7 +149,7 @@ function urlRead() {
             app.empresasanunciando.buscar();
             app.configuracaosite.buscar();
             app.paginasite.buscar();
-            app.sys.seo(urlSite, getParameterByName('pgid'));
+            app.sys.seo("anuncio", getParameterByName('pgid'));
             app.FamiliaProdutosSite.buscar();
             app.ClasseProdutosSite.buscar();
             app.CategoriaProdutosSite.buscar();
@@ -160,17 +161,17 @@ function urlRead() {
             app.configuracaosite.buscar();
             app.empresasanunciando.buscar();
             app.anunciante.buscar();
-            app.sys.seo(urlSite);
+            app.sys.seo("anuncio");
         }
     }
     if (app.sys.page === "paginas") {
         if (getParameterByName('pg')) {
             app.paginasite.pg = getParameterByName('pg');
             app.paginasite.buscar();
-            app.sys.seo(urlSite);
+            app.sys.seo("anuncio");
         } else {
             app.paginasite.buscar();
-            app.sys.seo(urlSite);
+            app.sys.seo("anuncio");
         }
     }
     qrcode.makeCode(urlSite);

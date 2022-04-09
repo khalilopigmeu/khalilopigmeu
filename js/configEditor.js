@@ -1,11 +1,16 @@
 CKEDITOR.editorConfig = function (config) {
     config.toolbar = [
-        ["Bold", "Italic", "Underline", "StrikeThrough", "-", "Undo", "Redo", "-", "Cut",
-            "Copy", "Paste", "PasteText", "PasteFromWord", "Find", "Replace", "Scayt", "Print", "-",
-            "Outdent", "Indent", "NumberedList", "BulletedList", "Blockquote", "CreateDiv"],
-        ["-", "JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyBlock"],
-        ["Image", "Link", "TextColor", "BGColor", "Format", "Font", "FontSize"],
-        ["Table", "-", "Maximize"], ["HorizontalRule", "-", "SpecialChar"]
+        ['Source', '-', 'ExportPdf', 'Preview', 'Print', '-', 'Templates' ],
+        ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'],
+        ['Find', 'Replace', '-', 'SelectAll', '-', 'Scayt'],
+        ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'CopyFormatting', 'RemoveFormat'],
+        ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+        ['Link', 'Unlink'],
+        ['Image', 'Table', 'HorizontalRule', 'SpecialChar', 'PageBreak'],
+        ['Styles', 'Format', 'Font', 'FontSize'],
+        ['TextColor', 'BGColor'],
+        ['Maximize', 'ShowBlocks'],
+        ['About'],
     ];
     config.entities_latin = false;
     config.removePlugins = "elementspath";

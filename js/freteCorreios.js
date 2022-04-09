@@ -1,6 +1,5 @@
 "use strict";
 var url = "http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx";
-url = hackCors(url);
 DefaultContentType();
 function CalcPrazo(nCdServico, sCepOrigem, sCepDestino) {
     var data = "nCdServico=" + nCdServico + "&sCepOrigem=" + sCepOrigem + "&sCepDestino=" + sCepDestino;

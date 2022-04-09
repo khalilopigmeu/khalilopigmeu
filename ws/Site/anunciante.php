@@ -1,7 +1,18 @@
 <div id="empresasanunciando" v-if="app.sys.page==='anunciante'" class="border rounded glory m-3 p-3 shadow-lg borda-x text-center justify-content-center">
+    <div class="row text-center justify-content-center">
+        <div class="col-8 input-group mb-3 row">
+            <!--<select class="fa text-white bg-d input-group-text col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12" id="basic-addon1">
+                <option class='fa'>&#xf279 &nbsp; Páginas</option> 
+                <option class='fa'>&#xf3ff &nbsp; Vouchers</option> 
+                <option class='fa'>&#xf0a1 &nbsp; Anúncios</option> 
+            </select>-->
+            <input type="text" v-model="pesquisa" class="form-control mx-auto col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12" placeholder="Pesquise" aria-label="Pesquise" aria-describedby="basic-addon1">
+        </div>
+    </div>
+    <hr>
     <div v-if="pgid==null" class="row text-center justify-content-center">
         <h2 class="spanCli m-2 p-2 mb-3 col-12">Conheça nossos clientes:</h2>
-        <div v-if=itens.Ativo==='true' class="col-md-12 col-lg-3 col-xl-3 col-12 border m-1 p-1" v-for="itens in app.sys.paginate(anunciosSrc)">
+        <div v-if=itens.Ativo==='true' class="col-md-12 col-lg-3 col-xl-3 col-12 border m-1 p-1" v-for="itens in app.sys.paginate(app.sys.searchall(anunciosSrc,pesquisa))">
             <img class="logoanunciante img-fluid rounded" 
                  v-bind:src="getLogo(itens.IdEmpresa)">
             <br>

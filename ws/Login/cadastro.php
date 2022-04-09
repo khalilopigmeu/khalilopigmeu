@@ -98,7 +98,7 @@
                             </fieldset>
                             <br>
                             <label for="CEP">CEP:</label>
-                            <input type="text" v-on:blur="app.sys.buscaCEP('ClientLogin')" v-model="CEP" name="CEP" placeholder="xxxxx-xxx" class="cep form-control"><br>
+                            <input type="text" v-on:blur="app.sys.buscaCEP('clientLogin')" v-model="CEP" name="CEP" placeholder="xxxxx-xxx" class="cep form-control"><br>
                             <label for="UF">Estado:</label>
                             <input type="text" v-model="UF" name="UF" class="estado form-control"><br>
                             <label for="Cidade">Cidade:</label>

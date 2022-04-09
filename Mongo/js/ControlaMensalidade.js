@@ -16,9 +16,10 @@ app["ControlaMensalidade"] = new Vue({
         Host: "Bienestar/Financeiro/ControlaMensalidade/",
 
         IdCliente: null,
-        Modulos: null,
+        Modulos: [],
         Clientesrc: null,
         PlanoSistemaSrc: null,
+        DataPreferencia: null,
     },
     methods: {
         populate: function () {
@@ -35,13 +36,15 @@ app["ControlaMensalidade"] = new Vue({
         },
         clear: function () {
             this.IdCliente = null;
-            this.Modulos = null;
+            this.Modulos = [];
+            this.DataPreferencia = null;
         },
         autocomplete: function () {
             this.id = this.row[0];
             this.IdCliente = app.sys.foreignKeyRestore(this.Clientesrc, "Nome", this.row[1]);
             var x = String(app.sys.foreignKeyRestore(this.PlanoSistemaSrc, "CodPlano", this.row[2]));
             this.Modulos = eval(x.split(","));
+            this.DataPreferencia = this.row[3];
         },
         checkForm: function () {
             app.erros.errors = {};
@@ -49,6 +52,7 @@ app["ControlaMensalidade"] = new Vue({
             this.biencode.id = this.id;
             this.biencode.IdCliente = this.IdCliente;
             this.biencode.Modulos = this.Modulos;
+            this.biencode.DataPreferencia = this.DataPreferencia;
             this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
         },
         cadastrar: function () {

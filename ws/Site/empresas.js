@@ -27,6 +27,7 @@ app["empresasanunciando"] = new Vue({
         produtos: null,
         produtoselect: "",
         itensporpagina: 0,
+        pesquisa: null,
     },
     methods: {
         buscar: function () {
@@ -189,7 +190,7 @@ app["empresasanunciando"] = new Vue({
         },
         Empresa: function (id) {
             return app.sys.searchByID(this.src, id)[0];
-        }
+        },
     },
 });
         

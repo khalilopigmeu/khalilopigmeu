@@ -39,6 +39,7 @@ app["LancamentoFinanceiro"] = new Vue({
                 app.sys.crud(app.LancamentoFinanceiro.href, "listar", data);
                 app.Eventos.LancamentoFinanceiroSrc = app.LancamentoFinanceiro.src;
                 app.calendar.LancamentoFinanceiroSrc = app.LancamentoFinanceiro.src;
+                app.Comissao.LancamentoFinanceiroSrc = app.LancamentoFinanceiro.src;
             });
             app.sys.tabs(this.href);
             app.SocialMedia.mascara();

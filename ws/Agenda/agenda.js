@@ -16,7 +16,8 @@ app.calendar = new Vue({
         grpslc: [],
         data: [],
         LancamentoFinanceiroSrc: [],
-        progress: 0
+        progress: 0,
+        total: 0,
     },
     created: function () {
     },
@@ -46,10 +47,19 @@ app.calendar = new Vue({
                             var fin = this.tempSrc[j].extendedProps.LancamentoFinanceiro;
                             if (fin !== null) {
                                 var item = app.sys.searchByID(this.LancamentoFinanceiroSrc, fin)[0];
-                                itens.push({
-                                    x: formatadata(app.Eventos.calendar.formatIso(this.tempSrc[j].start)),
-                                    y: Real(item.Valor).value
-                                });
+                                if (item.Modalidade === 1) {
+                                    itens.push({
+                                        x: formatadata(app.Eventos.calendar.formatIso(this.tempSrc[j].start)),
+                                        y: Real(item.Valor).value
+                                    });
+                                    this.total += Real(item.Valor).value;
+                                } else {
+                                    itens.push({
+                                        x: formatadata(app.Eventos.calendar.formatIso(this.tempSrc[j].start)),
+                                        y: (Real(item.Valor).value) * -1
+                                    });
+                                    this.total -= Real(item.Valor).value;
+                                }
                             }
                         }
                     }
@@ -61,6 +71,13 @@ app.calendar = new Vue({
                         borderWidth: 1
                     };
                 }
+                this.data[this.data.length + 1] = {
+                    label: "TOTAL",
+                    data: [{x: getDataAtual(), y: this.total}],
+                    backgroundColor: "#FF8000",
+                    Color: "#FF8000",
+                    borderWidth: 1
+                };
             } else {
                 for (var i = 0; i <= this.CategoriaSrc.length - 1; i++) {
                     itens = [];
@@ -70,10 +87,19 @@ app.calendar = new Vue({
                             if (typeof fin !== "undefined") {
                                 if (fin !== null) {
                                     var item = app.sys.searchByID(this.LancamentoFinanceiroSrc, fin)[0];
-                                    itens.push({
-                                        x: formatadata(app.Eventos.calendar.formatIso(this.eventosSrc[j].start)),
-                                        y: Real(item.Valor).value
-                                    });
+                                    if (item.Modalidade === 1) {
+                                        itens.push({
+                                            x: formatadata(app.Eventos.calendar.formatIso(this.tempSrc[j].start)),
+                                            y: Real(item.Valor).value
+                                        });
+                                        this.total += Real(item.Valor).value;
+                                    } else {
+                                        itens.push({
+                                            x: formatadata(app.Eventos.calendar.formatIso(this.tempSrc[j].start)),
+                                            y: (Real(item.Valor).value) * -1
+                                        });
+                                        this.total -= Real(item.Valor).value;
+                                    }
                                 }
                             }
                         }
@@ -88,6 +114,13 @@ app.calendar = new Vue({
                         };
                     }
                 }
+                this.data[this.data.length + 1] = {
+                    label: "TOTAL",
+                    data: [{x: getDataAtual(), y: this.total}],
+                    backgroundColor: "#FF8000",
+                    Color: "#FF8000",
+                    borderWidth: 1
+                };
             }
             var ctx = document.getElementById('myChart').getContext('2d');
             this.chart = new Chart(ctx, {
