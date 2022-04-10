@@ -156,6 +156,7 @@ function urlRead() {
             app.SubcategoriaProdutosSite.buscar();
             app.ProdutosSite.buscar();
         } else {
+            app.empresasanunciando.pesquisa = getParameterByName('q');
             app.anunciante.pgid = null;
             app.empresasanunciando.pgid = null;
             app.configuracaosite.buscar();
