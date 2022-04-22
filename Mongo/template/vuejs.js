@@ -66,11 +66,15 @@ app["FileName"] = new Vue({
             if (arr !== null) {
                 if (model === "ASC") {
                     return arr.slice().sort(function (a, b) {
-                        return a[field] - b[field];
+                        if (a < b) {
+                            return -1;
+                        }
                     });
                 } else {
                     return arr.slice().sort(function (a, b) {
-                        return b[field] - a[field];
+                        if (b > a) {
+                            return 1;
+                        }
                     });
                 }
             }

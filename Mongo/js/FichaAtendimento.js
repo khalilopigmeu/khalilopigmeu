@@ -29,6 +29,7 @@ app["FichaAtendimento"] = new Vue({
         LinkAnamnese: null,
         Observacao: null,
         Status: null,
+        Registrado: null,
     },
     created: function (e) {
         //this.populate();
@@ -56,6 +57,7 @@ app["FichaAtendimento"] = new Vue({
             this.Valor = null;
             this.LinkAnamnese = null;
             this.Status = null;
+            this.Registrado = null;
         },
         autocomplete: function () {
             this.IdCliente = this.row[1];
@@ -66,7 +68,8 @@ app["FichaAtendimento"] = new Vue({
             this.DataAtendimento = this.row[5];
             this.Valor = this.row[6];
             this.LinkAnamnese = this.row[7];
-            this.Status = this.row[8];
+            this.Status = parseBoolean(this.row[8]);
+            this.Registrado = parseBoolean(this.row[9]);
             this.id = this.row[0];
         },
         checkForm: function () {
@@ -81,6 +84,7 @@ app["FichaAtendimento"] = new Vue({
             this.biencode.Valor = this.Valor;
             this.biencode.LinkAnamnese = this.LinkAnamnese;
             this.biencode.Status = false;
+            this.biencode.Registrado = false;
             this.biencode.id = this.id;
             this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
         },

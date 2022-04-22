@@ -46,11 +46,11 @@ app["Comissao"] = new Vue({
             this.Nome = null;
         },
         autocomplete: function () {
-            this.Referencia = this.row[1];
-            this.Percentual = this.row[1];
-            this.Total = this.row[1];
-            this.Inicio = this.row[1];
-            this.Fim = this.row[1];
+            /* this.Referencia = this.row[1];
+             this.Percentual = this.row[1];
+             this.Total = this.row[1];
+             this.Inicio = this.row[1];
+             this.Fim = this.row[1];*/
             this.id = this.row[0];
         },
         checkForm: function () {
@@ -109,7 +109,7 @@ app["Comissao"] = new Vue({
             this.Total = 0;
             var flag = false;
             for (var i = 0; i <= this.Lancamentos.length - 1; i++) {
-                if (parseInt(this.Referencia[step]) - 1 >= i + j) {
+                if (parseInt(this.Referencia[step]) - 1 >= i) {
                     var percent = parseFloat(this.Percentual[step]);
                     var valor = parseFloat(Real(app.sys.searchByID(this.LancamentoFinanceiroSrc, this.Lancamentos[i])[0].Valor));
                     this.Total += parseFloat(Real(valor).multiply(percent / 100));
@@ -121,16 +121,15 @@ app["Comissao"] = new Vue({
                         this.Referencia[step] = this.Lancamentos.length;
                     }
                     if (flag) {
-                        j--;
                         flag = false;
                     }
                 }
             }
         },
         salvar: function () {
-            app.LancamentoFinanceiro.Documento = "Comissão: " + app.sys.searchByID(this.Funcionariossrc, this.IdFunc)[0].Nome
-                    + " - " + dataAtualFormatada();
+            app.LancamentoFinanceiro.Documento = "Comissão: " + this.Nome;
             app.LancamentoFinanceiro.Pago = true;
+            app.LancamentoFinanceiro.Status = false;
             app.LancamentoFinanceiro.Observacao = null;
             app.LancamentoFinanceiro.FormaPagamento = null;
             app.LancamentoFinanceiro.Valor = Real(this.Total);

@@ -50,6 +50,7 @@ include"../../header.php";
         <div class="nav nav-tabs" id="nav-tabCenter" role="tablist">
             <a class="bg-light nav-item nav-link active show" id="calendario" data-toggle="tab" href="#tab-calendario" role="tab" aria-controls="tab-calendario" aria-selected="true" data-clipa="1">Calendário</a>
             <a class="bg-light nav-item nav-link" id="grafico" v-on:click="grafico()" data-toggle="tab" href="#tab-grafico" role="tab" aria-controls="tab-grafico" data-clipa="2">Gráfico</a>
+            <a class="bg-light nav-item nav-link" id="tabela" v-on:click="grafico()" data-toggle="tab" href="#tab-tabela" role="tab" aria-controls="tab-tabela" data-clipa="3">Tabela</a>
         </div>
     </nav>
     <div class="tab-content justify-content-center container-fluid my-2 py-2 border rounded border-dark" id="nav-tabContentModulos">
@@ -59,8 +60,53 @@ include"../../header.php";
             </div>
         </div>
         <div id="tab-grafico" class="tab-pane container-fluid" role="tabpanel" aria-labelledby="tab-grafico">
-            <button class="btn btn-dark" v-on:click="grafico">Atualizar</button><br>
-            <canvas id="myChart" width="400" height="400"></canvas>
+            <button class="btn btn-dark" v-on:click="grafico">Atualizar</button><br><hr><br>
+            <canvas id="myChart" width="400" height="400" style="background: white;"></canvas>
+        </div>
+        <div id="tab-tabela" class="tab-pane container-fluid" role="tabpanel" aria-labelledby="tab-tabela">
+            <div class="row">
+                <div class="table-responsive container-fluid table-hover">
+                    <style>
+                        .greentext{
+                            background-color: #008000;
+                            color: #fff;
+                        }
+                        .redtext{
+                            background-color: #008000;
+                            color: #fff;
+                        }
+                    </style>
+                    <table class="table table-striped table-bordered" id="RelatorioFinanceiro">
+                        <thead class="thead-dark text-white text-center">
+                            <tr>
+                                <th>Data</th>
+                                <th>Nome</th>
+                                <th>Entrada</th>
+                                <th>Saída</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="td in tabela">
+                                <td>{{formatadata(td.data)}}</td>
+                                <td>{{td.nome}}</td>
+                                <td>R$ {{parseFloat(td.entrada).toFixed(2)}}</td>
+                                <td>R$ {{parseFloat(td.saida).toFixed(2)}}</td>
+                                <td>R$ {{parseFloat(td.total).toFixed(2)}}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot class="thead-dark text-white text-center">
+                            <tr>
+                                <th>Data</th>
+                                <th>Nome</th>
+                                <th>Entrada</th>
+                                <th>Saída</th>
+                                <th>Total</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>

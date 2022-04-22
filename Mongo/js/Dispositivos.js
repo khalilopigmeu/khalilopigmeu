@@ -1,7 +1,7 @@
 "use strict",
-//Anuncio
-app["Anuncio"] = new Vue({
-    el: '#Anuncio',
+//Dispositivos
+app["Dispositivos"] = new Vue({
+    el: '#Dispositivos',
     data: {
         evtDataCal: "cad",
         src: null,
@@ -11,18 +11,21 @@ app["Anuncio"] = new Vue({
         stepkey: 0,
         href: null,
         ELtitle: null,
-        Icon: '<i class="fas fa-bullhorn"></i>',
+        Icon: '<i class="far fa-list-alt"></i>',
         pesqTbl: "",
-        Host: "Bienestar/Anuncio/Anunciante/",
+        Host: "Bienestar/Dispositivos/Dispositivos/",
 
-        IdCategoriaAnuncio: null,
-        Conteudo: null,
-        Descricao: null,
-        Tipo: null,
+        Nome: null,
+        UUID: null,
+        Telefone: null,
+        IdEmpresa: null,
+        IdCategoria: null,
+        IdLogin: null,
         Ativo: null,
-        Keywords: null,
-        Loginsrc: null,
-        CategoriaAnuncioSrc: null,
+        RestricaoDia: null,
+        RestricaoHora: null,
+        LoginSrc: null,
+        CategoriaDispositivosSrc: null,
 
     },
     methods: {
@@ -33,41 +36,32 @@ app["Anuncio"] = new Vue({
                 var data = {
                     biencode: $(window).Encrypt(JSON.stringify(this.biencode))
                 };
-                app.sys.crud(app.Anuncio.href, "listar", data);
+                app.sys.crud(app.Dispositivos.href, "listar", data);
+                app.Anuncio.DispositivosSrc = app.Dispositivos.src;
             });
             app.sys.tabs(this.href);
         },
         clear: function () {
-            this.Conteudo = null;
-            this.IdCategoriaAnuncio = null;
-            this.Keywords = null;
-            this.Descricao = null;
+            this.id = null;
+            this.Nome = null;
+            this.UUID = null;
+            this.Telefone = null;
+            this.IdEmpresa = null;
+            this.IdCategoria = null;
+            this.IdLogin = null;
             this.Ativo = null;
-            this.Tipo = null;
+            this.RestricaoDia = null;
+            this.RestricaoHora = null;
         },
         autocomplete: function () {
             this.id = this.row[0];
-            this.Conteudo = this.row[3];
-            CKEDITOR.instances['conteudoanuncio'].setData(unescapeHTML(this.Conteudo))
-            this.IdCategoriaAnuncio = this.row[1];
-            this.Ativo = parseBoolean(this.row[5]);
-            this.Keywords = this.row[6];
-            this.Descricao = this.row[4];
-            CKEDITOR.instances['descricaoanuncio'].setData(unescapeHTML(this.Descricao))
-            this.Tipo = this.row[2];
+            this.Nome = this.row[1];
         },
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
-            this.Conteudo = CKEDITOR.instances['conteudoanuncio'].getData();
-            this.biencode.Conteudo = this.Conteudo;
-            this.biencode.IdCategoriaAnuncia = this.IdCategoriaAnuncio;
-            this.biencode.Keywords = this.Keywords;
-            this.Descricao = CKEDITOR.instances['descricaoanuncio'].getData();
-            this.biencode.Descricao = this.Descricao;
-            this.biencode.Tipo = this.Tipo;
-            this.biencode.Ativo = this.Ativo;
             this.biencode.id = this.id;
+            this.biencode.Nome = this.Nome;
             this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
         },
         cadastrar: function () {
@@ -83,6 +77,7 @@ app["Anuncio"] = new Vue({
             app.sys.crud(this.href, "rel", null);
         },
         cad: function () {
+
             this.evtDataCal = "cad";
         },
         alt: function () {
@@ -104,6 +99,26 @@ app["Anuncio"] = new Vue({
             } else {
                 return false;
             }
+        },
+        pesq: function (arr, pesq) {
+            let filteredList = arr.filter(field => app.Dispositivos.valida(field, pesq));
+            return filteredList;
+        },
+        valida: function (field, pesq) {
+            var keys = Object.keys(field);
+            var flag = false;
+            for (var i = 0; i <= keys.length - 1; i++) {
+                try {
+                    var p = field[keys[i]].toLowerCase().indexOf(pesq.toLowerCase());
+                    if (p >= 0) {
+                        flag = true;
+                    }
+                } catch (e) {
+
+                }
+            }
+            return flag;
         }
+
     }
 });

@@ -12,6 +12,8 @@ app["Promocao"] = new Vue({
         min: 0,
         servicos: [],
         pacotes: [],
+        arte: 0,
+        site: 0,
         servicosBienestar: [{
                 icon: "<i class='fas fa-percent'></i>",
                 link: "promocaologonovo",
@@ -54,6 +56,39 @@ app["Promocao"] = new Vue({
                     lote3: 240,
                     lote4: 300,
                     lote5: 360,
+                }
+            },
+            {
+                icon: "<i class='fas fa-percent'></i>",
+                link: "promocaovideominuto",
+                valor: {
+                    lote1: 20,
+                    lote2: 35,
+                    lote3: 50,
+                    lote4: 65,
+                    lote5: 80,
+                }
+            },
+            {
+                icon: "<i class='fas fa-percent'></i>",
+                link: "promocaogestaosocial",
+                valor: {
+                    lote1: 160,
+                    lote2: 210,
+                    lote3: 260,
+                    lote4: 330,
+                    lote5: 430,
+                }
+            },
+            {
+                icon: "<i class='fas fa-percent'></i>",
+                link: "promocaopostsocial",
+                valor: {
+                    lote1: 35,
+                    lote2: 40,
+                    lote3: 45,
+                    lote4: 50,
+                    lote5: 55,
                 }
             },
             {
@@ -154,7 +189,19 @@ app["Promocao"] = new Vue({
                     lote4: 4000,
                     lote5: 4500,
                 }
-            }, ],
+            },
+            {
+                icon: "<i class='fas fa-percent'></i>",
+                link: "promocaosocial",
+                valor: {
+                  /*  lote1: socialFinal(1),
+                    lote2: socialFinal(1),
+                    lote3: socialFinal(1),
+                    lote4: socialFinal(1),
+                    lote5: socialFinal(1), */
+                }
+            },
+        ],
         pacotesBienestar: [
             {
                 icon: "<i class='fas fa-percent'></i>",
@@ -569,6 +616,20 @@ app["Promocao"] = new Vue({
             } else {
                 return "-";
             }
+        },
+        arredonda: function (n) {
+            return Math.ceil(n / 10) * 10;
+        },
+        arte: function (n) {
+            this.arte = n;
+            return arte;
+        },
+        site: function (n) {
+            this.site = n;
+            return n;
+        },
+        socialFinal: function (q) {
+
         }
     }
 });

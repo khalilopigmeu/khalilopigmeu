@@ -17,7 +17,14 @@ app.calendar = new Vue({
         data: [],
         LancamentoFinanceiroSrc: [],
         progress: 0,
-        total: 0,
+        totalentradas: 0,
+        totalsaidas: 0,
+        restante: 0,
+        itens: [],
+        itensentradas: [],
+        itenssaidas: [],
+        itenstotal: [],
+        tabela: [],
     },
     created: function () {
     },
@@ -35,107 +42,262 @@ app.calendar = new Vue({
             this.grafico();
         },
         grafico: function () {
-            var itens = [];
+            this.data = [];
+            this.totalentradas = 0;
+            this.totalsaidas = 0;
+            this.restante = 0;
+            this.itensentradas = [];
+            this.itenssaidas = [];
+            this.itenstotal = [];
+            this.itens = [];
+            this.tabela = [];
             this.eventosSrc = app.sys.sorter(this.eventosSrc, "DESC", "start");
-            if (this.grpslc.length > 0) {
-                this.tempSrc = this.eventosSrc.filter(i => this.grpslc.includes(i.groupId));
-                this.tempClass = eval(this.CategoriaSrc).filter(i => this.grpslc.includes(i._id["$oid"]))
-                for (var i = 0; i <= this.tempClass.length - 1; i++) {
-                    itens = [];
-                    for (var j = 0; j <= this.tempSrc.length - 1; j++) {
-                        if (this.tempSrc[j].groupId === this.tempClass[i]._id["$oid"]) {
-                            var fin = this.tempSrc[j].extendedProps.LancamentoFinanceiro;
-                            if (fin !== null) {
-                                var item = app.sys.searchByID(this.LancamentoFinanceiroSrc, fin)[0];
-                                if (item.Modalidade === 1) {
-                                    itens.push({
-                                        x: formatadata(app.Eventos.calendar.formatIso(this.tempSrc[j].start)),
-                                        y: Real(item.Valor).value
-                                    });
-                                    this.total += Real(item.Valor).value;
-                                } else {
-                                    itens.push({
-                                        x: formatadata(app.Eventos.calendar.formatIso(this.tempSrc[j].start)),
-                                        y: (Real(item.Valor).value) * -1
-                                    });
-                                    this.total -= Real(item.Valor).value;
-                                }
+            for (var j = 0; j <= this.eventosSrc.length - 1; j++) {
+                var fin = this.eventosSrc[j].extendedProps.LancamentoFinanceiro;
+                if (typeof fin !== "undefined") {
+                    if (fin !== null) {
+                        var grupo = this.eventosSrc[j].groupId;
+                        if (Array.isArray(fin)) {
+                            var preco = 0;
+                            var modalidade = 0;
+                            for (var lancamento = 0; lancamento <= fin.length - 1; lancamento++) {
+                                var item = app.sys.searchByID(this.LancamentoFinanceiroSrc, fin[lancamento])[0];
+                                //this.pushItem(item, this.eventosSrc, j, grupo);
+                                preco += Real(item.Valor).value;
+                                modalidade = item.Modalidade;
                             }
+                            var dia = DataISO(formatadata(app.Eventos.calendar.formatIso(this.eventosSrc[j].start)));
+                            this.pushItemManual(dia, preco, modalidade, grupo, this.eventosSrc[j].title);
+                        } else {
+                            var item = app.sys.searchByID(this.LancamentoFinanceiroSrc, fin)[0];
+                            this.pushItem(item, this.eventosSrc, j, grupo);
                         }
                     }
-                    this.data[i] = {
-                        label: this.tempClass[i].NomeCategoria,
-                        data: itens,
-                        backgroundColor: this.tempClass[i].Cor,
-                        Color: this.tempClass[i].Cor,
-                        borderWidth: 1
-                    };
                 }
-                this.data[this.data.length + 1] = {
-                    label: "TOTAL",
-                    data: [{x: getDataAtual(), y: this.total}],
-                    backgroundColor: "#FF8000",
-                    Color: "#FF8000",
-                    borderWidth: 1
-                };
-            } else {
-                for (var i = 0; i <= this.CategoriaSrc.length - 1; i++) {
-                    itens = [];
-                    for (var j = 0; j <= this.eventosSrc.length - 1; j++) {
-                        if (this.eventosSrc[j].groupId === this.CategoriaSrc[i]._id["$oid"]) {
-                            var fin = this.eventosSrc[j].extendedProps.LancamentoFinanceiro;
-                            if (typeof fin !== "undefined") {
-                                if (fin !== null) {
-                                    var item = app.sys.searchByID(this.LancamentoFinanceiroSrc, fin)[0];
-                                    if (item.Modalidade === 1) {
-                                        itens.push({
-                                            x: formatadata(app.Eventos.calendar.formatIso(this.tempSrc[j].start)),
-                                            y: Real(item.Valor).value
-                                        });
-                                        this.total += Real(item.Valor).value;
-                                    } else {
-                                        itens.push({
-                                            x: formatadata(app.Eventos.calendar.formatIso(this.tempSrc[j].start)),
-                                            y: (Real(item.Valor).value) * -1
-                                        });
-                                        this.total -= Real(item.Valor).value;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    if (itens.length > 0) {
-                        this.data[i] = {
-                            label: this.CategoriaSrc[i].NomeCategoria,
-                            data: itens,
-                            backgroundColor: this.CategoriaSrc[i].Cor,
-                            Color: this.CategoriaSrc[i].Cor,
-                            borderWidth: 1
-                        };
-                    }
-                }
-                this.data[this.data.length + 1] = {
-                    label: "TOTAL",
-                    data: [{x: getDataAtual(), y: this.total}],
-                    backgroundColor: "#FF8000",
-                    Color: "#FF8000",
-                    borderWidth: 1
-                };
             }
+            if (this.grpslc.length > 0) {
+                this.tempClass = eval(this.CategoriaSrc).filter(i => this.grpslc.includes(i._id["$oid"]))
+            } else {
+                this.tempClass = this.CategoriaSrc;
+            }
+            for (var i = 0; i <= this.tempClass.length - 1; i++) {
+                this.data.push({
+                    label: this.CategoriaSrc[i].NomeCategoria,
+                    data: this.itens[this.CategoriaSrc[i]._id.$oid],
+                    backgroundColor: this.CategoriaSrc[i].Cor,
+                    borderColor: this.CategoriaSrc[i].Cor,
+                    borderWidth: 1
+                });
+            }
+            this.pushTotalMedias(null);
+            this.pushTotal();
             var ctx = document.getElementById('myChart').getContext('2d');
+            if (app.calendar.chart !== null) {
+                app.calendar.chart.destroy();
+            }
+            const decimation = {
+                enabled: false,
+                algorithm: 'min-max',
+            };
             this.chart = new Chart(ctx, {
                 type: 'line',
                 data: {
                     datasets: this.data
                 },
                 options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
+                    responsive: true,
+                    stacked: false,
+                    interaction: {
+                        mode: 'nearest',
+                        axis: 'x',
+                        intersect: false
+                    },
+                    plugins: {
+                        decimation: decimation,
+                        title: {
+                            display: true,
+                            text: 'Relatório Financeiro'
+                        },
+                        zoom: {
+                            wheel: {
+                                enabled: true,
+                            },
+                            pinch: {
+                                enabled: true
+                            },
+                            mode: 'xy',
                         }
+                    },
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: {
+                                unit: 'month',
+                            },
+                        },
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            grid: {
+                                drawOnChartArea: false,
+                            },
+                        },
                     }
                 }
             });
+        },
+        pushItemManual: function (data, preco, modalidade, grupo, nome) {
+            var dia = data;
+            var valor = Real(preco).value;
+            if (DataMenor(formatadata(dia), dataAtualFormatada())) {
+                if (modalidade === "1") {
+                    if (typeof this.itens[grupo] === "undefined") {
+                        this.itens[grupo] = [];
+                    }
+                    this.itens[grupo].push({
+                        x: dia,
+                        y: valor
+                    });
+                    this.pushReferencia(dia, valor, modalidade);
+                    this.tabela.push({
+                        data: dia,
+                        nome: nome,
+                        entrada: valor,
+                        saida: 0,
+                        total: this.restante
+                    });
+                } else {
+                    valor = (Real(valor).value) * -1;
+                    if (typeof this.itens[grupo] === "undefined") {
+                        this.itens[grupo] = []
+                    }
+                    this.itens[grupo].push({
+                        x: dia,
+                        y: valor
+                    });
+                    this.pushReferencia(dia, valor, modalidade);
+                    this.tabela.push({
+                        data: dia,
+                        nome: nome,
+                        entrada: 0,
+                        saida: valor,
+                        total: this.restante
+                    });
+                }
+            }
+        },
+        pushItem: function (item, src, j, grupo) {
+            if (src !== null) {
+                if (src[j] !== null) {
+                    var dia = DataISO(formatadata(app.Eventos.calendar.formatIso(src[j].start)));
+                    if (DataMenor(formatadata(dia), dataAtualFormatada())) {
+                        var valor = Real(item.Valor).value;
+                        if (item.Modalidade === "1") {
+                            if (typeof this.itens[grupo] === "undefined") {
+                                this.itens[grupo] = [];
+                            }
+                            this.itens[grupo].push({
+                                x: dia,
+                                y: valor
+                            });
+                            this.pushReferencia(dia, valor, item.Modalidade);
+                            this.tabela.push({
+                                data: dia,
+                                nome: item.Documento,
+                                entrada: valor,
+                                saida: 0,
+                                total: this.restante
+                            });
+                        } else {
+                            valor = (Real(valor).value) * -1;
+                            if (typeof this.itens[grupo] === "undefined") {
+                                this.itens[grupo] = []
+                            }
+                            this.itens[grupo].push({
+                                x: dia,
+                                y: valor
+                            });
+                            this.pushReferencia(dia, valor, item.Modalidade);
+                            this.tabela.push({
+                                data: dia,
+                                nome: item.Documento,
+                                entrada: 0,
+                                saida: valor,
+                                total: this.restante
+                            });
+                        }
+                    }
+                }
+            }
+        },
+        pushReferencia: function (dia, valor, modalidade) {
+            var referencia = DataISO(getDataAtual());
+            if (dia !== null) {
+                referencia = dia;
+            }
+            if (modalidade == "1") {
+                this.itensentradas.push({
+                    x: referencia,
+                    y: Real(valor).value
+                });
+                this.totalentradas += Real(valor).value;
+            } else {
+                this.itenssaidas.push({
+                    x: referencia,
+                    y: Real(valor).value
+                });
+                this.totalsaidas += Real(valor).value;
+            }
+            this.pushTotalMedias(dia);
+        },
+        pushTotalMedias: function (dia) {
+            var referencia = DataISO(getDataAtual());
+            if (dia !== null) {
+                referencia = dia;
+            }
+            this.restante = Real(this.totalentradas).value + Real(this.totalsaidas).value;
+            this.itenstotal.push({
+                x: referencia,
+                y: Real(this.restante).value
+            });
+        },
+        pushTotal: function () {
+            if (this.data.length > 0) {
+                this.data.push({
+                    label: "TOTAL - Entradas",
+                    data: this.itensentradas,
+                    backgroundColor: "#10ff00",
+                    borderColor: "#10ff00",
+                    borderWidth: 1
+                });
+                this.data.push({
+                    label: "TOTAL - Saídas",
+                    data: this.itenssaidas,
+                    backgroundColor: "#ff0000",
+                    borderColor: "#ff0000",
+                    borderWidth: 1
+                });
+                this.data.push({
+                    label: "TOTAL - Restante",
+                    data: this.itenstotal,
+                    backgroundColor: "#FF8000",
+                    borderColor: "#FF8000",
+                    borderWidth: 1
+                });
+                this.tabela.push({
+                    data: DataISO(dataAtualFormatada()),
+                    nome: "Total",
+                    entrada: this.totalentradas,
+                    saida: this.totalsaidas,
+                    total: this.restante
+                });
+            }
         },
         updateChart: function () {
             this.chart.destroy();

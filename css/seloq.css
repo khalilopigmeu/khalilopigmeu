@@ -149,6 +149,10 @@ hr{
     background: var(--navbarbg) !important;
 }
 
+.modal table tr td:first-child,.modal table tr th:first-child{
+    display: none;
+}
+
 .navbar .nav-link{
     font-family: var(--navbarfont) !important;
     color: var(--navbarcolor) !important;

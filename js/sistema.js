@@ -28,11 +28,23 @@ app["sys"] = new Vue({
                 if (arr !== null) {
                     if (model === "ASC") {
                         return arr.slice().sort(function (a, b) {
-                            return a[field] - b[field];
+                            if (isNaN(a[field])) {
+                                if (a[field] < b[field]) {
+                                    return 1;
+                                }
+                            } else {
+                                return a[field] - b[field];
+                            }
                         });
                     } else {
                         return arr.slice().sort(function (a, b) {
-                            return b[field] - a[field];
+                            if (isNaN(a[field])) {
+                                if (b[field] < a[field]) {
+                                    return -1;
+                                }
+                            } else {
+                                return b[field] - a[field];
+                            }
                         });
                     }
                 } else {
@@ -363,6 +375,15 @@ app["sys"] = new Vue({
             } else {
                 return [];
             }
+        },
+        timestamp(id) {
+            var data = new Date(parseInt(id.toString().substring(0, 8), 16) * 1000),
+                    dia = data.getDate().toString(),
+                    diaF = (dia.length === 1) ? '0' + dia : dia,
+                    mes = (data.getMonth() + 1).toString(),
+                    mesF = (mes.length === 1) ? '0' + mes : mes,
+                    anoF = data.getFullYear();
+            return anoF + "/" + mesF + "/" + diaF + "T" + data.toLocaleString('pt-BR', {hour: 'numeric', minute: 'numeric'}) + ":00Z";
         },
         buscaCEP: function (appVue) {
             var preauth = getAuth();

@@ -11,9 +11,9 @@ nometabela = tblFichaAtendimento
 <?php
 $pgtitle = "Ficha de Atendimento";
 $page = "FichaAtendimento";
-$td = ["" . $page => ["Id", "Cliente", "Consultas", "Procedimentos", "Observação", "DataAtendimento", "Valor", "Anamnese", "Status"]];
-$tdvue = ["" . $page => ["td.Cliente", "td.Consulta", "td.Procedimento", "td.Observacao",
-        "td.DataAtendimento", "td.Valor", "td.LinkAnamnese", "td.Status"]];
+$td = ["" . $page => ["Id", "Cliente", "Consultas", "Procedimentos", "Observação", "DataAtendimento", "Valor", "Anamnese", "Status","Registro"]];
+$tdvue = ["" . $page => ["td.IdCliente", "td.Consulta", "td.Procedimento", "td.Observacao",
+        "td.DataAtendimento", "td.Valor", "td.LinkAnamnese", "td.Status","td.Registrado"]];
 
 include $refUrl . "Mongo/template/head.php"
 ?>
@@ -43,4 +43,8 @@ include $refUrl . "Mongo/template/head.php"
 <textarea class="form-control" v-model="Observacao" name="observacaoatendimento" placeholder="Observação..."></textarea><br>
 <label for="link">Link anamnese:</label>
 <input class="form-control" type="url" v-model="LinkAnamnese" placeholder="Inicio..."><br>
+<label for="Status">Status:</label>
+<input class="form-control" type="checkbox" v-model="Status"><br>
+<label v-if="evtDataCal!='cad'" for="Registrado">Registrar:</label>
+<input v-if="evtDataCal!='cad'" class="form-control" type="checkbox" v-model="Registrado"><br>
 <?php include $refUrl . "Mongo/template/foot.php" ?>

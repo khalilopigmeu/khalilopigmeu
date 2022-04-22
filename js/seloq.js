@@ -7,15 +7,6 @@ var path;
 const Real = value => currency(value, {symbol: 'R$', decimal: '.', separator: ''});
 var cdn;
 $(function () {
-    if (getParameterByName('uuid') !== null) {
-        window.localStorage.setItem("uuid", getParameterByName('uuid'));
-        if (urlSite.includes("rtiempresarial")) {
-            window.location.href = "https://www.rtiempresarial.com.br/index.php";
-        } else {
-            window.location.href = "https://www.bienclube.com.br/index.php";
-        }
-    }
-
     qrcode = new QRCode(document.getElementById("qrcode"), {
         text: urlSite,
         logo: "/img/sobre.png",
@@ -104,6 +95,39 @@ function urlRead() {
             $("#" + element[1]).modal('show');
         } else {
             app.sys.page = element[1];
+        }
+    }
+    if (getParameterByName('uuid') !== null) {
+        window.localStorage.setItem("uuid", getParameterByName('uuid'));
+        app.Dispositivos.buscar();
+        var device = app.sys.search(app.Dispositivos.src, getParameterByName('uuid'), "UUID");
+        if (device.length > 0) {
+            if (device.length > 1) {
+
+            } else {
+                var biencode = {};
+                biencode.UUID = device[0].UUID;
+                biencode.Login = device[0].IdLogin;
+                var data = {
+                    "biencode": $(window).Encrypt(JSON.stringify(biencode))
+                };
+                var ws = "Bienestar/Gerenciamento/Login/appLogin";
+                var p = (post(ws, data));
+                var rs = $(window).Decrypt(p);
+                window.localStorage.setItem("Empresa", rs.Empresa);
+                window.localStorage.setItem("IdEmpresa", rs.IdEmpresa);
+                window.localStorage.setItem("IdLogin", rs.IdLogin);
+                window.localStorage.setItem("Nome", rs.Nome);
+                window.localStorage.setItem("RAVEC", rs.Ravec);
+                window.localStorage.setItem("auth", rs.Credencial.replace(/(\r\n|\n|\r)/gm, ""));
+                window.location.href = "/ws/Agenda/eventos.php";
+            }
+        } else {
+            if (urlSite.includes("rtiempresarial")) {
+                window.location.href = "https://www.rtiempresarial.com.br/index.php";
+            } else {
+                window.location.href = "https://www.bienclube.com.br/index.php";
+            }
         }
     }
     if (app.sys.page == "promocaoespacobienestar") {

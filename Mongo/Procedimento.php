@@ -19,7 +19,7 @@ include $refUrl . "Mongo/template/head.php"
 <label for="Nome">Nome do procedimento:</label>
 <input class="form-control" v-model="Nome" placeholder="..." required="required"><br>
 <label for="Valor">Valor:</label>
-<input class="form-control" v-model="Valor" placeholder="R$"><br>
+<input class="form-control valor" v-model="Valor" placeholder="R$"><br>
 <label for="text">Observação:</label>
 <textarea class="form-control" v-model="Descricao" name="procedimentodescricao" placeholder="Observação..."></textarea><br>
 <?php include $refUrl . "Mongo/template/foot.php" ?>

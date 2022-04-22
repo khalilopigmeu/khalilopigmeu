@@ -326,6 +326,10 @@ $(function () {
     };
 });
 
+function parseBoolean(el){
+    return (/true/i).test(el);
+}
+
 function XmlToJson(xml, ref) {
     parser = new DOMParser();
     xml = parser.parseFromString(xml, "text/xml");
@@ -724,6 +728,10 @@ function ResizeData(formatadata, formatahora, ml) {
     var formatadata = formatadata.split("/");
     var formatahora = formatahora.split(":");
     return formatadata[2] + "-" + formatadata[1] + "-" + formatadata[0] + "T" + formatahora[0] + ":" + formatahora[1] + ":" + formatahora[2];
+}
+function DataISO(formatadata) {
+    var formatadata = formatadata.split("/");
+    return formatadata[2] + "-" + formatadata[1] + "-" + formatadata[0];
 }
 function DropData(formatadata, formatahora, dia, mes, ano, ml) {
     var formatadata = formatadata.split("/");

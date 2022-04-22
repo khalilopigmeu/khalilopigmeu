@@ -27,6 +27,7 @@ app["LancamentoFinanceiro"] = new Vue({
         PedidoVenda: [],
         FichaAtendimento: [],
         importar: null,
+        Status: null,
     },
     methods: {
         populate: function () {
@@ -51,12 +52,14 @@ app["LancamentoFinanceiro"] = new Vue({
             this.Valor = null;
             this.FormaPagamento = null;
             this.Observacao = null;
+            this.Status = null;
         },
         autocomplete: function () {
+            this.Status = parseBoolean(this.row[7]);
             this.Observacao = this.row[6];
             this.FormaPagamento = this.row[5];
             this.Valor = this.row[4];
-            this.Pago = this.row[3];
+            this.Pago = parseBoolean(this.row[3]);
             this.Documento = this.row[2];
             this.Modalidade = this.row[1];
             this.id = this.row[0];
@@ -70,6 +73,7 @@ app["LancamentoFinanceiro"] = new Vue({
             this.biencode.FormaPagamento = this.FormaPagamento;
             this.biencode.Valor = this.Valor;
             this.biencode.Modalidade = this.Modalidade;
+            this.biencode.Status = this.Status;
             this.biencode.id = this.id;
             this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
         },

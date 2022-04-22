@@ -47,15 +47,15 @@ app["Eventos"] = new Vue({
 
         calendar: null,
 
-        FichaAtendimento: null,
+        FichaAtendimento: [],
         FichaAtendimentoSrc: [],
-        LancamentoFinanceiro: null,
+        LancamentoFinanceiro: [],
         LancamentoFinanceiroSrc: [],
-        PedidoDeVenda: null,
+        PedidoDeVenda: [],
         PedidoDeVendaSrc: [],
-        OrdemServico: null,
+        OrdemServico: [],
         OrdemServicoSrc: [],
-        OrdemProducao: null,
+        OrdemProducao: [],
         OrdemProducaoSrc: [],
 
         importar: null,
@@ -117,10 +117,16 @@ app["Eventos"] = new Vue({
             this.endTime = null;
             this.startRecur = null;
             this.endRecur = null;
+
+            this.FichaAtendimento = [];
+            this.LancamentoFinanceiro = [];
+            this.PedidoDeVenda = [];
+            this.OrdemServico = [];
+            this.OrdemProducao = [];
         },
         autocomplete: function () {
             this.groupId = this.evt.groupId;
-            this.allDay = this.evt.allDay;
+            this.allDay = parseBoolean(this.evt.allDay);
             this.start = calendar.formatIso(this.evt.start);
             this.inicio = ISOdata(calendar.formatIso(this.start));
             app.AnotacaoAgenda.datapesq = this.inicio;
@@ -192,7 +198,7 @@ app["Eventos"] = new Vue({
             extendedProps.PedidoDeVenda = this.PedidoDeVenda;
             extendedProps.OrdemServico = this.OrdemServico;
             extendedProps.OrdemProducao = this.OrdemProducao;
-            
+
             this.extendedProps = extendedProps;
             this.biencode.extendedProps = this.extendedProps;
             /*if (this.repetir) {
@@ -208,9 +214,11 @@ app["Eventos"] = new Vue({
              }*/
         },
         cadastrar: function () {
+            this.updateStatus();
             app.sys.crud(this.href, "add", null);
         },
         alterar: function () {
+            this.updateStatus();
             app.sys.crud(this.href, "edt", null);
         },
         excluir: function () {
@@ -240,6 +248,34 @@ app["Eventos"] = new Vue({
                 }
             } else {
                 return false;
+            }
+        },
+        updateStatus: function () {
+            if (this.importar === "financeiro") {
+                for (var i = 0; i <= this.LancamentoFinanceiro.length - 1; i++) {
+                    app.erros.errors = {};
+                    app.LancamentoFinanceiro.biencode = {};
+                    app.LancamentoFinanceiro.biencode.id = this.LancamentoFinanceiro[i];
+                    app.LancamentoFinanceiro.biencode.Status = true;
+                    var data = {
+                        "biencode": $(window).Encrypt(JSON.stringify(app.LancamentoFinanceiro.biencode))
+                    };
+                    app.LancamentoFinanceiro.alt();
+                    app.sys.crud(app.LancamentoFinanceiro.href, "edt", data);
+                }
+            }
+            if (this.importar === "atendimento") {
+                for (var i = 0; i <= this.FichaAtendimento.length - 1; i++) {
+                    app.erros.errors = {};
+                    app.FichaAtendimento.biencode = {};
+                    app.FichaAtendimento.biencode.id = this.FichaAtendimento[i];
+                    app.FichaAtendimento.biencode.Registrado = true;
+                    var data = {
+                        "biencode": $(window).Encrypt(JSON.stringify(app.FichaAtendimento.biencode))
+                    };
+                    app.FichaAtendimento.alt();
+                    app.sys.crud(app.FichaAtendimento.href, "edt", data);
+                }
             }
         },
     }

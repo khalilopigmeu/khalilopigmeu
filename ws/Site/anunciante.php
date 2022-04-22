@@ -146,6 +146,7 @@
         <br>
         <hr v-if="paginas!==null">
         <h2 class="spanCli m-2 p-2" v-if="paginas!==null">Conheça nosso conteúdo:</h2>
+        <hr>
         <div class="row" v-if="paginas!==null">
             <nav class="navbar bg-m navbar-light res col-md-12 col-lg-3 col-xl-3 col-12" id="navbarCliente">
                 <div class="container-fluid justify-content-center w-100">
@@ -161,10 +162,10 @@
                     </div>
                 </div>
             </nav>
-            <div class="col-md-12 col-lg-7 col-xl-7 col-12">
+            <div class="col-md-12 col-lg-7 col-xl-7 col-12 justify-content-center">
                 <div v-for="itens in paginas">
-                    <h2 class="spanCli m-2 p-2" v-if="itens.UrlPage===getParameterByName('pg')">{{itens.Titulo}}</h2>
-                    <div v-if="itens.UrlPage===getParameterByName('pg')" v-html="itens.ContentPage"></div>
+                    <h2 class="spanCli text-center m-2 p-2" v-if="itens.UrlPage===getParameterByName('pg')">{{itens.Titulo}}</h2>
+                    <div class="text-left" v-if="itens.UrlPage===getParameterByName('pg')" v-html="itens.ContentPage"></div>
                 </div>
             </div>
         </div>

@@ -91,11 +91,8 @@ function mnum(v) {
 }
 
 function mvalor(v) {
-    v = v.replace(/\D/g, ""); //Remove tudo o que não é dígito
-    //v = v.replace(/(\d)(\d{11})$/, "$1.$2"); //coloca o ponto dos bilhões
-    //v = v.replace(/(\d)(\d{8})$/, "$1.$2"); //coloca o ponto dos milhões
-    //v = v.replace(/(\d)(\d{5})$/, "$1.$2"); //coloca o ponto dos milhares
-    v = v.replace(/(\d)(\d{2})$/, "$1.$2"); //coloca a virgula antes dos 2 últimos dígitos
+    //v = v.replace(/\D/g, ""); //Remove tudo o que não é dígito
+    //v = v.replace(/(\d)(\d{2})$/, "$1.$2"); //coloca a virgula antes dos 2 últimos dígitos
     return v;
 }
 
@@ -210,6 +207,8 @@ function mask() {
     }
     if (document.getElementsByClassName('valor') !== null) {
         for (var i = 0; i <= clas('valor').length - 1; i++) {
+            clas('valor')[i].setAttribute("step","0.01");
+            clas('valor')[i].setAttribute("type","number");
             clas('valor')[i].onkeypress = function () {
                 mascara(this, mvalor);
             };

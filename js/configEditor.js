@@ -14,6 +14,7 @@ CKEDITOR.editorConfig = function (config) {
     ];
     config.entities_latin = false;
     config.removePlugins = "elementspath";
+    config.removePlugins= 'exportpdf';
     config.resize_enabled = false;
     config.extraPlugins = 'autogrow';
     config.font_names = 'GoogleWebFonts;' + config.font_names;
