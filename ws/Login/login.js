@@ -150,7 +150,8 @@ app["clientLogin"] = new Vue({
                 var ws = "Bienestar/Gerenciamento/Login/loginSistema";
                 var p = (post(ws, data));
                 var rs = $(window).Decrypt(p);
-                if (rs.indexOf("erro:") > 0) {
+                logSandBox(rs);
+                if (rs.includes("erro")) {
                     alert("Acesso inválido contate o administrador");
                 } else {
                     rs = JSON.parse(rs);

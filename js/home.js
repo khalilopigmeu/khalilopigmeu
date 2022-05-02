@@ -5,9 +5,9 @@ app["Home"] = new Vue({
         date1: new Date("03/07/2022"),
         date2: new Date(),
         diferenca: null,
-        anunciantes: null,
-        portfolio: null,
-        cupons: null,
+        anunciantes: 0,
+        portfolio: 0,
+        cupons: 0,
         banner: null,
         itens: [
             {

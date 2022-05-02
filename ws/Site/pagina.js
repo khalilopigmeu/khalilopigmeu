@@ -19,7 +19,7 @@ app["paginasite"] = new Vue({
                 }
                 if (typeof app.empresasanunciando !== 'undefined') {
                     if (app.empresasanunciando.pgid !== null) {
-                        this.biencode.empresa = getParameterByName("pgid");
+                        this.biencode.empresa = app.empresasanunciando.pgid;
                     } else {
                         this.biencode.empresa = app.sys.refid;
                     }

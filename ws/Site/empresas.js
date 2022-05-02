@@ -28,6 +28,8 @@ app["empresasanunciando"] = new Vue({
         produtoselect: "",
         itensporpagina: 0,
         pesquisa: null,
+        video: false,
+        idtime: 0,
     },
     methods: {
         buscar: function () {
@@ -48,7 +50,32 @@ app["empresasanunciando"] = new Vue({
                 app.sys.crud("empresasanunciando", "listar", data);
                 setAuth(preauth);
                 app.empresasanunciando.src = app.sys.randomList(app.empresasanunciando.src);
+                if (this.video === true) {
+                    this.stepvideo();
+                }
             });
+        },
+        stepvideo: function () {
+            this.video = true;
+            if (this.idtime >= this.Empresa.length) {
+                this.idtime == 0;
+            }
+            this.pgid = this.Empresa(this.idtime)._id['$oid'];
+            app.anunciante.pgid = this.pgid;
+            app.empresasanunciando.pgid = this.pgid;
+            app.sys.seo("anuncio", this.pgid);
+            app.configuracaosite.buscar();
+            app.paginasite.buscar();
+            app.FamiliaProdutosSite.buscar();
+            app.ClasseProdutosSite.buscar();
+            app.CategoriaProdutosSite.buscar();
+            app.SubcategoriaProdutosSite.buscar();
+            app.ProdutosSite.buscar();
+            this.stepIdTime();
+            this.video = false;
+        },
+        stepIdTime() {
+            this.idtime++;
         },
         cleanwap: function (number) {
             var num = number.replace(/[^\w\s]/gi, '');
@@ -189,7 +216,11 @@ app["empresasanunciando"] = new Vue({
             }
         },
         Empresa: function (id) {
-            return app.sys.searchByID(this.src, id)[0];
+            if (!this.video) {
+                return app.sys.searchByID(this.src, id)[0];
+            } else {
+                return this.src[this.idtime];
+            }
         },
     },
 });

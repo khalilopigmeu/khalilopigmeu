@@ -165,6 +165,11 @@ function urlRead() {
             app.sys.seo("anuncio");
         }
     }
+    if (app.sys.page === "videos") {
+        app.anunciante.buscar();
+        app.empresasanunciando.video = true;
+        app.empresasanunciando.buscar();
+    }
     if (app.sys.page === "anunciante") {
         if (getParameterByName('pgid') !== null) {
             app.anunciante.pgid = getParameterByName('pgid');

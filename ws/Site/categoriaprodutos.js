@@ -14,7 +14,11 @@ app["CategoriaProdutosSite"] = new Vue({
                 var auth = $(window).Decrypt(app.sys.bien);
                 setAuth(auth);
                 this.biencode = {};
-                this.biencode.empresa = getParameterByName('pgid');
+                if (app.empresasanunciando.pgid !== null) {
+                    this.biencode.empresa = app.empresasanunciando.pgid;
+                } else {
+                    this.biencode.all = "";
+                }
                 var data = {
                     biencode: $(window).Encrypt(JSON.stringify(this.biencode))
                 };

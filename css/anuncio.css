@@ -1,0 +1,7 @@
+.boxanimator{
+    background: rgba(0,0,0,0.5);
+    position: absolute;
+    width: 98%;
+    margin: 1%;
+    height: 95%;
+}
