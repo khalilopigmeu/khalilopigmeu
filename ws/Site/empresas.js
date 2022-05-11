@@ -222,6 +222,9 @@ app["empresasanunciando"] = new Vue({
                 return this.src[this.idtime];
             }
         },
+        Config: function (id) {
+            return app.sys.search(app.configuracaosite.src, id, "IdEmpresa")[0];
+        },
     },
 });
         

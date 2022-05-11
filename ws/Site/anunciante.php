@@ -1,4 +1,4 @@
-<div id="empresasanunciando" class="border rounded glory m-3 p-3 shadow-lg borda-x text-center justify-content-center">
+<div id="empresasanunciando" v-if="app.sys.page==='anunciante'||app.sys.page==='videos'" class="border rounded glory m-3 p-3 shadow-lg borda-x text-center justify-content-center">
     <div v-if="app.sys.page==='anunciante'">
         <div class="row text-center justify-content-center">
             <div class="col-8 input-group mb-3 row">
@@ -17,11 +17,8 @@
                 <img class="logoanunciante img-fluid rounded" 
                      v-bind:src="getLogo(itens.IdEmpresa)">
                 <br>
-                <h3 class="spanCli" v-if="Empresa(itens.IdEmpresa).NomeFantasia">
-                    {{Empresa(itens.IdEmpresa).NomeFantasia}}
-                </h3>
-                <h3 class="spanCli" v-else>
-                    {{Empresa(itens.IdEmpresa).Nome}}    
+                <h3 class="spanCli">
+                    {{Config(itens.IdEmpresa).Nome}}
                 </h3>
                 <div v-if="Empresa(itens.IdEmpresa).Celular!='null'" >
                     <span class='spanCli'><i class="fab fa-whatsapp"></i> whatsapp:</span>
