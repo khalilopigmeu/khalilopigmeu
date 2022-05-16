@@ -42,15 +42,20 @@ app["configuracaosite"] = new Vue({
                 } else {
                     var path = (window.location.pathname).split("/");
                     var search = path[path.length - 1];
-                    var fb = app.sys.search(app.configuracaosite.src, search, "Facebook");
-                    var ig = app.sys.search(app.configuracaosite.src, search, "Instagram");
-                    var nm = app.sys.search(app.configuracaosite.src, search, "Nome");
-                    if (fb.length > 0) {
-                        window.location.href = "/index.php#anunciante?pgid=" + fb[0].IdEmpresa;
-                    } else if (ig.length > 0) {
-                        window.location.href = "/index.php#anunciante?pgid=" + ig[0].IdEmpresa;
-                    } else if (nm.length > 0) {
-                        window.location.href = "/index.php#anunciante?pgid=" + nm[0].IdEmpresa;
+                    if (search !== null && search.length > 3) {
+                        var fb = app.sys.search(app.configuracaosite.src, search, "Facebook");
+                        var ig = app.sys.search(app.configuracaosite.src, search, "Instagram");
+                        var nm = app.sys.search(app.configuracaosite.src, search, "Nome");
+                        if (fb.length > 1) {
+                            window.location.href = "/index.php#anunciante?pgid=" + fb[0].IdEmpresa;
+                            urlRead();
+                        } else if (ig.length > 1) {
+                            window.location.href = "/index.php#anunciante?pgid=" + ig[0].IdEmpresa;
+                            urlRead();
+                        } else if (nm.length > 1) {
+                            window.location.href = "/index.php#anunciante?pgid=" + nm[0].IdEmpresa;
+                            urlRead();
+                        }
                     }
                 }
             });

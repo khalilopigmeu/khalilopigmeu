@@ -83,8 +83,8 @@ app["FichaAtendimento"] = new Vue({
             this.biencode.DataAtendimento = this.DataAtendimento;
             this.biencode.Valor = this.Valor;
             this.biencode.LinkAnamnese = this.LinkAnamnese;
-            this.biencode.Status = false;
-            this.biencode.Registrado = false;
+            this.biencode.Status = this.Status;
+            this.biencode.Registrado = this.Registrado;
             this.biencode.id = this.id;
             this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
         },

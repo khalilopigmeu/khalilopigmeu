@@ -30,6 +30,7 @@ app["empresasanunciando"] = new Vue({
         pesquisa: null,
         video: false,
         idtime: 0,
+        tipo: null
     },
     methods: {
         buscar: function () {
@@ -41,6 +42,7 @@ app["empresasanunciando"] = new Vue({
                 this.biencode = {};
                 if (app.empresasanunciando.pgid !== null) {
                     this.biencode.id = app.empresasanunciando.pgid;
+                    app.empresasanunciando.Anunciante(this.biencode.id);
                 } else {
                     this.biencode.all = "";
                 }
@@ -89,7 +91,7 @@ app["empresasanunciando"] = new Vue({
         },
         getLogo: function (id) {
             var temp = app.sys.search(app.configuracaosite.src, id, 'IdEmpresa');
-            if (temp.length > 0) {
+            if (typeof temp !== "undefined" || temp.length > 0) {
                 return temp[0].LogoURL;
             } else {
                 return "";
@@ -97,7 +99,7 @@ app["empresasanunciando"] = new Vue({
         },
         getFB: function (id) {
             var temp = app.sys.search(app.configuracaosite.src, id, 'IdEmpresa');
-            if (temp.length > 0) {
+            if (typeof temp !== "undefined" || temp.length > 0) {
                 var fb = temp[0].Facebook;
                 if (fb) {
                     return fb.replace("@", "");
@@ -108,7 +110,7 @@ app["empresasanunciando"] = new Vue({
         },
         getInsta: function (id) {
             var temp = app.sys.search(app.configuracaosite.src, id, 'IdEmpresa');
-            if (temp.length > 0) {
+            if (typeof temp !== "undefined" || temp.length > 0) {
                 var ins = temp[0].Instagram;
                 if (ins) {
                     return ins.replace("@", "");
@@ -119,7 +121,7 @@ app["empresasanunciando"] = new Vue({
         },
         getSite: function (id) {
             var temp = app.sys.search(app.configuracaosite.src, id, 'IdEmpresa');
-            if (temp.length > 0) {
+            if (typeof temp !== "undefined" || temp.length > 0) {
                 return temp[0].Site;
             } else {
                 return null;
@@ -223,8 +225,29 @@ app["empresasanunciando"] = new Vue({
             }
         },
         Config: function (id) {
-            return app.sys.search(app.configuracaosite.src, id, "IdEmpresa")[0];
+            var temp = app.sys.search(app.configuracaosite.src, id, "IdEmpresa")[0];
+            if (typeof temp !== "undefined" || temp.length > 0) {
+                return temp;
+            } else {
+                return "";
+            }
         },
+        Anunciante: function (id) {
+            var temp = app.sys.search(app.anunciante.src, id, "IdEmpresa")[0];
+            if (typeof temp !== "undefined" || temp.length > 0) {
+                this.tipo = temp.Tipo;
+            } else {
+                tipo = null;
+            }
+        },
+        cast: function () {
+            $(function () {
+                var url = $("#toOpen").attr("data-url");
+                if (url !== null) {
+                    window.location.href = url;
+                }
+            });
+        }
     },
 });
         

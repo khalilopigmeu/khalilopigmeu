@@ -4,7 +4,7 @@ var table = {};
 var qrcode;
 var urlSite = window.location.href;
 var path;
-const Real = value => currency(value, {symbol: 'R$', decimal: '.', separator: ''});
+const Real = value => currency(value, {symbol: 'R$', decimal: ',', separator: '.'});
 var cdn;
 $(function () {
     qrcode = new QRCode(document.getElementById("qrcode"), {
@@ -19,6 +19,10 @@ $(function () {
     });
 
     window.onhashchange = function () {
+        urlRead();
+    };
+    
+    window.onchange = function () {
         urlRead();
     };
 
