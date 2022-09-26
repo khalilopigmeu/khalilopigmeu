@@ -11,33 +11,31 @@ app["PlanoSistema"] = new Vue({
         stepkey: 0,
         href: null,
         ELtitle: null,
-        Icon: '<i class="fab fa-buromobelexperte"></i>',
+        Icon: '<i class="fas fa-hand-holding-usd"></i>',
         pesqTbl: "",
-        Host: "Bienestar/Financeiro/PlanoSistema/",
+        Host: "Bienestar/Sistema/PlanoSistema/",
 
         IdCategoriaPlanoSistema: null,
         CodPlano: null,
         Descricao: null,
         Valor: null,
         Link: null,
-        CategoriaPlanoSistemaSrc: null,
+        
+        CategoriaPlanoSistemaSrc:null,
     },
     methods: {
         populate: function () {
-            $(function () {
-                this.biencode = {};
-                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud(app.PlanoSistema.href, "listar", data);
-                app.ControlaMensalidade.PlanoSistemaSrc = app.PlanoSistema.src;
-            });
+            this.biencode = {};
+            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode))
+            };
+            app.sys.crud(app.PlanoSistema.href, "listar", data);
             app.sys.tabs(this.href);
         },
         clear: function () {
             this.IdCategoriaPlanoSistema = null;
-            this.CodPlano = null;
+            this.CodPlano = null;   
             this.Descricao = null;
             this.Valor = null;
             this.Link = null;
@@ -86,16 +84,12 @@ app["PlanoSistema"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
-        ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
-                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
-                    return true;
-                } else {
-                    return false;
-                }
+        load: function () {
+            if (nulo(app.CategoriaPlanoSistema)) {
+                this.CategoriaPlanoSistemaSrc = [];
             } else {
-                return false;
+                this.CategoriaPlanoSistemaSrc = app.CategoriaPlanoSistema.src;
             }
-        }
+        },
     }
 });

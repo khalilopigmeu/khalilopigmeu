@@ -3,7 +3,7 @@ include"../../header.php";
 ?>
 <script src="<?php echo $cdn; ?>js/calendar.js"></script>
 <div class="container-fluid" id="CalendarApp">
-    <div class="progress" v-if="progress<100">
+    <div class="progress" v-if="progress<99">
         <div class="text-center progress-bar progress-bar-striped progress-bar-animated" role="progressbar" v-bind:aria-valuenow="progress" aria-valuemin="0" aria-valuemax="100" v-bind:style="'width: '+progress+'%'">{{progress}}%</div>
     </div>
     <div class="row text-center justify-content-center my-2 py-2">
@@ -61,7 +61,7 @@ include"../../header.php";
         </div>
         <div id="tab-grafico" class="tab-pane container-fluid" role="tabpanel" aria-labelledby="tab-grafico">
             <button class="btn btn-dark" v-on:click="grafico">Atualizar</button><br><hr><br>
-            <canvas id="myChart" width="400" height="400" style="background: white;"></canvas>
+            <canvas id="Grafico" width="400" height="400" style="background: white;"></canvas>
         </div>
         <div id="tab-tabela" class="tab-pane container-fluid" role="tabpanel" aria-labelledby="tab-tabela">
             <div class="row">
@@ -114,6 +114,7 @@ include"../../header.php";
 <?php
 include $refUrl . "Mongo/RootAccess.php";
 include $refUrl . "Mongo/Ravec.php";
+
 include $refUrl . "Mongo/CategoriaEventos.php";
 include $refUrl . "Mongo/AnotacaoAgenda.php";
 include $refUrl . "Mongo/Consulta.php";
@@ -121,7 +122,27 @@ include $refUrl . "Mongo/Procedimento.php";
 include $refUrl . "Mongo/Eventos.php";
 include $refUrl . "Mongo/Empresa.php";
 include $refUrl . "Mongo/Cliente.php";
+
+include $refUrl . "Mongo/Departamento.php";
+include $refUrl . "Mongo/Cargo.php";
+include $refUrl . "Mongo/PlanoOdonto.php";
+include $refUrl . "Mongo/PlanoSaude.php";
+include $refUrl . "Mongo/ControlePonto.php";
+include $refUrl . "Mongo/FingerData.php";
+include $refUrl . "Mongo/Ponto.php";
+include $refUrl . "Mongo/Etag.php";
+include $refUrl . "Mongo/Manutencao.php";
+include $refUrl . "Mongo/CategoriaDispositivos.php";
+include $refUrl . "Mongo/Dispositivos.php";
+include $refUrl . "Mongo/Componente.php";
+include $refUrl . "Mongo/SubComponente.php";
+include $refUrl . "Mongo/Dependentes.php";
+include $refUrl . "Mongo/ReservaProduto.php";
+include $refUrl . "Mongo/CategoriaPlanoSistema.php";
+include $refUrl . "Mongo/PlanoSistema.php";
+
 include $refUrl . "Mongo/Funcionarios.php";
+include $refUrl . "Mongo/Curriculum.php";
 include $refUrl . "Mongo/Fornecedor.php";
 include $refUrl . "Mongo/Vendedor.php";
 include $refUrl . "Mongo/Revenda.php";
@@ -136,7 +157,6 @@ include $refUrl . "Mongo/Album.php";
 include $refUrl . "Mongo/Midia.php";
 include $refUrl . "Mongo/CategoriaAnuncio.php";
 include $refUrl . "Mongo/Anuncio.php";
-include $refUrl . "Mongo/ChamadoAnuncio.php";
 include $refUrl . "Mongo/CategoriaText.php";
 include $refUrl . "Mongo/Text.php";
 include $refUrl . "Mongo/Page.php";
@@ -146,16 +166,26 @@ include $refUrl . "Mongo/CategoriaPortfolio.php";
 include $refUrl . "Mongo/Portfolio.php";
 include $refUrl . "Mongo/Mural.php";
 include $refUrl . "Mongo/Login.php";
-include $refUrl . "Mongo/CategoriaPlanoSistema.php";
-include $refUrl . "Mongo/PlanoSistema.php";
 include $refUrl . "Mongo/ControlaMensalidade.php";
 include $refUrl . "Mongo/FichaAtendimento.php";
 include $refUrl . "Mongo/Comissao.php";
 include $refUrl . "Mongo/LancamentoFinanceiro.php";
 include $refUrl . "Mongo/PedidoVenda.php";
-include $refUrl . "Mongo/ListaCompra.php";
-#include $refUrl . "Mongo/ReservaProduto.php";
+include $refUrl . "Mongo/AnuncioRapido.php";
+
+include $refUrl . "Mongo/Chamado.php";
+include $refUrl . "Mongo/Dicionario.php";
+include $refUrl . "Mongo/Hints.php";
+
 include $refUrl . "Mongo/FormasPagamento.php";
+include $refUrl . "Mongo/OS.php";
+include $refUrl . "Mongo/Formula.php";
+include $refUrl . "Mongo/Profissional.php";
+include $refUrl . "Mongo/PromocaoItem.php";
+include $refUrl . "Mongo/Promocao.php";
+#include $refUrl . "Mongo/Processo.php";
+#include $refUrl . "Mongo/Projetos.php";
+
 include $refUrl . "ws/Site/anunciante.php";
 ?>
 <script>
@@ -211,8 +241,39 @@ $(function () {
     CKEDITOR.replace('casetxt', {
         customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
     });
-    app.Ravec.ravecUpdate();
+    CKEDITOR.replace('sobrecurriculo', {
+        customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
+    });
+    CKEDITOR.replace('solucaochamado', {
+        customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
+    });
+    CKEDITOR.replace('observacaochamado', {
+        customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
+    });
+    /*CKEDITOR.replace('observacaomanutencao', {
+     customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
+     });*/
+    CKEDITOR.replace('observacaoscomponente', {
+        customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
+    });
+    CKEDITOR.replace('especificacaoscomponente', {
+        customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
+    });
+    CKEDITOR.replace('observacaocomponente', {
+        customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
+    });
+    CKEDITOR.replace('especificacaocomponente', {
+        customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
+    });
+
+    app.SocialMedia.fblog = true;
+    app.sidebar.fblog = true;
+    app.SocialMedia.empresa = window.localStorage.getItem("Empresa");
+    app.SocialMedia.login = window.localStorage.getItem("Nome");
 });
+window.onload = function () {
+    app.calendar.load();
+}
 </script>
 <?php
 include"../../footer.php";

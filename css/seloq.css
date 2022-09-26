@@ -2,44 +2,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Glory:wght@500&display=swap');
 
 h1 {
-    font-size: 8vw !important;
+    font-size: 4vw !important;
 }
 h2 {
-    font-size: 7vh !important;
+    font-size: 3.5vw !important;
 }
 h3 {
-    font-size: 6vh !important;
+    font-size: 3vw !important;
 }
 h4 {
-    font-size: 5.5vh !important;
+    font-size: 2.5vw !important;
 }
 h5 {
-    font-size: 4.5vh !important;
+    font-size: 2vw !important;
 }
 h6 {
-    font-size: 4vh !important;
+    font-size: 2vw !important;
 }
 p {
-    font-size: 3vh;
+    font-size: 1.5vw;
 }
 html,label {
-    font-size: 3vh;
+    font-size: 1.5vw;
 }
 body {
-    font-size: 3vh;
+    font-size: 1.5vw;
 }
 table {
-    font-size: 3vh;
+    font-size: 1.5vw;
 }
 td {
-    font-size: 3vh;
+    font-size: 1.5vw;
 }
 .btn,button{
-    font-size: 3vh;
+    font-size: 1.5vw;
     word-break: break-word !important;
     background: var(--botoesbg) !important;
     font-family: var(--botoesfont) !important;
     color: var(--botoescolor) !important;
+    white-space: normal !important;
 }
 
 button:disabled,.btn:disabled{
@@ -105,29 +106,25 @@ a:hover,a.btn:hover{
 }
 
 h3.spanCli{
-    text-transform: lowercase;
-    font-size: 4.5vh !important;
-}
-h3.spanCli:first-letter{
     text-transform: capitalize;
-    font-size: 5vh !important;
+    font-size: 2.5vw !important;
 }
 
 hr{
     border: 1px solid var(--navbarbg);
-    box-shadow: 1vh 0.6vh 1.5vh 0.1vh var(--botoesout);
+    box-shadow: 1vw 0.6vw 1.5vw 0.1vw var(--botoesout);
 }
 
 .bs{
     border: 1px solid var(--navbarbg);
-    box-shadow: 1vh 0.6vh 1.5vh 0.1vh var(--botoesout);
+    box-shadow: 1vw 0.6vw 1.5vw 0.1vw var(--botoesout);
 }
 
 .carousel-control-prev-icon,.carousel-control-next-icon{
     background-color: var(--navbarbg) !important;
-    box-shadow: 1vh 0.6vh 1.5vh 0.1vh var(--botoesout);
-    padding: 3vh;
-    border-radius: 2vh;
+    box-shadow: 1vw 0.6vw 1.5vw 0.1vw var(--botoesout);
+    padding: 1.5vw;
+    border-radius: 2vw;
 }
 
 .listA{
@@ -135,13 +132,13 @@ hr{
 }
 
 .socialink i{
-    font-size: 5vh !important;
+    font-size: 3vw !important;
     color: var(--navbarbg);
     border: 2px solid;
-    padding: 2vh;
+    padding: 0.5vw;
     border-radius: 10px;
-    width: 9vh;
-    height: 9vh;
+    width: 4vw;
+    height: 4vw;
 }
 
 
@@ -171,12 +168,13 @@ hr{
 }
 
 .modal-dialog {
-    max-width: 90% !important;
-    width: 90% !important;
+    max-width: 100% !important;
+    width: 100% !important;
     overflow: auto !important;
     background: var(--modalbg) !important;
     font-family: var(--modalfont) !important;
     color: var(--modalcolor) !important;
+    z-index: 999;
 }
 
 fieldset,legend{
@@ -245,7 +243,7 @@ table tfoot tr{
 
 #menu-toggle{
     position: absolute;
-    z-index: 99999;
+    z-index: 900;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -253,7 +251,7 @@ table tfoot tr{
 }
 #menu-toggle-R{
     position: absolute;
-    z-index: 99999;
+    z-index: 900;
     right: 35px;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -405,11 +403,19 @@ form{
     .logoanunciante{
         width: 100%;
     }
+    .navbar-toggler-icon{
+        width: 10vw;
+        height: 10vw;
+    }
 }
 
 @media (min-width: 768px) { 
     .logoanunciante{
         width: 75%;
+    }
+    .navbar-toggler-icon{
+        width: 8vw;
+        height: 8vw;
     }
 }
 
@@ -417,10 +423,45 @@ form{
     .logoanunciante{
         width: 50%;
     }
+    .navbar-toggler-icon{
+        width: 6vw;
+        height: 6vw;
+    }
 }
 
 @media (min-width: 1200px) { 
     .logoanunciante{
         width: 50%;
     }
+    .navbar-toggler-icon{
+        width: 4vw;
+        height: 4vw;
+    }
+}
+
+.pagination .page-item:first-child .page-link{
+    background: var(--botoesbg) !important;
+    font-family: var(--botoesfont) !important;
+    color: var(--botoescolor) !important;
+}
+.pagination .page-item:last-child .page-link{
+    background: var(--botoesbg) !important;
+    font-family: var(--botoesfont) !important;
+    color: var(--botoescolor) !important;
+}
+.pagination .page-item.mr-1 .page-link{
+    background: var(--fieldesetbg) !important;
+    font-family: var(--fieldsetcolor) !important;
+    color: var(--botoescolor) !important;
+}
+.pagination .page-item.ml-1 .page-link{
+    background: var(--fieldesetbg) !important;
+    font-family: var(--fieldsetcolor) !important;
+    color: var(--botoescolor) !important;
+}
+
+.pagination .page-item .current{
+    background: var(--fieldesetbg) !important;
+    font-family: var(--fieldsetcolor) !important;
+    color: var(--hrefcolor) !important;
 }

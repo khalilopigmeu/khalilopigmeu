@@ -1,10 +1,8 @@
 <?php
 $pgtitle = "Categorias de Planos de sistema";
 $page = "CategoriaPlanoSistema";
-$td = ["" . $page => ["Id",
-        "Nome",
-        "Acessos"]];
-$tdvue = ["" . $page => ["td.NomeCategoria","app.sys.foreignKeyReplace(Loginsrc,'Login',td.Acessos)"]];
+$td = ["" . $page => ["Id", "Nome", "Acessos"]];
+$tdvue = ["" . $page => ["td.NomeCategoria", "app.sys.foreignKeyReplace(Loginsrc,'Login',td.Acessos)"]];
 
 include $refUrl . "Mongo/template/head.php";
 ?>

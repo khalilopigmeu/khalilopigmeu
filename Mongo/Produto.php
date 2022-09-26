@@ -25,7 +25,7 @@ $tdvue = ["" . $page => ["app.sys.foreignKeyReplace(FamiliaSrc,'TipoFamilia',td.
         "app.sys.foreignKeyReplace(CategoriaSrc,'TipoCategoria',td.IdCategoriaProduto)",
         "app.sys.foreignKeyReplace(SubCategoriaSrc,'TipoSubCategoria',td.IdSubCategoriaProduto)",
         "app.sys.foreignKeyReplace(FornecedorSrc,'Nome',td.IdFornecedor)",
-        "app.sys.foreignKeyReplace(AlbumSrc,'Nome',td.IdAlbum)",
+        "app.sys.foreignKeyReplace(AlbumSrc,'NomeAlbum',td.IdAlbum)",
         "td.CodProduto",
         "td.NomeProduto",
         "td.Carateristicas",
@@ -72,15 +72,14 @@ include $refUrl . "Mongo/template/head.php"
 </select>
 <a href="#" onclick="setModal('SubcategoriaProdutos', 'Produto')">Adicionar Subcategoria <i class="far fa-plus-square"></i></a><br>
 <label>Fornecedor:</label>
-<input list="FornecedorProduto" class="form-control" v-model="IdFornecedor">
-<datalist id="FornecedorProduto">
+<select class="form-control" v-model="IdFornecedor">
     <option v-for="el in app.sys.sorter(FornecedorSrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
-</datalist>
+</select>
 <a href="#" onclick="setModal('Fornecedor', 'Produto')">Adicionar Fornecedor <i class="far fa-plus-square"></i></a><br>
 <label>Album:</label>
 <select class="form-control" v-model="IdAlbum">
     <option>Selecione o album</option>
-    <option v-for="el in app.sys.sorter(AlbumSrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
+    <option v-for="el in app.sys.sorter(AlbumSrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.NomeAlbum}}</option>
 </select>
 <a href="#" onclick="setModal('Album', 'Produto')">Adicionar Album <i class="far fa-plus-square"></i></a><br>
 <label>Código de produto:</label>

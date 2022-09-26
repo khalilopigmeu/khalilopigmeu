@@ -1,13 +1,3 @@
-<!-- 
-VueApp name = AnotacaoAgenda 
-titulo = Anotações
-app = AnotacaoAgenda
-ASC/DESC = DESC
-campo = id
-coluna tbl = "fields",
-input = <input class="form-control" v-model="Campo" placeholder="Campo..." ><br>
-nometabela = tblAnotacaoAgenda
--->
 <?php
 $pgtitle = "acesso root";
 $page = "RootAccess";
@@ -19,8 +9,7 @@ include $refUrl . "Mongo/template/head.php"
 <div v-if="app.sys.urlSite.includes('rtiempresarial')">
     <label>Empresa:</label>
     <select class="form-control" v-model="selEmpresa" v-on:change="login()" placeholder="Empresa..." >
-        <option v-for="el in app.sys.sorter(EmpresaSrc,'DESC','id')" v-if="el.NomeFantasia!=null" v-bind:value="el._id['$oid']">{{el.NomeFantasia}}</option>
-        <option v-for="el in app.sys.sorter(EmpresaSrc,'DESC','id')" v-if="el.NomeFantasia==null" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
+        <option v-for="el in app.sys.sorter(EmpresaSrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.NomeFantasia}}-{{el.Nome}}</option>
     </select>
     <label>Login:</label>
     <select class="form-control" v-model="selLogin" placeholder="Login..." >

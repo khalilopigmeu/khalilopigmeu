@@ -1,8 +1,7 @@
 <?php
 $pgtitle = "Categorias de Dispositivos";
-$page = "CategoriaDispositivo";
-$td = ["" . $page => ["Id",
-        "Nome"]];
+$page = "CategoriaDispositivos";
+$td = ["" . $page => ["Id", "Nome"]];
 $tdvue = ["" . $page => ["td.NomeCategoria"]];
 
 include $refUrl . "Mongo/template/head.php";

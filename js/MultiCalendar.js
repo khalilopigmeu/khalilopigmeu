@@ -24,8 +24,8 @@ $(function () {
             if (i === 0) {
                 act = "active";
                 cal = 0;
-                idTab = $(window).Decrypt(xml.getElementsByTagName("CategoriaEventos")[i].childNodes[0].childNodes[0].nodeValue);
-                categoriaTab = $(window).Decrypt(xml.getElementsByTagName("CategoriaEventos")[i].childNodes[1].childNodes[0].nodeValue);
+                idTab = decrypt(xml.getElementsByTagName("CategoriaEventos")[i].childNodes[0].childNodes[0].nodeValue);
+                categoriaTab = decrypt(xml.getElementsByTagName("CategoriaEventos")[i].childNodes[1].childNodes[0].nodeValue);
             } else {
                 act = "";
             }
@@ -37,32 +37,32 @@ $(function () {
             }
             li += "<li class='nav-item list-group-item' style='background:#" + color + "'>" +
                     "<a class='nav-link rounded " + act + "' id='" +
-                    $(window).Decrypt(xml.getElementsByTagName("CategoriaEventos")[i].childNodes[1].childNodes[0].nodeValue) +
+                    decrypt(xml.getElementsByTagName("CategoriaEventos")[i].childNodes[1].childNodes[0].nodeValue) +
                     "-tab' data-toggle='tab' data-cal='" + i + "' href='#" +
-                    $(window).Decrypt(xml.getElementsByTagName("CategoriaEventos")[i].childNodes[1].childNodes[0].nodeValue) +
+                    decrypt(xml.getElementsByTagName("CategoriaEventos")[i].childNodes[1].childNodes[0].nodeValue) +
                     "' role='tab' aria-controls='" +
-                    $(window).Decrypt(xml.getElementsByTagName("CategoriaEventos")[i].childNodes[1].childNodes[0].nodeValue) +
+                    decrypt(xml.getElementsByTagName("CategoriaEventos")[i].childNodes[1].childNodes[0].nodeValue) +
                     "' data-id='" +
-                    $(window).Decrypt(xml.getElementsByTagName("CategoriaEventos")[i].childNodes[0].childNodes[0].nodeValue) +
+                    decrypt(xml.getElementsByTagName("CategoriaEventos")[i].childNodes[0].childNodes[0].nodeValue) +
                     "' style='background:#" +
-                    $(window).Decrypt(xml.getElementsByTagName("CategoriaEventos")[i].childNodes[2].childNodes[0].nodeValue)
+                    decrypt(xml.getElementsByTagName("CategoriaEventos")[i].childNodes[2].childNodes[0].nodeValue)
                     + "'>" +
-                    $(window).Decrypt(xml.getElementsByTagName("CategoriaEventos")[i].childNodes[1].childNodes[0].nodeValue) +
+                    decrypt(xml.getElementsByTagName("CategoriaEventos")[i].childNodes[1].childNodes[0].nodeValue) +
                     "</a>" +
-                    " <a href='#' class='altcat py-2 my-2' data-id='" + $(window).Decrypt(xml.getElementsByTagName("CategoriaEventos")[i].childNodes[0].childNodes[0].nodeValue)
+                    " <a href='#' class='altcat py-2 my-2' data-id='" + decrypt(xml.getElementsByTagName("CategoriaEventos")[i].childNodes[0].childNodes[0].nodeValue)
                     + "'><i class='far fa-edit'></i></a> " +
                     "</li>";
             var pane = "<div class='tab-pane fade show " + act + "' id='" +
-                    $(window).Decrypt(xml.getElementsByTagName("CategoriaEventos")[i].childNodes[1].childNodes[0].nodeValue) +
+                    decrypt(xml.getElementsByTagName("CategoriaEventos")[i].childNodes[1].childNodes[0].nodeValue) +
                     "' role='tabpanel' aria-labelledby='" +
-                    $(window).Decrypt(xml.getElementsByTagName("CategoriaEventos")[i].childNodes[1].childNodes[0].nodeValue) +
+                    decrypt(xml.getElementsByTagName("CategoriaEventos")[i].childNodes[1].childNodes[0].nodeValue) +
                     "-tab'>" +
                     "<div class='calendar' id='" +
-                    $(window).Decrypt(xml.getElementsByTagName("CategoriaEventos")[i].childNodes[1].childNodes[0].nodeValue) +
+                    decrypt(xml.getElementsByTagName("CategoriaEventos")[i].childNodes[1].childNodes[0].nodeValue) +
                     "Evt'></div>" +
                     "</div>";
             $("#calendarTabContent").append(pane);
-            fc($(window).Decrypt(xml.getElementsByTagName("CategoriaEventos")[i].childNodes[0].childNodes[0].nodeValue), $(window).Decrypt(xml.getElementsByTagName("CategoriaEventos")[i].childNodes[1].childNodes[0].nodeValue), i);
+            fc(decrypt(xml.getElementsByTagName("CategoriaEventos")[i].childNodes[0].childNodes[0].nodeValue), decrypt(xml.getElementsByTagName("CategoriaEventos")[i].childNodes[1].childNodes[0].nodeValue), i);
         }
         $("#categoriasCal").html(li);
     };
@@ -80,18 +80,18 @@ $(function () {
         var el = xml.getElementsByTagName("AnotacaoAgenda").length;
         var li = "";
         for (var i = 0; i <= el - 1; i++) {
-            li += "<li class='list-group-item'><span>" + $(window).Decrypt(xml.getElementsByTagName("AnotacaoAgenda")[i].childNodes[2].childNodes[0].nodeValue) +
+            li += "<li class='list-group-item'><span>" + decrypt(xml.getElementsByTagName("AnotacaoAgenda")[i].childNodes[2].childNodes[0].nodeValue) +
                     "</span> <a href='#' data-id='" +
-                    $(window).Decrypt(xml.getElementsByTagName("AnotacaoAgenda")[i].childNodes[0].childNodes[0].nodeValue)
+                    decrypt(xml.getElementsByTagName("AnotacaoAgenda")[i].childNodes[0].childNodes[0].nodeValue)
                     + "'><i class='anotsText far fa-sticky-note' id='anot" +
-                    $(window).Decrypt(xml.getElementsByTagName("AnotacaoAgenda")[i].childNodes[0].childNodes[0].nodeValue)
+                    decrypt(xml.getElementsByTagName("AnotacaoAgenda")[i].childNodes[0].childNodes[0].nodeValue)
                     + "'></i></a>"
-                    + " <a href='#' class='altanot py-2 my-2' data-id='" + $(window).Decrypt(xml.getElementsByTagName("AnotacaoAgenda")[i].childNodes[0].childNodes[0].nodeValue)
+                    + " <a href='#' class='altanot py-2 my-2' data-id='" + decrypt(xml.getElementsByTagName("AnotacaoAgenda")[i].childNodes[0].childNodes[0].nodeValue)
                     + "'><i class='far fa-edit'></i></a> " +
                     "<div id='lianot" +
-                    $(window).Decrypt(xml.getElementsByTagName("AnotacaoAgenda")[i].childNodes[0].childNodes[0].nodeValue)
+                    decrypt(xml.getElementsByTagName("AnotacaoAgenda")[i].childNodes[0].childNodes[0].nodeValue)
                     + "' class='d-none'>" +
-                    $(window).Decrypt(xml.getElementsByTagName("AnotacaoAgenda")[i].childNodes[3].childNodes[0].nodeValue)
+                    decrypt(xml.getElementsByTagName("AnotacaoAgenda")[i].childNodes[3].childNodes[0].nodeValue)
                     + "</div>" +
                     "</li>";
         }
@@ -173,26 +173,26 @@ $(function () {
         var id = $("#frmAgendaEvt input[name='id']").val();
         var ID = $("#frmAgendaEvt input[name='IdEvento']").val();
         if (id !== null || typeof id !== "undefined") {
-            data["Id"] = $(window).Encrypt(id);
+            data["Id"] = encrypt(id);
             dataEvt["Id"] = ID;
-            data["id"] = $(window).Encrypt(id);
+            data["id"] = encrypt(id);
         }
         var nome = $("#frmAgendaEvt input[name='Nome']").val();
         if (nome !== null || typeof nome !== "undefined") {
-            data["Title"] = $(window).Encrypt(nome);
+            data["Title"] = encrypt(nome);
             dataEvt["title"] = nome;
         }
         var inicio = $("#frmAgendaEvt input[name='Inicio']").val();
         var horai = $("#frmAgendaEvt input[name='Horai']").val();
         if ((inicio !== null || typeof inicio !== "undefined") && (horai !== null || typeof horai !== "undefined")) {
-            data["Start"] = $(window).Encrypt(toUTC(invertData(inicio), horai));
+            data["Start"] = encrypt(toUTC(invertData(inicio), horai));
             dataEvt["start"] = toUTC(invertData(inicio), horai);
         }
         if ($("#ckbF").is(":checked")) {
             var fim = $("#frmAgendaEvt input[name='Fim']").val();
             var horaf = $("#frmAgendaEvt input[name='Horaf']").val();
             if ((fim !== null || typeof fim !== "undefined") && (horaf !== null || typeof horaf !== "undefined")) {
-                data["End"] = $(window).Encrypt(toUTC(invertData(fim), horaf));
+                data["End"] = encrypt(toUTC(invertData(fim), horaf));
                 dataEvt["end"] = toUTC(invertData(fim), horaf);
             }
         } else {
@@ -201,7 +201,7 @@ $(function () {
         }
         var categoria = $("#frmAgendaEvt input[name='Categoria']").attr("data-id");
         if (categoria !== null || typeof categoria !== "undefined") {
-            data["GroupId"] = $(window).Encrypt(categoria);
+            data["GroupId"] = encrypt(categoria);
             dataEvt["groupId"] = categoria;
         }
         var Observacao = window.btoa(CKEDITOR.instances['observacaoagenda'].getData());
@@ -227,8 +227,8 @@ $(function () {
         }
         var model = $("#nav-tabEvt a.active").attr("data-model");
         if (model === "1") {
-            data["ExtendedProps"] = $(window).Encrypt("empresa:" + window.localStorage.getItem("IdEmpresa") + ";descricao:" + Observacao + "");
-            dataEvt["extendedProps"] = $(window).Encrypt("empresa:" + window.localStorage.getItem("IdEmpresa") + ";descricao:" + Observacao + "");
+            data["ExtendedProps"] = encrypt("empresa:" + window.localStorage.getItem("IdEmpresa") + ";descricao:" + Observacao + "");
+            dataEvt["extendedProps"] = encrypt("empresa:" + window.localStorage.getItem("IdEmpresa") + ";descricao:" + Observacao + "");
         } else if (model === "2") {
             var paciente = $("#frmAgendaEvtMedica input[name='Paciente']").val();
             data["ExtendedProps"] = "empresa:" + window.localStorage.getItem("IdEmpresa") + ";cliente:"
@@ -236,24 +236,24 @@ $(function () {
             dataEvt["extendedProps"] = "empresa:" + window.localStorage.getItem("IdEmpresa") + ";cliente:"
                     + paciente + ";descricao:" + Observacao + ";status:;bgcolor:";
         } else if (model === "3") {
-            data["ExtendedProps"] = $(window).Encrypt("empresa:" + window.localStorage.getItem("IdEmpresa") + ";descricao:" + Observacao + "");
-            dataEvt["extendedProps"] = $(window).Encrypt("empresa:" + window.localStorage.getItem("IdEmpresa") + ";descricao:" + Observacao + "");
+            data["ExtendedProps"] = encrypt("empresa:" + window.localStorage.getItem("IdEmpresa") + ";descricao:" + Observacao + "");
+            dataEvt["extendedProps"] = encrypt("empresa:" + window.localStorage.getItem("IdEmpresa") + ";descricao:" + Observacao + "");
         } else {
-            data["ExtendedProps"] = $(window).Encrypt("empresa:" + window.localStorage.getItem("IdEmpresa") + ";descricao:" + Observacao + "");
-            dataEvt["extendedProps"] = $(window).Encrypt("empresa:" + window.localStorage.getItem("IdEmpresa") + ";descricao:" + Observacao + "");
+            data["ExtendedProps"] = encrypt("empresa:" + window.localStorage.getItem("IdEmpresa") + ";descricao:" + Observacao + "");
+            dataEvt["extendedProps"] = encrypt("empresa:" + window.localStorage.getItem("IdEmpresa") + ";descricao:" + Observacao + "");
         }
-        data["AllDay"] = $(window).Encrypt("false");
-        data["Overlap"] = $(window).Encrypt("false");
-        data["BackgroundColor"] = $(window).Encrypt($("#frmAgendaEvt input[name='catcolor']").val());
-        data["TextColor"] = $(window).Encrypt("#000000");
-        data["BorderColor"] = $(window).Encrypt($("#frmAgendaEvt input[name='catcolor']").val());
+        data["AllDay"] = encrypt("false");
+        data["Overlap"] = encrypt("false");
+        data["BackgroundColor"] = encrypt($("#frmAgendaEvt input[name='catcolor']").val());
+        data["TextColor"] = encrypt("#000000");
+        data["BorderColor"] = encrypt($("#frmAgendaEvt input[name='catcolor']").val());
         dataEvt["allDay"] = "false";
         dataEvt["overlap"] = "false";
         dataEvt["backgroundColor"] = $("#frmAgendaEvt input[name='catcolor']").val();
         dataEvt["textColor"] = "#000000";
         dataEvt["borderColor"] = $("#frmAgendaEvt input[name='catcolor']").val();
         if (act === "cad") {
-            var rs = $(window).Decrypt(post(host("Sistema", "Eventos", "add"), data));
+            var rs = decrypt(post(host("Sistema", "Eventos", "add"), data));
             $("#modal").modal();
             if (rs === "true") {
                 calendar[cal].addEvent(eval(JSON.parse(JSON.stringify(dataEvt))));
@@ -263,7 +263,7 @@ $(function () {
             }
         } else if (act === "alt") {
             var data = {};
-            var rs = $(window).Decrypt(post(host("Sistema", "Eventos", "edt"), data));
+            var rs = decrypt(post(host("Sistema", "Eventos", "edt"), data));
             $("#modal").modal();
             if (rs === "true") {
                 var event = calendar[cal].getEventById(ID);
@@ -318,7 +318,7 @@ $(function () {
                 $(this).avisoErr();
             }
         } else if (act === "exc") {
-            var rs = $(window).Decrypt(post(host("Sistema", "Eventos", "exc"), data));
+            var rs = decrypt(post(host("Sistema", "Eventos", "exc"), data));
             $("#modal").modal();
             if (rs === "true") {
                 $(this).avisoExc();
@@ -340,19 +340,19 @@ $(function () {
         var act = $("#frmCategoriaEvt input[name='act']").val();
         var id = $("#frmCategoriaEvt input[name='id']").val();
         if (id !== null || typeof id !== "undefined") {
-            data["id"] = $(window).Encrypt(id);
+            data["id"] = encrypt(id);
         }
         var nome = $("#frmCategoriaEvt input[name='Nome']").val();
         if (nome !== null || typeof nome !== "undefined") {
-            data["nome"] = $(window).Encrypt(nome);
+            data["nome"] = encrypt(nome);
         }
         var cor = $("#frmCategoriaEvt input[name='Cor']").val();
         if (cor !== null || typeof cor !== "undefined") {
-            data["cor"] = $(window).Encrypt(cor);
+            data["cor"] = encrypt(cor);
         }
         data["acessos"] = "";
         if (act === "cad") {
-            var rs = $(window).Decrypt(post(host("Sistema", "CategoriasEvt", "add"), data));
+            var rs = decrypt(post(host("Sistema", "CategoriasEvt", "add"), data));
             $("#modal").modal();
             if (rs === "true") {
                 $(this).avisoAdd();
@@ -361,7 +361,7 @@ $(function () {
                 $(this).avisoErr();
             }
         } else if (act === "alt") {
-            var rs = $(window).Decrypt(post(host("Sistema", "CategoriasEvt", "edt"), data));
+            var rs = decrypt(post(host("Sistema", "CategoriasEvt", "edt"), data));
             $("#modal").modal();
             if (rs === "true") {
                 $(this).avisoEdt();
@@ -370,7 +370,7 @@ $(function () {
                 $(this).avisoErr();
             }
         } else if (act === "exc") {
-            var rs = $(window).Decrypt(post(host("Sistema", "CategoriasEvt", "exc"), data));
+            var rs = decrypt(post(host("Sistema", "CategoriasEvt", "exc"), data));
             $("#modal").modal();
             if (rs === "true") {
                 $(this).avisoExc();
@@ -391,26 +391,26 @@ $(function () {
         var act = $("#frmAnotacaoEvt input[name='act']").val();
         var id = $("#frmAnotacaoEvt input[name='id']").val();
         if (id !== null || typeof id !== "undefined") {
-            data["id"] = $(window).Encrypt(id);
+            data["id"] = encrypt(id);
         }
         var dia = $("#frmAnotacaoEvt input[name='Data']").val();
         if (dia !== null || typeof dia !== "undefined") {
-            data["data"] = $(window).Encrypt(dia);
+            data["data"] = encrypt(dia);
         }
         var titulo = $("#frmAnotacaoEvt input[name='Nome']").val();
         if (titulo !== null || typeof titulo !== "undefined") {
-            data["titulo"] = $(window).Encrypt(titulo);
+            data["titulo"] = encrypt(titulo);
         }
         var categoria = $("#frmAnotacaoEvt input[name='Categoria']").attr("data-id");
         if (categoria !== null || typeof categoria !== "undefined") {
-            data["categoria"] = $(window).Encrypt(categoria);
+            data["categoria"] = encrypt(categoria);
         }
         var Anotacao = CKEDITOR.instances['Anotacao'].getData();
         if (Anotacao !== null || typeof Anotacao !== "undefined") {
-            data["anotacao"] = $(window).Encrypt(Anotacao);
+            data["anotacao"] = encrypt(Anotacao);
         }
         if (act === "cad") {
-            var rs = $(window).Decrypt(post(host("Sistema", "Anotacoes", "add"), data));
+            var rs = decrypt(post(host("Sistema", "Anotacoes", "add"), data));
             $("#modal").modal();
             if (rs === "true") {
                 $(this).avisoAdd();
@@ -419,7 +419,7 @@ $(function () {
                 $(this).avisoErr();
             }
         } else if (act === "alt") {
-            var rs = $(window).Decrypt(post(host("Sistema", "Anotacoes", "edt"), data));
+            var rs = decrypt(post(host("Sistema", "Anotacoes", "edt"), data));
             $("#modal").modal();
             if (rs === "true") {
                 $(this).avisoEdt();
@@ -428,7 +428,7 @@ $(function () {
                 $(this).avisoErr();
             }
         } else if (act === "exc") {
-            var rs = $(window).Decrypt(post(host("Sistema", "Anotacoes", "exc"), data));
+            var rs = decrypt(post(host("Sistema", "Anotacoes", "exc"), data));
             $("#modal").modal();
             if (rs === "true") {
                 $(this).avisoExc();
@@ -445,26 +445,26 @@ $(function () {
         var act = $("#frmConsulta input[name='act']").val();
         var id = $("#frmConsulta input[name='id']").val();
         if (id !== null || typeof id !== "undefined") {
-            data["id"] = $(window).Encrypt(id);
+            data["id"] = encrypt(id);
         }
         var nome = $("#frmConsulta input[name='Nome']").val();
         if (nome !== null || typeof nome !== "undefined") {
-            data["nome"] = $(window).Encrypt(nome);
+            data["nome"] = encrypt(nome);
         }
         var valor = $("#frmConsulta input[name='Valor']").val();
         if (valor !== null || typeof valor !== "undefined") {
-            data["valor"] = $(window).Encrypt(valor);
+            data["valor"] = encrypt(valor);
         }
         var categoria = $("#frmConsulta input[name='Categoria']").attr("data-id");
         if (categoria !== null || typeof categoria !== "undefined") {
-            data["categoria"] = $(window).Encrypt(categoria);
+            data["categoria"] = encrypt(categoria);
         }
         var descricao = $("#frmConsulta textarea[name='descricao']").val();
         if (descricao !== null || typeof descricao !== "undefined") {
-            data["descricao"] = $(window).Encrypt(descricao);
+            data["descricao"] = encrypt(descricao);
         }
         if (act === "cad") {
-            var rs = $(window).Decrypt(post(host("Sistema", "Consulta", "add"), data));
+            var rs = decrypt(post(host("Sistema", "Consulta", "add"), data));
             $("#modal").modal();
             if (rs === "true") {
                 $(this).avisoAdd();
@@ -472,7 +472,7 @@ $(function () {
                 $(this).avisoErr();
             }
         } else if (act === "alt") {
-            var rs = $(window).Decrypt(post(host("Sistema", "Consulta", "edt"), data));
+            var rs = decrypt(post(host("Sistema", "Consulta", "edt"), data));
             $("#modal").modal();
             if (rs === "true") {
                 $(this).avisoEdt();
@@ -480,7 +480,7 @@ $(function () {
                 $(this).avisoErr();
             }
         } else if (act === "exc") {
-            var rs = $(window).Decrypt(post(host("Sistema", "Consulta", "exc"), data));
+            var rs = decrypt(post(host("Sistema", "Consulta", "exc"), data));
             $("#modal").modal();
             if (rs === "true") {
                 $(this).avisoExc();
@@ -496,26 +496,26 @@ $(function () {
         var act = $("#frmProcedimento input[name='act']").val();
         var id = $("#frmProcedimento input[name='id']").val();
         if (id !== null || typeof id !== "undefined") {
-            data["id"] = $(window).Encrypt(id);
+            data["id"] = encrypt(id);
         }
         var nome = $("#frmProcedimento input[name='Nome']").val();
         if (nome !== null || typeof nome !== "undefined") {
-            data["nome"] = $(window).Encrypt(nome);
+            data["nome"] = encrypt(nome);
         }
         var valor = $("#frmProcedimento input[name='Valor']").val();
         if (valor !== null || typeof valor !== "undefined") {
-            data["valor"] = $(window).Encrypt(valor);
+            data["valor"] = encrypt(valor);
         }
         var categoria = $("#frmProcedimento input[name='Categoria']").attr("data-id");
         if (categoria !== null || typeof categoria !== "undefined") {
-            data["categoria"] = $(window).Encrypt(categoria);
+            data["categoria"] = encrypt(categoria);
         }
         var descricao = $("#frmProcedimento textarea[name='descricao']").val();
         if (descricao !== null || typeof descricao !== "undefined") {
-            data["descricao"] = $(window).Encrypt(descricao);
+            data["descricao"] = encrypt(descricao);
         }
         if (act === "cad") {
-            var rs = $(window).Decrypt(post(host("Sistema", "Procedimento", "add"), data));
+            var rs = decrypt(post(host("Sistema", "Procedimento", "add"), data));
             $("#modal").modal();
             if (rs === "true") {
                 $(this).avisoAdd();
@@ -523,7 +523,7 @@ $(function () {
                 $(this).avisoErr();
             }
         } else if (act === "alt") {
-            var rs = $(window).Decrypt(post(host("Sistema", "Procedimento", "edt"), data));
+            var rs = decrypt(post(host("Sistema", "Procedimento", "edt"), data));
             $("#modal").modal();
             if (rs === "true") {
                 $(this).avisoEdt();
@@ -531,7 +531,7 @@ $(function () {
                 $(this).avisoErr();
             }
         } else if (act === "exc") {
-            var rs = $(window).Decrypt(post(host("Sistema", "Procedimento", "exc"), data));
+            var rs = decrypt(post(host("Sistema", "Procedimento", "exc"), data));
             $("#modal").modal();
             if (rs === "true") {
                 $(this).avisoExc();
@@ -597,7 +597,7 @@ function fc(idcat, cat, tab) {
         'clause': $(this).Encrypt("groupId"),
         'pesq': $(this).Encrypt(idcat)
     };
-    var rs = $(window).Decrypt(post(host("Sistema", "Eventos", "eventosJSON"), dados));
+    var rs = decrypt(post(host("Sistema", "Eventos", "eventosJSON"), dados));
     rs = replaceAll("u0027", "'", rs.replace(/\\/g, ""));
     rs = replaceAll("u003c", "<", rs);
     rs = replaceAll("u003e", ">", rs);
@@ -716,11 +716,11 @@ function instanceCalendar(el, rs, tab,evtModal) {
                     event.setProp("start", novaDataInicio);
                     event.setProp("end", novaDataFim);
                     var data = {};
-                    data["Start"] = $(window).Encrypt(novaDataInicio);
-                    data["End"] = $(window).Encrypt(novaDataFim);
-                    data["Id"] = $(window).Encrypt(info.event.id);
-                    data["id"] = $(window).Encrypt(info.event.id);
-                    var rs = $(window).Decrypt(post(host("Sistema", "Eventos", "edt"), data));
+                    data["Start"] = encrypt(novaDataInicio);
+                    data["End"] = encrypt(novaDataFim);
+                    data["Id"] = encrypt(info.event.id);
+                    data["id"] = encrypt(info.event.id);
+                    var rs = decrypt(post(host("Sistema", "Eventos", "edt"), data));
                     $("#modal").modal();
                     if (rs === "true") {
                         $(this).avisoEdt();
@@ -746,10 +746,10 @@ function instanceCalendar(el, rs, tab,evtModal) {
                     var event = calendar[cal].getEventById(info.event.id);
                     event.setProp("end", novaData);
                     var data = {};
-                    data["End"] = $(window).Encrypt(novaData);
-                    data["Id"] = $(window).Encrypt(info.event.id);
-                    data["id"] = $(window).Encrypt(info.event.id);
-                    var rs = $(window).Decrypt(post(host("Sistema", "Eventos", "edt"), data));
+                    data["End"] = encrypt(novaData);
+                    data["Id"] = encrypt(info.event.id);
+                    data["id"] = encrypt(info.event.id);
+                    var rs = decrypt(post(host("Sistema", "Eventos", "edt"), data));
                     $("#modal").modal();
                     if (rs === "true") {
                         $(this).avisoEdt();

@@ -13,10 +13,7 @@ app["RootAccess"] = new Vue({
         ELtitle: null,
         Icon: '<i class="far fa-edit"></i>',
         pesqTbl: "",
-        Host: "Bienestar/Gerenciamento/Empresa/",
-
-        EmpresaSrc: null,
-        LoginSrc: null,
+        Host: "Bienestar/Gestao/Empresa/",
         selEmpresa: null,
         selLogin: null,
         SenhaAdmin: null,
@@ -24,33 +21,32 @@ app["RootAccess"] = new Vue({
         opcoes: [],
         acesso: [],
         Acessos: null,
+
+        EmpresaSrc: null,
+        LoginSrc: null,
     },
     methods: {
         populate: function () {
-            this.Host = "Bienestar/Gerenciamento/Empresa/";
-            $(function () {
-                this.biencode = {};
-                this.biencode.all = window.localStorage.getItem("IdEmpresa");
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud(app.RootAccess.href, "listar", data);
-                app.RootAccess.EmpresaSrc = app.RootAccess.src;
-            });
+            this.Host = "Bienestar/Gestao/Empresa/";
+            this.biencode = {};
+            this.biencode.all = window.localStorage.getItem("IdEmpresa");
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode))
+            };
+            app.sys.crud(app.RootAccess.href, "listar", data);
+            app.RootAccess.EmpresaSrc = app.RootAccess.src;
             app.sys.tabs(this.href);
         },
         login: function () {
-            this.Host = "Bienestar/Gerenciamento/Login/";
+            this.Host = "Bienestar/Sistema/Login/";
             this.src = null;
-            $(function () {
-                this.biencode = {};
-                this.biencode.empresa = app.RootAccess.selEmpresa;
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud(app.RootAccess.href, "listar", data);
-                app.RootAccess.LoginSrc = app.RootAccess.src;
-            });
+            this.biencode = {};
+            this.biencode.empresa = app.RootAccess.selEmpresa;
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode))
+            };
+            app.sys.crud(app.RootAccess.href, "listar", data);
+            app.RootAccess.LoginSrc = app.RootAccess.src;
             app.sys.RAVEC = null;
             app.sys.tabs(this.href);
         },
@@ -81,13 +77,13 @@ app["RootAccess"] = new Vue({
                 }
             }
             var data = {
-                biencode: $(window).Encrypt(JSON.stringify(this.biencode))
+                biencode: encrypt(JSON.stringify(this.biencode))
             };
-            var ws = "Bienestar/Gerenciamento/Login/RootAccess";
+            var ws = "Bienestar/Sistema/Login/RootAccess";
             var p = (post(ws, data));
-            var rs = $(window).Decrypt(p);
+            var rs = decrypt(p);
             if (rs.indexOf("incorreta") < 0) {
-                app.sys.RAVEC = $(window).Encrypt(window.localStorage.getItem("IdEmpresa"));
+                app.sys.RAVEC = encrypt(window.localStorage.getItem("IdEmpresa"));
                 window.localStorage.setItem("Empresa", Empresa);
                 window.localStorage.setItem("IdEmpresa", this.selEmpresa);
                 window.localStorage.setItem("IdLogin", this.selLogin);
@@ -131,17 +127,6 @@ app["RootAccess"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
-        ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
-                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        },
         check: function (nivel, index, event) {
             if (event.target.checked) {
                 this.opcoes[index].nivel = nivel;
@@ -149,24 +134,11 @@ app["RootAccess"] = new Vue({
                 this.opcoes[index].nivel = parseInt(nivel) - 1;
             }
         },
-        ravecUpdate: function () {
-            for (var i = 0; i <= Object.keys(app).length - 1; i++) {
-                try {
-                    app[Object.keys(app)[i]].populate();
-                } catch (e) {
-                    console.log(e)
-                }
-            }
-        },
         updateAcesso: function () {
             for (var i = 0; i <= this.LoginSrc.length - 1; i++) {
                 if (this.LoginSrc[i]._id['$oid'] === this.Acessos) {
                     if (typeof this.LoginSrc[i].RAVEC !== "undefined") {
-                        var authbkp = getAuth();
-                        var newAuth = window.localStorage.getItem("IdLogin");
-                        setAuth(newAuth);
-                        this.acesso = eval($(window).Decrypt(this.LoginSrc[i].RAVEC, "tufsqulu"));
-                        setAuth(authbkp);
+                        this.acesso = eval(decrypt(this.LoginSrc[i].RAVEC, window.localStorage.getItem("IdLogin")));
                         this.opcoes = [];
                         for (var i = 0; i <= Object.keys(app).length - 1; i++) {
                             var nomeOP = app[Object.keys(app)[i]].ELtitle;
@@ -184,7 +156,7 @@ app["RootAccess"] = new Vue({
                         }
                         break;
                     } else {
-                        this.acesso = eval($(window).Decrypt(window.localStorage.getItem("RAVEC"), "tufsqulu"));
+                        this.acesso = eval(decrypt(window.localStorage.getItem("RAVEC")));
                         this.opcoes = [];
                         for (var i = 0; i <= Object.keys(app).length - 1; i++) {
                             var nomeOP = app[Object.keys(app)[i]].ELtitle;
@@ -208,24 +180,21 @@ app["RootAccess"] = new Vue({
             }
         },
         updateRAVEC: function () {
-            $(function () {
-                app.Login.biencode = {};
-                var authbkp = getAuth();
-                var newAuth = app.RootAccess.Acessos;
-                setAuth(newAuth);
-                app.Login.biencode.RAVEC = $(window).Encrypt(JSON.stringify(app.RootAccess.opcoes), "tufsqulu");
-                setAuth(authbkp);
-                app.Login.biencode.id = String(app.RootAccess.Acessos);
-                app.Login.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
-                var data = {
-                    "biencode": $(window).Encrypt(JSON.stringify(app.Login.biencode))
-                };
-                var ws = "Bienestar/Gerenciamento/Login/edt";
-                var p = (post(ws, data));
-                var rs = $(window).Decrypt(p);
-                $(window).NotifyInfo(rs);
-                app.Login.populate();
-            });
-        }
+            app.Login.biencode = {};
+            app.Login.biencode.RAVEC = encrypt(JSON.stringify(app.RootAccess.opcoes),app.RootAccess.Acessos);
+            app.Login.biencode.id = String(app.RootAccess.Acessos);
+            app.Login.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
+            var data = {
+                "biencode": encrypt(JSON.stringify(app.Login.biencode))
+            };
+            var ws = "Bienestar/Sistema/Login/edt";
+            var p = (post(ws, data));
+            var rs = decrypt(p);
+            $(window).NotifyInfo(rs);
+            app.Login.populate();
+        },
+        load: function () {
+            
+        },
     }
 });

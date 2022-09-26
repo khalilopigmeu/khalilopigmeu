@@ -13,14 +13,8 @@ app["Login"] = new Vue({
         ELtitle: null,
         Icon: '<i class="far fa-id-badge"></i>',
         pesqTbl: "",
-        Host: "Bienestar/Gerenciamento/Login/",
+        Host: "Bienestar/Sistema/Login/",
 
-        Funcionariosrc: null,
-        Clientesrc: null,
-        Operacionalsrc: null,
-        Configuracaosrc: null,
-        Revendasrc: null,
-        Vendedorsrc: null,
         IdRevenda: null,
         IdVendedor: null,
         IdFunc: null,
@@ -29,31 +23,28 @@ app["Login"] = new Vue({
         IdConfig: null,
         Memorize: null,
         UserIdFB: null,
+        UserIdGG: null,
         Validade: null,
         Login: null,
         Email: null,
         Ask: null,
         DataCadastro: null,
+
+        Funcionariosrc: null,
+        Clientesrc: null,
+        Operacionalsrc: null,
+        Configuracaosrc: null,
+        Revendasrc: null,
+        Vendedorsrc: null,
     },
     methods: {
         populate: function () {
-            $(function () {
-                this.biencode = {};
-                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud(app.Login.href, "listar", data);
-                app.CategoriaEventos.Loginsrc = app.Login.src;
-                app.Anuncio.Loginsrc = app.Login.src;
-                app.CategoriaAnuncio.Loginsrc = app.Login.src;
-                app.ChamadoAnuncio.Loginsrc = app.Login.src;
-                app.Mural.Loginsrc = app.Login.src;
-                app.Page.Loginsrc = app.Login.src;
-                app.Voucher.Loginsrc = app.Login.src;
-                app.Ravec.Loginsrc = app.Login.src;
-                app.CategoriaPlanoSistema.Loginsrc = app.Login.src;
-            });
+            this.biencode = {};
+            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode))
+            };
+            app.sys.crud(app.Login.href, "listar", data);
             app.sys.tabs(this.href);
         },
         clear: function () {
@@ -65,6 +56,7 @@ app["Login"] = new Vue({
             this.IdConfig = null;
             this.Memorize = null;
             this.UserIdFB = null;
+            this.UserIdGG = null;
             this.Validade = null;
             this.Login = null;
             this.Email = null;
@@ -87,7 +79,8 @@ app["Login"] = new Vue({
             this.Ask = this.row[11];
             this.Memorize = this.row[12];
             this.UserIdFB = this.row[13];
-            this.VCard = this.row[14];
+            this.UserIdGG = this.row[14];
+            this.VCard = this.row[15];
         },
         checkForm: function () {
             app.erros.errors = {};
@@ -100,6 +93,7 @@ app["Login"] = new Vue({
             this.biencode.IdConfig = this.IdConfig;
             this.biencode.Memorize = this.Memorize;
             this.biencode.UserIdFB = this.UserIdFB;
+            this.biencode.UserIdGG = this.UserIdGG;
             this.biencode.Validade = this.Validade;
             this.biencode.Login = this.Login;
             this.biencode.Email = this.Email;
@@ -133,16 +127,47 @@ app["Login"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
-        ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
-                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
-                    return true;
-                } else {
-                    return false;
-                }
+        load: function () {
+            if (nulo(app.Funcionarios)) {
+                this.Funcionariosrc = [];
             } else {
-                return false;
+                this.Funcionariosrc = app.Funcionarios.src;
             }
+            if (nulo(app.Cliente)) {
+                this.Clientesrc = [];
+            } else {
+                this.Clientesrc = app.Cliente.src;
+            }
+            if (nulo(app.Operacional)) {
+                this.Operacionalsrc = [];
+            } else {
+                this.Operacionalsrc = app.Operacional.src;
+            }
+            if (nulo(app.Configuracao)) {
+                this.Configuracaosrc = [];
+            } else {
+                this.Configuracaosrc = app.Configuracao.src;
+            }
+            if (nulo(app.Revenda)) {
+                this.Revendasrc = [];
+            } else {
+                this.Revendasrc = app.Revenda.src;
+            }
+            if (nulo(app.Vendedor)) {
+                this.Vendedorsrc = [];
+            } else {
+                this.Vendedorsrc = app.Vendedor.src;
+            }
+        },
+        conectarFB() {
+            app.sys.Status();
+            app.Login.UserIdFB = app.sys.FB.getUserID();
+        },
+        setGG: function (e) {
+            app.Login.UserIdGG = e.clientId;
+        },
+        conectarGG() {
+            app.sys.oauthGoogle(app.Login.setGG);
         }
     }
 });

@@ -13,7 +13,7 @@ app["Configuracao"] = new Vue({
         ELtitle: null,
         Icon: '<i class="fas fa-cogs"></i>',
         pesqTbl: "",
-        Host: "Bienestar/Gerenciamento/Configuracao/",
+        Host: "Bienestar/Sistema/Configuracao/",
 
         Nome: null,
         NNF: null,
@@ -56,15 +56,12 @@ app["Configuracao"] = new Vue({
     },
     methods: {
         populate: function () {
-            $(function () {
-                this.biencode = {};
-                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud(app.Configuracao.href, "listar", data);
-                app.Login.Configuracaosrc = app.Configuracao.src;
-            });
+            this.biencode = {};
+            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode))
+            };
+            app.sys.crud(app.Configuracao.href, "listar", data);
             app.sys.tabs(this.href);
         },
         clear: function () {
@@ -117,9 +114,9 @@ app["Configuracao"] = new Vue({
             this.TpImp = this.row[19];
             this.TpEmis = this.row[20];
             this.appId = this.row[21];
-            this.googleApiKey = $(window).Decrypt(this.row[22]);
-            this.clienteOAuth = $(window).Decrypt(this.row[23]);
-            this.ChaveGoogle = $(window).Decrypt(this.row[24]);
+            this.googleApiKey = decrypt(this.row[22]);
+            this.clienteOAuth = decrypt(this.row[23]);
+            this.ChaveGoogle = decrypt(this.row[24]);
             this.AvisoChamado = this.row[25];
             this.EmailsChamado = this.row[26];
             this.AvisoVencimento = this.row[27];
@@ -138,13 +135,13 @@ app["Configuracao"] = new Vue({
             this.LogoURL = this.row[38];
             this.Instagram = this.row[5];
             this.Facebook = this.row[6];
-            this.FtpUrl = $(window).Decrypt(this.row[7]);
-            this.FtpLogin = $(window).Decrypt(this.row[8]);
-            this.FtpSenha = $(window).Decrypt(this.row[9]);
+            this.FtpUrl = decrypt(this.row[7]);
+            this.FtpLogin = decrypt(this.row[8]);
+            this.FtpSenha = decrypt(this.row[9]);
             this.FtpPorta = this.row[10];
-            this.PagSeguroEmail = $(window).Decrypt(this.row[11]);
-            this.PagSeguroToken = $(window).Decrypt(this.row[14]);
-            this.PagSeguroKey = $(window).Decrypt(this.row[12]);
+            this.PagSeguroEmail = decrypt(this.row[11]);
+            this.PagSeguroToken = decrypt(this.row[14]);
+            this.PagSeguroKey = decrypt(this.row[12]);
             this.PagSeguroId = this.row[13];
         },
         checkForm: function () {
@@ -215,16 +212,5 @@ app["Configuracao"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
-        ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
-                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        }
     }
 });

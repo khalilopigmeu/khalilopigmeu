@@ -13,22 +13,17 @@ app["FamiliaProdutos"] = new Vue({
         ELtitle: null,
         Icon: '<i class="fas fa-list-ol"></i>',
         pesqTbl: "",
-        Host: "Bienestar/Estoque/FamiliaProdutos/",
+        Host: "Bienestar/Produtos/FamiliaProdutos/",
         TipoFamilia: null,
     },
     methods: {
         populate: function () {
-            $(function () {
-                this.biencode = {};
-                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud(app.FamiliaProdutos.href, "listar", data);
-                app.ClasseProdutos.FamiliaSrc = app.FamiliaProdutos.src;
-                app.Produto.FamiliaSrc = app.FamiliaProdutos.src;
-                app.ListaCompra.familiaprodutos = app.FamiliaProdutos.src;
-            });
+            this.biencode = {};
+            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode))
+            };
+            app.sys.crud(app.FamiliaProdutos.href, "listar", data);
             app.sys.tabs(this.href);
         },
         clear: function () {
@@ -69,16 +64,5 @@ app["FamiliaProdutos"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
-        ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
-                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        }
     }
 });

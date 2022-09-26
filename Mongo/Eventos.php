@@ -1,33 +1,11 @@
-<!-- 
-VueApp name = Eventos 
-titulo = Eventos
-app = Eventos
-ASC/DESC = DESC
-campo = id
-coluna tbl = "fields",
-input = <input class="form-control" v-model="Campo" placeholder="Campo..." v-bind:value="Campo"><br>
-nometabela = tblEventos
--->
 <?php
 $pgtitle = "Eventos";
 $page = "Eventos";
 $td = ["" . $page => ["Id", "Nome", "Descrição"]];
 $tdvue = ["" . $page => ["app.sys.foreignKeyReplace(CategoriaSrc,'NomeCategoria',td.groupId)",
-        "td.title",
-        "td.allDay",
-        "td.start",
-        "td.end",
-        "td.classNames",
-        "td.overlap",
-        "td.backgroundColor",
-        "td.borderColor",
-        "td.textColor",
-        "td.extendedProps",
-        "td.daysOfWeek",
-        "td.startTime",
-        "td.endTime",
-        "td.startRecur",
-        "td.endRecur"]];
+        "td.title", "td.allDay", "td.start", "td.end", "td.classNames", "td.overlap", "td.backgroundColor",
+        "td.borderColor", "td.textColor", "td.extendedProps", "td.daysOfWeek", "td.startTime",
+        "td.endTime", "td.startRecur", "td.endRecur"]];
 
 include $refUrl . "Mongo/template/head.php"
 ?>
@@ -104,7 +82,7 @@ include $refUrl . "Mongo/template/head.php"
     <div v-if="importar=='atendimento'">
         <label for="modo">Ficha Atendimento:</label>
         <select class="form-control" multiple="" v-model="FichaAtendimento">
-            <option v-for="item in app.sys.sorter(FichaAtendimentoSrc,'DESC','id')" v-bind:value="item._id['$oid']" v-if="item.Registrado!='true'">{{item.IdCliente}} - {{item.DataAtendimento}} - {{item.Valor}}</option>
+            <option v-for="item in app.sys.sorter(FichaAtendimentoSrc,'DESC','id')" v-bind:value="item._id['$oid']" v-if="item.Registrado!='true'">{{app.sys.foreignKeyReplace(app.Cliente.src,'Nome',item.IdCliente)}} - {{item.DataAtendimento}} - {{item.Valor}} - {{item.Observacao}}</option>
         </select>
     </div>
     <input type="radio" v-model="importar" value="financeiro"><label>Lançamento Financeiro</label><br>

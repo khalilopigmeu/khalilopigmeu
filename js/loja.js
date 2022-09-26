@@ -46,25 +46,25 @@ $(function () {
         e.preventDefault();
         var data = {};
         var ws = host("Sistema", "ListaLoja", "add");
-        data["lista"] = $(window).Encrypt(window.localStorage.getItem("lista"));
-        var rs = $(window).Decrypt((post(ws, data)));
+        data["lista"] = encrypt(window.localStorage.getItem("lista"));
+        var rs = decrypt((post(ws, data)));
         $(this).avisoMsg("Salvando Lista");
     });
     $("body").on("click", ".alterarLista", function (e) {
         e.preventDefault();
         var data = {};
         var ws = host("Sistema", "ListaLoja", "edt");
-        data["id"] = $(window).Encrypt($("#id"));
-        data["lista"] = $(window).Encrypt(window.localStorage.getItem("lista"));
-        var rs = $(window).Decrypt((post(ws, data)));
+        data["id"] = encrypt($("#id"));
+        data["lista"] = encrypt(window.localStorage.getItem("lista"));
+        var rs = decrypt((post(ws, data)));
         $(this).avisoMsg("Lista Alterada");
     });
     $("body").on("click", ".removerLista", function (e) {
         e.preventDefault();
         var data = {};
         var ws = host("Sistema", "ListaLoja", "exc");
-        data["id"] = $(window).Encrypt($("#id"));
-        var rs = $(window).Decrypt((post(ws, data)));
+        data["id"] = encrypt($("#id"));
+        var rs = decrypt((post(ws, data)));
         $(this).avisoMsg("Lista Excluída");
     });
     $("body").on("keypress", ".qtdItensAlt", function (e) {

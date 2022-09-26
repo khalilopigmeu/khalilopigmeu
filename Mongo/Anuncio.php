@@ -3,11 +3,7 @@ $pgtitle = "Anúncio";
 $page = "Anuncio";
 $td = ["" . $page => ["Id", "Categorias", "Tipo", "Conteudo", "Descrição", "Ativo", "Palavras-chave"]];
 $tdvue = ["" . $page => ["app.sys.foreignKeyReplace(CategoriaAnuncioSrc,'Nome',td.IdCategoriaAnuncio)",
-        "td.Tipo",
-        "td.Conteudo",
-        "td.Descricao",
-        "td.Ativo",
-        "td.Keywords"]];
+        "td.Tipo", "td.Conteudo", "td.Descricao", "td.Ativo", "td.Keywords"]];
 
 include $refUrl . "Mongo/template/head.php"
 ?>

@@ -19,7 +19,7 @@ include $refUrl . "Mongo/template/head.php"
 ?>
 <label>Categoria:</label>
 <select class="form-control" v-model="IdCategoria">
-    <option>Selecione a subcategoria</option>
+    <option>Selecione a Categoria</option>
     <option v-for="el in app.sys.sorter(CategoriaSrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.TipoCategoria}}</option>
 </select>
 <label>Nome:</label>

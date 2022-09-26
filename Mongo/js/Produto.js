@@ -13,7 +13,7 @@ app["Produto"] = new Vue({
         ELtitle: null,
         Icon: '<i class="fas fa-warehouse"></i>',
         pesqTbl: "",
-        Host: "Bienestar/Estoque/Produtos/",
+        Host: "Bienestar/Produtos/Produto/",
         QtdMin: null,
         Caracteristicas: null,
         EspecificacaoProduto: null,
@@ -38,31 +38,28 @@ app["Produto"] = new Vue({
         Contas: null,
         Tipo: null,
         Uso: null,
+
+        familiaselect: null,
+        classeselect: null,
+        categoriaselect: null,
+        subcategoriaselect: null,
+        produtoselect: null,
+
         FamiliaSrc: null,
         ClasseSrc: null,
         SubCategoriaSrc: null,
         CategoriaSrc: null,
         FornecedorSrc: null,
         AlbumSrc: null,
-        familiaselect: null,
-        classeselect: null,
-        categoriaselect: null,
-        subcategoriaselect: null,
-        produtoselect: null,
     },
     methods: {
         populate: function () {
-            $(function () {
-                this.biencode = {};
-                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud(app.Produto.href, "listar", data);
-                app.Midia.ProdutoSrc = app.Produto.src;
-                app.ListaCompra.produtos = app.Produto.src;
-                app.PedidoVenda.Produtosrc = app.Produto.src;
-            });
+            this.biencode = {};
+            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode))
+            };
+            app.sys.crud(app.Produto.href, "listar", data);
             app.sys.tabs(this.href);
         },
         clear: function () {
@@ -103,12 +100,15 @@ app["Produto"] = new Vue({
             this.IdSubCategoriaProduto = app.sys.foreignKeyRestore(this.SubCategoriaSrc, "TipoSubCategoria", this.row[4]);
             this.subcategoriaselect = this.IdSubCategoriaProduto;
             this.IdFornecedor = app.sys.foreignKeyRestore(this.FornecedorSrc, "Nome", this.row[5]);
-            this.IdAlbum = app.sys.foreignKeyRestore(this.AlbumSrc, "Nome", this.row[6]);
+            this.IdAlbum = app.sys.foreignKeyRestore(this.AlbumSrc, "NomeAlbum", this.row[6]);
             this.CodProduto = this.row[7];
             this.NomeProduto = this.row[8];
             this.Caracteristicas = this.row[9];
+            CKEDITOR.instances['caracteristica'].setData(unescapeHTML(this.Caracteristicas));
             this.EspecificacaoProduto = this.row[10];
+            CKEDITOR.instances['especificacao'].setData(unescapeHTML(this.EspecificacaoProduto));
             this.ResumoProduto = this.row[11];
+            CKEDITOR.instances['resumo'].setData(unescapeHTML(this.ResumoProduto));
             this.Preco = this.row[12];
             this.DimensaoProduto = this.row[13];
             this.QtdMin = this.row[14];
@@ -122,7 +122,7 @@ app["Produto"] = new Vue({
             this.Tipo = this.row[22];
             this.Uso = this.row[23];
             this.UnidComp = this.row[24];
-            app.SocialMedia.mascara();
+            app.sys.mascara();
         },
         checkForm: function () {
             app.erros.errors = {};
@@ -180,17 +180,6 @@ app["Produto"] = new Vue({
         },
         exc: function () {
             this.evtDataCal = "exc";
-        },
-        ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
-                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
         },
         onselect: function (element) {
             switch (element) {
@@ -262,6 +251,38 @@ app["Produto"] = new Vue({
                 list.push(source[i].IdSubCategoriaProduto);
             }
             return list.filter(app.sys.onlyUnique);
-        }
+        },
+        load: function () {
+            if (nulo(app.FamiliaProdutos)) {
+                this.FamiliaSrc = [];
+            } else {
+                this.FamiliaSrc = app.FamiliaProdutos.src;
+            }
+            if (nulo(app.ClasseProdutos)) {
+                this.ClasseSrc = [];
+            } else {
+                this.ClasseSrc = app.ClasseProdutos.src;
+            }
+            if (nulo(app.SubcategoriaProdutos)) {
+                this.SubCategoriaSrc = [];
+            } else {
+                this.SubCategoriaSrc = app.SubcategoriaProdutos.src;
+            }
+            if (nulo(app.CategoriaProdutos)) {
+                this.CategoriaSrc = [];
+            } else {
+                this.CategoriaSrc = app.CategoriaProdutos.src;
+            }
+            if (nulo(app.Fornecedor)) {
+                this.FornecedorSrc = [];
+            } else {
+                this.FornecedorSrc = app.Fornecedor.src;
+            }
+            if (nulo(app.Album)) {
+                this.AlbumSrc = [];
+            } else {
+                this.AlbumSrc = app.Album.src;
+            }
+        },
     }
 });

@@ -1,13 +1,3 @@
-<!-- 
-VueApp name = PlanoSistema 
-titulo = Plano de Sistema
-app = PlanoSistema
-ASC/DESC = DESC
-campo = id
-coluna tbl = "fields",
-input = <input class="form-control" v-model=="Campo" placeholder="Campo..." v-bind:value="Campo"><br>
-nometabela = #table
--->
 <?php
 $pgtitle = "Planos de Sistema";
 $page = "PlanoSistema";

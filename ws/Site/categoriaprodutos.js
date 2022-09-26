@@ -3,29 +3,22 @@ app["CategoriaProdutosSite"] = new Vue({
     el: '#CategoriaProdutosSite',
     data: {
         src: null,
-        Host: "Bienestar/Estoque/CategoriaProdutos/",
+        Host: "Bienestar/Produtos/CategoriaProdutos/",
         pgid: null
     },
     methods: {
-        buscar: function () {
-            $(function () {
-                var preauth = getAuth();
-                setAuth("encodedstring");
-                var auth = $(window).Decrypt(app.sys.bien);
-                setAuth(auth);
-                this.biencode = {};
-                if (app.empresasanunciando.pgid !== null) {
-                    this.biencode.empresa = app.empresasanunciando.pgid;
-                } else {
-                    this.biencode.all = "";
-                }
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud("CategoriaProdutosSite", "listar", data);
-                setAuth(preauth);
-                app.empresasanunciando.categoriaprodutos = app.CategoriaProdutosSite.src;
-            });
+        buscar: function (refid) {
+            var key = decrypt(app.sys.bien, "encodedstring");
+            this.biencode = {};
+            if (!nulo(refid)) {
+                this.biencode.empresa = refid;
+            } else {
+                this.biencode.all = "";
+            }
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode), key)
+            };
+            app.sys.crud("CategoriaProdutosSite", "listar", data);
         },
         clear: function () {
             this.src = null;

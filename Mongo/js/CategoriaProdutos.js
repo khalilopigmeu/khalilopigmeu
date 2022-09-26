@@ -13,25 +13,21 @@ app["CategoriaProdutos"] = new Vue({
         ELtitle: null,
         Icon: '<i class="fas fa-th-list"></i>',
         pesqTbl: "",
-        Host: "Bienestar/Estoque/CategoriaProdutos/",
+        Host: "Bienestar/Produtos/CategoriaProdutos/",
 
         IdClasse: null,
         TipoCategoria: null,
-        ClasseSrc: null,
+        
+        ClasseSrc:null,
     },
     methods: {
         populate: function () {
-            $(function () {
-                this.biencode = {};
-                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud(app.CategoriaProdutos.href, "listar", data);
-                app.SubcategoriaProdutos.CategoriaSrc = app.CategoriaProdutos.src;
-                app.Produto.CategoriaSrc = app.CategoriaProdutos.src;
-                app.ListaCompra.categoriaprodutos = app.CategoriaProdutos.src;
-            });
+            this.biencode = {};
+            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode))
+            };
+            app.sys.crud(app.CategoriaProdutos.href, "listar", data);
             app.sys.tabs(this.href);
         },
         clear: function () {
@@ -39,7 +35,7 @@ app["CategoriaProdutos"] = new Vue({
             this.TipoCategoria = null;
         },
         autocomplete: function () {
-            this.IdClasse = app.sys.foreignKeyRestore(this.ClasseSrc, "TipoClasse", this.row[1]);
+            this.IdClasse = app.sys.foreignKeyRestore(app.CategoriaProdutos.ClasseSrc, "TipoClasse", this.row[1]);
             this.TipoCategoria = this.row[2];
             this.id = this.row[0];
         },
@@ -75,16 +71,12 @@ app["CategoriaProdutos"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
-        ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
-                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
-                    return true;
-                } else {
-                    return false;
-                }
+        load: function () {
+            if (nulo(app.ClasseProdutos)) {
+                this.ClasseSrc = [];
             } else {
-                return false;
+                this.ClasseSrc = app.ClasseProdutos.src;
             }
-        }
+        },
     }
 });

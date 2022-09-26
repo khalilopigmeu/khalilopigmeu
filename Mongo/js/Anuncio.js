@@ -21,20 +21,18 @@ app["Anuncio"] = new Vue({
         Tipo: null,
         Ativo: null,
         Keywords: null,
-        Loginsrc: null,
-        CategoriaAnuncioSrc: null,
-
+        
+        Loginsrc:null,
+        CategoriaAnuncioSrc:null,
     },
     methods: {
         populate: function () {
-            $(function () {
-                this.biencode = {};
-                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud(app.Anuncio.href, "listar", data);
-            });
+            this.biencode = {};
+            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode))
+            };
+            app.sys.crud(app.Anuncio.href, "listar", data);
             app.sys.tabs(this.href);
         },
         clear: function () {
@@ -44,12 +42,14 @@ app["Anuncio"] = new Vue({
             this.Descricao = null;
             this.Ativo = null;
             this.Tipo = null;
+            CKEDITOR.instances['conteudoanuncio'].setData("");
+            CKEDITOR.instances['descricaoanuncio'].setData("")
         },
         autocomplete: function () {
             this.id = this.row[0];
             this.Conteudo = this.row[3];
             CKEDITOR.instances['conteudoanuncio'].setData(unescapeHTML(this.Conteudo))
-            this.IdCategoriaAnuncio = this.row[1];
+            this.IdCategoriaAnuncio = app.sys.foreignKeyRestore(app.Anuncio.CategoriaAnuncioSrc, "Nome", this.row[1]);
             this.Ativo = parseBoolean(this.row[5]);
             this.Keywords = this.row[6];
             this.Descricao = this.row[4];
@@ -61,7 +61,7 @@ app["Anuncio"] = new Vue({
             this.biencode = {};
             this.Conteudo = CKEDITOR.instances['conteudoanuncio'].getData();
             this.biencode.Conteudo = this.Conteudo;
-            this.biencode.IdCategoriaAnuncia = this.IdCategoriaAnuncio;
+            this.biencode.IdCategoriaAnuncio = this.IdCategoriaAnuncio;
             this.biencode.Keywords = this.Keywords;
             this.Descricao = CKEDITOR.instances['descricaoanuncio'].getData();
             this.biencode.Descricao = this.Descricao;
@@ -94,16 +94,17 @@ app["Anuncio"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
-        ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
-                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
-                    return true;
-                } else {
-                    return false;
-                }
+        load: function () {
+            if (nulo(app.Login)) {
+                this.Loginsrc = [];
             } else {
-                return false;
+                this.Loginsrc = app.Login.src;
             }
-        }
+            if (nulo(app.CategoriaAnuncio)) {
+                this.CategoriaAnuncioSrc = [];
+            } else {
+                this.CategoriaAnuncioSrc = app.CategoriaAnuncio.src;
+            }
+        },
     }
 });

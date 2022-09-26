@@ -13,25 +13,21 @@ app["ClasseProdutos"] = new Vue({
         ELtitle: null,
         Icon: '<i class="fas fa-th-large"></i>',
         pesqTbl: "",
-        Host: "Bienestar/Estoque/ClasseProdutos/",
+        Host: "Bienestar/Produtos/ClasseProdutos/",
 
         IdFamilia: null,
         TipoClasse: null,
+
         FamiliaSrc: null,
     },
     methods: {
         populate: function () {
-            $(function () {
-                this.biencode = {};
-                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud(app.ClasseProdutos.href, "listar", data);
-                app.CategoriaProdutos.ClasseSrc = app.ClasseProdutos.src;
-                app.Produto.ClasseSrc = app.ClasseProdutos.src;
-                app.ListaCompra.classeprodutos = app.ClasseProdutos.src;
-            });
+            this.biencode = {};
+            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode))
+            };
+            app.sys.crud(app.ClasseProdutos.href, "listar", data);
             app.sys.tabs(this.href);
         },
         clear: function () {
@@ -75,16 +71,12 @@ app["ClasseProdutos"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
-        ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
-                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
-                    return true;
-                } else {
-                    return false;
-                }
+        load: function () {
+            if (nulo(app.FamiliaProdutos)) {
+                this.FamiliaSrc = [];
             } else {
-                return false;
+                this.FamiliaSrc = app.FamiliaProdutos.src;
             }
-        }
+        },
     }
 });

@@ -15,49 +15,46 @@ app["Comissao"] = new Vue({
         Host: "Bienestar/Financeiro/Comissao/",
 
         Nome: null,
-        IdFunc: [],
-        Funcionariossrc: null,
-        Inicio: null,
-        Fim: null,
+        Count: [],
         Referencia: [],
         Percentual: [],
-        LancamentoFinanceiroSrc: null,
+        Cor: [],
         Lancamentos: [],
-        Total: 0,
+        Lancar: [],
+        Total: null,
+        Evento: null,
+        chart: null,
+
+        LancamentoFinanceiroSrc: null,
+        eventos: null,
     },
     methods: {
         populate: function () {
-            $(function () {
-                this.biencode = {};
-                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud(app.Comissao.href, "listar", data);
-            });
+            this.biencode = {};
+            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode))
+            };
+            app.sys.crud(app.Comissao.href, "listar", data);
             app.sys.tabs(this.href);
         },
         clear: function () {
             this.Referencia = [];
             this.Percentual = [];
             this.Total = 0;
-            this.Inicio = null;
-            this.Fim = null;
             this.Nome = null;
         },
         autocomplete: function () {
-            /* this.Referencia = this.row[1];
-             this.Percentual = this.row[1];
-             this.Total = this.row[1];
-             this.Inicio = this.row[1];
-             this.Fim = this.row[1];*/
+            this.Referencia = eval(this.row[1].split(","));
+            this.Count = this.Referencia;
+            this.Percentual = eval(this.row[2].split(","));
             this.id = this.row[0];
         },
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
-            this.biencode.Descricao = this.Descricao;
-            this.biencode.Nome = this.Nome;
+            this.biencode.Referencia = this.Referencia;
+            this.biencode.Percentual = this.Percentual;
             this.biencode.id = this.id;
             this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
         },
@@ -85,26 +82,25 @@ app["Comissao"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
-        ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
-                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        },
         adicionar: function () {
-            this.Referencia.push(0);
-            this.Percentual.push(0);
+            this.Count.push(0);
         },
         remover: function () {
-            this.Referencia.pop();
-            this.Percentual.pop();
+            this.Count.pop();
         },
-        calcular: function () {
+        calcularGeral: function () {
+            this.Total = [];
+            var valor = 0;
+            for (var i = 0; i <= this.Lancamentos.length - 1; i++) {
+                valor += parseFloat(Real(app.sys.searchByID(this.LancamentoFinanceiroSrc, this.Lancamentos[i])[0].Valor));
+            }
+            for (var i = 0; i <= this.Referencia.length - 1; i++) {
+                var percent = parseFloat(this.Percentual[i]);
+                this.Total.push(parseFloat(Real(valor).multiply(percent / 100)));
+            }
+            this.pie();
+        },
+        calcularProgressivo: function () {
             var step = 0;
             this.Total = 0;
             var flag = false;
@@ -126,7 +122,22 @@ app["Comissao"] = new Vue({
                 }
             }
         },
-        salvar: function () {
+        salvarGeral: function () {
+            for (var i = 0; i <= this.Referencia.length - 1; i++) {
+                if (this.Lancar[i] === true) {
+                    app.LancamentoFinanceiro.Documento = "Comissão: " + this.Nome + " - " + this.Referencia[i];
+                    app.LancamentoFinanceiro.Pago = true;
+                    app.LancamentoFinanceiro.Status = false;
+                    app.LancamentoFinanceiro.Observacao = null;
+                    app.LancamentoFinanceiro.FormaPagamento = null;
+                    app.LancamentoFinanceiro.Valor = Real(this.Total[i]);
+                    app.LancamentoFinanceiro.Modalidade = 2;
+                    app.LancamentoFinanceiro.checkForm();
+                    app.LancamentoFinanceiro.cadastrar();
+                }
+            }
+        },
+        salvarProgressivo: function () {
             app.LancamentoFinanceiro.Documento = "Comissão: " + this.Nome;
             app.LancamentoFinanceiro.Pago = true;
             app.LancamentoFinanceiro.Status = false;
@@ -136,6 +147,71 @@ app["Comissao"] = new Vue({
             app.LancamentoFinanceiro.Modalidade = 2;
             app.LancamentoFinanceiro.checkForm();
             app.LancamentoFinanceiro.cadastrar();
-        }
+        },
+        updateEventos: function (op) {
+            var el;
+            if (op) {
+                el = app.sys.searchByID(this.eventos, window.localStorage.getItem("evento"));
+                if (el.extendedProps.FichaAtendimento.isArray()) {
+                    el.extendedProps.FichaAtendimento.push(this.src[this.src.length - 1]._id['$oid']);
+                } else {
+                    el.extendedProps.FichaAtendimento = [this.src[this.src.length - 1]._id['$oid']];
+                }
+            } else {
+                el = app.sys.searchByID(this.eventos, this.Evento);
+                if (el.extendedProps.FichaAtendimento.isArray()) {
+                    el.extendedProps.FichaAtendimento.push(this.id);
+                } else {
+                    el.extendedProps.FichaAtendimento = [this.id];
+                }
+            }
+            app.Eventos.atualizaEx(el);
+            app.Eventos.alterar();
+            window.localStorage.removeItem("evento");
+        },
+        limit: function () {
+            var limit = 0;
+            if (this.Referencia.length > 1) {
+                for (var i = 0; i <= this.Referencia.length - 2; i++) {
+                    limit += parseInt(this.Percentual[i]);
+                }
+                if (limit >= 100) {
+                    this.Percentual[this.Percentual.length - 1] = 0;
+                } else {
+                    this.Percentual[this.Percentual.length - 1] = 100 - limit;
+                }
+            }
+        },
+        pie: function () {
+            var ctx = document.getElementById('piechart').getContext('2d');
+            const data = {
+                labels: this.Referencia,
+                datasets: [{
+                        label: 'Comissão',
+                        data: this.Total,
+                        backgroundColor: this.Cor,
+                        hoverOffset: 4
+                    }]
+            };
+            if (this.chart !== null) {
+                this.chart.destroy();
+            }
+            this.chart = new Chart(ctx, {
+                type: 'pie',
+                data: data,
+            });
+        },
+        load: function () {
+            if (nulo(app.LancamentoFinanceiro)) {
+                this.LancamentoFinanceiroSrc = [];
+            } else {
+                this.LancamentoFinanceiroSrc = app.LancamentoFinanceiro.src;
+            }
+            if (nulo(app.Eventos)) {
+                this.eventos = [];
+            } else {
+                this.eventos = app.Eventos.eventos;
+            }
+        },
     }
 });

@@ -9,6 +9,7 @@ function authenticate() {
     auth = window.localStorage.getItem("auth");
 }
 
+
 function post(url, data) {
     authenticate();
     logSandBox(WebServer(urlSys) + url);
@@ -60,9 +61,9 @@ function host(path, op, ac) {
         crossDomain: true,
         async: false,
         data: {
-            "path": $(window).Encrypt(path),
-            "op": $(window).Encrypt(op),
-            "ac": $(window).Encrypt(ac)
+            "path": encrypt(path),
+            "op": encrypt(op),
+            "ac": encrypt(ac)
         },
         headers: {
             "Authorization": auth,
@@ -87,9 +88,9 @@ function gost(path, op, ac) {
         async: false,
         data: {
             "authorization": getAuth(),
-            "path": $(window).Encrypt(path),
-            "op": $(window).Encrypt(op),
-            "ac": $(window).Encrypt(ac)
+            "path": encrypt(path),
+            "op": encrypt(op),
+            "ac": encrypt(ac)
         },
         headers: {
             "Authorization": auth,
@@ -105,13 +106,14 @@ function gost(path, op, ac) {
     return link;
 }
 
-function postCross(url, data) {
+function postCross(url, data, header) {
     return $.ajax({
         type: "POST",
         url: url,
         crossDomain: true,
         async: false,
         data: data,
+        headers: header
     }).done(function (result) {
         logSandBox(result);
         return result;
@@ -128,6 +130,7 @@ function getCross(url, data) {
         crossDomain: true,
         async: false,
         data: data,
+        headers: header
     }).done(function (result) {
         logSandBox(result);
         return result;
@@ -186,7 +189,7 @@ function WebServer(amb) {
 
 function logSandBox(logs) {
     if (urlSys === true || app.sys.sandbox === true) {
-        console.log($(window).Decrypt(logs));
+        console.log(decrypt(logs));
         console.log(logs);
     }
 }

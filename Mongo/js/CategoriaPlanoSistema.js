@@ -13,25 +13,22 @@ app["CategoriaPlanoSistema"] = new Vue({
         ELtitle: null,
         Icon: '<i class="far fa-list-alt"></i>',
         pesqTbl: "",
-        Host: "Bienestar/Financeiro/CategoriaPlanoSistema/",
+        Host: "Bienestar/Sistema/CategoriaPlanoSistema/",
 
         NomeCategoria: null,
-        Loginsrc: null,
         Acessos: null,
 
+        Loginsrc: null,
     },
     methods: {
         populate: function () {
-            $(function () {
-                this.biencode = {};
-                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                this.biencode.acesso = window.localStorage.getItem("IdLogin");
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud(app.CategoriaPlanoSistema.href, "listar", data);
-                app.PlanoSistema.CategoriaPlanoSistemaSrc = app.CategoriaPlanoSistema.src;
-            });
+            this.biencode = {};
+            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+            this.biencode.acesso = window.localStorage.getItem("IdLogin");
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode))
+            };
+            app.sys.crud(app.CategoriaPlanoSistema.href, "listar", data);
             app.sys.tabs(this.href);
         },
         clear: function () {
@@ -85,17 +82,6 @@ app["CategoriaPlanoSistema"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
-        ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
-                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        },
         pesq: function (arr, pesq) {
             let filteredList = arr.filter(field => app.CategoriaPlanoSistema.valida(field, pesq));
             return filteredList;
@@ -114,10 +100,13 @@ app["CategoriaPlanoSistema"] = new Vue({
                 }
             }
             return flag;
-        }
-
+        },
+        load: function () {
+            if (nulo(app.Login)) {
+                this.Loginsrc = [];
+            } else {
+                this.Loginsrc = app.Login.src;
+            }
+        },
     }
 });
-function update(picker) {
-    app.CategoriaPlanoSistema.Cor = picker.dataset.currentColor;
-}

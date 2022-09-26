@@ -69,6 +69,13 @@ app["Home"] = new Vue({
             var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
             this.diferenca = Math.round(Difference_In_Days);
         },
+        load: function(){
+        /*    if (app.anunciante.src !== null) {
+                app.Home.anunciantes = app.anunciante.src.length;
+            } else {
+                app.Home.anunciantes = 0;
+            }*/
+        },
         update: function () {
             this.banner = [
                 {

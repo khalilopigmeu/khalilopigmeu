@@ -13,38 +13,38 @@ app["Consulta"] = new Vue({
         ELtitle: null,
         Icon: '<i class="fas fa-tasks"></i>',
         pesqTbl: "",
-        Host: "Bienestar/Agenda/Consulta/",
+        Host: "Bienestar/Clinica/Consulta/",
 
         text: null,
         Descricao: null,
         Nome: null,
         Valor: null,
+        Duracao: null,
     },
     methods: {
         populate: function () {
-            $(function () {
-                this.biencode = {};
-                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud(app.Consulta.href, "listar", data);
-                app.FichaAtendimento.Consultasrc = app.Consulta.src;
-            });
+            this.biencode = {};
+            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode))
+            };
+            app.sys.crud(app.Consulta.href, "listar", data);
             app.sys.tabs(this.href);
         },
         clear: function () {
             this.Nome = null;
             this.Valor = null;
             this.Descricao = null;
+            this.Duracao = null;
         },
         autocomplete: function () {
             this.id = this.row[0];
             this.Nome = this.row[1];
             this.Valor = this.row[2];
-            this.Descricao = this.row[3];
+            this.Duracao = msToTime(this.row[3]);
+            this.Descricao = this.row[4];
             CKEDITOR.instances['consultadescricao'].setData(unescapeHTML(this.Descricao));
-            app.SocialMedia.mascara();
+            app.sys.mascara();
         },
         checkForm: function () {
             app.erros.errors = {};
@@ -53,6 +53,7 @@ app["Consulta"] = new Vue({
             this.biencode.Valor = this.Valor;
             this.Descricao = CKEDITOR.instances['consultadescricao'].getData();
             this.biencode.Descricao = this.Descricao;
+            this.biencode.Duracao = this.Duracao;
             this.biencode.id = this.id;
             this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
 
@@ -81,16 +82,5 @@ app["Consulta"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
-        ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
-                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        }
     }
 });

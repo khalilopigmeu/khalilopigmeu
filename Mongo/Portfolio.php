@@ -12,7 +12,7 @@ nometabela = tblPortfolio
 $pgtitle = "Portfolio";
 $page = "Portfolio";
 $td = ["" . $page => ["Id", "Album", "Categoria", "Nome", "Url", "Trabalho", "Case", "Logo"]];
-$tdvue = ["" . $page => ["app.sys.foreignKeyReplace(AlbumSrc,'Nome',td.IdAlbum)",
+$tdvue = ["" . $page => ["app.sys.foreignKeyReplace(AlbumSrc,'NomeAlbum',td.IdAlbum)",
         "app.sys.foreignKeyReplace(CategoriaPortfolioSrc,'Nome',td.IdCategoriaPortfolio)",
         "td.Nome", "td.UrlSite",
         "td.Job", "td.CaseEmpresa",
@@ -31,7 +31,7 @@ include $refUrl . "Mongo/template/head.php"
 <label for="Album">Álbum:</label>
 <select class="form-control" v-model="IdAlbum" name="Album" placeholder="Album" >
     <option>Selecione um Álbum</option>
-    <option v-for="el in app.sys.sorter(AlbumSrc,'DESC','id')" class="Album" v-bind:value="el._id['$oid']" v-bind:data-color="el.Cor">{{el.Nome}}</option>
+    <option v-for="el in app.sys.sorter(AlbumSrc,'DESC','id')" class="Album" v-bind:value="el._id['$oid']" v-bind:data-color="el.Cor">{{el.NomeAlbum}}</option>
 </select>
 <a href="#" onclick="setModal('Album', 'Portfolio')">Adicionar Álbum <i class="far fa-plus-square"></i></a><br>
 <br>

@@ -4,9 +4,11 @@ var table = {};
 var qrcode;
 var urlSite = window.location.href;
 var path;
-const Real = value => currency(value, {symbol: 'R$', decimal: ',', separator: '.'});
+const Real = value => currency(value, {symbol: 'R$', decimal: '.', separator: ''});
 var cdn;
+var swiper;
 $(function () {
+    urlSys = true;
     qrcode = new QRCode(document.getElementById("qrcode"), {
         text: urlSite,
         logo: "/img/sobre.png",
@@ -21,15 +23,22 @@ $(function () {
     window.onhashchange = function () {
         urlRead();
     };
-    
-    window.onchange = function () {
+
+    window.onpopstate = function () {
         urlRead();
     };
 
     window.onload = function () {
-        urlRead();
+        if (getAuth() === null) {
+            setAuth(decrypt(app.sys.bien, "encodedstring"));
+        }
+        app.sys.start();
     };
 
+    if (getAuth() === null) {
+        setAuth(decrypt(app.sys.bien, "encodedstring"));
+    }
+    app.sys.start();
 
     if (urlSite.includes("rtiempresarial")) {
         if (urlSite.includes("sys") || urlSite.includes("ws")) {
@@ -55,19 +64,15 @@ $(function () {
         }
     });
     $(".cep").blur(function () {
-        var preauth = getAuth();
-        setAuth("encodedstring");
-        var auth = $(window).Decrypt(app.sys.bien);
-        setAuth(auth);
+        var key = decrypt(app.sys.bien, "encodedstring");
         var CEP = $(this).val();
         var biencode = {};
         biencode.CEP = CEP;
         var data = {
-            "biencode": $(window).Encrypt(JSON.stringify(biencode))
+            "biencode": encrypt(JSON.stringify(biencode), key)
         };
         var appVue = $(this).attr("data-vue");
-        var rs = $(window).Decrypt(post("Bienestar/Correio/BuscaCEP/busca", data));
-        setAuth(preauth);
+        var rs = decrypt(post("Bienestar/Ferramentas/BuscaCEP/busca", data));
         if (rs.indexOf(";") > 0) {
             var k = acentuar(rs);
             var x = k.split(";");
@@ -84,8 +89,8 @@ $(function () {
 
     $(".carousel.carousel-multi-item .carousel-item").eq(0).addClass("active");
     $("#Carousel,#Pricing").carousel();
-});
 
+});
 function urlRead() {
     app.anunciante.pgid = null;
     app.paginasite.pg = null;
@@ -103,39 +108,20 @@ function urlRead() {
     }
     if (getParameterByName('uuid') !== null) {
         window.localStorage.setItem("uuid", getParameterByName('uuid'));
-        app.Dispositivos.buscar();
-        var device = app.sys.search(app.Dispositivos.src, getParameterByName('uuid'), "UUID");
-        if (device.length > 0) {
-            if (device.length > 1) {
-
-            } else {
-                var biencode = {};
-                biencode.UUID = device[0].UUID;
-                biencode.Login = device[0].IdLogin;
-                var data = {
-                    "biencode": $(window).Encrypt(JSON.stringify(biencode))
-                };
-                var ws = "Bienestar/Gerenciamento/Login/appLogin";
-                var p = (post(ws, data));
-                var rs = $(window).Decrypt(p);
-                window.localStorage.setItem("Empresa", rs.Empresa);
-                window.localStorage.setItem("IdEmpresa", rs.IdEmpresa);
-                window.localStorage.setItem("IdLogin", rs.IdLogin);
-                window.localStorage.setItem("Nome", rs.Nome);
-                window.localStorage.setItem("RAVEC", rs.Ravec);
-                window.localStorage.setItem("auth", rs.Credencial.replace(/(\r\n|\n|\r)/gm, ""));
-                window.location.href = "/ws/Agenda/eventos.php";
-            }
+        if (urlSite.includes("rtiempresarial")) {
+            window.location.href = "https://www.rtiempresarial.com.br/index.php";
         } else {
-            if (urlSite.includes("rtiempresarial")) {
-                window.location.href = "https://www.rtiempresarial.com.br/index.php";
-            } else {
-                window.location.href = "https://www.bienclube.com.br/index.php";
-            }
+            window.location.href = "https://www.bienclube.com.br/index.php";
         }
     }
     if (app.sys.page == "promocaoespacobienestar") {
         window.location.href = "https://www.bienclube.com.br/index.php#promocao?pgid=61fbb5a965ac59817653d77c";
+    }
+    if (app.sys.page === "dispositivos") {
+        app.sys.keys();
+        app.sys.gapi = gapi;
+        app.sys.iniciar();
+        app.sys.FB = FB;
     }
     if (app.sys.page === "promocao") {
         if (getParameterByName('pgid') !== null) {
@@ -176,25 +162,34 @@ function urlRead() {
     }
     if (app.sys.page === "anunciante") {
         if (getParameterByName('pgid') !== null) {
-            app.anunciante.pgid = getParameterByName('pgid');
+            app.configuracaosite.buscar(getParameterByName('pgid'));
+            app.anunciante.buscar(getParameterByName('pgid'));
+            app.PromocaoSite.buscaItens(getParameterByName('pgid'));
+            app.PromocaoSite.buscaPacotes(getParameterByName('pgid'));
+            app.paginasite.buscar(getParameterByName('pgid'));
+            app.FamiliaProdutosSite.buscar(getParameterByName('pgid'));
+            app.ClasseProdutosSite.buscar(getParameterByName('pgid'));
+            app.CategoriaProdutosSite.buscar(getParameterByName('pgid'));
+            app.SubcategoriaProdutosSite.buscar(getParameterByName('pgid'));
+            app.ProdutosSite.buscar(getParameterByName('pgid'));
+            app.albumsite.buscar(getParameterByName('pgid'));
+            app.midiasite.buscar(getParameterByName('pgid'));
+            app.consultasite.buscar(getParameterByName('pgid'));
+            app.procedimentosite.buscar(getParameterByName('pgid'));
             app.empresasanunciando.pgid = getParameterByName('pgid');
-            app.anunciante.buscar();
-            app.empresasanunciando.buscar();
-            app.configuracaosite.buscar();
-            app.paginasite.buscar();
+            app.empresasanunciando.buscar(getParameterByName('pgid'));
+            app.empresasanunciando.load();
             app.sys.seo("anuncio", getParameterByName('pgid'));
-            app.FamiliaProdutosSite.buscar();
-            app.ClasseProdutosSite.buscar();
-            app.CategoriaProdutosSite.buscar();
-            app.SubcategoriaProdutosSite.buscar();
-            app.ProdutosSite.buscar();
         } else {
-            app.empresasanunciando.pesquisa = getParameterByName('q');
             app.anunciante.pgid = null;
-            app.empresasanunciando.pgid = null;
             app.configuracaosite.buscar();
             app.empresasanunciando.buscar();
             app.anunciante.buscar();
+            app.PromocaoSite.buscaItens();
+            app.PromocaoSite.buscaPacotes();
+            app.empresasanunciando.pesquisa = getParameterByName('q');
+            app.empresasanunciando.pgid = null;
+            app.empresasanunciando.load();
             app.sys.seo("anuncio");
         }
     }

@@ -1,13 +1,3 @@
-<!-- 
-VueApp name = ListaCompra 
-titulo = Lista de Compra
-app = ListaCompra
-ASC/DESC = DESC
-campo = id
-coluna tbl = "fields",
-input = <input class="form-control" v-model=="Campo" placeholder="Campo..." v-bind:value="Campo"><br>
-nometabela = tblListaCompra
--->
 <?php
 $pgtitle = "Lista de Compra";
 $page = "ListaCompra";

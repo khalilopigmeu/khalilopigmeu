@@ -2,7 +2,7 @@
 app["erros"] = new Vue({
     el: '#modalInputError',
     data: {
-        errors: {},
+        errors: [],
         flag: true
     },
     methods:{

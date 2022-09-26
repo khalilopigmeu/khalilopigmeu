@@ -1,13 +1,3 @@
-<!-- 
-VueApp name = CategoriaPortfolio 
-titulo = Categoria de Portfólios
-app = CategoriaPortfolio
-ASC/DESC = DESC
-campo = id
-coluna tbl = "fields",
-input = <input class="form-control" v-model=="Campo" placeholder="Campo..." v-bind:value="Campo"><br>
-nometabela = tblCategoriaPortfolio
--->
 <?php
 $pgtitle = "Categoria de Portfólio";
 $page = "CategoriaPortfolio";

@@ -13,7 +13,7 @@ app["Revenda"] = new Vue({
         ELtitle: null,
         Icon: '<i class="far fa-handshake"></i>',
         pesqTbl: "",
-        Host: "Bienestar/Gerenciamento/Revenda/",
+        Host: "Bienestar/Gestao/Revenda/",
 
         UF: null,
         CNAE: null,
@@ -39,15 +39,12 @@ app["Revenda"] = new Vue({
     },
     methods: {
         populate: function () {
-            $(function () {
-                this.biencode = {};
-                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud(app.Revenda.href, "listar", data);
-                app.Login.Revendasrc = app.Revenda.src;
-            });
+            this.biencode = {};
+            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode))
+            };
+            app.sys.crud(app.Revenda.href, "listar", data);
             app.sys.tabs(this.href);
         },
         clear: function () {
@@ -153,16 +150,5 @@ app["Revenda"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
-        ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
-                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        }
     }
 });

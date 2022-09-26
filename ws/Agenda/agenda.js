@@ -5,17 +5,13 @@ app.calendar = new Vue({
     data: {
         irpara: null,
         diaevento: null,
-        CategoriaSrc: null,
-        AnotacaoSrc: null,
         iniciopesq: null,
         fimpesq: null,
         chart: null,
-        eventosSrc: null,
         tempSrc: null,
         tempClass: null,
         grpslc: [],
         data: [],
-        LancamentoFinanceiroSrc: [],
         progress: 0,
         totalentradas: 0,
         totalsaidas: 0,
@@ -25,15 +21,16 @@ app.calendar = new Vue({
         itenssaidas: [],
         itenstotal: [],
         tabela: [],
-    },
-    created: function () {
+
+        CategoriaSrc: null,
+        AnotacaoSrc: null,
+        eventosSrc: null,
+        LancamentoFinanceiroSrc: null,
     },
     methods: {
         betdate: function () {
-            $(function () {
-                app.Eventos.populate();
-                app.calendar.grafico();
-            });
+            app.Eventos.populate();
+            app.calendar.grafico();
         },
         gotodate: function () {
             var data = this.irpara.split("-");
@@ -63,7 +60,9 @@ app.calendar = new Vue({
                             for (var lancamento = 0; lancamento <= fin.length - 1; lancamento++) {
                                 var item = app.sys.searchByID(this.LancamentoFinanceiroSrc, fin[lancamento])[0];
                                 //this.pushItem(item, this.eventosSrc, j, grupo);
-                                preco += Real(item.Valor).value;
+                                var p = replaceAll("R$", "", item.Valor);
+                                p = replaceAll(",", ".", p);
+                                preco += Real(p).value;
                                 modalidade = item.Modalidade;
                             }
                             var dia = DataISO(formatadata(app.Eventos.calendar.formatIso(this.eventosSrc[j].start)));
@@ -91,7 +90,7 @@ app.calendar = new Vue({
             }
             this.pushTotalMedias(null);
             this.pushTotal();
-            var ctx = document.getElementById('myChart').getContext('2d');
+            var ctx = document.getElementById('Grafico').getContext('2d');
             if (app.calendar.chart !== null) {
                 app.calendar.chart.destroy();
             }
@@ -197,7 +196,9 @@ app.calendar = new Vue({
                 if (src[j] !== null) {
                     var dia = DataISO(formatadata(app.Eventos.calendar.formatIso(src[j].start)));
                     if (DataMenor(formatadata(dia), dataAtualFormatada())) {
-                        var valor = Real(item.Valor).value;
+                        var p = replaceAll("R$", "", item.Valor);
+                        p = replaceAll(",", ".", p);
+                        var valor = Real(p).value;
                         if (item.Modalidade === "1") {
                             if (typeof this.itens[grupo] === "undefined") {
                                 this.itens[grupo] = [];
@@ -320,6 +321,34 @@ app.calendar = new Vue({
                 app.Eventos.calendar = instanceCalendar("calendarTabContent", JSON.stringify(this.eventosSrc), "#Eventos");
                 this.updateChart();
             }
-        }
+        },
+        load: function () {
+            if (nulo(app.CategoriaEventos)) {
+                this.CategoriaSrc = [];
+            } else {
+                this.CategoriaSrc = app.CategoriaEventos.src;
+            }
+            if (nulo(app.AnotacaoAgenda)) {
+                this.AnotacaoSrc = [];
+            } else {
+                this.AnotacaoSrc = app.AnotacaoAgenda.src;
+            }
+            if (nulo(app.Eventos)) {
+                this.eventosSrc = [];
+            } else {
+                this.eventosSrc = app.Eventos.src;
+                app.calendar.eventosSrc = eval(app.Eventos.eventos);
+                if (app.Eventos.calendar !== null) {
+                    app.Eventos.calendar.destroy();
+                }
+                app.Eventos.calendar = instanceCalendar("calendarTabContent", app.Eventos.eventos, "#Eventos");
+                app.calendar.diaevento = formatadata(app.Eventos.calendar.formatIso(app.Eventos.calendar.getDate()));
+            }
+            if (nulo(app.LancamentoFinanceiro)) {
+                this.LancamentoFinanceiroSrc = [];
+            } else {
+                this.LancamentoFinanceiroSrc = app.LancamentoFinanceiro.src;
+            }
+        },
     }
 });

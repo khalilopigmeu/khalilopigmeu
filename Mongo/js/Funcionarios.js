@@ -13,12 +13,8 @@ app["Funcionarios"] = new Vue({
         ELtitle: null,
         Icon: '<i class="far fa-id-card"></i>',
         pesqTbl: "",
-        Host: "Bienestar/Gerenciamento/Funcionario/",
+        Host: "Bienestar/Gestao/Funcionario/",
 
-        Departamentosrc: null,
-        Cargosrc: null,
-        PlanoSaudesrc: null,
-        PlanoOdontosrc: null,
         UF: null,
         DataNasc: null,
         Rg: null,
@@ -40,19 +36,20 @@ app["Funcionarios"] = new Vue({
         IdCargo: null,
         IdPlanoSaude: null,
         IdPlanoOdonto: null,
+        
+        Departamentosrc:null,
+        Cargosrc:null,
+        PlanoSaudesrc:null,
+        PlanoOdontosrc:null,
     },
     methods: {
         populate: function () {
-            $(function () {
-                this.biencode = {};
-                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud(app.Funcionarios.href, "listar", data);
-                app.Login.Funcionariosrc = app.Funcionarios.src;
-                app.Comissao.Funcionariossrc = app.Funcionarios.src;
-            });
+            this.biencode = {};
+            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode))
+            };
+            app.sys.crud(app.Funcionarios.href, "listar", data);
             app.sys.tabs(this.href);
         },
         clear: function () {
@@ -80,14 +77,14 @@ app["Funcionarios"] = new Vue({
         },
         autocomplete: function () {
             this.id = this.row[0];
-            this.Cpf = this.row[1];
-            this.Rg = this.row[2];
-            this.Nome = this.row[3];
+            this.Nome = this.row[1];
+            this.Cpf = this.row[2];
+            this.Rg = this.row[3];
             this.DataNasc = this.row[4];
-            /* this.IdDepartamento = this.row[5];
-             this.IdCargo = this.row[6];
-             this.IdPlanoSaude = this.row[7];
-             this.IdPlanoOdonto = this.row[8];*/
+            this.IdDepartamento = this.row[5];
+            this.IdCargo = this.row[6];
+            this.IdPlanoSaude = this.row[7];
+            this.IdPlanoOdonto = this.row[8];
             this.Salario = this.row[9];
             this.Comissao = this.row[10];
             this.ContaSalario = this.row[11];
@@ -153,16 +150,27 @@ app["Funcionarios"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
-        ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
-                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
-                    return true;
-                } else {
-                    return false;
-                }
+        load: function () {
+            if (nulo(app.Departamento)) {
+                this.Departamentosrc = [];
             } else {
-                return false;
+                this.Departamentosrc = app.Departamento.src;
             }
-        }
+            if (nulo(app.Cargo)) {
+                this.Cargosrc = [];
+            } else {
+                this.Cargosrc = app.Cargo.src;
+            }
+            if (nulo(app.PlanoSaude)) {
+                this.PlanoSaudesrc = [];
+            } else {
+                this.PlanoSaudesrc = app.PlanoSaude.src;
+            }
+            if (nulo(app.PlanoOdonto)) {
+                this.PlanoOdontosrc = [];
+            } else {
+                this.PlanoOdontosrc = app.PlanoOdonto.src;
+            }
+        },
     }
 });

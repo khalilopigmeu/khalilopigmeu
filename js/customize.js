@@ -70,12 +70,12 @@ app["Customizar"] = new Vue({
          $(function () {
          var preauth = getAuth();
          setAuth("encodedstring");
-         var auth = $(window).Decrypt(app.sys.bien);
+         var auth = decrypt(app.sys.bien);
          setAuth(auth);
          this.biencode = {};
          this.biencode.empresa = app.sys.refid;
          var data = {
-         biencode: $(window).Encrypt(JSON.stringify(this.biencode))
+         biencode: encrypt(JSON.stringify(this.biencode))
          };
          app.sys.crud("Customizar", "listar", data);
          setAuth(preauth);

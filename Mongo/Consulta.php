@@ -11,8 +11,8 @@ nometabela = tblConsulta
 <?php
 $pgtitle = "Consulta";
 $page = "Consulta";
-$td = ["" . $page => ["Id", "Nome", "Valor", "Descrição"]];
-$tdvue = ["" . $page => ["td.Nome", "td.Valor", "td.Descricao"]];
+$td = ["" . $page => ["Id", "Nome", "Valor", "Duração", "Descrição"]];
+$tdvue = ["" . $page => ["td.Nome", "td.Valor", "td.Duracao", "td.Descricao"]];
 
 include $refUrl . "Mongo/template/head.php"
 ?>
@@ -20,6 +20,8 @@ include $refUrl . "Mongo/template/head.php"
 <input class="form-control" v-model="Nome" placeholder="..." required="required"><br>
 <label for="Valor">Valor:</label>
 <input class="form-control valor" v-model="Valor" placeholder="R$"><br>
+<label for="Duracao">Duração:</label>
+<input class="form-control" v-model="Duracao" type="time" placeholder="HH:MM"><br>
 <label for="text">Observação:</label>
 <textarea class="form-control" v-model="Descricao" name="consultadescricao" placeholder="Observação..."></textarea><br>
 <?php include $refUrl . "Mongo/template/foot.php" ?>

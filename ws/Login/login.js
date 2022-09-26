@@ -61,10 +61,10 @@ app["clientLogin"] = new Vue({
             return Math.floor(Math.random() * (this.max - this.min + 1) + this.min);
         },
         mascara: function () {
-            app.SocialMedia.mascara();
+            app.sys.mascara();
         },
         cadastro: function (e) {
-            setAuth("UkdWdGIwVlNVQT09DQotUkdWdGIwVlNVQT09DQotWkdWdGJ6RXlNdz09DQot");
+            setAuth(decrypt(app.sys.bien,"encodedstring"));
             var biencode = {};
             if (this.optCad === "fisica") {
                 biencode.Nome = this.Nome;
@@ -97,9 +97,9 @@ app["clientLogin"] = new Vue({
             biencode.Telefone = this.Telefone;
             biencode.Celular = this.Celular;
             var data = {
-                "biencode": $(window).Encrypt(JSON.stringify(biencode))
+                "biencode": encrypt(JSON.stringify(biencode))
             };
-            var ws = "Bienestar/Gerenciamento/Login/CadCliente";
+            var ws = "Bienestar/Sistema/Login/CadCliente";
             var p = (post(ws, data));
             alert("cadastrado com sucesso! A administração irá entrar em contato com você.");
             window.location.href = "https://www.bienclube.com.br/index.php#modalLoginSys";
@@ -112,16 +112,15 @@ app["clientLogin"] = new Vue({
             biencode.Cod = window.atob("MDc3eEY=");
             biencode.Posicao = this.posicao;
             var data = {
-                "biencode": $(window).Encrypt(JSON.stringify(biencode))
+                "biencode": encrypt(JSON.stringify(biencode))
             };
-            var ws = "Bienestar/Gerenciamento/Login/RecuperaSenha";
+            var ws = "Bienestar/Sistema/Login/RecuperaSenha";
             var p = (post(ws, data));
-            var rs = $(window).Decrypt(p);
-            alert(rs);
+            var rs = decrypt(p);
             $(window).NotifySucesso(rs);
         },
         login: function (e) {
-            setAuth("UkdWdGIwVlNVQT09DQotUkdWdGIwVlNVQT09DQotWkdWdGJ6RXlNdz09DQot");
+            setAuth(decrypt(app.sys.bien,"encodedstring"));
             e.preventDefault();
             var flag = true;
             if (!this.Empresa && this.Empresa.length > 0) {
@@ -145,12 +144,11 @@ app["clientLogin"] = new Vue({
                 biencode.Cod = window.atob("MDc3eEY=");
                 biencode.Posicao = this.posicao;
                 var data = {
-                    "biencode": $(window).Encrypt(JSON.stringify(biencode))
+                    "biencode": encrypt(JSON.stringify(biencode))
                 };
-                var ws = "Bienestar/Gerenciamento/Login/loginSistema";
+                var ws = "Bienestar/Sistema/Login/loginSistema";
                 var p = (post(ws, data));
-                var rs = $(window).Decrypt(p);
-                logSandBox(rs);
+                var rs = decrypt(p);
                 if (rs.includes("erro")) {
                     alert("Acesso inválido contate o administrador");
                 } else {

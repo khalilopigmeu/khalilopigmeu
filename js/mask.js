@@ -91,9 +91,8 @@ function mnum(v) {
 }
 
 function mvalor(v) {
-    //v = v.replace(/\D/g, ""); //Remove tudo o que não é dígito
-    //v = v.replace(/(\d)(\d{2})$/, "$1.$2"); //coloca a virgula antes dos 2 últimos dígitos
-    return Real(v).format();
+    //return  Real(v).value;
+    return v;
 }
 
 function id(el) {
@@ -207,7 +206,6 @@ function mask() {
     }
     if (document.getElementsByClassName('valor') !== null) {
         for (var i = 0; i <= clas('valor').length - 1; i++) {
-            clas('valor')[i].setAttribute("type","number");
             clas('valor')[i].onkeypress = function () {
                 mascara(this, mvalor);
             };
@@ -215,7 +213,6 @@ function mask() {
     }
     if (document.getElementsByClassName('money') !== null) {
         for (var i = 0; i <= clas('money').length - 1; i++) {
-            clas('valor')[i].setAttribute("type","number");
             clas('money')[i].onkeypress = function () {
                 mascara(this, mvalor);
             };

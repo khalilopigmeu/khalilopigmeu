@@ -13,39 +13,54 @@ app["Mural"] = new Vue({
         ELtitle: null,
         Icon: '<i class="far fa-sticky-note"></i>',
         pesqTbl: "",
-        Host: "Bienestar/Mural/Muralin/",
+        Host: "Bienestar/Site/Mural/",
 
         Link: null,
         IdMidia: null,
         Texto: null,
         InOut: null,
         Acessos: null,
-        Loginsrc: null,
+        
+        Loginsrc:null,
+        MidiaSrc:null,
     },
     methods: {
         populate: function () {
-            $(function () {
-                this.biencode = {};
-                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud(app.Mural.href, "listar", data);
-            });
+            this.biencode = {};
+            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode))
+            };
+            app.sys.crud(app.Mural.href, "listar", data);
             app.sys.tabs(this.href);
         },
         clear: function () {
-            this.item = null;
+            this.IdMidia = null;
+            this.Link = null;
+            this.Texto = null;
+            this.InOut = null;
+            this.Acessos = null;
         },
         autocomplete: function () {
-            this.item = this.row[0];
+            this.id = this.row[0];
             var x = String(app.sys.foreignKeyRestore(this.Loginsrc, "Login", this.row[2]));
-            this.Acessos = eval(x.split(","));
+            this.IdMidia = eval(x.split(","));
             var x = String(app.sys.foreignKeyRestore(this.Loginsrc, "Login", this.row[5]));
             this.Acessos = eval(x.split(","));
+            this.Link = this.row[1];
+            this.Texto = this.row[3];
+            this.InOut = this.row[4];
         },
         checkForm: function () {
             app.erros.errors = {};
+            this.biencode = {};
+            this.biencode.IdMidia = this.IdMidia;
+            this.biencode.Acessos = this.Acessos;
+            this.biencode.Link = this.Link;
+            this.biencode.Texto = this.Texto;
+            this.biencode.InOut = this.InOut;
+            this.biencode.id = this.id;
+            this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
         },
         cadastrar: function () {
             app.sys.crud(this.href, "add", null);
@@ -71,16 +86,17 @@ app["Mural"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
-        ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
-                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
-                    return true;
-                } else {
-                    return false;
-                }
+        load: function () {
+            if (nulo(app.Login)) {
+                this.Loginsrc = [];
             } else {
-                return false;
+                this.Loginsrc = app.Login.src;
             }
-        }
+            if (nulo(app.Midia)) {
+                this.MidiaSrc = [];
+            } else {
+                this.MidiaSrc = app.Midia.src;
+            }
+        },
     }
 });

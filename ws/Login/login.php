@@ -8,11 +8,9 @@
                 </div>
                 <div class="modal-body">
                     <script type="text/javascript">
-                        $(function () {
-                            if (getAuth() === null) {
-                                setAuth("UkdWdGIwVlNVQT09DQotUkdWdGIwVlNVQT09DQotWkdWdGJ6RXlNdz09DQot");
-                            }
-                        });
+                        if (getAuth() === null) {
+                            setAuth(decrypt(app.sys.bien,"encodedstring"));
+                        }
                     </script>
                     <div id="frmlogin" class="container-fluid">
                         <nav>
@@ -38,10 +36,8 @@
                                                     <button class="btn btn-dark text-white" data-toggle="modal" data-target="#modalCliBienestar">Cadastrar</button> 
                                                 <?php } ?>
                                                 <button class="btn btn-dark text-white" data-toggle="modal" data-target="#modalRecuperaSenha" onclick="app.GerenciamentoCliente.getRandomNumber();">Recuperar senha</button>
-                                                <br>
-                                                <!-- <hr>
-                                                 <button class="btn btn-dark entrafb"v-on:click.native>Continuar com Facebook</button>
-                                                 <button class="btn btn-dark entragg"v-on:click.native>Continuar com Google</button> -->
+                                                <br><br>
+                                                <a href="index.php#dispositivos" class="btn btn-dark text-white">Acesso de confiança</a><br>
                                                 <hr>
                                                 <button class="btn btn-dark" href="<?php echo $refUrl; ?>ws/Login/painel.php">Demonstração</button>
                                             </div>
@@ -57,8 +53,6 @@
                                             <input class="form-control" v-model="Login" placeholder="Login..."><br>
                                             <label for="Senha">Senha:</label>
                                             <input class="form-control" type="password" v-model="Senha" placeholder="Senha..."><br>
-                                            <!-- <label for="Cod">Código: {{posicao}} </label>  
-                                             <input class="form-control" type="password" v-model="Cod" v-bind:placeholder="'Cód. '+posicao"><br>-->
                                             <div class="text-center justify-content-center my-4">
                                                 <button v-on:click.native class="btn btn-dark text-white" v-on:click="login">Enviar</button>
                                                 <br><br>
@@ -66,12 +60,9 @@
                                                     <button class="btn btn-dark text-white" data-toggle="modal" data-target="#modalCliBienestar">Cadastrar</button> 
                                                 <?php } ?>
                                                 <button class="btn btn-dark text-white" data-toggle="modal" data-target="#modalRecuperaSenha" onclick="app.GerenciamentoCliente.getRandomNumber();">Recuperar senha</button>
-                                                <br>
+                                                <br><br>
+                                                <a href="index.php#dispositivos" data-dismiss="modal" class="btn btn-dark text-white">Acesso de confiança</a><br>
                                                 <hr>
-                                                <!--<button class="btn btn-dark entrafb"v-on:click.native>Continuar com Facebook</button>
-                                                <button class="btn btn-dark entragg"v-on:click.native>Continuar com Google</button>
-                                                <hr>
-                                                <button class="btn btn-dark" href="<?php //echo $refUrl;   ?>/ws/Login/painel.php">Demonstração</button>-->
                                             </div>
                                         </fieldset>
                                     </div>

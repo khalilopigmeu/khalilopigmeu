@@ -13,21 +13,18 @@ app["CategoriaText"] = new Vue({
         ELtitle: null,
         Icon: '<i class="fas fa-list-alt"></i>',
         pesqTbl: "",
-        Host: "Bienestar/Texto/CategoriaTexto/",
+        Host: "Bienestar/Textos/CategoriaTexto/",
 
         Nome: null,
     },
     methods: {
         populate: function () {
-            $(function () {
-                this.biencode = {};
-                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud(app.CategoriaText.href, "listar", data);
-                app.Text.CategoriaTextSrc = app.CategoriaText.src;
-            });
+            this.biencode = {};
+            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode))
+            };
+            app.sys.crud(app.CategoriaText.href, "listar", data);
             app.sys.tabs(this.href);
         },
         clear: function () {
@@ -69,16 +66,5 @@ app["CategoriaText"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
-        ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
-                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        }
     }
 });

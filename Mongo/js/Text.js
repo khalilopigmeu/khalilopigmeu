@@ -13,7 +13,7 @@ app["Text"] = new Vue({
         ELtitle: null,
         Icon: '<i class="fas fa-align-center"></i>',
         pesqTbl: "",
-        Host: "Bienestar/Texto/Postagem/",
+        Host: "Bienestar/Textos/Text/",
 
         DataPublicacao: null,
         DataPostagemText: null,
@@ -23,20 +23,19 @@ app["Text"] = new Vue({
         Titulo: null,
         IdAlbum: null,
         Resumo: null,
+
         CategoriaTextSrc: null,
         AlbumSrc: null,
     },
     methods: {
         populate: function () {
-            $(function () {
-                this.biencode = {};
-                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                this.biencode.acesso = window.localStorage.getItem("IdLogin");
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud(app.Text.href, "listar", data);
-            });
+            this.biencode = {};
+            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+            this.biencode.acesso = window.localStorage.getItem("IdLogin");
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode))
+            };
+            app.sys.crud(app.Text.href, "listar", data);
             app.sys.tabs(this.href);
         },
         clear: function () {
@@ -54,7 +53,7 @@ app["Text"] = new Vue({
         autocomplete: function () {
             this.id = this.row[0];
             this.IdCategoriaText = app.sys.foreignKeyRestore(this.CategoriaTextSrc, "Nome", this.row[1]);
-            this.IdAlbum = app.sys.foreignKeyRestore(this.AlbumSrc, "Nome", this.row[2]);
+            this.IdAlbum = app.sys.foreignKeyRestore(this.AlbumSrc, "NomeAlbum", this.row[2]);
             this.Titulo = this.row[3];
             this.Resumo = this.row[4];
             CKEDITOR.instances['resumotexto'].setData(unescapeHTML(this.Resumo))
@@ -108,15 +107,16 @@ app["Text"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
-        ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
-                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
-                    return true;
-                } else {
-                    return false;
-                }
+        load: function () {
+            if (nulo(app.CategoriaText)) {
+                this.CategoriaTextSrc = [];
             } else {
-                return false;
+                this.CategoriaTextSrc = app.CategoriaText.src;
+            }
+            if (nulo(app.Album)) {
+                this.AlbumSrc = [];
+            } else {
+                this.AlbumSrc = app.Album.src;
             }
         }
     }

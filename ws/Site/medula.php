@@ -13,6 +13,18 @@
 <div id="textosite">
 
 </div>
+<div id="curriculosite">
+
+</div>
+<div id="clientesite">
+
+</div>
+<div id="funcionariolosite">
+
+</div>
 <div id="SysConsole">
+    
+</div>
+<div id="LoginsOauth">
     
 </div>

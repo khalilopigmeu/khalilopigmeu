@@ -1,8 +1,8 @@
 <br>
 <div class="d-flex align-items-end flex-column py-2">
-    <button class="btn btn-dark py-2 toTbl"  v-if="evtDataCal=='cad' && ravec(2)"  v-on:click="cadastrar"><i class="far fa-plus-square"></i> Cadastrar</button><br>
-    <button class="btn btn-dark py-2 toTbl"  v-if="(evtDataCal=='alt' || evtDataCal=='altexc') && ravec(3)" v-on:click="alterar"><i class="far fa-edit"></i> Alterar</button><br>
-    <button class="btn btn-dark py-2 toTbl"  v-if="(evtDataCal=='exc' || evtDataCal=='altexc') && ravec(4)" v-on:click="excluir"><i class="far fa-trash-alt"></i> Excluir</button>
+    <button class="btn btn-dark py-2 toTbl"  v-if="evtDataCal=='cad' && app.sys.ravec(2,'<?php echo $page; ?>')"  v-on:click="cadastrar"><i class="far fa-plus-square"></i> Cadastrar</button><br>
+    <button class="btn btn-dark py-2 toTbl"  v-if="(evtDataCal=='alt' || evtDataCal=='altexc') && app.sys.ravec(3,'<?php echo $page; ?>')" v-on:click="alterar"><i class="far fa-edit"></i> Alterar</button><br>
+    <button class="btn btn-dark py-2 toTbl"  v-if="(evtDataCal=='exc' || evtDataCal=='altexc') && app.sys.ravec(4,'<?php echo $page; ?>')" v-on:click="excluir"><i class="far fa-trash-alt"></i> Excluir</button>
 </div>
 </fieldset>
 </form>
@@ -20,12 +20,21 @@
     $(function () {
         app.sidebarR.smenu.push({
             nome: "<?php echo $pgtitle; ?>",
-            href: "<?php echo $page; ?>"
+            href: "<?php echo $page; ?>",
         });
 
         app.<?php echo $page; ?>.href = "<?php echo $page; ?>";
         app.<?php echo $page; ?>.stepkey = <?php echo $stepMenu; ?>;
         app.<?php echo $page; ?>.ELtitle = "<?php echo $pgtitle; ?>";
+
+        $('#<?php echo $page; ?>').on('show.bs.modal', function (e) {
+            if (typeof app.<?php echo $page; ?>.populate === "function") {
+                app.<?php echo $page; ?>.populate();
+            }
+            if (typeof app.<?php echo $page; ?>.load === "function") {
+                app.<?php echo $page; ?>.load();
+            }
+        });
 
         $('body').on('click', '#tbl<?php echo $page; ?> tbody tr', function () {
             var arr = [];

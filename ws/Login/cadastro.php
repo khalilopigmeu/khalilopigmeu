@@ -7,11 +7,9 @@
             </div>
             <div class="modal-body justify-content-center container-fluid">
                 <script type="text/javascript">
-                    $(function () {
-                        if (getAuth() === null) {
-                            setAuth("UkdWdGIwVlNVQT09DQotUkdWdGIwVlNVQT09DQotWkdWdGJ6RXlNdz09DQot");
-                        }
-                    });
+                    if (getAuth() === null) {
+                        setAuth(decrypt(app.sys.bien,"encodedstring"));
+                    }
                 </script>
                 <div class="row justify-content-center">
                     <form action="" method="post">

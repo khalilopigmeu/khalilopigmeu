@@ -1,13 +1,3 @@
-<!-- 
-VueApp name = Funcionarios 
-titulo = Funcionários
-app = Funcionarios
-ASC/DESC = DESC
-campo = id
-coluna tbl = "fields",
-input = <input class="form-control" v-model=="Campo" placeholder="Campo..." v-bind:value="Campo"><br>
-nometabela = tblFuncionarios
--->
 <?php
 $pgtitle = "Funcionários";
 $page = "Funcionarios";
@@ -66,15 +56,15 @@ include $refUrl . "Mongo/template/head.php"
 <input type="text" v-model="Nome" name="Nome"  class="form-control" required="required"><br>
 <label for="DataNasc">Data de Nascimento:</label>
 <input type="date" v-model="DataNasc" name="DataNasc" class=" form-control"><br>
-<!--<label>Departamento:</label>
+<label>Departamento:</label>
 <select class="form-control" v-model="IdDepartamento" name="IdDepartamento">
     <option>Selecione a categoria</option>
-    <option v-for="el in app.sys.sorter(Departamentosrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.NomeCategoria}}</option>
+    <option v-for="el in app.sys.sorter(Departamentosrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
 </select><br>
 <label>Cargo:</label>
 <select class="form-control" v-model="IdCargo" name="IdCargo">
     <option>Selecione a categoria</option>
-    <option v-for="el in app.sys.sorter(Cargosrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.NomeCategoria}}</option>
+    <option v-for="el in app.sys.sorter(Cargosrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
 </select><br>
 <label>Plano de Saúde:</label>
 <select class="form-control" v-model="IdPlanoSaude" name="IdPlanoSaude">
@@ -85,7 +75,7 @@ include $refUrl . "Mongo/template/head.php"
 <select class="form-control" v-model="IdPlanoOdonto" name="IdPlanoOdonto">
     <option>Selecione a categoria</option>
     <option v-for="el in app.sys.sorter(PlanoOdontosrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.NomeCategoria}}</option>
-</select><br>-->
+</select><br>
 <label for="CEP">CEP:</label>
 <input type="text" v-on:blur="app.sys.buscaCEP('<?php echo $page; ?>')" v-model="CEP" name="CEP" placeholder="xxxxx-xxx" class="cep form-control"><br>
 <label for="UF">Estado:</label>

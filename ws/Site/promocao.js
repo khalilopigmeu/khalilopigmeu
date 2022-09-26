@@ -190,6 +190,17 @@ app["Promocao"] = new Vue({
                     lote5: 4500,
                 }
             },
+            {
+                icon: "<i class='fas fa-percent'></i>",
+                link: "promocaosocial",
+                valor: {
+                  /*  lote1: socialFinal(1),
+                    lote2: socialFinal(1),
+                    lote3: socialFinal(1),
+                    lote4: socialFinal(1),
+                    lote5: socialFinal(1), */
+                }
+            },
         ],
         pacotesBienestar: [
             {
@@ -284,6 +295,72 @@ app["Promocao"] = new Vue({
         servicos_61fbb5a965ac59817653d77c: [
             {
                 icon: "<i class='fas fa-percent'></i>",
+                link: "reiki",
+                valor: {
+                    lote1: 95,
+                    lote2: 115,
+                    lote3: 135,
+                    lote4: 155,
+                    lote5: 175,
+                }
+            },
+            {
+                icon: "<i class='fas fa-percent'></i>",
+                link: "fengshui",
+                valor: {
+                    lote1: 100,
+                    lote2: 125,
+                    lote3: 150,
+                    lote4: 175,
+                    lote5: 200,
+                }
+            },
+            {
+                icon: "<i class='fas fa-percent'></i>",
+                link: "cristaloterapia",
+                valor: {
+                    lote1: 95,
+                    lote2: 115,
+                    lote3: 135,
+                    lote4: 155,
+                    lote5: 175,
+                }
+            },
+            {
+                icon: "<i class='fas fa-percent'></i>",
+                link: "aromaterapia",
+                valor: {
+                    lote1: 95,
+                    lote2: 115,
+                    lote3: 135,
+                    lote4: 155,
+                    lote5: 175,
+                }
+            },
+            {
+                icon: "<i class='fas fa-percent'></i>",
+                link: "cromoterapia",
+                valor: {
+                    lote1: 95,
+                    lote2: 115,
+                    lote3: 135,
+                    lote4: 155,
+                    lote5: 175,
+                }
+            },
+            {
+                icon: "<i class='fas fa-percent'></i>",
+                link: "radiestesia",
+                valor: {
+                    lote1: 95,
+                    lote2: 115,
+                    lote3: 135,
+                    lote4: 155,
+                    lote5: 175,
+                }
+            },
+            {
+                icon: "<i class='fas fa-percent'></i>",
                 link: "acupunturaeterica",
                 valor: {
                     lote1: 65,
@@ -324,72 +401,6 @@ app["Promocao"] = new Vue({
                     lote3: 215,
                     lote4: 235,
                     lote5: 255,
-                }
-            },
-            {
-                icon: "<i class='fas fa-percent'></i>",
-                link: "fengshui",
-                valor: {
-                    lote1: 100,
-                    lote2: 125,
-                    lote3: 150,
-                    lote4: 175,
-                    lote5: 200,
-                }
-            },
-            {
-                icon: "<i class='fas fa-percent'></i>",
-                link: "cristaloterapia",
-                valor: {
-                    lote1: 95,
-                    lote2: 115,
-                    lote3: 135,
-                    lote4: 155,
-                    lote5: 175,
-                }
-            },
-            {
-                icon: "<i class='fas fa-percent'></i>",
-                link: "reiki",
-                valor: {
-                    lote1: 95,
-                    lote2: 115,
-                    lote3: 135,
-                    lote4: 155,
-                    lote5: 175,
-                }
-            },
-            {
-                icon: "<i class='fas fa-percent'></i>",
-                link: "aromaterapia",
-                valor: {
-                    lote1: 95,
-                    lote2: 115,
-                    lote3: 135,
-                    lote4: 155,
-                    lote5: 175,
-                }
-            },
-            {
-                icon: "<i class='fas fa-percent'></i>",
-                link: "cromoterapia",
-                valor: {
-                    lote1: 95,
-                    lote2: 115,
-                    lote3: 135,
-                    lote4: 155,
-                    lote5: 175,
-                }
-            },
-            {
-                icon: "<i class='fas fa-percent'></i>",
-                link: "radiestesia",
-                valor: {
-                    lote1: 95,
-                    lote2: 115,
-                    lote3: 135,
-                    lote4: 155,
-                    lote5: 175,
                 }
             },
             {

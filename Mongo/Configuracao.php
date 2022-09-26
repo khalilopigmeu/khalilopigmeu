@@ -1,13 +1,3 @@
-<!-- 
-VueApp name = Configuracao 
-titulo = Configuração
-app = Configuracao
-ASC/DESC = DESC
-campo = id
-coluna tbl = "fields",
-input = <input class="form-control" v-model="Campo" placeholder="Campo..." ><br>
-nometabela = tblConfiguracao
--->
 <?php
 $pgtitle = "Configuração";
 $page = "Configuracao";

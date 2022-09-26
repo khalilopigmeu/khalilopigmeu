@@ -1,13 +1,3 @@
-<!-- 
-VueApp name = FormasPagamento 
-titulo = Formas de Pagamento
-app = FormasPagamento
-ASC/DESC = DESC
-campo = id
-coluna tbl = "fields",
-input = <input class="form-control" v-model=="Campo" placeholder="Campo..." v-bind:value="Campo"><br>
-nometabela = tblFormasPagamento
--->
 <?php
 $pgtitle = "Formas de Pagamento";
 $page = "FormasPagamento";

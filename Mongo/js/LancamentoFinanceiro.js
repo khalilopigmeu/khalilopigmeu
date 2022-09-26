@@ -20,30 +20,30 @@ app["LancamentoFinanceiro"] = new Vue({
         Pago: null,
         Valor: null,
         FormaPagamento: null,
-        FormaPagamentoSrc: null,
         Observacao: null,
-        PedidodeVendaSrc: null,
-        FichaAtendimentoSrc: null,
         PedidoVenda: [],
         FichaAtendimento: [],
         importar: null,
         Status: null,
+        eventos: null,
+        Evento: null,
+        flag: false,
+
+        FormaPagamentoSrc: null,
+        PedidodeVendaSrc: null,
+        FichaAtendimentoSrc: null,
     },
     methods: {
         populate: function () {
-            $(function () {
-                this.biencode = {};
-                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud(app.LancamentoFinanceiro.href, "listar", data);
-                app.Eventos.LancamentoFinanceiroSrc = app.LancamentoFinanceiro.src;
-                app.calendar.LancamentoFinanceiroSrc = app.LancamentoFinanceiro.src;
-                app.Comissao.LancamentoFinanceiroSrc = app.LancamentoFinanceiro.src;
-            });
+            this.biencode = {};
+            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode))
+            };
+            app.sys.crud(app.LancamentoFinanceiro.href, "listar", data);
             app.sys.tabs(this.href);
-            app.SocialMedia.mascara();
+            app.sys.mascara();
+            this.flag = false;
         },
         clear: function () {
             this.Modalidade = null;
@@ -73,17 +73,21 @@ app["LancamentoFinanceiro"] = new Vue({
             this.biencode.FormaPagamento = this.FormaPagamento;
             this.biencode.Valor = this.Valor;
             this.biencode.Modalidade = this.Modalidade;
-            this.biencode.Status = this.Status;
+            if (this.Evento !== null) {
+                this.biencode.Status = this.Status;
+            } else {
+                this.biencode.Status = true;
+            }
             this.biencode.id = this.id;
             this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
         },
         cadastrar: function () {
-            app.sys.crud(this.href, "add", null);
             this.updateStatus();
+            app.sys.crud(this.href, "add", null);
         },
         alterar: function () {
-            app.sys.crud(this.href, "edt", null);
             this.updateStatus();
+            app.sys.crud(this.href, "edt", null);
         },
         excluir: function () {
             app.sys.crud(this.href, "exc", null);
@@ -103,20 +107,9 @@ app["LancamentoFinanceiro"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
-        ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
-                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        },
         calcPreco: function () {
             var value = 0;
-            if (this.importar == "ficha") {
+            if (this.importar === "ficha") {
                 for (var j = 0; j <= this.FichaAtendimento.length - 1; j++) {
                     for (var i = 0; i <= this.FichaAtendimentoSrc.length - 1; i++) {
                         if (this.FichaAtendimentoSrc[i]._id.$oid === this.FichaAtendimento[j]) {
@@ -125,7 +118,7 @@ app["LancamentoFinanceiro"] = new Vue({
                     }
                 }
             }
-            if (this.importar == "pedido") {
+            if (this.importar === "pedido") {
                 for (var j = 0; j <= this.PedidoVenda.length - 1; j++) {
                     for (var i = 0; i <= this.PedidodeVendaSrc.length - 1; i++) {
                         if (this.PedidodeVendaSrc[i]._id.$oid === this.PedidoVenda[j]) {
@@ -137,31 +130,69 @@ app["LancamentoFinanceiro"] = new Vue({
             this.Valor = Real(value).format();
         },
         updateStatus: function () {
-            if (this.importar == "ficha") {
+            if (this.importar === "ficha") {
                 for (var i = 0; i <= this.FichaAtendimento.length - 1; i++) {
                     app.erros.errors = {};
                     app.FichaAtendimento.biencode = {};
                     app.FichaAtendimento.biencode.id = this.FichaAtendimento[i];
                     app.FichaAtendimento.biencode.Status = true;
                     var data = {
-                        "biencode": $(window).Encrypt(JSON.stringify(app.FichaAtendimento.biencode))
+                        "biencode": encrypt(JSON.stringify(app.FichaAtendimento.biencode))
                     };
                     app.FichaAtendimento.alt();
                     app.sys.crud(app.FichaAtendimento.href, "edt", data);
                 }
             }
-            if (this.importar == "pedido") {
+            if (this.importar === "pedido") {
                 for (var i = 0; i <= this.PedidoVenda.length - 1; i++) {
                     app.erros.errors = {};
                     app.PedidoVenda.biencode = {};
                     app.PedidoVenda.biencode.id = this.PedidoVenda[i];
                     app.PedidoVenda.biencode.Status = true;
                     var data = {
-                        "biencode": $(window).Encrypt(JSON.stringify(app.PedidoVenda.biencode))
+                        "biencode": encrypt(JSON.stringify(app.PedidoVenda.biencode))
                     };
                     app.PedidoVenda.alt();
                     app.sys.crud(app.PedidoVenda.href, "edt", data);
                 }
+            }
+        },
+        updateEventos: function (op) {
+            var el;
+            if (op) {
+                el = app.sys.searchByID(this.eventos, window.localStorage.getItem("evento"));
+                if (el.extendedProps.FichaAtendimento.isArray()) {
+                    el.extendedProps.FichaAtendimento.push(this.src[this.src.length - 1]._id['$oid']);
+                } else {
+                    el.extendedProps.FichaAtendimento = [this.src[this.src.length - 1]._id['$oid']];
+                }
+            } else {
+                el = app.sys.searchByID(this.eventos, this.Evento);
+                if (el.extendedProps.FichaAtendimento.isArray()) {
+                    el.extendedProps.FichaAtendimento.push(this.id);
+                } else {
+                    el.extendedProps.FichaAtendimento = [this.id];
+                }
+            }
+            app.Eventos.atualizaEx(el);
+            app.Eventos.alterar();
+            window.localStorage.removeItem("evento");
+        },
+        load: function () {
+            if (nulo(app.FormasPagamento)) {
+                this.FormaPagamentoSrc = [];
+            } else {
+                this.FormaPagamentoSrc = app.FormasPagamento.src;
+            }
+            if (nulo(app.PedidoVenda)) {
+                this.PedidodeVendaSrc = [];
+            } else {
+                this.PedidodeVendaSrc = app.PedidoVenda.src;
+            }
+            if (nulo(app.FichaAtendimento)) {
+                this.FichaAtendimentoSrc = [];
+            } else {
+                this.FichaAtendimentoSrc = app.FichaAtendimento.src;
             }
         },
     }

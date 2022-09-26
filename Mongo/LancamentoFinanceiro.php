@@ -22,6 +22,11 @@ include $refUrl . "Mongo/template/head.php"
     <option value="1">Entrada</option>
     <option value="2">Saída</option>
 </select>
+<label>Evento:</label>
+<select class="form-control" v-model="Evento" placeholder="Campo..." >
+    <option v-for="el in app.sys.sorter(eventos,'DESC','id')" v-bind:value="el._id['$oid']">{{el.title}} - {{formatadata(el.start)}} - {{formatahora(el.start)}}</option>
+</select>
+<br>
 <fieldset class="border rounded m-1 p-1" v-if="Modalidade==1">
     <legend>Importar dados:</legend>
     <input type="radio" v-model="importar" value="ficha"><label>Ficha de Atendimento</label><br>

@@ -4,10 +4,10 @@ $(function () {
         e.preventDefault();
     });
     $(".sairfb").on("click", function () {
-        app.SocialMedia.desconectaFB();
+        app.sys.desconectaFB();
     });
     $(".entrafb").on("click", function () {
-        app.SocialMedia.Status();
+        app.sys.Status();
         $('.modal').modal('hide');
     });
     $("form").ready(function () {
@@ -63,9 +63,6 @@ $(function () {
     };
     $.fn.NotifyInfo = function (msg) {
         $.notify(msg, {className: "info", position: "bottom right"});
-    };
-    $.fn.NotifyRavec = function (title) {
-        // $.notify("Você não possui permissão para realizar essa operação em " + title, {className: "error", position: "bottom right"});
     };
 
 
@@ -326,8 +323,16 @@ $(function () {
     };
 });
 
-function parseBoolean(el){
+function parseBoolean(el) {
     return (/true/i).test(el);
+}
+
+function nulo(el) {
+    if (typeof el === "undefined" || el === null || el === "null") {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function XmlToJson(xml, ref) {
@@ -336,11 +341,11 @@ function XmlToJson(xml, ref) {
     var itens = xml.getElementsByTagName(ref).length;
     var json = "";
     for (var i = 0; i <= itens - 1; i++) {
-        var lgt = $(window).Decrypt(xml.getElementsByTagName(ref)[i].childNodes.length);
+        var lgt = decrypt(xml.getElementsByTagName(ref)[i].childNodes.length);
         json += "{";
         for (var j = 0; j <= lgt - 1; j++) {
-            var dado = $(window).Decrypt(xml.getElementsByTagName(ref)[i].childNodes[j].childNodes[0].nodeValue);
-            var key = $(window).Decrypt(xml.getElementsByTagName(ref)[i].childNodes[j].nodeName);
+            var dado = decrypt(xml.getElementsByTagName(ref)[i].childNodes[j].childNodes[0].nodeValue);
+            var key = decrypt(xml.getElementsByTagName(ref)[i].childNodes[j].nodeName);
             json += "\"" + key + "\"" + ":" + "\"" + dado + "\"";
             if (j < lgt - 1) {
                 json += ",";
@@ -352,6 +357,153 @@ function XmlToJson(xml, ref) {
         }
     }
     return JSON.parse(json);
+}
+
+function encrypt(dados, senha) {
+    var iterationCount = 1000;
+    var keySize = 128;
+    var plaintext = dados;
+    var passphrase;
+    if (typeof senha === "undefined" || senha === null) {
+        passphrase = getAuth();
+    } else {
+        passphrase = senha;
+    }
+
+    var four = CryptoJS.lib.WordArray.random(128 / 8).toString(CryptoJS.enc.Hex);
+    var salt = CryptoJS.lib.WordArray.random(128 / 8).toString(CryptoJS.enc.Hex);
+
+    var aesUtil = new AesUtil(keySize, iterationCount);
+    var ciphertext = aesUtil.encrypt(salt, four, passphrase, plaintext);
+    return  btoa(ciphertext + "#" + salt + "#" + four);
+}
+function decrypt(dados, senha) {
+    try {
+        dados = atob(dados);
+        ﻿var iterationCount = 1000;
+        var keySize = 128;
+        dados = dados.split("#");
+        var plaintext = dados[0];
+        var passphrase;
+        if (typeof senha === "undefined" || senha === null) {
+            passphrase = getAuth();
+        } else {
+            passphrase = senha;
+        }
+        var four = dados[2];
+        var salt = dados[1];
+        var aesUtil = new AesUtil(keySize, iterationCount);
+        var ciphertext = aesUtil.decrypt(salt, four, passphrase, plaintext);
+        return ciphertext;
+    } catch (err) {
+        return dados;
+    }
+}
+;
+/*Tipo
+ * 1 CODE 128
+ * 2 EAN13
+ * 3 UPC
+ * 4 EAN8
+ * 5 EAN5
+ * 6 EAN2
+ * 7 CODE39
+ * 8 ITF14
+ * 9 MSI
+ * 10 MSI10
+ * 11 MSI11
+ * 12 MSI1110
+ * 13 pharmacode
+ * 14 codabar
+ */
+function BarcodeTipoWS(tipo) {
+    switch (tipo) {
+        case "-2":
+            tipo = "CODE128C";
+            break;
+        case "-1":
+            tipo = "CODE128B";
+            break;
+        case "1":
+            tipo = "CODE128A";
+            break;
+        case "2":
+            tipo = "EAN13";
+            break;
+        case "3":
+            tipo = "UPC";
+            break;
+        case "4":
+            tipo = "EAN8";
+            break;
+        case "5":
+            tipo = "EAN5";
+            break;
+        case "6":
+            tipo = "EAN2";
+            break;
+        case "7":
+            tipo = "CODE39";
+            break;
+        case "8":
+            tipo = "ITF14";
+            break;
+        case "9":
+            tipo = "MSI";
+            break;
+        case "10":
+            tipo = "MSI10";
+            break;
+        case "11":
+            tipo = "MSI1010";
+            break;
+        case "12":
+            tipo = "MSI1110";
+            break;
+        case "13":
+            tipo = "pharmacode";
+            break;
+        case "14":
+            tipo = "codabar";
+            break;
+        default:
+            tipo = "CODE128";
+            break;
+    }
+    return tipo;
+}
+
+function BarcodeWS(el, val, tipo, cor, bg, flag) {
+    var data = {
+        format: tipo,
+        font: "OCRB",
+        lineColor: cor,
+        width: 2,
+        height: 35,
+        textMargin: 5,
+        background: bg,
+        displayValue: true
+    };
+    switch (flag) {
+        case "ean128":
+            data["ean128"] = true;
+            break;
+        case "ean13":
+            data["flat"] = true;
+            break;
+        case "ean8":
+            data["flat"] = true;
+            break;
+        case "upc":
+            data["flat"] = true;
+            break;
+        case "mod43":
+            data["mod43"] = true;
+            break;
+        default:
+            break;
+    }
+    JsBarcode(el, val, data);
 }
 
 function unescapeHTML(escapedHTML) {
@@ -467,7 +619,11 @@ function validaData(data) {
 }
 
 function replaceAll(find, replace, str) {
-    return str.replace(new RegExp(find, 'g'), replace);
+    if (!nulo(find) && !nulo(replace) && !nulo(str)) {
+        return str.replace(new RegExp(find, 'g'), replace);
+    } else {
+        return str;
+    }
 }
 
 function sortTable(name, pos) {
@@ -660,6 +816,9 @@ function sortTableNumber(id) {
 
 function lastModal() {
     if (window.localStorage.getItem("modalLast") !== null) {
+        if (typeof app[window.localStorage.getItem("modalLast")].load === "function") {
+            app[window.localStorage.getItem("modalLast")].load();
+        }
         $("#" + window.localStorage.getItem("modalLast")).modal();
         try {
             app[window.localStorage.getItem("modalLast")].populate();
@@ -676,6 +835,7 @@ function zeroModal() {
     window.localStorage.removeItem("modalFocus");
 }
 function setModal(sh, el) {
+    zeroModal();
     $("#" + window.localStorage.getItem("modalLast")).on('hidden.bs.modal', function (e) {
         $("#" + window.localStorage.getItem("modalFocus")).modal();
     });
@@ -793,7 +953,13 @@ function getHoraAtual() {
     var seg = data.getSeconds();
     return ("0" + hora).slice(-2) + ':' + ("0" + min).slice(-2) + ':' + ("0" + seg).slice(-2);
 }
+function HmsToMs(h, m, s) {
+    return (h + ':' + m + ':' + s).split(':').reduce((acc, time) => (60 * acc) + +time) * 1000;
+}
 
+function padTo2Digits(num) {
+    return num.toString().padStart(2, '0');
+}
 
 /*
  * modalConfirm(function (confirm) {

@@ -7,29 +7,18 @@ app["categoriaportfolio"] = new Vue({
         pg: null,
     },
     methods: {
-        buscar: function () {
-            $(function () {
-                var preauth = getAuth();
-                setAuth("encodedstring");
-                var auth = $(window).Decrypt(app.sys.bien);
-                setAuth(auth);
-                this.biencode = {};
-                if (typeof app.empresasanunciando !== 'undefined') {
-                    if (app.empresasanunciando.pgid !== null) {
-                        this.biencode.empresa = getParameterByName("pgid");
-                    } else {
-                        this.biencode.empresa = app.sys.refid;
-                    }
-                } else {
-                    this.biencode.empresa = app.sys.refid;
-                }
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud("categoriaportfolio", "listar", data);
-                setAuth(preauth);
-                app.portfolio.catport = app.categoriaportfolio.src;
-            });
+        buscar: function (refid) {
+            var key = decrypt(app.sys.bien, "encodedstring");
+            this.biencode = {};
+            if (!nulo(refid)) {
+                this.biencode.empresa = refid;
+            } else {
+                this.biencode.empresa = app.sys.refid;
+            }
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode), key)
+            };
+            app.sys.crud("categoriaportfolio", "listar", data);
         },
         clear: function () {
             this.src = null;

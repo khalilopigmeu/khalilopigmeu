@@ -1,58 +1,8 @@
-<!-- 
-VueApp name = Empresa 
-titulo = Empresa
-app = Empresa
-ASC/DESC = DESC
-campo = id
-coluna tbl = "fields",
-input = <input class="form-control" v-model="Campo" placeholder="Campo..." v-bind:value="Campo"><br>
-nometabela = tblEmpresa
--->
 <?php
 $pgtitle = "Empresa";
 $page = "Empresa";
-$td = ["" . $page => ["Id",
-        "Nome",
-        "CPF",
-        "Data Nasc.",
-        "Rg",
-        "CEP",
-        "UF",
-        "Cidade",
-        "Bairro",
-        "Logradouro",
-        "Número",
-        "Complemento",
-        "Telefone",
-        "Celular",
-        "CNPJ",
-        "Razão Social",
-        "Nome Fantasia",
-        "CNAE",
-        "CRT",
-        "IE",
-        "IM",
-        ]];
-$tdvue = ["" . $page => ["td.Nome",
-        "td.Cpf",
-        "td.DataNasc",
-        "td.Rg",
-        "td.CEP",
-        "td.UF",
-        "td.Cidade",
-        "td.Bairro",
-        "td.Rua",
-        "td.Num",
-        "td.Complemento",
-        "td.Telefone",
-        "td.Celular",
-        "td.Cnpj",
-        "td.RazaoSocial",
-        "td.NomeFantasia",
-        "td.CNAE",
-        "td.CRT",
-        "td.IE",
-        "td.IM",]];
+$td = ["" . $page => ["Id", "Nome", "CPF", "Data Nasc.", "Rg", "CEP", "UF", "Cidade", "Bairro", "Logradouro", "Número", "Complemento", "Telefone", "Celular", "CNPJ", "Razão Social", "Nome Fantasia", "CNAE", "CRT", "IE", "IM"]];
+$tdvue = ["" . $page => ["td.Nome", "td.Cpf", "td.DataNasc", "td.Rg", "td.CEP", "td.UF", "td.Cidade", "td.Bairro", "td.Rua", "td.Num", "td.Complemento", "td.Telefone", "td.Celular", "td.Cnpj", "td.RazaoSocial", "td.NomeFantasia", "td.CNAE", "td.CRT", "td.IE", "td.IM"]];
 include $refUrl . "Mongo/template/head.php"
 ?>
 <fieldset>

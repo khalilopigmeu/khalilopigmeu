@@ -29,7 +29,7 @@ function instanceCalendar(el, rs, evtModal) {
                 click: function () {
                     app.Eventos.calendar.destroy();
                     app.calendar.progress = 0;
-                    app.Ravec.ravecUpdate();
+                    app.sys.ravecUpdate();
                 }
             }
         },

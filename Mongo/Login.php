@@ -1,13 +1,3 @@
-<!-- 
-VueApp name = Login 
-titulo = Login
-app = Login
-ASC/DESC = DESC
-campo = id
-coluna tbl = "fields",
-input = <input class="form-control" v-model="Campo" placeholder="Campo..." v-bind:value="Campo"><br>
-nometabela = tblLogin
--->
 <?php
 $pgtitle = "Login";
 $page = "Login";
@@ -24,7 +14,7 @@ $td = ["" . $page => ["Id",
         "Data de Cadastro",
         "Pergunta de segurança",
         "Lembrete de senha",
-        "Id Facebook"]];
+        "Id Facebook", "Id Google"]];
 $tdvue = ["" . $page => ["app.sys.foreignKeyReplace(Funcionariosrc,'Nome',td.IdFunc)",
         "app.sys.foreignKeyReplace(Clientesrc,'Nome',td.IdCliente)",
         "app.sys.foreignKeyReplace(Vendedorsrc,'Nome',td.IdVendedor)",
@@ -37,36 +27,34 @@ $tdvue = ["" . $page => ["app.sys.foreignKeyReplace(Funcionariosrc,'Nome',td.IdF
         "td.DataCadastro",
         "td.Ask",
         "td.Memorize",
-        "td.UserIdFB"]];
+        "td.UserIdFB",
+        "td.UserIdGG",
+        ]];
 
 include $refUrl . "Mongo/template/head.php"
 ?>
 <label>Funcionário:</label>
-<input list="FuncionarioLogin" class="form-control" v-model="IdFunc" placeholder="Campo...">
-<datalist id="FuncionarioLogin">
+<select class="form-control" v-model="IdFunc" placeholder="Campo...">
     <option  v-if="Funcionariosrc!=null" v-for="el in app.sys.sorter(Funcionariosrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
-</datalist>
+</select>
 <a href="#" onclick="zeroModal();setModal('Funcionarios', 'Login')">Adicionar Funcionário(a) <i class="far fa-plus-square"></i></a><br>
 <br>
 <label>Cliente:</label>
-<input list="ClienteLogin" class="form-control" v-model="IdCliente" placeholder="Campo..." >
-<datalist id="ClienteLogin">
+<select class="form-control" v-model="IdCliente" placeholder="Campo..." >
     <option  v-if="Vendedorsrc!=null" v-for="el in app.sys.sorter(Vendedorsrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
-</datalist>
+</select>
 <a href="#" onclick="zeroModal();setModal('Cliente', 'Login')">Adicionar Cliente <i class="far fa-plus-square"></i></a><br>
 <br>
 <label>Vendedor:</label>
-<input list="VendedorLogin" class="form-control" v-model="IdVendedor" placeholder="Campo..." >
-<datalist id="VendedorLogin">
+<select class="form-control" v-model="IdVendedor" placeholder="Campo..." >
     <option v-if="Vendedorsrc!=null" v-for="el in app.sys.sorter(Vendedorsrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
-</datalist>
+</select>
 <a href="#" onclick="zeroModal();setModal('Vendedor', 'Login')">Adicionar Vendedor(a) <i class="far fa-plus-square"></i></a><br>
 <br>
 <label>Revenda:</label>
-<input list="RevendaLogin" class="form-control" v-model="IdRevenda" placeholder="Campo..." >
-<datalist id="RevendaLogin">
+<select class="form-control" v-model="IdRevenda" placeholder="Campo..." >
     <option v-if="Revendasrc!=null" v-for="el in app.sys.sorter(Revendasrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
-</datalist>
+</select>
 <a href="#" onclick="zeroModal();setModal('Revenda', 'Login')">Adicionar Revenda <i class="far fa-plus-square"></i></a><br>
 <br>
 <label>Configuração:</label>
@@ -97,7 +85,10 @@ include $refUrl . "Mongo/template/head.php"
 <label>Lembrete de Senha:</label>
 <input class="form-control" v-model="Memorize" placeholder="Campo..."><br>
 <br>
-<label>Facebook:</label>
-<input class="form-control" v-model="UserIdFB" placeholder="Campo..."><br>
+<label>Id Facebook:</label>
+<input class="form-control" v-on:focus="conectarFB()" v-model="UserIdFB" placeholder="Campo..."><br>
+<br>
+<label>Id Google:</label>
+<input class="form-control" v-on:focus="conectarGG()" v-model="UserIdGG" placeholder="Campo..."><br>
 <br>
 <?php include $refUrl . "Mongo/template/foot.php" ?>

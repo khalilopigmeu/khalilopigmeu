@@ -13,7 +13,7 @@ app["ReservaProduto"] = new Vue({
         ELtitle: null,
         Icon: '<i class="fas fa-cash-register"></i>',
         pesqTbl: "",
-        Host: "Bienestar/Produto/Reserva",
+        Host: "Bienestar/Produtos/Reserva/",
 
         Lista: null,
         PedidoVenda: null,
@@ -23,14 +23,12 @@ app["ReservaProduto"] = new Vue({
     },
     methods: {
         populate: function () {
-            $(function () {
-                this.biencode = {};
-                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud(app.ReservaProduto.href, "listar", data);
-            });
+            this.biencode = {};
+            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode))
+            };
+            app.sys.crud(app.ReservaProduto.href, "listar", data);
             app.sys.tabs(this.href);
         },
         clear: function () {
@@ -83,16 +81,5 @@ app["ReservaProduto"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
-        ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
-                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        }
     }
 });

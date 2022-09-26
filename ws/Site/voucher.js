@@ -3,24 +3,18 @@ app["voucherbienclube"] = new Vue({
     el: '#voucherbienclube',
     data: {
         src: null,
-        Host: "Bienestar/Anuncio/Voucher/"
+        Host: "Bienestar/Site/Voucher/"
     },
     methods: {
         buscar: function () {
-            $(function () {
-                var preauth = getAuth();
-                setAuth("encodedstring");
-                var auth = $(window).Decrypt(app.sys.bien);
-                setAuth(auth);
-                this.biencode = {};
-                this.biencode.empresa = app.sys.refid;
-                this.biencode.nome = getParameterByName("cod");
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud("voucherbienclube", "listar", data);
-                setAuth(preauth);
-            });
+            var key = decrypt(app.sys.bien, "encodedstring");
+            this.biencode = {};
+            this.biencode.empresa = app.sys.refid;
+            this.biencode.nome = getParameterByName("cod");
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode), key)
+            };
+            app.sys.crud("voucherbienclube", "listar", data);
         },
         clear: function () {
             this.src = null;

@@ -1,13 +1,3 @@
-<!-- 
-VueApp name = ReservaProduto 
-titulo = Reserva de Produto
-app = ReservaProduto
-ASC/DESC = DESC
-campo = id
-coluna tbl = "fields",
-input = <input class="form-control" v-model=="Campo" placeholder="Campo..." v-bind:value="Campo"><br>
-nometabela = tblReservaProduto
--->
 <?php
 $pgtitle = "Reserva de Produto";
 $page = "ReservaProduto";
@@ -19,7 +9,19 @@ $tdvue = ["" . $page => ["td.Lista",
         "td.Validade"]];
 include $refUrl . "Mongo/template/head.php"
 ?>
-<label>Campo:</label>
-<input class="form-control" v-model=="Campo" placeholder="Campo..." v-bind:value="Campo"><br>
+<label>Lista:</label>
+<input class="form-control" v-model="Lista" placeholder="Campo..."><br>
+<br>
+<label>PedidoVenda:</label>
+<input class="form-control" v-model="PedidoVenda" placeholder="Campo..."><br>
+<br>
+<label>OrdemProducao:</label>
+<input class="form-control" v-model="OrdemProducao" placeholder="Campo..."><br>
+<br>
+<label>OrdemServico:</label>
+<input class="form-control" v-model="OrdemServico" placeholder="Campo..."><br>
+<br>
+<label>Validade:</label>
+<input class="form-control" v-model="Validade" placeholder="Campo..."><br>
 <br>
 <?php include $refUrl . "Mongo/template/foot.php" ?>

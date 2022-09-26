@@ -24,21 +24,18 @@ app["Dispositivos"] = new Vue({
         Ativo: null,
         RestricaoDia: null,
         RestricaoHora: null,
+
         LoginSrc: null,
         CategoriaDispositivosSrc: null,
-
     },
     methods: {
         populate: function () {
-            $(function () {
-                this.biencode = {};
-                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud(app.Dispositivos.href, "listar", data);
-                app.Anuncio.DispositivosSrc = app.Dispositivos.src;
-            });
+            this.biencode = {};
+            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode))
+            };
+            app.sys.crud(app.Dispositivos.href, "listar", data);
             app.sys.tabs(this.href);
         },
         clear: function () {
@@ -55,13 +52,27 @@ app["Dispositivos"] = new Vue({
         },
         autocomplete: function () {
             this.id = this.row[0];
-            this.Nome = this.row[1];
+            this.IdCategoria = this.row[1];
+            this.IdLogin = this.row[2];
+            this.Nome = this.row[3];
+            this.UUID = this.row[4];
+            this.Telefone = this.row[5];
+            this.Ativo = this.row[6];
+            this.RestricaoDia = this.row[7];
+            this.RestricaoHora = this.row[8];
         },
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
             this.biencode.id = this.id;
+            this.biencode.IdCategoria = this.IdCategoria;
+            this.biencode.IdLogin = this.IdLogin;
             this.biencode.Nome = this.Nome;
+            this.biencode.UUID = this.UUID;
+            this.biencode.Telefone = this.Telefone;
+            this.biencode.RestricaoDia = this.RestricaoDia;
+            this.biencode.RestricaoHora = this.RestricaoHora;
+            this.biencode.Ativo = this.Ativo;
             this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
         },
         cadastrar: function () {
@@ -89,17 +100,6 @@ app["Dispositivos"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
-        ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
-                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        },
         pesq: function (arr, pesq) {
             let filteredList = arr.filter(field => app.Dispositivos.valida(field, pesq));
             return filteredList;
@@ -118,7 +118,18 @@ app["Dispositivos"] = new Vue({
                 }
             }
             return flag;
-        }
-
+        },
+        load: function () {
+            if (nulo(app.Login)) {
+                this.LoginSrc = [];
+            } else {
+                this.LoginSrc = app.Login.src;
+            }
+            if (nulo(app.CategoriaDispositivos)) {
+                this.CategoriaDispositivosSrc = [];
+            } else {
+                this.CategoriaDispositivosSrc = app.CategoriaDispositivos.src;
+            }
+        },
     }
 });

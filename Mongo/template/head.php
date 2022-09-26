@@ -15,9 +15,9 @@
                 <div class="tab-content justify-content-center container-fluid my-2 py-2" id="nav-tabContent<?php echo $page; ?>">
                     <div v-if="src!=null" id="tab-list<?php echo $page; ?>" class="tab-pane container-fluid" role="tabpanel" aria-labelledby="list-tab<?php echo $page; ?>">
                         <div class="row justify-content-center my-2 py-2">
-                            <div class="col-sm-2 my-3 ml-2 btn btn-dark toForm" v-if="ravec(2)" v-on:click="cad"><i class="far fa-plus-square"></i> Cadastrar</div>
-                            <div class="col-sm-2 my-3 ml-2 btn btn-warning toForm" v-if="row!=null && ravec(3)" v-on:click="alt"><i class="far fa-edit"></i> Alterar</div>
-                            <div class="col-sm-2 my-3 ml-2 btn btn-danger toForm" v-if="row!=null && ravec(4)" v-on:click="exc"><i class="far fa-trash-alt"></i> Excluir</div>
+                            <div class="col-sm-2 my-3 ml-2 btn btn-dark toForm" v-if="app.sys.ravec(2,'<?php echo $page; ?>')" v-on:click="cad"><i class="far fa-plus-square"></i> Cadastrar</div>
+                            <div class="col-sm-2 my-3 ml-2 btn btn-warning toForm" v-if="row!=null && app.sys.ravec(3,'<?php echo $page; ?>')" v-on:click="alt"><i class="far fa-edit"></i> Alterar</div>
+                            <div class="col-sm-2 my-3 ml-2 btn btn-danger toForm" v-if="row!=null && app.sys.ravec(4,'<?php echo $page; ?>')" v-on:click="exc"><i class="far fa-trash-alt"></i> Excluir</div>
                             <!--<div class="col-sm-2 my-3 ml-2 btn btn-dark toForm" v-if="row!=null && ravec(5)" v-on:click="rel"><i class="far fa-newspaper"></i> Relatório</div>-->
                         </div>  
                         <div class="row justify-content-center my-2 py-2">
@@ -39,7 +39,7 @@
                                     </thead>
                                     <tbody>
                                         <tr v-for="td in app.sys.sorter(app.sys.searchall(src,pesqTbl),'DESC','_id.$oid')">
-                                            <td>{{ td._id['$oid'] }}</td>
+                                            <td>{{ app.sys.hasId(td._id) }}</td>
                                             <?php
                                             if (count($tdvue[$page]) > 0) {
                                                 for ($i = 0; $i <= count($tdvue[$page]) - 1; $i++) {

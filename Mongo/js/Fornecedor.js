@@ -13,7 +13,7 @@ app["Fornecedor"] = new Vue({
         ELtitle: null,
         Icon: '<i class="fas fa-dolly"></i>',
         pesqTbl: "",
-        Host: "Bienestar/Gerenciamento/Fornecedor/",
+        Host: "Bienestar/Gestao/Fornecedor/",
 
         UF: null,
         CNAE: null,
@@ -39,15 +39,12 @@ app["Fornecedor"] = new Vue({
     },
     methods: {
         populate: function () {
-            $(function () {
-                this.biencode = {};
-                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud(app.Fornecedor.href, "listar", data);
-                app.Produto.FornecedorSrc = app.Fornecedor.src;
-            });
+            this.biencode = {};
+            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode))
+            };
+            app.sys.crud(app.Fornecedor.href, "listar", data);
             app.sys.tabs(this.href);
         },
         clear: function () {
@@ -153,16 +150,5 @@ app["Fornecedor"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
-        ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
-                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        }
     }
 });

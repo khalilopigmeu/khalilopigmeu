@@ -16,7 +16,6 @@ app["PedidoVenda"] = new Vue({
         Host: "Bienestar/Loja/PedidoVenda/",
 
         IdLista: null,
-        ListaCompraSrc: [],
         IdLogin: null,
         IdCliente: null,
         DataPedido: null,
@@ -31,8 +30,6 @@ app["PedidoVenda"] = new Vue({
 
         IdTransportadora: null,
 
-        Clientesrc: [],
-        Produtosrc: [],
         pesqCliente: "",
 
         entrega: null,
@@ -44,19 +41,18 @@ app["PedidoVenda"] = new Vue({
         Rua: null,
         Num: null,
         Complemento: null,
+        
+        Clientesrc:null,
+        Produtosrc:null,
     },
     methods: {
         populate: function () {
-            $(function () {
-                this.biencode = {};
-                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud(app.PedidoVenda.href, "listar", data);
-                app.LancamentoFinanceiro.PedidodeVendaSrc = app.PedidoVenda.src;
-                app.Eventos.PedidoVendaSrc = app.PedidoVenda.src;
-            });
+            this.biencode = {};
+            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode))
+            };
+            app.sys.crud(app.PedidoVenda.href, "listar", data);
             app.sys.tabs(this.href);
         },
         clear: function () {
@@ -140,7 +136,6 @@ app["PedidoVenda"] = new Vue({
             app.sys.crud(this.href, "edt", null);
         },
         excluir: function () {
-            console.log(this.biencode);
             app.sys.crud(this.href, "exc", null);
         },
         relatorio: function () {
@@ -158,17 +153,6 @@ app["PedidoVenda"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
-        ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
-                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        },
         atualizaPreco: function () {
             var totalprod = 0;
             var lista = app.sys.searchByID(this.ListaCompraSrc, this.IdLista)[0];
@@ -179,6 +163,25 @@ app["PedidoVenda"] = new Vue({
             }
             this.TotalProdutos = totalprod;
             this.ValorTotal = parseFloat(totalprod) + parseFloat(this.Frete) + parseFloat(this.Seguro) - parseFloat(this.Desconto);
-        }
+        },
+        ListaCompraSrc: function () {
+            if (nulo(app.ListaCompra)) {
+                return [];
+            } else {
+                return app.ListaCompra.src;
+            }
+        },
+        load: function () {
+            if (nulo(app.Cliente)) {
+                this.Clientesrc = [];
+            } else {
+                this.Clientesrc = app.Cliente.src;
+            }
+            if (nulo(app.Produto)) {
+                this.Produtosrc = [];
+            } else {
+                this.Produtosrc = app.Produto.src;
+            }
+        },
     }
 });

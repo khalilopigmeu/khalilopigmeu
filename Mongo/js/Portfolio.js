@@ -22,19 +22,18 @@ app["Portfolio"] = new Vue({
         Job: null,
         CaseEmpresa: null,
         UrlLogo: null,
+
         CategoriaPortfolioSrc: null,
         AlbumSrc: null,
     },
     methods: {
         populate: function () {
-            $(function () {
-                this.biencode = {};
-                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud(app.Portfolio.href, "listar", data);
-            });
+            this.biencode = {};
+            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode))
+            };
+            app.sys.crud(app.Portfolio.href, "listar", data);
             app.sys.tabs(this.href);
         },
         clear: function () {
@@ -48,7 +47,7 @@ app["Portfolio"] = new Vue({
         },
         autocomplete: function () {
             this.id = this.row[0];
-            this.IdAlbum = String(app.sys.foreignKeyRestore(this.AlbumSrc, "Nome", this.row[1]));
+            this.IdAlbum = String(app.sys.foreignKeyRestore(this.AlbumSrc, "NomeAlbum", this.row[1]));
             this.IdCategoriaPortfolio = String(app.sys.foreignKeyRestore(this.CategoriaPortfolioSrc, "Nome", this.row[2]));
             this.Nome = this.row[3];
             this.UrlSite = this.row[4];
@@ -99,16 +98,17 @@ app["Portfolio"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
-        ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
-                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
-                    return true;
-                } else {
-                    return false;
-                }
+        load: function () {
+            if (nulo(app.CategoriaPortfolio)) {
+                this.CategoriaPortfolioSrc = [];
             } else {
-                return false;
+                this.CategoriaPortfolioSrc = app.CategoriaPortfolio.src;
             }
-        }
+            if (nulo(app.Album)) {
+                this.AlbumSrc = [];
+            } else {
+                this.AlbumSrc = app.Album.src;
+            }
+        },
     }
 });

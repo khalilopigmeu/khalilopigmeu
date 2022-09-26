@@ -15,24 +15,23 @@ app["AnotacaoAgenda"] = new Vue({
         pesqTbl: "",
         Host: "Bienestar/Agenda/Anotacoes/",
 
-        CategoriaSrc: null,
         Anotacao: null,
         datapesq: new Date().toISOString().slice(0, 10),
         Titulo: null,
         Data: null,
         IdCategoriaEvento: null,
+
+        CategoriaSrc: null,
     },
     methods: {
         populate: function () {
-            $(function () {
-                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                this.biencode.data = app.AnotacaoAgenda.datapesq;
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud(app.AnotacaoAgenda.href, "listar", data);
-                app.calendar.AnotacaoSrc = app.AnotacaoAgenda.src;
-            });
+            this.biencode = {};
+            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+            this.biencode.data = app.AnotacaoAgenda.datapesq;
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode))
+            };
+            app.sys.crud(app.AnotacaoAgenda.href, "listar", data);
             app.sys.tabs(this.href);
         },
         clear: function () {
@@ -84,16 +83,12 @@ app["AnotacaoAgenda"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
-        ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
-                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
-                    return true;
-                } else {
-                    return false;
-                }
+        load: function () {
+            if (nulo(app.CategoriaEventos)) {
+                this.CategoriaSrc = [];
             } else {
-                return false;
+                this.CategoriaSrc = app.CategoriaEventos.src;
             }
-        }
+        },
     }
 });

@@ -13,7 +13,7 @@ app["Midia"] = new Vue({
         ELtitle: null,
         Icon: '<i class="far fa-file"></i>',
         pesqTbl: "",
-        Host: "Bienestar/Album/Midia/",
+        Host: "Bienestar/Midia/Midias/",
 
         UrlMidia: null,
         DescricaoMidia: null,
@@ -27,23 +27,22 @@ app["Midia"] = new Vue({
         descricao: [],
         files: [],
         fileBox: [],
-        AlbumSrc: null,
-        CategoriaSrc: null,
-        ProdutoSrc: null,
         pesqAlbum: "",
         pesqCategoria: "",
         pesqProduto: "",
+        importar: null,
+        AlbumSrc: null,
+        CategoriaSrc: null,
+        ProdutoSrc: null,
     },
     methods: {
         populate: function () {
-            $(function () {
-                this.biencode = {};
-                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud(app.Midia.href, "listar", data);
-            });
+            this.biencode = {};
+            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode))
+            };
+            app.sys.crud(app.Midia.href, "listar", data);
             app.sys.tabs(this.href);
         },
         clear: function () {
@@ -58,7 +57,7 @@ app["Midia"] = new Vue({
         },
         autocomplete: function () {
             this.id = this.row[0];
-            this.IdAlbum = app.sys.foreignKeyRestore(this.AlbumSrc, "Nome", this.row[1]);
+            this.IdAlbum = app.sys.foreignKeyRestore(this.AlbumSrc, "NomeAlbum", this.row[1]);
             this.Categorias = app.sys.foreignKeyRestore(this.CategoriaSrc, "NomeCategoria", this.row[2]);
             this.IdProduto = app.sys.foreignKeyRestore(this.ProdutoSrc, "NomeProduto", this.row[3]);
             this.NomeMidia = this.row[4];
@@ -82,20 +81,24 @@ app["Midia"] = new Vue({
             this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
         },
         cadastrar: function () {
-            this.biencode = {};
-            this.biencode.nomes = {};
-            this.biencode.descricao = {};
-            this.biencode.files = {};
-            for (var i = 0; i <= app.Midia.fileBox.length - 1; i++) {
-                this.biencode.nomes[i] = (app.Midia.fileBox[i].name);
-                this.biencode.descricao[i] = (app.Midia.fileBox[i].lastModifiedDate);
-                this.biencode.files[i] = (this.files[i]);
+            if (app.Midia.fileBox.lenght > 0) {
+                this.biencode = {};
+                this.biencode.nomes = {};
+                this.biencode.descricao = {};
+                this.biencode.files = {};
+                for (var i = 0; i <= app.Midia.fileBox.length - 1; i++) {
+                    this.biencode.nomes[i] = (app.Midia.fileBox[i].name);
+                    this.biencode.descricao[i] = (app.Midia.fileBox[i].lastModifiedDate);
+                    this.biencode.files[i] = (this.files[i]);
+                }
+                this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
+                var data = {
+                    "biencode": encrypt(JSON.stringify(this.biencode))
+                };
+                app.sys.crud(this.href, "add", data);
+            } else {
+                app.sys.crud(this.href, "add", null);
             }
-            this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
-            var data = {
-                "biencode": $(window).Encrypt(JSON.stringify(this.biencode))
-            };
-            app.sys.crud(this.href, "add", data);
         },
         alterar: function () {
             app.sys.crud(this.href, "edt", null);
@@ -133,16 +136,22 @@ app["Midia"] = new Vue({
                 app.Midia.files.push(reader.result);
             };
         },
-        ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
-                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
-                    return true;
-                } else {
-                    return false;
-                }
+        load: function () {
+            if (nulo(app.Album)) {
+                this.AlbumSrc = [];
             } else {
-                return false;
+                this.AlbumSrc = app.Album.src;
             }
-        }
+            if (nulo(app.CategoriaEventos)) {
+                this.CategoriaSrc = [];
+            } else {
+                this.CategoriaSrc = app.CategoriaEventos.src;
+            }
+            if (nulo(app.Produto)) {
+                this.ProdutoSrc = [];
+            } else {
+                this.ProdutoSrc = app.Produto.src;
+            }
+        },
     }
 });

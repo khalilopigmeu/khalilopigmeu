@@ -22,19 +22,13 @@ app["CategoriaEventos"] = new Vue({
     },
     methods: {
         populate: function () {
-            $(function () {
-                this.biencode = {};
-                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                this.biencode.acesso = window.localStorage.getItem("IdLogin");
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud(app.CategoriaEventos.href, "listar", data);
-                app.AnotacaoAgenda.CategoriaSrc = app.CategoriaEventos.src;
-                app.Eventos.CategoriaSrc = app.CategoriaEventos.src;
-                app.calendar.CategoriaSrc = app.CategoriaEventos.src;
-                app.Midia.CategoriaSrc = app.CategoriaEventos.src;
-            });
+            this.biencode = {};
+            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+            this.biencode.acesso = window.localStorage.getItem("IdLogin");
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode))
+            };
+            app.sys.crud(app.CategoriaEventos.href, "listar", data);
             app.sys.tabs(this.href);
         },
         clear: function () {
@@ -91,17 +85,6 @@ app["CategoriaEventos"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
-        ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
-                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        },
         pesq: function (arr, pesq) {
             let filteredList = arr.filter(field => app.CategoriaEventos.valida(field, pesq));
             return filteredList;
@@ -120,7 +103,14 @@ app["CategoriaEventos"] = new Vue({
                 }
             }
             return flag;
-        }
+        },
+        load: function () {
+            if (nulo(app.Login)) {
+                this.Loginsrc = [];
+            } else {
+                this.Loginsrc = app.Login.src;
+            }
+        },
 
     }
 });

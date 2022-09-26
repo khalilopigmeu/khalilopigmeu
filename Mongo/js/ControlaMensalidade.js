@@ -17,21 +17,20 @@ app["ControlaMensalidade"] = new Vue({
 
         IdCliente: null,
         Modulos: [],
-        Clientesrc: null,
-        PlanoSistemaSrc: null,
         DataPreferencia: null,
+        
+        Clientesrc:null,
+        PlanoSistemaSrc:null,
     },
     methods: {
         populate: function () {
-            $(function () {
-                this.biencode = {};
-                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                this.biencode.data = app.AnotacaoAgenda.datapesq;
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud(app.ControlaMensalidade.href, "listar", data);
-            });
+            this.biencode = {};
+            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+            this.biencode.data = app.AnotacaoAgenda.datapesq;
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode))
+            };
+            app.sys.crud(app.ControlaMensalidade.href, "listar", data);
             app.sys.tabs(this.href);
         },
         clear: function () {
@@ -79,16 +78,17 @@ app["ControlaMensalidade"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
-        ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
-                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
-                    return true;
-                } else {
-                    return false;
-                }
+        load: function () {
+            if (nulo(app.Cliente)) {
+                this.Clientesrc = [];
             } else {
-                return false;
+                this.Clientesrc = app.Cliente.src;
             }
-        }
+            if (nulo(app.PlanoSistema)) {
+                this.PlanoSistemaSrc = [];
+            } else {
+                this.PlanoSistemaSrc = app.PlanoSistema.src;
+            }
+        },
     }
 });

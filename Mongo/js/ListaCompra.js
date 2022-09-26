@@ -24,32 +24,30 @@ app["ListaCompra"] = new Vue({
 
         listaProdutos: [],
         lineRow: [],
-        Clientesrc: [],
         pesqCliente: "",
 
-        familiaprodutos: null,
         familiaselect: [],
-        classeprodutos: null,
         classeselect: [],
-        categoriaprodutos: null,
         categoriaselect: [],
-        subcategoriaprodutos: null,
         subcategoriaselect: [],
-        produtos: [],
         produtoselect: null,
         itensporpagina: null,
+        
+        Clientesrc:null,
+        familiaprodutos:null,
+        classeprodutos:null,
+        categoriaprodutos:null,
+        subcategoriaprodutos:null,
+        produtos:null,
     },
     methods: {
         populate: function () {
-            $(function () {
-                this.biencode = {};
-                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-                var data = {
-                    biencode: $(window).Encrypt(JSON.stringify(this.biencode))
-                };
-                app.sys.crud(app.ListaCompra.href, "listar", data);
-                app.PedidoVenda.ListaCompraSrc = app.ListaCompra.src;
-            });
+            this.biencode = {};
+            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode))
+            };
+            app.sys.crud(app.ListaCompra.href, "listar", data);
             app.sys.tabs(this.href);
         },
         clear: function () {
@@ -112,17 +110,6 @@ app["ListaCompra"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
-        ravec: function (nivel) {
-            if (typeof app.Ravec.acesso[this.stepkey] !== "undefined" && app.Ravec.acesso[this.stepkey] !== null) {
-                if (app.Ravec.acesso[this.stepkey].nivel >= nivel) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        },
         changeItensCount: function () {
             app.sys.itemsPerPage = this.itensporpagina;
         },
@@ -158,6 +145,38 @@ app["ListaCompra"] = new Vue({
         },
         removerItem: function (row) {
             this.listaProdutos.splice(row, 1);
-        }
+        },
+        load: function () {
+            if (nulo(app.Cliente)) {
+                this.Clientesrc = [];
+            } else {
+                this.Clientesrc = app.Cliente.src;
+            }
+            if (nulo(app.FamiliaProdutos)) {
+                this.familiaprodutos = [];
+            } else {
+                this.familiaprodutos = app.FamiliaProdutos.src;
+            }
+            if (nulo(app.ClasseProdutos)) {
+                this.classeprodutos = [];
+            } else {
+                this.classeprodutos = app.ClasseProdutos.src;
+            }
+            if (nulo(app.CategoriaProdutos)) {
+                this.categoriaprodutos = [];
+            } else {
+                this.categoriaprodutos = app.CategoriaProdutos.src;
+            }
+            if (nulo(app.SubcategoriaProdutos)) {
+                this.subcategoriaprodutos = [];
+            } else {
+                this.subcategoriaprodutos = app.SubcategoriaProdutos.src;
+            }
+            if (nulo(app.Produto)) {
+                this.produtos = [];
+            } else {
+                this.produtos = app.Produto.src;
+            }
+        },
     }
 });
