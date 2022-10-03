@@ -8,17 +8,17 @@ app["empresasanunciando"] = new Vue({
         fb: 'null',
         insta: 'null',
         site: 'null',
-        
+
         logo: null,
         vouchers: null,
         anuncios: null,
         paginas: null,
         spy: null,
-        
+
         consulta: null,
         procedimento: null,
         produtos: null,
-        
+
         agenda: null,
         familiaselect: [],
         classeselect: [],
@@ -382,8 +382,10 @@ app["empresasanunciando"] = new Vue({
                 valor = app.sys.searchByID(this.produtos, search.Produto);
                 if (valor.length > 0) {
                     var idpromo = valor[0]._id['$oid'];
-                    if (!this.promoprodutos.includes(idpromo)) {
-                        this.promoprodutos.push(idpromo);
+                    if (this.promoprodutos.length > 0) {
+                        if (!this.promoprodutos.includes(idpromo)) {
+                            this.promoprodutos.push(idpromo);
+                        }
                     }
                     return  valor[0].Preco;
                 } else {
@@ -637,8 +639,10 @@ app["empresasanunciando"] = new Vue({
                         var valor = app.sys.searchByID(this.procedimento, search.Procedimento);
                         if (valor.length > 0) {
                             var idpromo = valor[0]._id['$oid'];
-                            if (!this.promoprocedimento.includes(idpromo)) {
-                                this.promoprocedimento.push(idpromo);
+                            if (this.promoprocedimento.length > 0) {
+                                if (!this.promoprocedimento.includes(idpromo)) {
+                                    this.promoprocedimento.push(idpromo);
+                                }
                             }
                         }
                     }
@@ -646,8 +650,10 @@ app["empresasanunciando"] = new Vue({
                         var valor = app.sys.searchByID(this.consulta, search.Consulta);
                         if (valor.length > 0) {
                             var idpromo = valor[0]._id['$oid'];
-                            if (!this.promoconsulta.includes(idpromo)) {
-                                this.promoconsulta.push(idpromo);
+                            if (this.promoconsulta.length > 0) {
+                                if (!this.promoconsulta.includes(idpromo)) {
+                                    this.promoconsulta.push(idpromo);
+                                }
                             }
                         }
                     }
@@ -655,8 +661,10 @@ app["empresasanunciando"] = new Vue({
                         var valor = app.sys.searchByID(this.produtos, search.Produto);
                         if (valor.length > 0) {
                             var idpromo = valor[0]._id['$oid'];
-                            if (!this.promoprodutos.includes(idpromo)) {
-                                this.promoprodutos.push(idpromo);
+                            if (this.promoprodutos.length > 0) {
+                                if (!this.promoprodutos.includes(idpromo)) {
+                                    this.promoprodutos.push(idpromo);
+                                }
                             }
                         }
                     }

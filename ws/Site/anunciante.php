@@ -49,10 +49,10 @@
                 </div>
                 <br>
                 <div class='row text-center justify-content-center'>
-                    <a v-if="Promocoes(itens._id['$oid']).length>0" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'#anunciante?pgid='+itens._id['$oid']">
+                    <a v-if="Promocoes(itens._id['$oid']).length>0" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'#anunciante?pgid='+itens._id['$oid']+'&spy=promocao'">
                         Promoções <i class="fas fa-hand-holding-usd"></i>
                     </a>
-                    <a v-if="Pacotes(itens._id['$oid']).length>0" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'#anunciante?pgid='+itens._id['$oid']">
+                    <a v-if="Pacotes(itens._id['$oid']).length>0" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'#anunciante?pgid='+itens._id['$oid']+'&spy=promocao'">
                         Pacotes <i class="fas fa-hand-holding-usd"></i>
                     </a>
                     <!--<a class="btn btn-dark col-10 my-1 py-1" v-bind:href="'#anunciante?pgid='+itens._id['$oid']">

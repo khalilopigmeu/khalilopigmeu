@@ -8,7 +8,7 @@ const Real = value => currency(value, {symbol: 'R$', decimal: '.', separator: ''
 var cdn;
 var swiper;
 $(function () {
-    urlSys = true;
+    urlSys = false;
     qrcode = new QRCode(document.getElementById("qrcode"), {
         text: urlSite,
         logo: "/img/sobre.png",
