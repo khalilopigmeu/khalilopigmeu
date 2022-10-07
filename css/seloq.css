@@ -134,9 +134,7 @@ hr{
 .socialink i{
     font-size: 3vw !important;
     color: var(--navbarbg);
-    border: 2px solid;
     padding: 0.5vw;
-    border-radius: 10px;
     width: 4vw;
     height: 4vw;
 }
