@@ -3,7 +3,7 @@
 <div id="Dispositivos" v-if="app.sys.page==='dispositivos'">
     <button class="btn btn-dark text-white" v-if="mobile()===false" v-on:click="conectarFB()">Acessar com Facebook</button><br><br>
     <button class="btn btn-dark text-white" v-if="mobile()===false" v-on:click="conectarGG()">Acessar com Google</button><br><br>
-    <button class="btn btn-dark text-white"  v-if="mobile()===true" onclick="app.Dispositivos.flag = 'Dispositivo';" >Acessar com Dispositivo</button><br><br>
+    <button class="btn btn-dark text-white"  v-if="mobile()===true" v-on:click="buscar();app.Dispositivos.flag = 'Dispositivo'" >Acessar com Dispositivo</button><br><br>
 
     <div id="g_id_onload"
          data-client_id="1067522805118-jloabvn8n7vqlnd8qd6gj2ut11ojck1m.apps.googleusercontent.com"
@@ -24,6 +24,7 @@
         <button class="btn btn-dark text-white" v-on:click="listagem()" >Buscar</button><br><br>
         <h4>Escolha uma conta associada ao seu dispositivo</h4>
     </div>
+
     <div v-if="AuthSrc.length>0">
         <div  v-for="item in AuthSrc">
             <div class="row justify-content-center text-center">

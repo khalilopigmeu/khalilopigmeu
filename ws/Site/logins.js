@@ -38,6 +38,29 @@ app["LoginsOauth"] = new Vue({
                 }
             }
         },
+        atualizar(id) {
+            var biencode;
+            var key = decrypt(app.sys.bien, "encodedstring");
+            if (!nulo(id)) {
+                biencode = {};
+                biencode.id = id;
+                var data = {
+                    "biencode": encrypt(JSON.stringify(biencode), key)
+                };
+                var p = (post(app.LoginsOauth.Host + "RAVEC", data));
+                app.LoginsOauth.src = eval(decrypt(p, key));
+                window.localStorage.setItem("RAVEC", app.LoginsOauth.src[0].RAVEC);
+                window.localStorage.setItem("IdLogin", app.LoginsOauth.src[0]._id["$oid"]);
+                app.sys.acessar(window.localStorage.getItem("IdLogin"), window.localStorage.getItem("RAVEC"));
+            } else {
+                biencode = {};
+                biencode.all = "";
+                var data = {
+                    biencode: encrypt(JSON.stringify(biencode), key)
+                };
+                app.sys.crud("LoginsOauth", "listar", data);
+            }
+        },
         clear: function () {
             this.src = null;
         },

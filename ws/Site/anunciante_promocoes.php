@@ -4,7 +4,7 @@
         <div v-for="item in Itemsrc" class='bg-light m-2 p-2 rounded border col-4'>
             <h5 class="card-title text-muted text-uppercase text-center">
                 <div v-if="item.icon.includes('http')">
-                    <img v-bind:src="item.icon">
+                    <img class="img-fluid" v-bind:src="item.icon">
                 </div>
                 <div v-else>
                     <span v-html="item.icon"></span>

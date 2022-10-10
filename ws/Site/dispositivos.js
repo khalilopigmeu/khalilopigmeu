@@ -35,8 +35,12 @@ app["Dispositivos"] = new Vue({
             return true;
         },
         listagem: function () {
+            app.empresasanunciando.buscar();
+            app.funcionariosite.all();
+            app.clientesite.all();
+
             this.AuthSrc = [];
-            app.LoginsOauth.buscar(null, false);
+            app.LoginsOauth.atualizar(null);
             this.LoginSrc = app.LoginsOauth.src;
             switch (this.flag) {
                 case "Facebook":
@@ -57,7 +61,9 @@ app["Dispositivos"] = new Vue({
                     for (var j = 0; j <= this.src.length - 1; j++) {
                         for (var i = 0; i <= this.LoginSrc.length - 1; i++) {
                             if (this.LoginSrc[i]._id["$oid"] === this.src[j].IdLogin) {
-                                this.AuthSrc.push(this.LoginSrc[i]);
+                                if (this.src[j].UUID === this.UUID) {
+                                    this.AuthSrc.push(this.LoginSrc[i]);
+                                }
                             }
                         }
                     }
@@ -65,32 +71,40 @@ app["Dispositivos"] = new Vue({
             }
         },
         getEmpresa: function (id) {
-            refid = id;
-            app.empresasanunciando.buscar();
-            return app.empresasanunciando.src[0].NomeFantasia;
+            var lst = app.sys.searchByID(app.empresasanunciando.src, id);
+            if (lst.length > 0) {
+                return lst[0].NomeFantasia;
+            } else {
+                return "";
+            }
         },
         getFunc: function (id) {
             if (!nulo(id)) {
-                app.funcionariosite.id = id;
-                app.funcionariosite.buscar();
-                return app.funcionariosite.src[0].Nome;
+                var lst = app.sys.searchByID(app.funcionariosite.src, id);
+                if (lst.length > 0) {
+                    return lst[0].Nome;
+                } else {
+                    return "";
+                }
             } else {
                 return "Não Possui";
             }
         },
         getCliente: function (id) {
             if (!nulo(id)) {
-                app.clientesite.id = id;
-                app.clientesite.buscar();
-                return app.clientesite.src[0].Nome;
-                return app.funcionariosite.src[0].Nome;
+                var lst = app.sys.searchByID(app.clientesite.src, id);
+                if (lst.length > 0) {
+                    return lst[0].Nome;
+                } else {
+                    return "";
+                }
             } else {
                 return "Não Possui";
             }
         },
         conectarSistema: function (idlog) {
             var biencode = {};
-            biencode.Modelo = this.flag;
+            biencode.Formato = this.flag;
             switch (this.flag) {
                 case "Facebook":
                     biencode.id = idlog;
@@ -101,7 +115,7 @@ app["Dispositivos"] = new Vue({
                     biencode.GGID = this.GGID;
                     break;
                 case "Dispositivo":
-                    biencode.id = idlog;
+                    biencode.IdLogin = idlog;
                     biencode.UUID = this.UUID;
                     break;
             }

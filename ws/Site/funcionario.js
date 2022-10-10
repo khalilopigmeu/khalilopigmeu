@@ -20,6 +20,15 @@ app["funcionariosite"] = new Vue({
             };
             app.sys.crud("funcionariosite", "listar", data);
         },
+        all: function () {
+            var key = decrypt(app.sys.bien, "encodedstring");
+            this.biencode = {};
+            this.biencode.all = "";
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode), key)
+            };
+            app.sys.crud("funcionariosite", "listar", data);
+        },
         clear: function () {
             this.src = null;
         },
