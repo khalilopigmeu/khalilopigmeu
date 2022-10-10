@@ -7,10 +7,16 @@ $tdvue = ["" . $page => ["td.IdCategoria", "td.IdLogin", "td.Nome", "td.UUID", "
 include $refUrl . "Mongo/template/head.php";
 ?>
 <label>Categoria:</label>
-<input class="form-control" v-model="IdCategoria" placeholder="Nome..." ><br>
+<select class="form-control" v-model="IdCategoria" placeholder="Nome..." >
+    <option>selectione a categoria</option>
+    <option v-for="item in CategoriaDispositivosSrc" v-bind:value="item._id['$oid']">{{item.CategoriaDispositivosSrc}}</option>
+</select>
 <br>
 <label>Login:</label>
-<input class="form-control" v-model="IdLogin" placeholder="Nome..." ><br>
+<select class="form-control" v-model="IdLogin" placeholder="Nome..." >
+    <option>selectione o login</option>
+    <option v-for="item in LoginSrc"  v-bind:value="item._id['$oid']">{{item.Login}}</option>
+</select>
 <br>
 <label>Nome:</label>
 <input class="form-control" v-model="Nome" placeholder="Nome..." ><br>
@@ -22,7 +28,7 @@ include $refUrl . "Mongo/template/head.php";
 <input class="form-control" v-model="Telefone" placeholder="Nome..." ><br>
 <br>
 <label>Ativo:</label>
-<input class="form-control" v-model="Ativo" placeholder="Nome..." ><br>
+<input type="checkbox" v-model="Ativo" placeholder="Nome..." ><br>
 <br>
 <label>Restrição de dias:</label>
 <input class="form-control" v-model="RestricaoDia" placeholder="Nome..." ><br>

@@ -7,7 +7,7 @@ include $refUrl . "Mongo/template/head.php"
 ?>
 <label>Acessos:</label>
 <?php if (strpos($_SERVER['HTTP_HOST'], "rtiempresarial") !== false) { ?>
-    <a href="#" onclick="setModal('RootAccess', 'Ravec')">Adicionar Aceso<i class="far fa-plus-square"></i></a><br>
+    <a href="#RootAccess" onclick="setModal('RootAccess', 'Ravec')">Adicionar Acesso<i class="far fa-plus-square"></i></a><br>
 <?php } ?>
 <select class="form-control" v-model="Acessos" v-on:change="updateAcesso" placeholder="Acessos..." required="required">
     <option selected>Selecione o usuário</option>
