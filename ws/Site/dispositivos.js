@@ -11,10 +11,10 @@ app["Dispositivos"] = new Vue({
         FBID: null,
         GGID: null,
         flag: null,
+        busca : false,
     },
     methods: {
         buscar: function (refid) {
-            this.UUID = window.localStorage.getItem("uuid");
             var key = decrypt(app.sys.bien, "encodedstring");
             this.biencode = {};
             if (!nulo(refid)) {
@@ -27,6 +27,8 @@ app["Dispositivos"] = new Vue({
                 biencode: encrypt(JSON.stringify(this.biencode), key)
             };
             app.sys.crud("Dispositivos", "listar", data);
+            $(window).NotifyInfo("Dispositivo conectado");
+            this.busca = true;
         },
         clear: function () {
             this.src = null;
@@ -42,31 +44,38 @@ app["Dispositivos"] = new Vue({
             this.AuthSrc = [];
             app.LoginsOauth.atualizar(null);
             this.LoginSrc = app.LoginsOauth.src;
+            var count = 0;
             switch (this.flag) {
                 case "Facebook":
                     for (var i = 0; i <= this.LoginSrc.length - 1; i++) {
                         if (this.LoginSrc[i].UserIdFB === this.FBID) {
                             this.AuthSrc.push(this.LoginSrc[i]);
+                            count++;
                         }
                     }
+                    $(window).NotifyInfo(count + " Contas encontradas");
                     break;
                 case "Google":
                     for (var i = 0; i <= this.LoginSrc.length - 1; i++) {
                         if (this.LoginSrc[i].UserIdGG === this.GGID) {
                             this.AuthSrc.push(this.LoginSrc[i]);
+                            count++;
                         }
                     }
+                    $(window).NotifyInfo(count + " Contas encontradas");
                     break;
                 case "Dispositivo":
                     for (var j = 0; j <= this.src.length - 1; j++) {
                         for (var i = 0; i <= this.LoginSrc.length - 1; i++) {
                             if (this.LoginSrc[i]._id["$oid"] === this.src[j].IdLogin) {
-                                if (this.src[j].UUID === this.UUID) {
+                                if (this.src[j].UUID.toUpperCase() === window.localStorage.getItem("uuid").toUpperCase()) {
                                     this.AuthSrc.push(this.LoginSrc[i]);
+                                    count++;
                                 }
                             }
                         }
                     }
+                    $(window).NotifyInfo(count + " Contas encontradas");
                     break;
             }
         },
@@ -116,7 +125,7 @@ app["Dispositivos"] = new Vue({
                     break;
                 case "Dispositivo":
                     biencode.IdLogin = idlog;
-                    biencode.UUID = this.UUID;
+                    biencode.UUID = window.localStorage.getItem("uuid").toUpperCase();
                     break;
             }
             biencode.Modelo = "Empresa";
@@ -126,9 +135,9 @@ app["Dispositivos"] = new Vue({
             var ws = "Bienestar/Sistema/Login/appLoginSistema";
             var p = (post(ws, data));
             var rs = decrypt(p);
-
             if (rs.includes("erro")) {
                 alert("Acesso inválido contate o administrador");
+                $(window).NotifyErr("Acesso inválido contate o administrador");
             } else {
                 rs = JSON.parse(rs);
                 window.localStorage.setItem("Empresa", rs.Empresa);
@@ -154,7 +163,7 @@ app["Dispositivos"] = new Vue({
                     break;
                 case "Dispositivo":
                     biencode.id = idlog;
-                    biencode.UUID = this.UUID;
+                    biencode.UUID = window.localStorage.getItem("uuid");
                     break;
             }
             biencode.Modelo = "Cliente";
@@ -167,6 +176,7 @@ app["Dispositivos"] = new Vue({
 
             if (rs.includes("erro")) {
                 alert("Acesso inválido contate o administrador");
+                $(window).NotifyErr("Acesso inválido contate o administrador");
             } else {
                 rs = JSON.parse(rs);
                 window.localStorage.setItem("Empresa", rs.Empresa);
@@ -182,6 +192,7 @@ app["Dispositivos"] = new Vue({
             app.Dispositivos.flag = 'Facebook';
             app.sys.Status();
             app.Dispositivos.FBID = app.sys.FB.getUserID();
+            this.busca = true;
         },
         setGG: function (e) {
             app.Dispositivos.GGID = e.clientId;
@@ -189,6 +200,7 @@ app["Dispositivos"] = new Vue({
         conectarGG: function () {
             app.Dispositivos.flag = 'Google';
             sapp.sys.oauthGoogle(app.Dispositivos.setGG);
+            this.busca = true;
         },
         mobile: function () {
             if (window.localStorage.getItem('uuid') === null) {

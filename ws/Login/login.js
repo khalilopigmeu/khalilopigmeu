@@ -64,7 +64,7 @@ app["clientLogin"] = new Vue({
             app.sys.mascara();
         },
         cadastro: function (e) {
-            setAuth(decrypt(app.sys.bien,"encodedstring"));
+            setAuth(decrypt(app.sys.bien, "encodedstring"));
             var biencode = {};
             if (this.optCad === "fisica") {
                 biencode.Nome = this.Nome;
@@ -101,7 +101,8 @@ app["clientLogin"] = new Vue({
             };
             var ws = "Bienestar/Sistema/Login/CadCliente";
             var p = (post(ws, data));
-            alert("cadastrado com sucesso! A administração irá entrar em contato com você.");
+            alert("Cadastrado com sucesso! A administração irá entrar em contato com você.");
+            $(window).NotifyInfo("Cadastrado com sucesso! A administração irá entrar em contato com você.");
             window.location.href = "https://www.bienclube.com.br/index.php#modalLoginSys";
         },
         recuperar: function () {
@@ -120,7 +121,7 @@ app["clientLogin"] = new Vue({
             $(window).NotifySucesso(rs);
         },
         login: function (e) {
-            setAuth(decrypt(app.sys.bien,"encodedstring"));
+            setAuth(decrypt(app.sys.bien, "encodedstring"));
             e.preventDefault();
             var flag = true;
             if (!this.Empresa && this.Empresa.length > 0) {
@@ -151,6 +152,7 @@ app["clientLogin"] = new Vue({
                 var rs = decrypt(p);
                 if (rs.includes("erro")) {
                     alert("Acesso inválido contate o administrador");
+                    $(window).NotifyErr("Acesso inválido contate o administrador");
                 } else {
                     rs = JSON.parse(rs);
                     window.localStorage.setItem("Empresa", rs.Empresa);

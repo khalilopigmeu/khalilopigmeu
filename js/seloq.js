@@ -12,8 +12,8 @@ $(function () {
     qrcode = new QRCode(document.getElementById("qrcode"), {
         text: urlSite,
         logo: "/img/sobre.png",
-        width: 155,
-        height: 155,
+        width: 85,
+        height: 85,
         logoWidth: undefined,
         logoHeight: undefined,
         logoBackgroundColor: '#ffffff',
@@ -92,6 +92,8 @@ $(function () {
 
 });
 function urlRead() {
+    $("#menu-toggle").hide();
+    $("#menu-toggle-R").hide();
     app.anunciante.pgid = null;
     app.paginasite.pg = null;
     urlSite = window.location.href;
@@ -115,7 +117,7 @@ function urlRead() {
         }
     }
     if (app.sys.page == "promocaoespacobienestar") {
-        window.location.href = "https://www.bienclube.com.br/index.php#promocao?pgid=61fbb5a965ac59817653d77c";
+        window.location.href = "https://bienclube.com.br/index.php#anunciante?pgid=61fbb5a965ac59817653d77c&spy=promocao";
     }
     if (app.sys.page === "dispositivos") {
         app.sys.keys();
@@ -162,6 +164,7 @@ function urlRead() {
     }
     if (app.sys.page === "anunciante") {
         if (getParameterByName('pgid') !== null) {
+            $("#menu-toggle").show();
             app.configuracaosite.buscar(getParameterByName('pgid'));
             app.anunciante.buscar(getParameterByName('pgid'));
             app.PromocaoSite.buscaItens(getParameterByName('pgid'));

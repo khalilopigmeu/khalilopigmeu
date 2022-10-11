@@ -463,3 +463,7 @@ form{
     font-family: var(--fieldsetcolor) !important;
     color: var(--hrefcolor) !important;
 }
+
+.navbar-toggler{
+    background-color: var(--botoesout) !important;
+}

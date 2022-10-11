@@ -58,6 +58,8 @@ app["sys"] = new Vue({
                 app.calendar.progress = 0;
                 app.sys.acessar(window.localStorage.getItem("IdLogin"), window.localStorage.getItem("RAVEC"));
                 app.sys.ravecUpdate();
+                $("#menu-toggle").hide();
+                $("#menu-toggle-R").show();
             } else {
                 app.LoginsOauth.buscar(app.sys.reflog);
             }

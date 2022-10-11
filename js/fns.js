@@ -1,4 +1,4 @@
-var lof;
+var lof="";
 $(function () {
     $("form").submit(function (e) {
         e.preventDefault();

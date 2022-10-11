@@ -20,7 +20,7 @@
          data-logo_alignment="left">
     </div>
     <hr>
-    <div class='col-6 mx-auto spanCli text-center'>
+    <div v-if='busca==true' class='spanCli text-center'>
         <button class="btn btn-dark text-white" v-on:click="listagem()" >Buscar</button><br><br>
         <h4>Escolha uma conta associada ao seu dispositivo</h4>
     </div>
@@ -28,26 +28,26 @@
     <div v-if="AuthSrc.length>0">
         <div  v-for="item in AuthSrc">
             <div class="row justify-content-center text-center">
-                <div class="col-lg-3 col-md-6">
-                    <span class='spanCli'>Empresa: </span>{{getEmpresa(item.IdEmpresa)}}
+                <div class="col-lg-4 col-md-4 m-1 p-1">
+                    <h5><span class='spanCli'>Empresa: </span>{{getEmpresa(item.IdEmpresa)}}</h5>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <span class='spanCli'>Funcionário: </span>{{getFunc(item.IdFunc)}}
+                <div class="col-lg-4 col-md-4 m-1 p-1">
+                    <h5><span class='spanCli'>Funcionário: </span>{{getFunc(item.IdFunc)}}</h5>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <span class='spanCli'>Cliente: </span>{{getCliente(item.IdCliente)}}
+                <div class="col-lg-4 col-md-4 m-1 p-1">
+                    <h5><span class='spanCli'>Cliente: </span>{{getCliente(item.IdCliente)}}</h5>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <span class='spanCli'>E-mail: </span>{{item.Email}}
+                <div class="col-lg-4 col-md-4 m-1 p-1">
+                    <h5><span class='spanCli'>E-mail: </span>{{item.Email}}</h5>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <span class='spanCli'>Login: </span>{{item.Login}}
+                <div class="col-lg-4 col-md-4 m-1 p-1">
+                    <h5><span class='spanCli'>Login: </span>{{item.Login}}</h5>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-4 col-md-4 m-1 p-1">
                     <button v-on:click="conectarSistema(item._id['$oid'])" class="btn btn-dark text-white">Conectar Funcionário</button>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <button v-on:click="conectarCliente(item._id['$oid'])" class="btn btn-dark text-white">Conectar Cliente</button>
+                <div class="col-lg-4 col-md-4 m-1 p-1">
+                    <button v-if="item.IdCliente!=='null'" v-on:click="conectarCliente(item._id['$oid'])" class="btn btn-dark text-white">Conectar Cliente</button>
                 </div>
             </div>
             <br>
