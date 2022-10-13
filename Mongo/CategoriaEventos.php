@@ -16,5 +16,5 @@ include $refUrl . "Mongo/template/head.php";
 <select class="form-control" v-model="Acessos" multiple placeholder="Acessos..." >
     <option v-if="Loginsrc!=null" v-for="el in app.sys.sorter(Loginsrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Login}}</option>
 </select>
-<a href="#" onclick="setModal('Login', 'CategoriaEventos')">Adicionar Acesso <i class="far fa-plus-square"></i></a><br>
+<span class="btn"  onclick="setModal('Login', 'CategoriaEventos')">Adicionar Acesso <i class="far fa-plus-square"></i></span><br>
 <br><?php include $refUrl . "Mongo/template/foot.php" ?>

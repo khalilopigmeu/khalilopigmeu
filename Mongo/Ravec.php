@@ -5,15 +5,15 @@ $td = ["" . $page => []];
 $tdvue = ["" . $page => []];
 include $refUrl . "Mongo/template/head.php"
 ?>
-<label>Acessos:</label>
 <?php if (strpos($_SERVER['HTTP_HOST'], "rtiempresarial") !== false) { ?>
-    <a href="#RootAccess" onclick="setModal('RootAccess', 'Ravec')">Adicionar Acesso<i class="far fa-plus-square"></i></a><br>
+    <span class="btn" data-dismiss="modal" onclick="$('#RootAccess').modal();">Adicionar Acesso<i class="far fa-plus-square"></i></span><br><br>
 <?php } ?>
+<label>Acessos:</label>
 <select class="form-control" v-model="Acessos" v-on:change="updateAcesso" placeholder="Acessos..." required="required">
     <option selected>Selecione o usuário</option>
     <option v-if="Loginsrc!=null" v-for="el in app.sys.sorter(Loginsrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Login}}</option>
 </select>
-<a href="#" onclick="setModal('Login', 'Ravec')">Adicionar Login <i class="far fa-plus-square"></i></a><br>
+<span class="btn" onclick="setModal('Login', 'Ravec')">Adicionar Login <i class="far fa-plus-square"></i></span><br>
 <div v-for="(item,index) in opcoes" class="my-3 py-3" v-if="item.nome!='acesso root' && item.nivel>0">
     <label>{{item.nome}}: </label>
     <input type="checkbox" v-on:click="check(1,index,$event)"  :checked='item.nivel>=1'><span class="ml-1 pr-3 lead" >Visualizar</span>

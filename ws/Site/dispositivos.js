@@ -11,7 +11,7 @@ app["Dispositivos"] = new Vue({
         FBID: null,
         GGID: null,
         flag: null,
-        busca : false,
+        busca: false,
     },
     methods: {
         buscar: function (refid) {

@@ -11,13 +11,13 @@ include $refUrl . "Mongo/template/head.php"
 <select list="FuncionarioLogin" class="form-control" v-model="IdFunc" placeholder="Campo...">
     <option  v-if="Funcionariosrc!=null" v-for="el in app.sys.sorter(Funcionariosrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
 </select>
-<a href="#" onclick="zeroModal();setModal('Funcionarios', 'Login')">Adicionar Funcionário(a) <i class="far fa-plus-square"></i></a><br>
+<span class="btn" onclick="zeroModal();setModal('Funcionarios', 'Login')">Adicionar Funcionário(a) <i class="far fa-plus-square"></i></span><br>
 <br>
 <label>Impressão digital:</label>
 <select class="form-control" v-model="IdFP" placeholder="Acessos..." >
     <option  v-for="el in app.sys.sorter(Fingersrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el._id['$oid']}}</option>
 </select>
-<a href="#" onclick="setModal('Login', 'Ponto')">Adicionar Acesso <i class="far fa-plus-square"></i></a><br>
+<span class="btn" onclick="setModal('Login', 'Ponto')">Adicionar Acesso <i class="far fa-plus-square"></i></span><br>
 
 <label>Tolerância de entrada:</label>
 <input class="form-control" type="time" v-model="ToleranciaEntrada" placeholder="Campo..."><br>
@@ -32,5 +32,5 @@ include $refUrl . "Mongo/template/head.php"
 <select class="form-control" v-model="Acessos" multiple placeholder="Acessos..." >
     <option v-if="Loginsrc!=null" v-for="el in app.sys.sorter(Loginsrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Login}}</option>
 </select>
-<a href="#" onclick="setModal('Login', 'Ponto')">Adicionar Acesso <i class="far fa-plus-square"></i></a><br>
+<span class="btn" onclick="setModal('Login', 'Ponto')">Adicionar Acesso <i class="far fa-plus-square"></i></span><br>
 <?php include $refUrl . "Mongo/template/foot.php" ?>

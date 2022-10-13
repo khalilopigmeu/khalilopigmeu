@@ -15,7 +15,7 @@ include $refUrl . "Mongo/template/head.php"
 <select class="form-control" v-model="IdMidia" multiple placeholder="Mídia..." >
     <option v-if="Loginsrc!=null" v-for="el in app.sys.sorter(MidiaSrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
 </select>
-<a href="#" onclick="setModal('Midia', 'Mural')">Adicionar Mídia <i class="far fa-plus-square"></i></a><br>
+<span class="btn" onclick="setModal('Midia', 'Mural')">Adicionar Mídia <i class="far fa-plus-square"></i></span><br>
 <label>Texto:</label>
 <input class="form-control" v-model="Texto" placeholder="Campo..."><br>
 <br>
@@ -26,5 +26,5 @@ include $refUrl . "Mongo/template/head.php"
 <select class="form-control" v-model="Acessos" multiple placeholder="Acessos..." >
     <option v-if="Loginsrc!=null" v-for="el in app.sys.sorter(Loginsrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Login}}</option>
 </select>
-<a href="#" onclick="setModal('Login', 'Mural')">Adicionar Acesso <i class="far fa-plus-square"></i></a><br>
+<span class="btn" onclick="setModal('Login', 'Mural')">Adicionar Acesso <i class="far fa-plus-square"></i></span><br>
 <?php include $refUrl . "Mongo/template/foot.php" ?>

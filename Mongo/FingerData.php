@@ -11,7 +11,7 @@ include $refUrl . "Mongo/template/head.php"
     <option>Selecione o(a) funcionário(a)</option>
     <option v-for="el in app.sys.sorter(FuncionarioSrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
 </select>
-<a href="#" onclick="setModal('Funcionario', 'FingerData')">Adicionar Funcionário <i class="far fa-plus-square"></i></a><br>
+<span class="btn"  onclick="setModal('Funcionario', 'FingerData')">Adicionar Funcionário <i class="far fa-plus-square"></i></span><br>
 <br>
 <label>D1:</label>
 <input class="form-control" v-model="D1" placeholder="Campo..."><br>

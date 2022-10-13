@@ -88,6 +88,7 @@ app["Eventos"] = new Vue({
             };
             app.sys.crud(app.Eventos.href, "listar", data);
             app.Eventos.eventos = app.Eventos.src;
+            app.Eventos.src=null;
             app.calendar.load();
             app.sys.tabs(this.href);
             this.itensporpagina = app.sys.itemsPerPage;

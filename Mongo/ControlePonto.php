@@ -19,7 +19,7 @@ include $refUrl . "Mongo/template/head.php"
 <select class="form-control" v-model="IdPonto" placeholder="Campo..." >
     <option v-for="el in app.sys.sorter(PontoSrc,'DESC','id')" v-bind:value="el._id['$oid']">{{app.sys.searchByID(app.Funcionarios.src,el.IdIdFunc,"Nome")}}</option>
 </select>
-<a href="#" onclick="setModal('Ponto', 'ControlePonto')">Adicionar Ponto <i class="far fa-plus-square"></i></a><br>
+<span class="btn"  onclick="setModal('Ponto', 'ControlePonto')">Adicionar Ponto <i class="far fa-plus-square"></i></span><br>
 <br>
 <br>
 <label>Entrada:</label>

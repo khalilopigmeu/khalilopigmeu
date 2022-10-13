@@ -26,12 +26,12 @@ include $refUrl . "Mongo/template/head.php"
 <select class="form-control" v-model="IdCliente" placeholder="Campo..." >
     <option v-for="el in app.sys.sorter(app.sys.searchall(Clientesrc,pesqCliente),'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
 </select>
-<a href="#" onclick="setModal('Cliente', 'PedidoVenda')">Adicionar Cliente <i class="far fa-plus-square"></i></a><br>
+<span class="btn" onclick="setModal('Cliente', 'PedidoVenda')">Adicionar Cliente <i class="far fa-plus-square"></i></span><br>
 <label>Lista de compras:</label>
 <select class="form-control" v-model="IdLista" placeholder="Campo..." v-on:change="atualizaPreco()" >
     <option v-for="el in app.sys.sorter(app.sys.search(ListaCompraSrc,IdCliente,'Cliente'),'DESC','id')" v-bind:value="el._id['$oid']">{{el.NomeLista}}</option>
 </select>
-<a href="#" onclick="setModal('ListaCompra', 'PedidoVenda')">Adicionar Lista <i class="far fa-plus-square"></i></a><br>
+<span class="btn" onclick="setModal('ListaCompra', 'PedidoVenda')">Adicionar Lista <i class="far fa-plus-square"></i></span><br>
 <br>
 <label>Produtos:</label>
 <input disabled="" type="text" class="form-control" v-model="TotalProdutos"><br>

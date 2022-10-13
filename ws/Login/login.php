@@ -37,7 +37,7 @@
                                                 <?php } ?>
                                                 <button class="btn btn-dark text-white" data-toggle="modal" data-target="#modalRecuperaSenha" onclick="app.GerenciamentoCliente.getRandomNumber();">Recuperar senha</button>
                                                 <br><br>
-                                                <a href="index.php#dispositivos" class="btn btn-dark text-white">Acesso de confiança</a><br>
+                                                <button onclick="window.location.href='index.php#dispositivos'" data-dismiss="modal" class="btn btn-dark text-white">Acesso de confiança</button><br>
                                                 <hr>
                                                 <button class="btn btn-dark" href="<?php echo $refUrl; ?>ws/Login/painel.php">Demonstração</button>
                                             </div>
@@ -61,7 +61,7 @@
                                                 <?php } ?>
                                                 <button class="btn btn-dark text-white" data-toggle="modal" data-target="#modalRecuperaSenha" onclick="app.GerenciamentoCliente.getRandomNumber();">Recuperar senha</button>
                                                 <br><br>
-                                                <a href="index.php#dispositivos" data-dismiss="modal" class="btn btn-dark text-white">Acesso de confiança</a><br>
+                                                <button onclick="window.location.href='index.php#dispositivos'" data-dismiss="modal" class="btn btn-dark text-white">Acesso de confiança</button><br>
                                                 <hr>
                                             </div>
                                         </fieldset>

@@ -12,9 +12,9 @@ include $refUrl . "Mongo/template/head.php"
 <label for="Categoria">Categoria:</label>
 <select class="form-control" v-model="groupId" name="groupId" placeholder="Categoria" >
     <option>Selecione uma categoria</option>
-    <option v-for="el in app.sys.sorter(CategoriaSrc,'DESC','id')" class="categoria" v-bind:value="el._id['$oid']" v-bind:data-color="el.Cor">{{el.NomeCategoria}}</option>
+    <option v-for="el in CategoriaSrc" class="categoria" v-bind:value="el._id['$oid']" v-bind:data-color="el.Cor">{{el.NomeCategoria}}</option>
 </select>
-<a href="#" onclick="setModal('CategoriaEventos', 'Eventos')">Adicionar Categoria <i class="far fa-plus-square"></i></a><br>
+<span class="btn" onclick="setModal('CategoriaEventos', 'Eventos')">Adicionar Categoria <i class="far fa-plus-square"></i></span><br>
 <br>
 <label for="Nome">Nome:</label>
 <input class="form-control" name="Nome" v-model="title" placeholder="Nome..."><br>
@@ -79,21 +79,21 @@ include $refUrl . "Mongo/template/head.php"
 <fieldset class="border rounded m-1 p-1">
     <legend>Importar dados:</legend>
     <input type="radio" v-model="importar" value="atendimento"><label>Atendimento</label><br>
-    <div v-if="importar=='atendimento'">
+    <div v-if="importar==='atendimento'">
         <label for="modo">Ficha Atendimento:</label>
         <select class="form-control" multiple="" v-model="FichaAtendimento">
             <option v-for="item in app.sys.sorter(FichaAtendimentoSrc,'DESC','id')" v-bind:value="item._id['$oid']" v-if="item.Registrado!='true'">{{app.sys.foreignKeyReplace(app.Cliente.src,'Nome',item.IdCliente)}} - {{item.DataAtendimento}} - {{item.Valor}} - {{item.Observacao}}</option>
         </select>
     </div>
     <input type="radio" v-model="importar" value="financeiro"><label>Lançamento Financeiro</label><br>
-    <div v-if="importar=='financeiro'">
+    <div v-if="importar==='financeiro'">
         <label for="modo">Lançamento financeiro:</label>
         <select class="form-control" multiple="" v-model="LancamentoFinanceiro">
             <option v-for="item in app.sys.sorter(LancamentoFinanceiroSrc,'DESC','id')" v-bind:value="item._id['$oid']" v-if="item.Status!='true'">{{item.Documento}} - R${{item.Valor}}</option>
         </select>
     </div>
     <input type="radio" v-model="importar" value="pedidovenda"><label>Pedido de Venda</label><br>
-    <div v-if="importar=='pedidovenda'">
+    <div v-if="importar==='pedidovenda'">
         <label for="modo">Pedido de Venda:</label>
         <select class="form-control" multiple="" v-model="PedidoDeVenda">
             <option v-for="item in app.sys.sorter(PedidoVendaSrc,'DESC','id')" v-bind:value="item._id['$oid']">{{item.Nfatura}} - {{item.DataPedido}} - R${{item.ValorTotal}}</option>

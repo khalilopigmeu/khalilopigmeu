@@ -15,19 +15,19 @@ include $refUrl . "Mongo/template/head.php"
 <select class="form-control" v-model="IdCliente" placeholder="Campo..." >
     <option v-for="el in app.sys.sorter(app.sys.searchall(Clientesrc,pesqCliente),'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
 </select>
-<a href="#" onclick="setModal('Cliente', 'FichaAtendimento')">Adicionar Cliente <i class="far fa-plus-square"></i></a><br>
+<span class="btn" onclick="setModal('Cliente', 'FichaAtendimento')">Adicionar Cliente <i class="far fa-plus-square"></i></span><br>
 <br>
 <label>Consulta:</label>
 <select class="form-control" v-model="Consulta" multiple v-on:click="calcPreco()" placeholder="Campo..." >
     <option v-for="el in app.sys.sorter(Consultasrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
 </select>
-<a href="#" onclick="setModal('Consulta', 'FichaAtendimento')">Adicionar Consulta <i class="far fa-plus-square"></i></a><br>
+<span class="btn"  onclick="setModal('Consulta', 'FichaAtendimento')">Adicionar Consulta <i class="far fa-plus-square"></i></span><br>
 <br>
 <label>Procedimento:</label>
 <select class="form-control" v-model="Procedimento" multiple v-on:click="calcPreco()" placeholder="Campo..." >
     <option v-for="el in app.sys.sorter(Procedimentosrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
 </select>
-<a href="#" onclick="setModal('Procedimento', 'FichaAtendimento')">Adicionar Procedimento <i class="far fa-plus-square"></i></a><br>
+<span class="btn"  onclick="setModal('Procedimento', 'FichaAtendimento')">Adicionar Procedimento <i class="far fa-plus-square"></i></span><br>
 <label for="data">Ativar Promoção:</label>
 <input type="checkbox" v-on:change="calcPreco()" v-model="Promocao" placeholder="R$"><br>
 <label for="data">Valor:</label>
@@ -36,7 +36,7 @@ include $refUrl . "Mongo/template/head.php"
 <select class="form-control" v-model="Evento" placeholder="Campo..." >
     <option v-for="el in app.sys.sorter(eventos,'DESC','id')" v-bind:value="el._id['$oid']">{{el.title}} - {{formatadata(el.start)}} - {{formatahora(el.start)}}</option>
 </select>
-<a href="#" onclick="setModal('Eventos', 'FichaAtendimento')">Adicionar Evento <i class="far fa-plus-square"></i></a><br>
+<span class="btn"  onclick="setModal('Eventos', 'FichaAtendimento')">Adicionar Evento <i class="far fa-plus-square"></i></span><br>
 <br>
 <label for="observacaoatendimento">Observação:</label>
 <textarea class="form-control" v-model="Observacao" name="observacaoatendimento" placeholder="Observação..."></textarea><br>

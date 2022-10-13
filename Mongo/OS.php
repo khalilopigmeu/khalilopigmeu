@@ -10,18 +10,18 @@ include $refUrl . "Mongo/template/head.php"
 <select class="form-control" v-model="Cliente" placeholder="Campo..." >
     <option v-for="el in app.sys.sorter(Clientesrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
 </select>
-<a href="#" onclick="setModal('Cliente', 'OS')">Adicionar Cliente <i class="far fa-plus-square"></i></a><br>
+<span class="btn" onclick="setModal('Cliente', 'OS')">Adicionar Cliente <i class="far fa-plus-square"></i></span><br>
 <label>Atendente:</label>
 <select list="FuncionarioLogin" class="form-control" v-model="Atendente" placeholder="Campo...">
     <option  v-if="Funcionariosrc!=null" v-for="el in app.sys.sorter(Funcionariosrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
 </select>
-<a href="#" onclick="zeroModal();setModal('Funcionarios', 'OS')">Adicionar Funcionário(a) <i class="far fa-plus-square"></i></a><br>
+<span class="btn" onclick="zeroModal();setModal('Funcionarios', 'OS')">Adicionar Funcionário(a) <i class="far fa-plus-square"></i></span><br>
 <br>
 <label>Técnico:</label>
 <select list="FuncionarioLogin" class="form-control" v-model="Tecnico" placeholder="Campo...">
     <option  v-if="Funcionariosrc!=null" v-for="el in app.sys.sorter(Funcionariosrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
 </select>
-<a href="#" onclick="zeroModal();setModal('Funcionarios', 'OS')">Adicionar Funcionário(a) <i class="far fa-plus-square"></i></a><br>
+<span class="btn" onclick="zeroModal();setModal('Funcionarios', 'OS')">Adicionar Funcionário(a) <i class="far fa-plus-square"></i></span><br>
 <br>
 
 <label>Código:</label>

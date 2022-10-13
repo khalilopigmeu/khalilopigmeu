@@ -687,8 +687,16 @@ app["sys"] = new Vue({
             window.scrollTo({top: 0, behavior: 'smooth'});
         },
         hasId: function (td) {
-            if (td.hasOwnProperty("$oid")) {
-                return td["$oid"];
+            if (!nulo(td)) {
+                if (typeof td.hasOwnProperty === "function") {
+                    if (td.hasOwnProperty("$oid")) {
+                        return td["$oid"];
+                    } else {
+                        return 0;
+                    }
+                } else {
+                    return 0;
+                }
             } else {
                 return 0;
             }

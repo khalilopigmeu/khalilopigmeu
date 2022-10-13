@@ -37,32 +37,32 @@ include $refUrl . "Mongo/template/head.php"
 <select class="form-control" v-model="IdFunc" placeholder="Campo...">
     <option  v-if="Funcionariosrc!=null" v-for="el in app.sys.sorter(Funcionariosrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
 </select>
-<a href="#" onclick="zeroModal();setModal('Funcionarios', 'Login')">Adicionar Funcionário(a) <i class="far fa-plus-square"></i></a><br>
+<span class="btn" onclick="zeroModal();setModal('Funcionarios', 'Login')">Adicionar Funcionário(a) <i class="far fa-plus-square"></i></span><br>
 <br>
 <label>Cliente:</label>
 <select class="form-control" v-model="IdCliente" placeholder="Campo..." >
     <option  v-if="Vendedorsrc!=null" v-for="el in app.sys.sorter(Vendedorsrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
 </select>
-<a href="#" onclick="zeroModal();setModal('Cliente', 'Login')">Adicionar Cliente <i class="far fa-plus-square"></i></a><br>
+<span class="btn" onclick="zeroModal();setModal('Cliente', 'Login')">Adicionar Cliente <i class="far fa-plus-square"></i></span><br>
 <br>
 <label>Vendedor:</label>
 <select class="form-control" v-model="IdVendedor" placeholder="Campo..." >
     <option v-if="Vendedorsrc!=null" v-for="el in app.sys.sorter(Vendedorsrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
 </select>
-<a href="#" onclick="zeroModal();setModal('Vendedor', 'Login')">Adicionar Vendedor(a) <i class="far fa-plus-square"></i></a><br>
+<span class="btn" onclick="zeroModal();setModal('Vendedor', 'Login')">Adicionar Vendedor(a) <i class="far fa-plus-square"></i></span><br>
 <br>
 <label>Revenda:</label>
 <select class="form-control" v-model="IdRevenda" placeholder="Campo..." >
     <option v-if="Revendasrc!=null" v-for="el in app.sys.sorter(Revendasrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
 </select>
-<a href="#" onclick="zeroModal();setModal('Revenda', 'Login')">Adicionar Revenda <i class="far fa-plus-square"></i></a><br>
+<span class="btn" onclick="zeroModal();setModal('Revenda', 'Login')">Adicionar Revenda <i class="far fa-plus-square"></i></span><br>
 <br>
 <label>Configuração:</label>
 <select class="form-control" v-model="IdConfig" placeholder="Campo..." >
     <option>Selecione a Configuração</option>
     <option v-if="Configuracaosrc!=null" v-for="el in app.sys.sorter(Configuracaosrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
 </select>
-<a href="#" onclick="zeroModal();setModal('Configuracao', 'Login')">Adicionar Configuração <i class="far fa-plus-square"></i></a><br>
+<span class="btn" onclick="zeroModal();setModal('Configuracao', 'Login')">Adicionar Configuração <i class="far fa-plus-square"></i></span><br>
 <br>
 <label>Email:</label>
 <input class="form-control" v-model="Email" placeholder="Campo..." required="required"><br>

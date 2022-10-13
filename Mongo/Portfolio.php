@@ -26,14 +26,14 @@ include $refUrl . "Mongo/template/head.php"
     <option>Selecione uma categoria</option>
     <option v-for="el in app.sys.sorter(CategoriaPortfolioSrc,'DESC','id')" class="categoria" v-bind:value="el._id['$oid']" v-bind:data-color="el.Cor">{{el.Nome}}</option>
 </select>
-<a href="#" onclick="setModal('CategoriaPortfolio', 'Portfolio')">Adicionar Categoria <i class="far fa-plus-square"></i></a><br>
+<span class="btn" onclick="setModal('CategoriaPortfolio', 'Portfolio')">Adicionar Categoria <i class="far fa-plus-square"></i></span><br>
 <br>
 <label for="Album">Álbum:</label>
 <select class="form-control" v-model="IdAlbum" name="Album" placeholder="Album" >
     <option>Selecione um Álbum</option>
     <option v-for="el in app.sys.sorter(AlbumSrc,'DESC','id')" class="Album" v-bind:value="el._id['$oid']" v-bind:data-color="el.Cor">{{el.NomeAlbum}}</option>
 </select>
-<a href="#" onclick="setModal('Album', 'Portfolio')">Adicionar Álbum <i class="far fa-plus-square"></i></a><br>
+<span class="btn" onclick="setModal('Album', 'Portfolio')">Adicionar Álbum <i class="far fa-plus-square"></i></span><br>
 <br>
 <label>Nome:</label>
 <input class="form-control" v-model="Nome" placeholder="Campo..."><br>

@@ -52,36 +52,36 @@ include $refUrl . "Mongo/template/head.php"
     <option>Selecione a família</option>
     <option v-for="el in app.sys.sorter(FamiliaSrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.TipoFamilia}}</option>
 </select>
-<a href="#" onclick="setModal('FamiliaProdutos', 'Produto')">Adicionar Família <i class="far fa-plus-square"></i></a><br>
+<span class="btn" onclick="setModal('FamiliaProdutos', 'Produto')">Adicionar Família <i class="far fa-plus-square"></i></span><br>
 <label>Classe:</label>
 <select class="form-control" v-on:change="onselect('classe')" v-model="IdClasse">
     <option>Selecione a classe</option>
     <option v-for="el in app.sys.sorter(app.sys.searchinArray(ClasseSrc,familiaselect,'IdFamilia'),'DESC','id')" v-bind:value="el._id['$oid']">{{el.TipoClasse}}</option>
 </select>
-<a href="#" onclick="setModal('ClasseProdutos', 'Produto')">Adicionar Classe <i class="far fa-plus-square"></i></a><br>
+<span class="btn" onclick="setModal('ClasseProdutos', 'Produto')">Adicionar Classe <i class="far fa-plus-square"></i></span><br>
 <label>Categoria:</label>
 <select class="form-control" v-on:change="onselect('categoria')" v-model="IdCategoriaProduto">
     <option>Selecione a categoria</option>
     <option v-for="el in app.sys.sorter(app.sys.searchinArray(CategoriaSrc,classeselect,'IdClasse'),'DESC','id')" v-bind:value="el._id['$oid']">{{el.TipoCategoria}}</option>
 </select>
-<a href="#" onclick="setModal('CategoriaProdutos', 'Produto')">Adicionar Cliente <i class="far fa-plus-square"></i></a><br>
+<span class="btn" onclick="setModal('CategoriaProdutos', 'Produto')">Adicionar Cliente <i class="far fa-plus-square"></i></span><br>
 <label>Sub-categoria:</label>
 <select class="form-control" v-model="IdSubCategoriaProduto">
     <option>Selecione a família</option>
     <option v-for="el in app.sys.sorter(app.sys.searchinArray(SubCategoriaSrc,categoriaselect,'IdCategoria'),'DESC','id')" v-bind:value="el._id['$oid']">{{el.TipoSubCategoria}}</option>
 </select>
-<a href="#" onclick="setModal('SubcategoriaProdutos', 'Produto')">Adicionar Subcategoria <i class="far fa-plus-square"></i></a><br>
+<span class="btn" onclick="setModal('SubcategoriaProdutos', 'Produto')">Adicionar Subcategoria <i class="far fa-plus-square"></i></span><br>
 <label>Fornecedor:</label>
 <select class="form-control" v-model="IdFornecedor">
     <option v-for="el in app.sys.sorter(FornecedorSrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
 </select>
-<a href="#" onclick="setModal('Fornecedor', 'Produto')">Adicionar Fornecedor <i class="far fa-plus-square"></i></a><br>
+<span class="btn" onclick="setModal('Fornecedor', 'Produto')">Adicionar Fornecedor <i class="far fa-plus-square"></i></span><br>
 <label>Album:</label>
 <select class="form-control" v-model="IdAlbum">
     <option>Selecione o album</option>
     <option v-for="el in app.sys.sorter(AlbumSrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.NomeAlbum}}</option>
 </select>
-<a href="#" onclick="setModal('Album', 'Produto')">Adicionar Album <i class="far fa-plus-square"></i></a><br>
+<span class="btn" onclick="setModal('Album', 'Produto')">Adicionar Album <i class="far fa-plus-square"></i></span><br>
 <label>Código de produto:</label>
 <input class="form-control" v-model="CodProduto" placeholder=""><br>
 <label>Nome:</label>

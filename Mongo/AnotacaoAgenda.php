@@ -12,7 +12,7 @@ include $refUrl . "Mongo/template/head.php"
     <option>Selecione a categoria</option>
     <option v-for="el in app.sys.sorter(CategoriaSrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.NomeCategoria}}</option>
 </select>
-<a href="#" onclick="setModal('CategoriaEventos', 'AnotacaoAgenda')">Adicionar Categoria <i class="far fa-plus-square"></i></a><br>
+<span class="btn" onclick="setModal('CategoriaEventos', 'AnotacaoAgenda')">Adicionar Categoria <i class="far fa-plus-square"></i></span><br>
 <br>
 <label>Título:</label>
 <input class="form-control" v-model="Titulo" placeholder="Título..." ><br>

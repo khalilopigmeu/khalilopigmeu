@@ -18,7 +18,7 @@ include $refUrl . "Mongo/template/head.php"
     <label>Senha Admin:</label>
     <input type="password" v-model="SenhaAdmin" class="form-control"><br>
     <br>
-    <a href="#" v-on:click="solicitaRoot()" class="btn btn-dark">Solicitar</a>
+    <a href='#' v-on:click="solicitaRoot()" class="btn btn-dark">Solicitar</a>
 </div>
 <div v-if="Rooted==true">
     <label>Acessos:</label>
@@ -26,7 +26,7 @@ include $refUrl . "Mongo/template/head.php"
         <option selected>Selecione o usuário</option>
         <option v-if="LoginSrc!=null" v-for="el in app.sys.sorter(LoginSrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Login}}</option>
     </select>
-    <a href="#" onclick="setModal('Login', 'RootAccess')">Adicionar Login <i class="far fa-plus-square"></i></a><br>
+    <span class="btn" onclick="setModal('Login', 'RootAccess')">Adicionar Login <i class="far fa-plus-square"></i></span><br>
     <div v-for="(item,index) in opcoes" class="my-3 py-3">
         <label>{{item.nome}}: </label>
         <input type="checkbox" v-on:click="check(1,index,$event)"  :checked='item.nivel>=1'><span class="ml-1 pr-3 lead" >Visualizar</span>

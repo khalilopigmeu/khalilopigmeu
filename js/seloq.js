@@ -8,7 +8,11 @@ const Real = value => currency(value, {symbol: 'R$', decimal: '.', separator: ''
 var cdn;
 var swiper;
 $(function () {
-    urlSys = false;
+    if (window.location.href.includes("bienclube")) {
+        urlfSys = false;
+    } else {
+        urlSys = true;
+    }
     qrcode = new QRCode(document.getElementById("qrcode"), {
         text: urlSite,
         logo: "/img/sobre.png",
@@ -110,11 +114,7 @@ function urlRead() {
     }
     if (getParameterByName('uuid') !== null) {
         window.localStorage.setItem("uuid", getParameterByName('uuid'));
-        if (urlSite.includes("rtiempresarial")) {
-            window.location.href = "https://www.rtiempresarial.com.br/index.php";
-        } else {
-            window.location.href = "https://www.bienclube.com.br/index.php";
-        }
+        $(window).NotifyInfo(getParameterByName('uuid') + " Bem vindo");
     }
     if (app.sys.page == "promocaoespacobienestar") {
         window.location.href = "https://bienclube.com.br/index.php#anunciante?pgid=61fbb5a965ac59817653d77c&spy=promocao";

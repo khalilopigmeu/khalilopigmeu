@@ -467,3 +467,7 @@ form{
 .navbar-toggler{
     background-color: var(--botoesout) !important;
 }
+
+.modal {
+  overflow-y:auto;
+}
