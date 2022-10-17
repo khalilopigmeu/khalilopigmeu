@@ -141,7 +141,7 @@ app["Eventos"] = new Vue({
 
             this.extendedProps = this.evt.extendedProps;
             this.observacao = this.extendedProps.descricao;
-            CKEDITOR.instances['observacaoagenda'].setData(unescapeHTML(this.observacao))
+            CKEDITOR.instances['observacaoagendacont'].setData(unescapeHTML(this.observacao))
 
             this.cliente = this.extendedProps.cliente;
             this.FichaAtendimento = this.extendedProps.FichaAtendimento;
@@ -189,8 +189,8 @@ app["Eventos"] = new Vue({
             this.biencode.id = this.id;
             var extendedProps = {};
             extendedProps.empresa = window.localStorage.getItem("IdEmpresa");
-            if (CKEDITOR.instances['observacaoagenda'].getData().length > 0) {
-                this.observacao = CKEDITOR.instances['observacaoagenda'].getData();
+            if (CKEDITOR.instances['observacaoagendacont'].getData().length > 0) {
+                this.observacao = CKEDITOR.instances['observacaoagendacont'].getData();
                 extendedProps.descricao = this.observacao;
             } else {
                 extendedProps.descricao = this.observacao;

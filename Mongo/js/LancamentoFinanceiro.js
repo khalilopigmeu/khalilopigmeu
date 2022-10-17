@@ -43,7 +43,6 @@ app["LancamentoFinanceiro"] = new Vue({
             app.sys.crud(app.LancamentoFinanceiro.href, "listar", data);
             app.sys.tabs(this.href);
             app.sys.mascara();
-            this.flag = false;
         },
         clear: function () {
             this.Modalidade = null;

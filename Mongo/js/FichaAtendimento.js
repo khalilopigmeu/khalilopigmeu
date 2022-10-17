@@ -47,7 +47,10 @@ app["FichaAtendimento"] = new Vue({
             };
             app.sys.crud(app.FichaAtendimento.href, "listar", data);
             app.sys.tabs(this.href);
-
+            if (!nulo(window.localStorage.getItem("post"))) {
+                window.localStorage.removeItem("post");
+                this.updateEventos(true);
+            }
         },
         clear: function () {
             this.IdCliente = null;
@@ -62,9 +65,12 @@ app["FichaAtendimento"] = new Vue({
             this.Registrado = null;
         },
         autocomplete: function () {
-            this.IdCliente = this.row[1];
-            this.Consulta = this.row[2];
-            this.Procedimento = this.row[3];
+            this.IdCliente = (app.sys.foreignKeyRestore(this.Clientesrc, "Nome", this.row[1]));
+            this.row[1];
+            var x = String(app.sys.foreignKeyRestore(this.Consultasrc, "Nome", this.row[2]));
+            this.Consulta = eval(x.split(","));
+            var x = String(app.sys.foreignKeyRestore(this.Procedimentosrc, "Nome", this.row[3]));
+            this.Procedimento = eval(x.split(","));
             this.Observacao = this.row[4];
             CKEDITOR.instances['observacaoatendimento'].setData(unescapeHTML(this.Observacao))
             this.DataAtendimento = this.row[5];
@@ -78,30 +84,37 @@ app["FichaAtendimento"] = new Vue({
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
-            window.localStorage.setItem("evento", this.Evento);
             this.biencode.IdCliente = this.IdCliente;
             this.biencode.Consulta = this.Consulta;
             this.biencode.Procedimento = this.Procedimento;
             this.Observacao = CKEDITOR.instances['observacaoatendimento'].getData();
             this.biencode.Observacao = this.Observacao;
-            this.biencode.DataAtendimento = this.DataAtendimento;
-            this.biencode.HoraAtendimento = this.HoraAtendimento;
+            if (this.Evento !== null) {
+                window.localStorage.setItem("evento", this.Evento);
+                this.biencode.DataAtendimento = DataISO(formatadata(app.sys.searchByID(this.eventos, this.Evento)[0].startTime));
+                this.biencode.HoraAtendimento = formatahora(app.sys.searchByID(this.eventos, this.Evento)[0].startTime);
+                this.biencode.Registrado = true;
+            } else {
+                this.biencode.DataAtendimento = this.DataAtendimento;
+                this.biencode.HoraAtendimento = this.HoraAtendimento;
+                this.biencode.Registrado = this.Registrado;
+            }
             this.biencode.Valor = this.Valor;
             this.biencode.LinkAnamnese = this.LinkAnamnese;
             this.biencode.Status = this.Status;
-            if (this.Evento !== null) {
-                this.biencode.Registrado = this.Registrado;
-            } else {
-                this.biencode.Registrado = true;
-            }
             this.biencode.id = this.id;
             this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
         },
         cadastrar: function () {
+            if (this.Evento !== null) {
+                window.localStorage.setItem("post", this.Evento)
+            }
             app.sys.crud(this.href, "add", null);
         },
         alterar: function () {
-            this.updateEventos(false);
+            if (this.Evento !== null) {
+                this.updateEventos(false);
+            }
             app.sys.crud(this.href, "edt", null);
         },
         excluir: function () {

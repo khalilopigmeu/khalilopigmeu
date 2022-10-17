@@ -55,8 +55,10 @@ app["sys"] = new Vue({
         start: function () {
             var dm = window.location.href;
             if (dm.includes("ws")) {
-                app.calendar.progress = 0;
-                app.sys.acessar(window.localStorage.getItem("IdLogin"), window.localStorage.getItem("RAVEC"));
+                //app.calendar.progress = 0;
+                if (!nulo(window.localStorage.getItem("IdLogin")) && !nulo(window.localStorage.getItem("RAVEC"))) {
+                    this.acessar(window.localStorage.getItem("IdLogin"), window.localStorage.getItem("RAVEC"));
+                }
                 app.sys.ravecUpdate();
                 $("#menu-toggle").hide();
                 $("#menu-toggle-R").show();
@@ -65,7 +67,7 @@ app["sys"] = new Vue({
             }
         },
         acessar: function (idlogin, ravec) {
-            app.sys.acesso = eval(decrypt(ravec, idlogin));
+            this.acesso = eval(decrypt(ravec, idlogin));
         },
         ravecmenu: function (href, nivel) {
             if (typeof app[href] !== "undefined" && app[href] !== null) {
@@ -83,10 +85,12 @@ app["sys"] = new Vue({
                 try {
                     if (app.sys.ravec(1, Object.keys(app)[i])) {
                         if (!nulo(app[Object.keys(app)[i]].stepkey)) {
-                            app.sidebarR.newmenu.push({
-                                nome: app.sidebarR.smenu[app[Object.keys(app)[i]].stepkey].nome,
-                                href: app.sidebarR.smenu[app[Object.keys(app)[i]].stepkey].href,
-                            });
+                            if (typeof app.sidebarR.smenu[app[Object.keys(app)[i]].stepkey] !== "undefined") {
+                                app.sidebarR.newmenu.push({
+                                    nome: app.sidebarR.smenu[app[Object.keys(app)[i]].stepkey].nome,
+                                    href: app.sidebarR.smenu[app[Object.keys(app)[i]].stepkey].href
+                                });
+                            }
                             app[Object.keys(app)[i]].populate();
                             if (typeof app[Object.keys(app)[i]].load === "function") {
                                 app[Object.keys(app)[i]].load();
@@ -97,7 +101,7 @@ app["sys"] = new Vue({
                     console.log(e)
                 }
                 app.calendar.progress += ratio;
-                app.sidebarR.newmenu = app.sys.sorter(app.sidebarR.newmenu, 'ASC', 'nome');
+                //app.sidebarR.newmenu = app.sys.sorter(app.sidebarR.newmenu, 'ASC', 'nome');
             }
         },
         keys: function () {
@@ -135,7 +139,7 @@ app["sys"] = new Vue({
                 if (arr !== null) {
                     if (model === "ASC") {
                         if (typeof arr.slice === "function") {
-                            if (typeof arr.slice.sort === "function") {
+                            if (typeof arr.slice().sort === "function") {
                                 return arr.slice().sort(function (a, b) {
                                     if (isNaN(a[field])) {
                                         if (typeof a[field] !== "undefined" || typeof b[field] !== "undefined") {
@@ -155,7 +159,7 @@ app["sys"] = new Vue({
                         }
                     } else {
                         if (typeof arr.slice === "function") {
-                            if (typeof arr.slice.sort === "function") {
+                            if (typeof arr.slice().sort === "function") {
                                 return arr.slice().sort(function (a, b) {
                                     if (isNaN(a[field])) {
                                         if (typeof a[field] !== "undefined" || typeof b[field] !== "undefined") {
