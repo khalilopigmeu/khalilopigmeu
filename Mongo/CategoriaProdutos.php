@@ -11,7 +11,7 @@ include $refUrl . "Mongo/template/head.php"
     <option>Selecione a classe</option>
     <option v-for="el in app.sys.sorter(ClasseSrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.TipoClasse}}</option>
 </select>
-<span class="btn"  onclick="setModal('ClasseProdutos', 'CategoriaProdutos')">Adicionar Classe <i class="far fa-plus-square"></i></span><br>
+<span class="btn" data-dismiss="modal" onclick="setModal('ClasseProdutos', 'CategoriaProdutos')">Adicionar Classe <i class="far fa-plus-square"></i></span><br>
 <br>
 <label>Nome:</label>
 <input class="form-control" v-model="TipoCategoria" placeholder="Nome..."><br>

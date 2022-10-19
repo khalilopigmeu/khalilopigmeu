@@ -13,6 +13,7 @@ app["Comissao"] = new Vue({
         Icon: '<i class="fas fa-funnel-dollar"></i>',
         pesqTbl: "",
         Host: "Bienestar/Financeiro/Comissao/",
+        paginate: [],
 
         Nome: null,
         Count: [],
@@ -201,6 +202,9 @@ app["Comissao"] = new Vue({
                 data: data,
             });
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.LancamentoFinanceiro)) {
                 this.LancamentoFinanceiroSrc = [];
@@ -212,6 +216,7 @@ app["Comissao"] = new Vue({
             } else {
                 this.eventos = app.Eventos.eventos;
             }
+            
         },
     }
 });

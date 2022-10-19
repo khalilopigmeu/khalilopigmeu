@@ -14,6 +14,7 @@ app["Midia"] = new Vue({
         Icon: '<i class="far fa-file"></i>',
         pesqTbl: "",
         Host: "Bienestar/Midia/Midias/",
+        paginate: [],
 
         UrlMidia: null,
         DescricaoMidia: null,
@@ -136,6 +137,9 @@ app["Midia"] = new Vue({
                 app.Midia.files.push(reader.result);
             };
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.Album)) {
                 this.AlbumSrc = [];
@@ -152,6 +156,7 @@ app["Midia"] = new Vue({
             } else {
                 this.ProdutoSrc = app.Produto.src;
             }
+            
         },
     }
 });

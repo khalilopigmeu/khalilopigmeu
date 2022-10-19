@@ -14,6 +14,7 @@ app["Portfolio"] = new Vue({
         Icon: '<i class="far fa-handshake"></i>',
         pesqTbl: "",
         Host: "Bienestar/Portfolio/Portfolios/",
+        paginate:[],
 
         IdAlbum: null,
         IdCategoriaPortfolio: null,
@@ -98,6 +99,9 @@ app["Portfolio"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.CategoriaPortfolio)) {
                 this.CategoriaPortfolioSrc = [];
@@ -109,6 +113,7 @@ app["Portfolio"] = new Vue({
             } else {
                 this.AlbumSrc = app.Album.src;
             }
+            
         },
     }
 });

@@ -1,3 +1,4 @@
+<?php $pageName = "AnuncianteSite"; ?>
 <div id="empresasanunciando" v-if="app.sys.page==='anunciante'||app.sys.page==='videos'||app.sys.page==='promocoes'" class="text-center justify-content-center">
     <div v-if="pgid===null" class="row text-center justify-content-center">
         <div class="col-10 input-group mb-3 row">
@@ -12,9 +13,9 @@
     </div>
     <div v-if="pgid===null" class="row text-center justify-content-center">
         <h2 class="spanCli m-2 p-2 mb-3 col-12">Conheça nossos clientes:</h2>
-        <div class="row text-center justify-content-center">
-            <div class="col-md-5 col-sm-5 m-1 col-lg-3 border col-xl-3 col-3 " v-for="itens in Divulgando()">
-                <img class="logoanunciante img-fluid rounded" 
+        <div class="wd-100 row text-center justify-content-center">
+            <div class="col-md-5 col-sm-5 m-1 col-lg-3 border col-xl-3 col-3 " v-for="itens in PaginasAnunciante">
+                <img class="logoanunciante img-fluid rounded"
                      v-bind:src="getLogo(itens._id['$oid'])">
                 <br>
                 <h3 class="spanCli">
@@ -42,7 +43,7 @@
                             {{itens.NomeFantasia}}
                         </span>
                         <span class="spanCli" v-else>
-                            {{itens.Nome}}    
+                            {{itens.Nome}}
                         </span>
                     </a>
                     <br>
@@ -56,7 +57,7 @@
                         Pacotes <i class="fas fa-hand-holding-usd"></i>
                     </a>
                     <!--<a class="btn btn-dark col-10 my-1 py-1" v-bind:href="'#anunciante?pgid='+itens._id['$oid']">
-                        Cupom <i class="fas fa-ticket-alt"></i>
+                    Cupom <i class="fas fa-ticket-alt"></i>
                     </a>-->
                     <div class='col-12' v-if="Anunciante(itens._id['$oid']).Ativo==='true'">
                         <a v-if="Anunciante(itens._id['$oid']).Tipo==='1'" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'#anunciante?pgid='+itens._id['$oid']">
@@ -82,28 +83,9 @@
                         </a>
                     </div>
                 </div>
-            </div>
-            <nav class="col-12" aria-label="Page navigation">
-                <ul class="pagination text-center justify-content-center">
-                    <li class="page-item">
-                        <span class="page-link" @click="app.sys.setPage(0)"><i class="fas fa-angle-double-left"></i></span>
-                    </li>
-                    <li class="page-item mr-1">
-                        <span class="page-link" v-if="(app.sys.currentPage-1)>-1" @click="app.sys.setPage(app.sys.currentPage-1)"><i class="fas fa-chevron-left"></i></span>
-                    </li>
-                    <li class="page-item" v-for="pageNumber in app.sys.totalPages" v-if="Math.abs(pageNumber - app.sys.currentPage) < 3 || pageNumber == app.sys.totalPages || pageNumber == 0">
-                        <span class="page-link"  @click="app.sys.setPage(pageNumber-1)"  :class="{current: app.sys.currentPage === pageNumber, last: (pageNumber == app.sys.totalPages - 1 && Math.abs(pageNumber - app.sys.currentPage) > 3), first:(pageNumber == 0 && Math.abs(pageNumber - app.sys.currentPage) > 3)}">{{ pageNumber }}</span>
-                    </li>
-
-                    <li class="page-item ml-1">
-                        <span class="page-link" v-if="(app.sys.currentPage+1)<app.sys.totalPages"  @click="app.sys.setPage(app.sys.currentPage+1)"><i class="fas fa-chevron-right"></i></span>
-                    </li>
-                    <li class="page-item">
-                        <span class="page-link" @click="app.sys.setPage(app.sys.totalPages-1)"><i class="fas fa-angle-double-right"></i></span>
-                    </li>
-                </ul>
-            </nav>
+            </div> 
         </div>
+        <?php include $refUrl . "Mongo/template/pagination.php" ?>
     </div>
     <div v-else>
         <?php include "anunciante_associado.php" ?>
@@ -152,10 +134,11 @@
 </div>
 <div id="midiasite" v-if="app.sys.page==='midia'" class="border rounded glory m-3 p-3 shadow-lg borda-x">
 </div>
+<?php $pageName = "AnuncianteSite"; ?>
 <script>
     window.onload = function () {
         app.empresasanunciando.load();
-    }
+    };
 </script>
 <script src="<?php echo $cdn; ?>ws/Site/pagina.js"></script>
 <script src="<?php echo $cdn; ?>ws/Site/empresas.js"></script>

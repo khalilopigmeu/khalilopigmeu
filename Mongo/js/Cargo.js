@@ -14,6 +14,7 @@ app["Cargo"] = new Vue({
         ELtitle: null,
         Icon: '<i class="fas fa-angle-double-right"></i>',
         pesqTbl: "",
+        paginate: [],
 
         Nome: null,
         Descricao: null,
@@ -76,12 +77,16 @@ app["Cargo"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.Departamento)) {
                 this.DepartamentoSrc = [];
             } else {
                 this.DepartamentoSrc = app.Departamento.src;
             }
+            
         },
     }
 });

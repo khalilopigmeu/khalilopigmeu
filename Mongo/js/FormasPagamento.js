@@ -14,6 +14,7 @@ app["FormasPagamento"] = new Vue({
         Icon: '<i class="fas fa-list-ol"></i>',
         pesqTbl: "",
         Host: "Bienestar/Financeiro/FormasPagamento/",
+        paginate: [],
 
         Taxa: null,
         NomeForma: null,
@@ -75,6 +76,12 @@ app["FormasPagamento"] = new Vue({
         },
         exc: function () {
             this.evtDataCal = "exc";
+        },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
+        load: function () {
+            
         },
     }
 });

@@ -14,6 +14,8 @@ app["Produto"] = new Vue({
         Icon: '<i class="fas fa-warehouse"></i>',
         pesqTbl: "",
         Host: "Bienestar/Produtos/Produto/",
+        paginate:[],
+        
         QtdMin: null,
         Caracteristicas: null,
         EspecificacaoProduto: null,
@@ -252,6 +254,9 @@ app["Produto"] = new Vue({
             }
             return list.filter(app.sys.onlyUnique);
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.FamiliaProdutos)) {
                 this.FamiliaSrc = [];
@@ -283,6 +288,7 @@ app["Produto"] = new Vue({
             } else {
                 this.AlbumSrc = app.Album.src;
             }
+            
         },
     }
 });

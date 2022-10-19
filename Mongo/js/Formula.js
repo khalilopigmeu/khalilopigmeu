@@ -14,6 +14,7 @@ app["Formula"] = new Vue({
         ELtitle: null,
         Icon: '<i class="fas fa-angle-double-right"></i>',
         pesqTbl: "",
+        paginate:[],
 
         custototal: null,
         Especificacao: null,
@@ -114,12 +115,16 @@ app["Formula"] = new Vue({
             }
             this.custo = Real(valor);
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.Produto)) {
                 this.ProdutosSrc = [];
             } else {
                 this.ProdutosSrc = app.Produto.src;
             }
+            
         },
     }
 });

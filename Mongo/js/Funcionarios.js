@@ -14,6 +14,7 @@ app["Funcionarios"] = new Vue({
         Icon: '<i class="far fa-id-card"></i>',
         pesqTbl: "",
         Host: "Bienestar/Gestao/Funcionario/",
+        paginate: [],
 
         UF: null,
         DataNasc: null,
@@ -36,11 +37,11 @@ app["Funcionarios"] = new Vue({
         IdCargo: null,
         IdPlanoSaude: null,
         IdPlanoOdonto: null,
-        
-        Departamentosrc:null,
-        Cargosrc:null,
-        PlanoSaudesrc:null,
-        PlanoOdontosrc:null,
+
+        Departamentosrc: null,
+        Cargosrc: null,
+        PlanoSaudesrc: null,
+        PlanoOdontosrc: null,
     },
     methods: {
         populate: function () {
@@ -150,6 +151,9 @@ app["Funcionarios"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.Departamento)) {
                 this.Departamentosrc = [];
@@ -171,6 +175,7 @@ app["Funcionarios"] = new Vue({
             } else {
                 this.PlanoOdontosrc = app.PlanoOdonto.src;
             }
+            
         },
     }
 });

@@ -27,11 +27,13 @@ app["sys"] = new Vue({
         keycodeSecurity: "QnNvNndsSmtBaXdBVWJzWnVnNmxRdHNFUkI1UUxkQU1IVFdYaW0reWJEMD0jOWY5MzczNWNhOTdmOWM2NDQzOTBjMWFmNWU2ZmMwMWQjNmQ2NzkzNTBhMDU5NWNiYjkxMzlhOGIyYTg3NzQwMGY=",
         urlSite: window.location.href,
         sandbox: false,
-        currentPage: 0,
-        itemsPerPage: 6,
-        resultCount: 0,
-        steper: 0,
-        count: 0,
+        ListaPage: [],
+        currentPage: [],
+        itemsPerPage: [],
+        resultCount: [],
+        Paginador: [],
+        steper: [],
+        count: [],
         pallete: 0,
         emailmkt: atob("eGtleXNpYi1iZDIyMTYyYjQwMmViZjYxNWU0MzAzZDczZWNkZmQ4OWE4MTk0MmQ5ZDYzN2M3NzE3M2MxOTRiNTZiYWExMTVhLW4yMHNISkFkNkk4Z0NqUWg="),
         acesso: [],
@@ -44,11 +46,6 @@ app["sys"] = new Vue({
         } else {
             this.refid = "613e9d1fb8f611d6e202902b";
             this.reflog = "613ea0cdb8f611d6e2029031";
-        }
-    },
-    computed: {
-        totalPages: function () {
-            return Math.ceil(this.resultCount / this.itemsPerPage)
         }
     },
     methods: {
@@ -480,21 +477,6 @@ app["sys"] = new Vue({
         onlyUnique: function (value, index, self) {
             return self.indexOf(value) === index;
         },
-        setPage: function (pageNumber) {
-            this.currentPage = pageNumber
-        },
-        paginate: function (list) {
-            if (!nulo(list)) {
-                this.resultCount = list.length
-                if (this.currentPage >= this.totalPages) {
-                    this.currentPage = 0
-                }
-                var index = parseInt(this.currentPage) * parseInt(this.itemsPerPage);
-                return list.slice(index, index + parseInt(this.itemsPerPage))
-            } else {
-                return [];
-            }
-        },
         timestamp(id) {
             var data = new Date(parseInt(id.toString().substring(0, 8), 16) * 1000),
                     dia = data.getDate().toString(),
@@ -704,7 +686,39 @@ app["sys"] = new Vue({
             } else {
                 return 0;
             }
-        }
+        },
+        paginar: function (nome) {
+            this.itemsPerPage[nome] = 6;
+            this.ListaPage[nome] = [];
+            this.currentPage[nome] = 0;
+            this.resultCount[nome] = 0;
+            this.Paginador[nome] = [];
+        },
+        totalPages: function (nome) {
+            return Math.ceil(this.resultCount[nome] / this.itemsPerPage[nome])
+        },
+        setPage: function (pageNumber, nome) {
+            this.currentPage[nome] = pageNumber;
+            this.paginate(this.ListaPage[nome], nome, this.Paginador[nome]);
+        },
+        paginate: function (list, nome, element) {
+            if (!nulo(list)) {
+                this.ListaPage[nome] = list;
+                this.Paginador[nome] = element;
+                this.resultCount[nome] = list.length;
+                if (this.currentPage[nome] >= this.totalPages(nome)) {
+                    this.currentPage[nome] = 0;
+                }
+                var index = parseInt(this.currentPage[nome]) * parseInt(this.itemsPerPage[nome]);
+                app[element[0]][element[1]] = list.slice(index, index + parseInt(this.itemsPerPage[nome]));
+            } else {
+                app[element[0]][element[1]] = [];
+            }
+        },
+        changeItensCount: function (nome, qtd) {
+            this.itemsPerPage[nome] = parseInt(qtd);
+            this.paginate(this.ListaPage[nome], nome, this.Paginador[nome]);
+        },
     }
 });
 $(function () {

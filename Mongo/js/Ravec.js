@@ -12,6 +12,7 @@ app["Ravec"] = new Vue({
         Icon: '<i class="fas fa-lock-open"></i>',
         pesqTbl: "",
         Host: "Bienestar///",
+        paginate:[],
 
         opcoes: [],
         acesso: [],
@@ -138,12 +139,16 @@ app["Ravec"] = new Vue({
             $(window).NotifyInfo(rs);
             app.Login.populate();
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.Login)) {
                 this.Loginsrc = [];
             } else {
                 this.Loginsrc = app.Login.src;
             }
+            
         }
     }
 });

@@ -14,6 +14,8 @@ app["RootAccess"] = new Vue({
         Icon: '<i class="far fa-edit"></i>',
         pesqTbl: "",
         Host: "Bienestar/Gestao/Empresa/",
+        paginate:[],
+        
         selEmpresa: null,
         selLogin: null,
         SenhaAdmin: null,
@@ -192,6 +194,9 @@ app["RootAccess"] = new Vue({
             var rs = decrypt(p);
             $(window).NotifyInfo(rs);
             app.Login.populate();
+        },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
             

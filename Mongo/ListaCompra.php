@@ -3,7 +3,7 @@ $pgtitle = "Lista de Compra";
 $page = "ListaCompra";
 $td = ["" . $page => ["Id", "Vendedor", "Nome da Lista", "Data", "Cliente", "Lista", "Solicitado"]];
 $tdvue = ["" . $page => ["td.IdLogin", "td.NomeLista", "td.DataLista", "td.Cliente", "td.Produtos", "td.Solicitacao"]];
-
+$pageName = "ListadeCompra";
 include $refUrl . "Mongo/template/head.php"
 ?>
 <label>Nome da lista:</label>
@@ -14,7 +14,7 @@ include $refUrl . "Mongo/template/head.php"
 <select class="form-control" v-model="Cliente" placeholder="Campo..." >
     <option v-for="el in app.sys.sorter(app.sys.searchall(Clientesrc,pesqCliente),'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
 </select>
-<span class="btn"  onclick="setModal('Cliente', 'Eventos')">Adicionar Cliente <i class="far fa-plus-square"></i></span><br>
+<span class="btn" data-dismiss="modal" onclick="setModal('Cliente', 'Eventos')">Adicionar Cliente <i class="far fa-plus-square"></i></span><br>
 <br>
 <hr>
 <div class="row">
@@ -85,13 +85,13 @@ include $refUrl . "Mongo/template/head.php"
     </nav>
     <div class="col-md-12 mx-auto col-lg-8 col-xl-8 col-12 text-center justify-content-center">
         <div class="row text-center justify-content-center">
-            <input type="text" v-model="produtoselect" v-on:change="app.sys.setPage(0)" class="form-control col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12" placeholder="Pesquise" aria-label="Pesquise" aria-describedby="basic-addon1">
+            <input type="text" v-model="produtoselect" v-on:change="app.sys.setPage(0,'<?php echo $pageName; ?>')" class="form-control col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12" placeholder="Pesquise" aria-label="Pesquise" aria-describedby="basic-addon1">
             <label class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">Itens por página:</label>
             <input type="text" class="form-control col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12"
-                   v-on:change="changeItensCount()" v-model="itensporpagina">
+                   v-on:change="changeItensCount('<?php echo $pageName; ?>')" v-model="itensporpagina">
         </div>
         <div class="row text-center justify-content-center m-2 p-2">
-            <div v-for="itens in app.sys.paginate(app.sys.searchall(produtos,produtoselect))" class="border border-dark rounded mb-3 col-11">
+            <div v-for="itens in app.sys.itensOnPage" class="border border-dark rounded mb-3 col-11">
                 <div class="row">
                     <div class="col-6 text-center justify-content-center">
                         <div id="carouselProdutos" class="carousel slide h-100 d-flex align-content-center flex-wrap " data-ride="carousel">
@@ -127,26 +127,12 @@ include $refUrl . "Mongo/template/head.php"
                 </div> 
             </div>
         </div>
-        <nav aria-label="Page navigation">
-            <ul class="pagination text-center justify-content-center">
-                <li class="page-item">
-                    <span class="page-link" @click="app.sys.setPage(0)"><i class="fas fa-angle-double-left"></i></span>
-                </li>
-                <li class="page-item mr-1">
-                    <span class="page-link" v-if="(app.sys.currentPage-1)>-1" @click="app.sys.setPage(app.sys.currentPage-1)"><i class="fas fa-chevron-left"></i></span>
-                </li>
-                <li class="page-item" v-for="pageNumber in app.sys.totalPages" v-if="Math.abs(pageNumber - app.sys.currentPage) < 3 || pageNumber == app.sys.totalPages || pageNumber == 0">
-                    <span class="page-link"  @click="app.sys.setPage(pageNumber-1)"  :class="{current: app.sys.currentPage === pageNumber, last: (pageNumber == app.sys.totalPages - 1 && Math.abs(pageNumber - app.sys.currentPage) > 3), first:(pageNumber == 0 && Math.abs(pageNumber - app.sys.currentPage) > 3)}">{{ pageNumber }}</span>
-                </li>
-
-                <li class="page-item ml-1">
-                    <span class="page-link" v-if="(app.sys.currentPage+1)<app.sys.totalPages"  @click="app.sys.setPage(app.sys.currentPage+1)"><i class="fas fa-chevron-right"></i></span>
-                </li>
-                <li class="page-item">
-                    <span class="page-link" @click="app.sys.setPage(app.sys.totalPages-1)"><i class="fas fa-angle-double-right"></i></span>
-                </li>
-            </ul>
-        </nav>
+        <?php include $refUrl . "Mongo/template/pagination.php" ?>
     </div>
 </div>
+<script>
+    $(function () {
+        
+    });
+</script>
 <?php include $refUrl . "Mongo/template/foot.php" ?>

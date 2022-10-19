@@ -14,6 +14,7 @@ app["Dependentes"] = new Vue({
         ELtitle: null,
         Icon: '<i class="fas fa-angle-double-right"></i>',
         pesqTbl: "",
+        paginate: [],
 
         Nome: null,
         RG: null,
@@ -30,10 +31,10 @@ app["Dependentes"] = new Vue({
         IdFuncionario: null,
         Estado: null,
         Rua: null,
-        
-        Funcionariosrc:null,
-        PlanoSaudesrc:null,
-        PlanoOdontosrc:null,
+
+        Funcionariosrc: null,
+        PlanoSaudesrc: null,
+        PlanoOdontosrc: null,
     },
     methods: {
         populate: function (e) {
@@ -111,6 +112,9 @@ app["Dependentes"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.Funcionarios)) {
                 this.Funcionariosrc = [];
@@ -127,6 +131,7 @@ app["Dependentes"] = new Vue({
             } else {
                 this.PlanoOdontosrc = app.PlanoOdonto.src;
             }
+            
         },
     }
 });

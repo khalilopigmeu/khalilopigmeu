@@ -14,6 +14,7 @@ app["PromocaoItem"] = new Vue({
         Icon: '<i class="far fa-folder-open"></i>',
         pesqTbl: "",
         Host: "Bienestar/Site/PromocaoItem/",
+        paginate:[],
 
         icon: null,
         LoteAtivo: null,
@@ -109,6 +110,9 @@ app["PromocaoItem"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.Login)) {
                 this.Produtosrc = [];
@@ -131,6 +135,7 @@ app["PromocaoItem"] = new Vue({
                 this.Projetosrc = [];
               //  this.Projetosrc = app.Projetos.src;
             }
+            
         },
     }
 });

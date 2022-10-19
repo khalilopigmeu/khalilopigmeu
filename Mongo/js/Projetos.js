@@ -14,6 +14,7 @@ app["Projetos"] = new Vue({
         ELtitle: null,
         Icon: '<i class="fas fa-angle-double-right"></i>',
         pesqTbl: "",
+        paginate:[],
 
         Data: null,
         Nome: null,
@@ -95,6 +96,12 @@ app["Projetos"] = new Vue({
                 var percent = parseFloat(this.Percentual[i]);
                 this.Total.push(parseFloat(Real(valor).multiply(percent / 100)));
             }
+        },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
+        load: function () {
+            
         },
     }
 });

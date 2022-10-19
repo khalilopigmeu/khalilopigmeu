@@ -14,6 +14,7 @@ app["Chamado"] = new Vue({
         ELtitle: null,
         Icon: '<i class="fas fa-bell"></i>',
         pesqTbl: "",
+        paginate: [],
 
         Observacao: null,
         Servico: null,
@@ -26,8 +27,8 @@ app["Chamado"] = new Vue({
         Previsao: null,
         Solucao: null,
         Nivel: null,
-        
-        ClienteSrc:null,
+
+        ClienteSrc: null,
     },
     methods: {
         populate: function (e) {
@@ -111,12 +112,16 @@ app["Chamado"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.Cliente)) {
                 this.ClienteSrc = [];
             } else {
                 this.ClienteSrc = app.Cliente.src;
             }
+            
         },
     }
 });

@@ -14,6 +14,7 @@ app["ControlePonto"] = new Vue({
         ELtitle: null,
         Icon: '<i class="fas fa-angle-double-right"></i>',
         pesqTbl: "",
+        paginate: [],
 
         HEntra: null,
         IdPonto: null,
@@ -23,8 +24,8 @@ app["ControlePonto"] = new Vue({
         HAlmoco: null,
         HRetorno: null,
         Justificativa: null,
-        
-        PontoSrc:null,
+
+        PontoSrc: null,
     },
     methods: {
         populate: function (e) {
@@ -95,12 +96,16 @@ app["ControlePonto"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.Ponto)) {
                 this.PontoSrc = [];
             } else {
                 this.PontoSrc = app.Ponto.src;
             }
+            
         },
     }
 });

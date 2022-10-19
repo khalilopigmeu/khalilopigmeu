@@ -14,6 +14,7 @@ app["CategoriaDispositivos"] = new Vue({
         Icon: '<i class="far fa-list-alt"></i>',
         pesqTbl: "",
         Host: "Bienestar/Dispositivos/CategoriaDispositivos/",
+        paginate: [],
 
         NomeCategoria: null,
 
@@ -86,7 +87,13 @@ app["CategoriaDispositivos"] = new Vue({
                 }
             }
             return flag;
-        }
+        },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
+        load: function () {
+            
+        },
 
     }
 });

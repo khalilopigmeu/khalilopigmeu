@@ -1,4 +1,4 @@
-var lof="";
+var lof = "";
 $(function () {
     $("form").submit(function (e) {
         e.preventDefault();
@@ -843,6 +843,8 @@ function setModal(sh, el) {
     $("#" + sh).on('hidden.bs.modal', function (e) {
         lastModal();
     });
+    $("#" + el).modal("toggle");
+    $("#" + sh).modal();
     window.localStorage.setItem("modalLast", el);
     window.localStorage.setItem("modalFocus", sh);
 }

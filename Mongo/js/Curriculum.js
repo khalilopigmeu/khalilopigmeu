@@ -14,6 +14,7 @@ app["Curriculum"] = new Vue({
         Icon: '<i class="fas fa-archive"></i>',
         pesqTbl: "",
         Host: "Bienestar/Site/Curriculum/",
+        paginate: [],
 
         Sobre: null,
         IdCliente: null,
@@ -103,6 +104,9 @@ app["Curriculum"] = new Vue({
             }
             return flag;
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.Cliente)) {
                 this.Clientesrc = [];
@@ -114,6 +118,7 @@ app["Curriculum"] = new Vue({
             } else {
                 this.Funcionariosrc = app.Funcionarios.src;
             }
+            
         },
     }
 });

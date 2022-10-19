@@ -14,6 +14,7 @@ app["Fornecedor"] = new Vue({
         Icon: '<i class="fas fa-dolly"></i>',
         pesqTbl: "",
         Host: "Bienestar/Gestao/Fornecedor/",
+        paginate: [],
 
         UF: null,
         CNAE: null,
@@ -149,6 +150,12 @@ app["Fornecedor"] = new Vue({
         },
         exc: function () {
             this.evtDataCal = "exc";
+        },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
+        load: function () {
+            
         },
     }
 });

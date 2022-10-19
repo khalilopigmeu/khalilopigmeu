@@ -11,7 +11,7 @@ include $refUrl . "Mongo/template/head.php"
 <select class="form-control"  v-model="IdCliente" placeholder="Cliente..." >
     <option v-for="el in app.sys.sorter(Clientesrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
 </select>
-<span class="btn"  onclick="setModal('Cliente', 'ControleMensalidade')">Adicionar Cliente <i class="far fa-plus-square"></i></span><br>
+<span class="btn" data-dismiss="modal" onclick="setModal('Cliente', 'ControleMensalidade')">Adicionar Cliente <i class="far fa-plus-square"></i></span><br>
 <br>
 <label>Dia de preferência:</label>
 <input type="number" class='form-control' min='1' max='30'><br>

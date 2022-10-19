@@ -14,6 +14,7 @@ app["Dispositivos"] = new Vue({
         Icon: '<i class="far fa-list-alt"></i>',
         pesqTbl: "",
         Host: "Bienestar/Dispositivos/Dispositivos/",
+        paginate: [],
 
         Nome: null,
         UUID: null,
@@ -119,6 +120,9 @@ app["Dispositivos"] = new Vue({
             }
             return flag;
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.Login)) {
                 this.LoginSrc = [];
@@ -130,6 +134,7 @@ app["Dispositivos"] = new Vue({
             } else {
                 this.CategoriaDispositivosSrc = app.CategoriaDispositivos.src;
             }
+            
         },
     }
 });

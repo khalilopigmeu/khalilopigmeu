@@ -14,6 +14,7 @@ app["Processo"] = new Vue({
         ELtitle: null,
         Icon: '<i class="fas fa-angle-double-right"></i>',
         pesqTbl: "",
+        paginate: [],
 
         IdProfissional: null,
         Profissionalsrc: null,
@@ -22,7 +23,7 @@ app["Processo"] = new Vue({
         Descricao: null,
         PermChamado: null,
         Material: null,
-Produtosrc:null,
+        Produtosrc: null,
     },
     methods: {
         populate: function (e) {
@@ -93,7 +94,10 @@ Produtosrc:null,
         exc: function () {
             this.evtDataCal = "exc";
         },
-        load: function(){
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
+        load: function () {
             if (nulo(app.Profissional)) {
                 this.Profissionalsrc = [];
             } else {
@@ -104,6 +108,7 @@ Produtosrc:null,
             } else {
                 this.Produtosrc = app.Produto.src;
             }
+            
         }
     }
 });

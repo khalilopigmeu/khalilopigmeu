@@ -14,6 +14,7 @@ app["Eventos"] = new Vue({
         Icon: '<i class="far fa-calendar-alt"></i>',
         pesqTbl: "",
         Host: "Bienestar/Agenda/Eventos/",
+        paginate: [],
 
         groupId: null,
         allDay: false,
@@ -59,6 +60,10 @@ app["Eventos"] = new Vue({
         FichaAtendimento: null,
         OrdemProducaoSrc: null,
         LancamentoFinanceiro: null,
+
+        IdCliente: null,
+        pesqCliente: null,
+        ClienteSrc: [],
     },
     methods: {
         populate: function () {
@@ -88,7 +93,7 @@ app["Eventos"] = new Vue({
             };
             app.sys.crud(app.Eventos.href, "listar", data);
             app.Eventos.eventos = app.Eventos.src;
-            app.Eventos.src=null;
+            app.Eventos.src = null;
             app.calendar.load();
             app.sys.tabs(this.href);
             this.itensporpagina = app.sys.itemsPerPage;
@@ -300,6 +305,9 @@ app["Eventos"] = new Vue({
                 }
             }
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.CategoriaEventos)) {
                 this.CategoriaSrc = [];
@@ -341,6 +349,12 @@ app["Eventos"] = new Vue({
             } else {
                 this.LancamentoFinanceiro = app.LancamentoFinanceiro.src;
             }
+            if (nulo(app.Cliente)) {
+                this.ClienteSrc = [];
+            } else {
+                this.ClienteSrc = app.Cliente.src;
+            }
+            
         },
     }
 });

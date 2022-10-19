@@ -14,16 +14,17 @@ app["Anuncio"] = new Vue({
         Icon: '<i class="fas fa-bullhorn"></i>',
         pesqTbl: "",
         Host: "Bienestar/Anuncio/Anunciante/",
-
+        paginate: [],
+        
         IdCategoriaAnuncio: null,
         Conteudo: null,
         Descricao: null,
         Tipo: null,
         Ativo: null,
         Keywords: null,
-        
-        Loginsrc:null,
-        CategoriaAnuncioSrc:null,
+
+        Loginsrc: null,
+        CategoriaAnuncioSrc: null,
     },
     methods: {
         populate: function () {
@@ -94,6 +95,9 @@ app["Anuncio"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.Login)) {
                 this.Loginsrc = [];
@@ -105,6 +109,7 @@ app["Anuncio"] = new Vue({
             } else {
                 this.CategoriaAnuncioSrc = app.CategoriaAnuncio.src;
             }
+            
         },
     }
 });

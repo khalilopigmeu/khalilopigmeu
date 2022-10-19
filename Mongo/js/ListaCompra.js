@@ -14,6 +14,7 @@ app["ListaCompra"] = new Vue({
         Icon: '<i class="fas fa-list-ol"></i>',
         pesqTbl: "",
         Host: "Bienestar/Loja/ListaLoja/",
+        paginate: [],
 
         IdLogin: null,
         Cliente: null,
@@ -32,13 +33,13 @@ app["ListaCompra"] = new Vue({
         subcategoriaselect: [],
         produtoselect: null,
         itensporpagina: null,
-        
-        Clientesrc:null,
-        familiaprodutos:null,
-        classeprodutos:null,
-        categoriaprodutos:null,
-        subcategoriaprodutos:null,
-        produtos:null,
+
+        Clientesrc: null,
+        familiaprodutos: null,
+        classeprodutos: null,
+        categoriaprodutos: null,
+        subcategoriaprodutos: null,
+        produtos: null,
     },
     methods: {
         populate: function () {
@@ -110,8 +111,8 @@ app["ListaCompra"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
-        changeItensCount: function () {
-            app.sys.itemsPerPage = this.itensporpagina;
+        changeItensCount: function (item) {
+            app.sys.itemsPerPage[item] = this.itensporpagina;
         },
         autoList: function (src, opcao) {
             switch (opcao) {
@@ -146,6 +147,9 @@ app["ListaCompra"] = new Vue({
         removerItem: function (row) {
             this.listaProdutos.splice(row, 1);
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.Cliente)) {
                 this.Clientesrc = [];
@@ -177,6 +181,7 @@ app["ListaCompra"] = new Vue({
             } else {
                 this.produtos = app.Produto.src;
             }
+            
         },
     }
 });

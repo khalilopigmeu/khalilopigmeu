@@ -60,13 +60,13 @@ include $refUrl . "Mongo/template/head.php"
 <select class="form-control" v-model="Consulta" multiple v-on:click="calcPreco()" placeholder="Campo..." >
     <option v-for="el in app.sys.sorter(Consultasrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
 </select>
-<span class="btn"  onclick="setModal('Consulta', 'FichaAtendimento')">Adicionar Consulta <i class="far fa-plus-square"></i></span><br>
+<span class="btn" data-dismiss="modal" onclick="setModal('Consulta', 'FichaAtendimento')">Adicionar Consulta <i class="far fa-plus-square"></i></span><br>
 <br>
 <label>Procedimento:</label>
 <select class="form-control" v-model="Procedimento" multiple v-on:click="calcPreco()" placeholder="Campo..." >
     <option v-for="el in app.sys.sorter(Procedimentosrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
 </select>
-<span class="btn"  onclick="setModal('Procedimento', 'FichaAtendimento')">Adicionar Procedimento <i class="far fa-plus-square"></i></span><br>
+<span class="btn" data-dismiss="modal" onclick="setModal('Procedimento', 'FichaAtendimento')">Adicionar Procedimento <i class="far fa-plus-square"></i></span><br>
 <label for="data">Ativar Promoção:</label>
 <input type="checkbox" v-on:change="calcPreco()" v-model="Promocao" placeholder="R$"><br>
 <label for="data">Valor:</label>
@@ -74,16 +74,17 @@ include $refUrl . "Mongo/template/head.php"
 
 <fieldset class="m-1 p-1 border rounded container-fluid border-dark">
     <legend>Data</legend>
+    <label>Evento:</label>
+    <select class="form-control" v-on:change='atualizadatas()' v-model="Evento" placeholder="Campo..." >
+        <option v-for="el in app.sys.sorter(eventos,'DESC','id')" v-bind:value="el._id['$oid']">{{el.title}} - {{formatadata(el.start)}} - {{formatahora(el.start)}}</option>
+    </select>
+    <span class="btn" data-dismiss="modal" onclick="setModal('Eventos', 'FichaAtendimento')">Adicionar Evento <i class="far fa-plus-square"></i></span><br>
+    <br>
+    <hr>
     <label for="data">Data:</label>
     <input class="form-control" type="date" v-model="DataAtendimento"><br>
     <label for="data">Hora:</label>
     <input class="form-control" type="time" v-model="HoraAtendimento"><br>
-    <label>Evento:</label>
-    <select class="form-control" v-model="Evento" placeholder="Campo..." >
-        <option v-for="el in app.sys.sorter(eventos,'DESC','id')" v-bind:value="el._id['$oid']">{{el.title}} - {{formatadata(el.start)}} - {{formatahora(el.start)}}</option>
-    </select>
-    <span class="btn"  onclick="setModal('Eventos', 'FichaAtendimento')">Adicionar Evento <i class="far fa-plus-square"></i></span><br>
-    <br>
 </fieldset>
 <label for="observacaoatendimento">Observação:</label>
 <textarea class="form-control" v-model="Observacao" name="observacaoatendimento" placeholder="Observação..."></textarea><br>

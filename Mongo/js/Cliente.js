@@ -14,6 +14,7 @@ app["Cliente"] = new Vue({
         Icon: '<i class="far fa-address-book"></i>',
         pesqTbl: "",
         Host: "Bienestar/Gestao/Clientes/",
+        paginate: [],
 
         UF: null,
         CNAE: null,
@@ -149,6 +150,12 @@ app["Cliente"] = new Vue({
         },
         exc: function () {
             this.evtDataCal = "exc";
+        },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
+        load: function () {
+            
         },
     }
 });

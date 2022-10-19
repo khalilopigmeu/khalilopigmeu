@@ -14,6 +14,7 @@ app["Componente"] = new Vue({
         ELtitle: null,
         Icon: '<i class="fas fa-angle-double-right"></i>',
         pesqTbl: "",
+        paginate: [],
 
         Especificacao: null,
         Observacao: null,
@@ -28,9 +29,9 @@ app["Componente"] = new Vue({
         Fornecedor: null,
         Manutencao: null,
         Garantia: null,
-        
-        FornecedorSrc:null,
-        EtagSrc:null,
+
+        FornecedorSrc: null,
+        EtagSrc: null,
     },
     methods: {
         populate: function (e) {
@@ -123,6 +124,9 @@ app["Componente"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.Fornecedor)) {
                 this.FornecedorSrc = [];
@@ -134,6 +138,7 @@ app["Componente"] = new Vue({
             } else {
                 this.EtagSrc = app.Etag.src;
             }
+            
         },
     }
 });

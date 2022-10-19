@@ -16,6 +16,38 @@ include $refUrl . "Mongo/template/head.php"
 </select>
 <span class="btn" onclick="setModal('CategoriaEventos', 'Eventos')">Adicionar Categoria <i class="far fa-plus-square"></i></span><br>
 <br>
+<fieldset class="border rounded m-1 p-1">
+    <legend>Importar dados:</legend>
+    <label>Pesquisa de cliente:</label><input class="form-control" type="text" v-model="pesqCliente"><br>
+    <label>Cliente:</label>
+    <select class="form-control" v-model="IdCliente" placeholder="Campo..." >
+        <option v-for="el in app.sys.sorter(app.sys.searchall(ClienteSrc,pesqCliente),'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
+    </select>
+    <span class="btn" onclick="setModal('Cliente', 'Eventos')">Adicionar Cliente <i class="far fa-plus-square"></i></span><br>
+    <hr>
+    <input type="radio" v-model="importar" value="atendimento"><label>Atendimento</label><br>
+    <div v-if="importar==='atendimento'">
+        <label for="modo">Ficha Atendimento:</label>
+        <select class="form-control" multiple="" v-model="FichaAtendimento">
+            <option v-for="item in app.sys.sorter(app.sys.search(FichaAtendimentoSrc,IdCliente,'IdCliente'),'DESC','id')" v-bind:value="item._id['$oid']" v-if="item.Registrado!='true'">{{app.sys.foreignKeyReplace(ClienteSrc,'Nome',item.IdCliente)}} - {{item.DataAtendimento}} - {{item.Valor}} - {{item.Observacao}}</option>
+        </select>
+    </div>
+    <input type="radio" v-model="importar" value="pedidovenda"><label>Pedido de Venda</label><br>
+    <div v-if="importar==='pedidovenda'">
+        <label for="modo">Pedido de Venda:</label>
+        <select class="form-control" multiple="" v-model="PedidoDeVenda">
+            <option v-for="item in app.sys.sorter(app.sys.search(PedidoVendaSrc,IdCliente,'IdCliente'),'DESC','id')" v-bind:value="item._id['$oid']">{{item.Nfatura}} - {{item.DataPedido}} - R${{item.ValorTotal}}</option>
+        </select>
+    </div>
+    <input type="radio" v-model="importar" value="financeiro"><label>Lançamento Financeiro</label><br>
+    <div v-if="importar==='financeiro'">
+        <label for="modo">Lançamento financeiro:</label>
+        <select class="form-control" multiple="" v-model="LancamentoFinanceiro">
+            <option v-for="item in app.sys.sorter(LancamentoFinanceiroSrc,'DESC','id')" v-bind:value="item._id['$oid']" v-if="item.Status!='true'">{{item.Documento}} - R${{item.Valor}}</option>
+        </select>
+    </div>
+</fieldset>
+
 <label for="Nome">Nome:</label>
 <input class="form-control" name="Nome" v-model="title" placeholder="Nome..."><br>
 <label for="observacaoagenda">Observação:</label>
@@ -74,30 +106,6 @@ include $refUrl . "Mongo/template/head.php"
         <br><br>
         <label for="repeat">Repetir Até:</label>
         <input class="form-control"  type="date"  v-model="repetirate" name="repeat" placeholder="Repetir Até..."><br>
-    </div>
-</fieldset>
-<fieldset class="border rounded m-1 p-1">
-    <legend>Importar dados:</legend>
-    <input type="radio" v-model="importar" value="atendimento"><label>Atendimento</label><br>
-    <div v-if="importar==='atendimento'">
-        <label for="modo">Ficha Atendimento:</label>
-        <select class="form-control" multiple="" v-model="FichaAtendimento">
-            <option v-for="item in app.sys.sorter(FichaAtendimentoSrc,'DESC','id')" v-bind:value="item._id['$oid']" v-if="item.Registrado!='true'">{{app.sys.foreignKeyReplace(app.Cliente.src,'Nome',item.IdCliente)}} - {{item.DataAtendimento}} - {{item.Valor}} - {{item.Observacao}}</option>
-        </select>
-    </div>
-    <input type="radio" v-model="importar" value="financeiro"><label>Lançamento Financeiro</label><br>
-    <div v-if="importar==='financeiro'">
-        <label for="modo">Lançamento financeiro:</label>
-        <select class="form-control" multiple="" v-model="LancamentoFinanceiro">
-            <option v-for="item in app.sys.sorter(LancamentoFinanceiroSrc,'DESC','id')" v-bind:value="item._id['$oid']" v-if="item.Status!='true'">{{item.Documento}} - R${{item.Valor}}</option>
-        </select>
-    </div>
-    <input type="radio" v-model="importar" value="pedidovenda"><label>Pedido de Venda</label><br>
-    <div v-if="importar==='pedidovenda'">
-        <label for="modo">Pedido de Venda:</label>
-        <select class="form-control" multiple="" v-model="PedidoDeVenda">
-            <option v-for="item in app.sys.sorter(PedidoVendaSrc,'DESC','id')" v-bind:value="item._id['$oid']">{{item.Nfatura}} - {{item.DataPedido}} - R${{item.ValorTotal}}</option>
-        </select>
     </div>
 </fieldset>
 <?php include $refUrl . "Mongo/template/foot.php" ?>

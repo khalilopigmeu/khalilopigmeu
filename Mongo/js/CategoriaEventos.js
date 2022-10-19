@@ -14,6 +14,7 @@ app["CategoriaEventos"] = new Vue({
         Icon: '<i class="far fa-list-alt"></i>',
         pesqTbl: "",
         Host: "Bienestar/Agenda/CategoriasEvt/",
+        paginate: [],
 
         Acessos: null,
         NomeCategoria: null,
@@ -104,12 +105,16 @@ app["CategoriaEventos"] = new Vue({
             }
             return flag;
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.Login)) {
                 this.Loginsrc = [];
             } else {
                 this.Loginsrc = app.Login.src;
             }
+            
         },
 
     }

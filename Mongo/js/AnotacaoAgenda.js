@@ -14,6 +14,7 @@ app["AnotacaoAgenda"] = new Vue({
         Icon: '<i class="far fa-edit"></i>',
         pesqTbl: "",
         Host: "Bienestar/Agenda/Anotacoes/",
+        paginate: [],
 
         Anotacao: null,
         datapesq: new Date().toISOString().slice(0, 10),
@@ -83,12 +84,16 @@ app["AnotacaoAgenda"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.CategoriaEventos)) {
                 this.CategoriaSrc = [];
             } else {
                 this.CategoriaSrc = app.CategoriaEventos.src;
             }
+            
         },
     }
 });

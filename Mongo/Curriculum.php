@@ -11,14 +11,14 @@ include $refUrl . "Mongo/template/head.php";
     <option>Selecione o(a) funcionário(a)</option>
     <option v-for="el in app.sys.sorter(Funcionariosrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
 </select>
-<span class="btn"  onclick="setModal('Funcionario', 'Curriculum')">Adicionar Funcionário <i class="far fa-plus-square"></i></span><br>
+<span class="btn" data-dismiss="modal" onclick="setModal('Funcionario', 'Curriculum')">Adicionar Funcionário <i class="far fa-plus-square"></i></span><br>
 <br>
 <label>Cliente:</label>
 <select class="form-control"  v-model="IdCliente">
     <option>Selecione o cliente</option>
     <option v-for="el in app.sys.sorter(Clientesrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
 </select>
-<span class="btn"  onclick="setModal('Cliente', 'Curriculum')">Adicionar Cliente <i class="far fa-plus-square"></i></span><br>
+<span class="btn" data-dismiss="modal" onclick="setModal('Cliente', 'Curriculum')">Adicionar Cliente <i class="far fa-plus-square"></i></span><br>
 <br>
 <label>Foto:</label>
 <input class="form-control" v-model="Foto" placeholder="Foto..." ><br>

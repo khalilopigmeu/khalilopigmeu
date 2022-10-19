@@ -14,6 +14,7 @@ app["Dicionario"] = new Vue({
         ELtitle: null,
         Icon: '<i class="fas fa-angle-double-right"></i>',
         pesqTbl: "",
+        paginate:[],
 
         JP: null,
         FR: null,
@@ -96,6 +97,12 @@ app["Dicionario"] = new Vue({
         },
         exc: function () {
             this.evtDataCal = "exc";
+        },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
+        load: function () {
+            
         },
     }
 });

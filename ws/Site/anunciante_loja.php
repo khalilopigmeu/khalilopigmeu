@@ -1,3 +1,4 @@
+<?php $pageName = "AnuncianteLoja"; ?>
 <section v-if="(spy==='loja' || spy==='all') &&(Anunciante(pgid).Tipo==='2' || Anunciante(pgid).Tipo==='3')">
     <h2 class="spanCli m-2 p-2" v-if="produtos!==null && produtos.length>0">Conheça nossos produtos:</h2>
     <div class="row"  v-if="produtos!==null && produtos.length>0">
@@ -45,7 +46,7 @@
             <div class="row text-center justify-content-center">
                 <fieldset class="col-10 mx-auto border rounded m-1 container-fluid border-dark">
                     <label>Itens por página:</label>
-                    <select type="text" class="form-control" v-on:change="changeItensCount()" v-model="itensporpagina">
+                    <select type="text" class="form-control" v-on:change="changeItensCount('<?php echo $pageName; ?>')" v-model="itensporpagina">
                         <option value="6">6</option>
                         <option value="12">12</option>
                         <option value="16">16</option>
@@ -60,10 +61,10 @@
                     <br>
                 </fieldset>
                 <br>
-                <input type="text" v-model="produtopesq" v-on:change="app.sys.setPage(0)" class="form-control col-10 p-1 m-1" placeholder="Pesquise" aria-label="Pesquise" aria-describedby="basic-addon1">
+                <input type="text" v-model="produtopesq" v-on:change="app.sys.setPage(0,'<?php echo $pageName; ?>')" class="form-control col-10 p-1 m-1" placeholder="Pesquise" aria-label="Pesquise" aria-describedby="basic-addon1">
             </div>
             <div class="row justify-content-center text-center">
-                <div v-for="itens in app.sys.paginate(app.sys.searchall(produtos,produtopesq))" class="col-lg-3 col-md-10 col-sm-4 m-1 p-1 border rounded border-dark produto">
+                <div v-for="itens in PaginasLoja" class="col-lg-3 col-md-10 col-sm-4 m-1 p-1 border rounded border-dark produto">
                     <div class="product__item" data-toggle="modal" data-target="#AboutProduto" v-on:click="buscaProduto(itens._id['$oid'])">
                         <div class="product__item__pic set-bg" v-bind:data-setbg="Midias(itens.IdAlbum)[0].UrlMidia">
                         </div>
@@ -75,26 +76,7 @@
                     </div>
                 </div>
             </div>
-            <nav aria-label="Page navigation">
-                <ul class="pagination text-center justify-content-center">
-                    <li class="page-item">
-                        <span class="page-link" @click="app.sys.setPage(0)"><i class="fas fa-angle-double-left"></i></span>
-                    </li>
-                    <li class="page-item mr-1">
-                        <span class="page-link" v-if="(app.sys.currentPage-1)>-1" @click="app.sys.setPage(app.sys.currentPage-1)"><i class="fas fa-chevron-left"></i></span>
-                    </li>
-                    <li class="page-item" v-for="pageNumber in app.sys.totalPages" v-if="Math.abs(pageNumber - app.sys.currentPage) < 3 || pageNumber == app.sys.totalPages || pageNumber == 0">
-                        <span class="page-link"  @click="app.sys.setPage(pageNumber-1)"  :class="{current: app.sys.currentPage === pageNumber-1, last: (pageNumber == app.sys.totalPages - 1 && Math.abs(pageNumber - app.sys.currentPage) > 3), first:(pageNumber == 0 && Math.abs(pageNumber - app.sys.currentPage) > 3)}">{{ pageNumber }}</span>
-                    </li>
-
-                    <li class="page-item ml-1">
-                        <span class="page-link" v-if="(app.sys.currentPage+1)<app.sys.totalPages"  @click="app.sys.setPage(app.sys.currentPage+1)"><i class="fas fa-chevron-right"></i></span>
-                    </li>
-                    <li class="page-item">
-                        <span class="page-link" @click="app.sys.setPage(app.sys.totalPages-1)"><i class="fas fa-angle-double-right"></i></span>
-                    </li>
-                </ul>
-            </nav>
+            <?php include $refUrl . "Mongo/template/pagination.php" ?>
         </div>
     </div>
 </section>

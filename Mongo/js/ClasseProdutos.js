@@ -14,6 +14,7 @@ app["ClasseProdutos"] = new Vue({
         Icon: '<i class="fas fa-th-large"></i>',
         pesqTbl: "",
         Host: "Bienestar/Produtos/ClasseProdutos/",
+        paginate: [],
 
         IdFamilia: null,
         TipoClasse: null,
@@ -71,12 +72,16 @@ app["ClasseProdutos"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.FamiliaProdutos)) {
                 this.FamiliaSrc = [];
             } else {
                 this.FamiliaSrc = app.FamiliaProdutos.src;
             }
+            
         },
     }
 });

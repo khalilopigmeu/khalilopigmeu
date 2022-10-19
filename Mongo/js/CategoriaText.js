@@ -14,6 +14,7 @@ app["CategoriaText"] = new Vue({
         Icon: '<i class="fas fa-list-alt"></i>',
         pesqTbl: "",
         Host: "Bienestar/Textos/CategoriaTexto/",
+        paginate: [],
 
         Nome: null,
     },
@@ -65,6 +66,12 @@ app["CategoriaText"] = new Vue({
         },
         exc: function () {
             this.evtDataCal = "exc";
+        },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
+        load: function () {
+            
         },
     }
 });

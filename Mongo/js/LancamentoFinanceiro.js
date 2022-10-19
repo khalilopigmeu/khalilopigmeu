@@ -14,6 +14,7 @@ app["LancamentoFinanceiro"] = new Vue({
         Icon: '<i class="fas fa-cash-register"></i>',
         pesqTbl: "",
         Host: "Bienestar/Financeiro/Lancamento/",
+        paginate: [],
 
         Modalidade: null,
         Documento: null,
@@ -177,6 +178,9 @@ app["LancamentoFinanceiro"] = new Vue({
             app.Eventos.alterar();
             window.localStorage.removeItem("evento");
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.FormasPagamento)) {
                 this.FormaPagamentoSrc = [];
@@ -193,6 +197,7 @@ app["LancamentoFinanceiro"] = new Vue({
             } else {
                 this.FichaAtendimentoSrc = app.FichaAtendimento.src;
             }
+            
         },
     }
 });

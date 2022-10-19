@@ -14,6 +14,7 @@ app["PlanoSistema"] = new Vue({
         Icon: '<i class="fas fa-hand-holding-usd"></i>',
         pesqTbl: "",
         Host: "Bienestar/Sistema/PlanoSistema/",
+        paginate:[],
 
         IdCategoriaPlanoSistema: null,
         CodPlano: null,
@@ -84,12 +85,16 @@ app["PlanoSistema"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.CategoriaPlanoSistema)) {
                 this.CategoriaPlanoSistemaSrc = [];
             } else {
                 this.CategoriaPlanoSistemaSrc = app.CategoriaPlanoSistema.src;
             }
+            
         },
     }
 });

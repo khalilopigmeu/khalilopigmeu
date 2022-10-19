@@ -14,13 +14,14 @@ app["ControlaMensalidade"] = new Vue({
         Icon: '<i class="fas fa-hand-holding-usd"></i>',
         pesqTbl: "",
         Host: "Bienestar/Financeiro/ControlaMensalidade/",
+        paginate: [],
 
         IdCliente: null,
         Modulos: [],
         DataPreferencia: null,
-        
-        Clientesrc:null,
-        PlanoSistemaSrc:null,
+
+        Clientesrc: null,
+        PlanoSistemaSrc: null,
     },
     methods: {
         populate: function () {
@@ -78,6 +79,9 @@ app["ControlaMensalidade"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.Cliente)) {
                 this.Clientesrc = [];
@@ -89,6 +93,7 @@ app["ControlaMensalidade"] = new Vue({
             } else {
                 this.PlanoSistemaSrc = app.PlanoSistema.src;
             }
+            
         },
     }
 });

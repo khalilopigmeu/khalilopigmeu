@@ -14,6 +14,7 @@ app["ReservaProduto"] = new Vue({
         Icon: '<i class="fas fa-cash-register"></i>',
         pesqTbl: "",
         Host: "Bienestar/Produtos/Reserva/",
+        paginate:[],
 
         Lista: null,
         PedidoVenda: null,
@@ -80,6 +81,12 @@ app["ReservaProduto"] = new Vue({
         },
         exc: function () {
             this.evtDataCal = "exc";
+        },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
+        load: function () {
+            
         },
     }
 });

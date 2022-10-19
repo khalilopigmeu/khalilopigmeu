@@ -14,6 +14,7 @@ app["FingerData"] = new Vue({
         Icon: '<i class="fas fa-list-ol"></i>',
         pesqTbl: "",
         Host: "Bienestar/Sistema/FingerData/",
+        paginate: [],
 
         IdFuncionario: null,
         E1: null,
@@ -26,8 +27,8 @@ app["FingerData"] = new Vue({
         D3: null,
         D4: null,
         D5: null,
-        
-        FuncionarioSrc:null,
+
+        FuncionarioSrc: null,
     },
     methods: {
         populate: function () {
@@ -107,12 +108,16 @@ app["FingerData"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.Funcionarios)) {
                 this.FuncionarioSrc = [];
             } else {
                 this.FuncionarioSrc = app.Funcionarios.src;
             }
+            
         },
     }
 });

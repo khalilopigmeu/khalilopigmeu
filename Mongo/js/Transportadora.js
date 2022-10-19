@@ -14,6 +14,7 @@ app["Transportadora"] = new Vue({
         Icon: '<i class="fas fa-truck"></i>',
         pesqTbl: "",
         Host: "Bienestar/Gestao/Transporatadora/",
+        paginate:[],
 
         UF: null,
         CNAE: null,
@@ -149,6 +150,12 @@ app["Transportadora"] = new Vue({
         },
         exc: function () {
             this.evtDataCal = "exc";
+        },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
+        load: function () {
+            
         },
     }
 });

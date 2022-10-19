@@ -14,6 +14,7 @@ app["Login"] = new Vue({
         Icon: '<i class="far fa-id-badge"></i>',
         pesqTbl: "",
         Host: "Bienestar/Sistema/Login/",
+        paginate: [],
 
         IdRevenda: null,
         IdVendedor: null,
@@ -127,6 +128,9 @@ app["Login"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.Funcionarios)) {
                 this.Funcionariosrc = [];
@@ -158,6 +162,7 @@ app["Login"] = new Vue({
             } else {
                 this.Vendedorsrc = app.Vendedor.src;
             }
+            
         },
         conectarFB() {
             app.sys.Status();

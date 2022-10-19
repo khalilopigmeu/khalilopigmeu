@@ -14,6 +14,7 @@ app["OS"] = new Vue({
         ELtitle: null,
         Icon: '<i class="fas fa-angle-double-right"></i>',
         pesqTbl: "",
+        paginate: [],
 
         Cliente: null,
         Atendente: null,
@@ -26,9 +27,9 @@ app["OS"] = new Vue({
         Previsao: null,
         Valor: null,
         Disponibilidade: null,
-        
-        Funcionariosrc:null,
-        Clientesrc:null,
+
+        Funcionariosrc: null,
+        Clientesrc: null,
     },
     methods: {
         populate: function () {
@@ -108,6 +109,9 @@ app["OS"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.Funcionarios)) {
                 this.Funcionariosrc = [];
@@ -119,6 +123,7 @@ app["OS"] = new Vue({
             } else {
                 this.Clientesrc = app.Cliente.src;
             }
+            
         },
     }
 });

@@ -46,6 +46,9 @@ app["empresasanunciando"] = new Vue({
         owl: [],
         page: null,
         conpro: null,
+
+        PaginasAnunciante: [],
+        PaginasLoja: [],
     },
     methods: {
         buscar: function (refid) {
@@ -150,7 +153,7 @@ app["empresasanunciando"] = new Vue({
             let list = [];
             let source;
             if (srcpesq === null) {
-                source = this.src;
+                source = this.produtos;
             } else {
                 source = srcpesq;
             }
@@ -163,7 +166,7 @@ app["empresasanunciando"] = new Vue({
             let list = [];
             let source;
             if (srcpesq === null) {
-                source = this.src;
+                source = this.produtos;
             } else {
                 source = srcpesq;
             }
@@ -176,7 +179,7 @@ app["empresasanunciando"] = new Vue({
             let list = [];
             let source;
             if (srcpesq === null) {
-                source = this.src;
+                source = this.produtos;
             } else {
                 source = srcpesq;
             }
@@ -189,7 +192,7 @@ app["empresasanunciando"] = new Vue({
             let list = [];
             let source;
             if (srcpesq === null) {
-                source = this.src;
+                source = this.produtos;
             } else {
                 source = srcpesq;
             }
@@ -198,8 +201,8 @@ app["empresasanunciando"] = new Vue({
             }
             return list.filter(app.sys.onlyUnique);
         },
-        changeItensCount: function () {
-            app.sys.itemsPerPage = this.itensporpagina;
+        changeItensCount: function (nome) {
+            app.sys.itemsPerPage[nome] = this.itensporpagina;
             this.loja();
         },
         autoList: function (src, opcao) {
@@ -300,7 +303,7 @@ app["empresasanunciando"] = new Vue({
                     itens.splice(i, 1);
                 }
             }
-            return app.sys.paginate(itens);
+            return itens;
         },
         cast: function () {
             var url = $("#toOpen").attr("data-url");
@@ -586,6 +589,10 @@ app["empresasanunciando"] = new Vue({
         setPg: function (item) {
             this.page = item;
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.empresasanunciando.Divulgando(), 'AnuncianteSite', ["empresasanunciando", "PaginasAnunciante"]);
+            app.sys.paginate(app.sys.searchall(app.empresasanunciando.produtos, app.empresasanunciando.produtopesq), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
+        },
         load: function () {
             app.sidebar.newmenu = [];
             app.empresasanunciando.addSpy("<i class='fas fa-bullhorn'></i> Anúncio", "all");
@@ -690,6 +697,7 @@ app["empresasanunciando"] = new Vue({
             if (getParameterByName('spy') !== null) {
                 this.espiar(getParameterByName('spy'));
             }
+            this.Criarpaginas();
         },
     },
 });

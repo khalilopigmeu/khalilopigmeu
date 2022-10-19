@@ -18,6 +18,9 @@
 <script src='<?php echo $cdn . "Mongo/js/" . $page . ".js"; ?>'></script>
 <script>
     $(function () {
+        $("#<?php echo $page; ?> .itensCount").on('change', function () {
+            app.sys.changeItensCount('<?php echo $page; ?>', $(this).val());
+        });
         app.sidebarR.smenu.push({
             nome: "<?php echo $pgtitle; ?>",
             href: "<?php echo $page; ?>",
@@ -33,6 +36,7 @@
             }
             if (typeof app.<?php echo $page; ?>.load === "function") {
                 app.<?php echo $page; ?>.load();
+                app.<?php echo $page; ?>.Criarpaginas();
             }
         });
 

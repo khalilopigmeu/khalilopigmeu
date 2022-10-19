@@ -1,3 +1,4 @@
+<?php $pageName = $page; ?>
 <div class="modal fade" role="dialog" aria-labelledby="" aria-hidden="true" id="<?php echo $page; ?>">
     <div class="modal-dialog modal-dialog-centered mw-100 w-75">
         <div class="modal-content">
@@ -21,7 +22,14 @@
                             <!--<div class="col-sm-2 my-3 ml-2 btn btn-dark toForm" v-if="row!=null && ravec(5)" v-on:click="rel"><i class="far fa-newspaper"></i> Relatório</div>-->
                         </div>  
                         <div class="row justify-content-center my-2 py-2">
-                            <label>Pesquisa: </label><input class="ml-2" type="text" v-model="pesqTbl">
+                            <label>Pesquisa: </label><input class="ml-2" type="text" v-model="pesqTbl"><br>
+                            <select type="text" class='itensCount'>
+                                <option value="5">Selecione a qtd.</option>
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                                <option value="25">25</option>
+                            </select>
                         </div>
                         <div class="row">
                             <div class="table-responsive container-fluid table-hover">
@@ -38,7 +46,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="td in app.sys.sorter(app.sys.searchall(src,pesqTbl),'DESC','_id.$oid')">
+                                        <tr v-for="td in paginate">
                                             <td>{{ app.sys.hasId(td._id) }}</td>
                                             <?php
                                             if (count($tdvue[$page]) > 0) {
@@ -60,6 +68,8 @@
                                     </tfoot>
                                 </table>                 
                             </div>
+                            <br>
+                            <?php  include $refUrl . "Mongo/template/pagination.php" ?>
                         </div>
                     </div>
                     <div id="tab-form<?php echo $page; ?>" class="tab-pane container-fluid" role="tabpanel" aria-labelledby="form-tab<?php echo $page; ?>">

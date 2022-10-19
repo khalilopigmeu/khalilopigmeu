@@ -14,6 +14,7 @@ app["PedidoVenda"] = new Vue({
         Icon: '<i class="fas fa-shopping-basket"></i>',
         pesqTbl: "",
         Host: "Bienestar/Loja/PedidoVenda/",
+        paginate: [],
 
         IdLista: null,
         IdLogin: null,
@@ -41,9 +42,9 @@ app["PedidoVenda"] = new Vue({
         Rua: null,
         Num: null,
         Complemento: null,
-        
-        Clientesrc:null,
-        Produtosrc:null,
+
+        Clientesrc: null,
+        Produtosrc: null,
     },
     methods: {
         populate: function () {
@@ -171,6 +172,9 @@ app["PedidoVenda"] = new Vue({
                 return app.ListaCompra.src;
             }
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.Cliente)) {
                 this.Clientesrc = [];
@@ -182,6 +186,7 @@ app["PedidoVenda"] = new Vue({
             } else {
                 this.Produtosrc = app.Produto.src;
             }
+            
         },
     }
 });

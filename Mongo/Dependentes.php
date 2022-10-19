@@ -11,7 +11,7 @@ include $refUrl . "Mongo/template/head.php"
 <select class="form-control" v-model="IdFuncionario" placeholder="Campo...">
     <option  v-if="Funcionariosrc!=null" v-for="el in app.sys.sorter(Funcionariosrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
 </select>
-<span class="btn"  onclick="zeroModal();setModal('Funcionarios', 'Dependentes')">Adicionar Funcionário(a) <i class="far fa-plus-square"></i></span><br>
+<span class="btn" data-dismiss="modal" onclick="zeroModal();setModal('Funcionarios', 'Dependentes')">Adicionar Funcionário(a) <i class="far fa-plus-square"></i></span><br>
 <br>
 <label for="Cpf">CPF:</label>
 <input type="text" class="cpf form-control" placeholder="xxx.xxx.xxx-xx" v-model="CPF" name="Cpf" required="required"><br>
@@ -26,14 +26,14 @@ include $refUrl . "Mongo/template/head.php"
     <option>Selecione a cato plano de saúde</option>
     <option v-for="el in app.sys.sorter(PlanoSaudesrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.NomeCategoria}}</option>
 </select><br>
-<span class="btn"  onclick="setModal('PlanoSaude', 'Dependentes')">Adicionar Plano de Saúde <i class="far fa-plus-square"></i></span><br>
+<span class="btn" data-dismiss="modal" onclick="setModal('PlanoSaude', 'Dependentes')">Adicionar Plano de Saúde <i class="far fa-plus-square"></i></span><br>
 <br>
 <label>Plano odontológico:</label>
 <select class="form-control" v-model="IdPlanoOdonto" name="IdPlanoOdonto">
     <option>Selecione a categoria</option>
     <option v-for="el in app.sys.sorter(PlanoOdontosrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.NomeCategoria}}</option>
 </select><br>
-<span class="btn"  onclick="setModal('PlanoOdonto', 'Dependentes')">Adicionar Plano Odontológico <i class="far fa-plus-square"></i></span><br>
+<span class="btn" data-dismiss="modal" onclick="setModal('PlanoOdonto', 'Dependentes')">Adicionar Plano Odontológico <i class="far fa-plus-square"></i></span><br>
 <br>
 <label for="CEP">CEP:</label>
 <input type="text" v-on:blur="app.sys.buscaCEP('<?php echo $page; ?>')" v-model="CEP" name="CEP" placeholder="xxxxx-xxx" class="cep form-control"><br>

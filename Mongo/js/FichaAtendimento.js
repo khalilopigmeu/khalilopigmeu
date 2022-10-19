@@ -14,6 +14,7 @@ app["FichaAtendimento"] = new Vue({
         Icon: '<i class="far fa-clipboard"></i>',
         pesqTbl: "",
         Host: "Bienestar/Clinica/FichaAtendimento/",
+        paginate: [],
 
         pesqCliente: "",
 
@@ -91,8 +92,8 @@ app["FichaAtendimento"] = new Vue({
             this.biencode.Observacao = this.Observacao;
             if (this.Evento !== null) {
                 window.localStorage.setItem("evento", this.Evento);
-                this.biencode.DataAtendimento = DataISO(formatadata(app.sys.searchByID(this.eventos, this.Evento)[0].startTime));
-                this.biencode.HoraAtendimento = formatahora(app.sys.searchByID(this.eventos, this.Evento)[0].startTime);
+                this.biencode.DataAtendimento = DataISO(formatadata(app.sys.searchByID(this.eventos, this.Evento)[0].start));
+                this.biencode.HoraAtendimento = formatahora(app.sys.searchByID(this.eventos, this.Evento)[0].start);
                 this.biencode.Registrado = true;
             } else {
                 this.biencode.DataAtendimento = this.DataAtendimento;
@@ -116,6 +117,10 @@ app["FichaAtendimento"] = new Vue({
                 this.updateEventos(false);
             }
             app.sys.crud(this.href, "edt", null);
+        },
+        atualizadatas: function () {
+            this.DataAtendimento = DataISO(formatadata(app.sys.searchByID(this.eventos, this.Evento)[0].start));
+            this.HoraAtendimento = formatahora(app.sys.searchByID(this.eventos, this.Evento)[0].start);
         },
         excluir: function () {
             app.sys.crud(this.href, "exc", null);
@@ -227,6 +232,9 @@ app["FichaAtendimento"] = new Vue({
             app.Eventos.alterar();
             window.localStorage.removeItem("evento");
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.Procedimento)) {
                 this.Procedimentosrc = [];
@@ -253,6 +261,7 @@ app["FichaAtendimento"] = new Vue({
             } else {
                 this.PromocaoSrc = app.PromocaoItem.src;
             }
+            
         },
     }
 });

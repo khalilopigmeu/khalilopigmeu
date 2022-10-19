@@ -14,6 +14,7 @@ app["Procedimento"] = new Vue({
         Icon: '<i class="fas fa-tasks"></i>',
         pesqTbl: "",
         Host: "Bienestar/Clinica/Procedimento/",
+        paginate:[],
 
         text: null,
         Descricao: null,
@@ -81,6 +82,12 @@ app["Procedimento"] = new Vue({
         },
         exc: function () {
             this.evtDataCal = "exc";
+        },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
+        load: function () {
+            
         },
     }
 });

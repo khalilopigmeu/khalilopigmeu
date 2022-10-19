@@ -14,6 +14,7 @@ app["Page"] = new Vue({
         Icon: '<i class="fas fa-globe"></i>',
         pesqTbl: "",
         Host: "Bienestar/Site/pagina/",
+        paginate: [],
 
         Titulo: null,
         UrlPage: null,
@@ -89,12 +90,16 @@ app["Page"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.Login)) {
                 this.Loginsrc = [];
             } else {
                 this.Loginsrc = app.Login.src;
             }
+            
         },
     }
 });

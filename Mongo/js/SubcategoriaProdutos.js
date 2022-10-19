@@ -14,6 +14,7 @@ app["SubcategoriaProdutos"] = new Vue({
         Icon: '<i class="fas fa-th"></i>',
         pesqTbl: "",
         Host: "Bienestar/Produtos/SubCatProdutos/",
+        paginate:[],
 
         TipoSubCategoria: null,
         IdCategoria: null,
@@ -72,12 +73,16 @@ app["SubcategoriaProdutos"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
+        Criarpaginas: function () {
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+        },
         load: function () {
             if (nulo(app.CategoriaProdutos)) {
                 this.CategoriaSrc = [];
             } else {
                 this.CategoriaSrc = app.CategoriaProdutos.src;
             }
+            
         }
     }
 });
