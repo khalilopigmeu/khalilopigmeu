@@ -364,20 +364,20 @@ app["sys"] = new Vue({
         },
         seo: function (url, id) {
             var key = decrypt(app.sys.bien, "encodedstring");
-            this.biencode = {};
+            var biencode = {};
             if (typeof id === 'undefined') {
-                this.biencode.empresa = app.sys.refid;
+                biencode.empresa = app.sys.refid;
             } else {
-                this.biencode.empresa = id;
+                biencode.empresa = id;
             }
-            this.biencode.urlpage = url;
+            biencode.urlpage = url;
             var data = {
-                biencode: encrypt(JSON.stringify(this.biencode), key)
+                biencode: JSON.stringify(biencode)
             };
             var ws = "Bienestar/Site/SEO/site";
             var p = (post(ws, data));
-            var rs = decrypt(p);
-            $("head").append(rs);
+            var rs = p;
+            return rs;
         },
         infield: function (field, pesq) {
             if (!nulo(pesq) || pesq !== "") {
