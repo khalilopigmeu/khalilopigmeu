@@ -28,7 +28,7 @@ include $refUrl . "Mongo/template/head.php"
     <input type="radio" v-model="importar" value="atendimento"><label>Atendimento</label><br>
     <div v-if="importar==='atendimento'">
         <label for="modo">Ficha Atendimento:</label>
-        <select class="form-control" multiple="" v-model="FichaAtendimento">
+        <select class="form-control" v-model="FichaAtendimento">
             <option v-for="item in app.sys.sorter(app.sys.search(FichaAtendimentoSrc,IdCliente,'IdCliente'),'DESC','id')" v-bind:value="item._id['$oid']" v-if="item.Registrado!='true'">{{app.sys.foreignKeyReplace(ClienteSrc,'Nome',item.IdCliente)}} - {{item.DataAtendimento}} - {{item.Valor}} - {{item.Observacao}}</option>
         </select>
     </div>

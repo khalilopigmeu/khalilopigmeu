@@ -123,15 +123,17 @@ app["Eventos"] = new Vue({
             this.OrdemProducao = [];
         },
         autocomplete: function () {
-            this.groupId = this.evt.groupId;
+            this.groupId=this.evt.groupId;
             this.allDay = parseBoolean(this.evt.allDay);
             this.start = calendar.formatIso(this.evt.start);
             this.inicio = ISOdata(calendar.formatIso(this.start));
             app.AnotacaoAgenda.datapesq = this.inicio;
             this.horai = formatahora(calendar.formatIso(this.start));
-            this.end = calendar.formatIso(this.evt.end);
-            this.fim = ISOdata(calendar.formatIso(this.end));
-            this.horaf = formatahora(calendar.formatIso(this.end));
+            if (!nulo(this.evt.end)) {
+                this.end = calendar.formatIso(this.evt.end);
+                this.fim = ISOdata(calendar.formatIso(this.end));
+                this.horaf = formatahora(calendar.formatIso(this.end));
+            }
             this.title = this.evt.title;
             this.classNames = this.evt.classNames;
             this.overlap = this.evt.overlap;
@@ -146,9 +148,9 @@ app["Eventos"] = new Vue({
 
             this.extendedProps = this.evt.extendedProps;
             this.observacao = this.extendedProps.descricao;
-            CKEDITOR.instances['observacaoagendacont'].setData(unescapeHTML(this.observacao))
+            CKEDITOR.instances['observacaoagenda'].setData(unescapeHTML(this.observacao))
 
-            this.cliente = this.extendedProps.cliente;
+            this.IdCliente = this.extendedProps.IdCliente;
             this.FichaAtendimento = this.extendedProps.FichaAtendimento;
             this.LancamentoFinanceiro = this.extendedProps.LancamentoFinanceiro;
             this.PedidoDeVenda = this.extendedProps.PedidoDeVenda;
@@ -194,12 +196,13 @@ app["Eventos"] = new Vue({
             this.biencode.id = this.id;
             var extendedProps = {};
             extendedProps.empresa = window.localStorage.getItem("IdEmpresa");
-            if (CKEDITOR.instances['observacaoagendacont'].getData().length > 0) {
-                this.observacao = CKEDITOR.instances['observacaoagendacont'].getData();
+            if (CKEDITOR.instances['observacaoagenda'].getData().length > 0) {
+                this.observacao = CKEDITOR.instances['observacaoagenda'].getData();
                 extendedProps.descricao = this.observacao;
             } else {
                 extendedProps.descricao = this.observacao;
             }
+            extendedProps.IdCliente = this.IdCliente;
             extendedProps.FichaAtendimento = this.FichaAtendimento;
             extendedProps.LancamentoFinanceiro = this.LancamentoFinanceiro;
             extendedProps.PedidoDeVenda = this.PedidoDeVenda;
@@ -254,10 +257,12 @@ app["Eventos"] = new Vue({
         cadastrar: function () {
             this.updateStatus();
             app.sys.crud(this.href, "add", null);
+            $("#Eventos").modal("dispose");
         },
         alterar: function () {
             this.updateStatus();
             app.sys.crud(this.href, "edt", null);
+            $("#Eventos").modal("dispose");
         },
         excluir: function () {
             app.sys.crud(this.href, "exc", null);
@@ -306,7 +311,7 @@ app["Eventos"] = new Vue({
             }
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
             if (nulo(app.CategoriaEventos)) {
@@ -334,27 +339,17 @@ app["Eventos"] = new Vue({
             } else {
                 this.PedidoDeVendaSrc = app.PedidoVenda.src;
             }
-            if (nulo(app.FichaAtendimento)) {
-                this.FichaAtendimento = [];
-            } else {
-                this.FichaAtendimento = app.FichaAtendimento.src;
-            }
             if (nulo(app.OP)) {
                 this.OrdemProducaoSrc = [];
             } else {
                 this.OrdemProducaoSrc = app.OP.src;
-            }
-            if (nulo(app.LancamentoFinanceiro)) {
-                this.LancamentoFinanceiro = [];
-            } else {
-                this.LancamentoFinanceiro = app.LancamentoFinanceiro.src;
             }
             if (nulo(app.Cliente)) {
                 this.ClienteSrc = [];
             } else {
                 this.ClienteSrc = app.Cliente.src;
             }
-            
+
         },
     }
 });
