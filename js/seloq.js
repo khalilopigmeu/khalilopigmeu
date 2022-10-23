@@ -9,7 +9,7 @@ var cdn;
 var swiper;
 $(function () {
     if (window.location.href.includes("bienclube")) {
-        urlfSys = false;
+        urlSys = false;
     } else {
         urlSys = true;
     }
