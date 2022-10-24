@@ -15,7 +15,7 @@ app["Customizar"] = new Vue({
         fstabela: null,
         linhaeven: null,
         linhaodd: null,
-        
+
         src: null,
         Host: "Bienestar/",
         navbarbg: null,
@@ -65,6 +65,22 @@ app["Customizar"] = new Vue({
         anunciotitulosfont: null,
         anuncioconteudofont: null,
     },
+   /* props: ['value'],
+    render: function (createElement) {
+        var self = this
+        return createElement('input', {
+            domProps: {
+                value: self.value,
+                class: "form-control",
+                type: "color"
+            },
+            on: {
+                input: function (event) {
+                    self.$emit('input', event.target.value)
+                }
+            }
+        })
+    },*/
     methods: {
         /*buscar: function () {
          $(function () {
@@ -88,6 +104,11 @@ app["Customizar"] = new Vue({
                     //app.Customizar[itens[i]] = app.Customizar.src[app.sys.pallete][itens[i]];
                     app.Customizar[itens[i]] = app.Customizar.src[0][itens[i]];
                 }
+            }
+        },
+        createOpts: function () {
+            for (var i = 0; i <= Object.keys(app.Customizar._data).length - 1; i++) {
+                console.log(Object.keys(app.Customizar._data)[i])
             }
         },
         readDef: function () {

@@ -123,7 +123,7 @@ app["Eventos"] = new Vue({
             this.OrdemProducao = [];
         },
         autocomplete: function () {
-            this.groupId=this.evt.groupId;
+            this.groupId = this.evt.groupId;
             this.allDay = parseBoolean(this.evt.allDay);
             this.start = calendar.formatIso(this.evt.start);
             this.inicio = ISOdata(calendar.formatIso(this.start));
@@ -257,12 +257,10 @@ app["Eventos"] = new Vue({
         cadastrar: function () {
             this.updateStatus();
             app.sys.crud(this.href, "add", null);
-            $("#Eventos").modal("dispose");
         },
         alterar: function () {
             this.updateStatus();
             app.sys.crud(this.href, "edt", null);
-            $("#Eventos").modal("dispose");
         },
         excluir: function () {
             app.sys.crud(this.href, "exc", null);

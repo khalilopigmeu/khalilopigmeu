@@ -18,6 +18,16 @@ app["LoginsOauth"] = new Vue({
                 };
                 var p = (post(app.LoginsOauth.Host + "RAVEC", data));
                 app.LoginsOauth.src = eval(decrypt(p, key));
+                var auth = getAuth();
+                if (window.localStorage.getItem("uuid") !== null) {
+                    var uid = window.localStorage.getItem("uuid");
+                    window.localStorage.clear();
+                    window.localStorage.setItem("uuid", uid);
+                    setAuth(auth);
+                } else {
+                    window.localStorage.clear();
+                    setAuth(auth);
+                }
                 window.localStorage.setItem("RAVEC", app.LoginsOauth.src[0].RAVEC);
                 window.localStorage.setItem("IdLogin", app.LoginsOauth.src[0]._id["$oid"]);
                 app.sys.acessar(window.localStorage.getItem("IdLogin"), window.localStorage.getItem("RAVEC"));
