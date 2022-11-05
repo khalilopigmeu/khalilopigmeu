@@ -16,7 +16,8 @@ include $refUrl . "Mongo/template/head.php"
 </select>
 <span class="btn" onclick="setModal('CategoriaEventos', 'Eventos')">Adicionar Categoria <i class="far fa-plus-square"></i></span><br>
 <br>
-<fieldset class="border rounded m-1 p-1">
+<label>Importar Dados:</label><input type="checkbox" v-model="importavel"><br>
+<fieldset class="border rounded m-1 p-1" v-if="importavel==true">
     <legend>Importar dados:</legend>
     <label>Pesquisa de cliente:</label><input class="form-control" type="text" v-model="pesqCliente"><br>
     <label>Cliente:</label>
@@ -48,7 +49,7 @@ include $refUrl . "Mongo/template/head.php"
     </div>
 </fieldset>
 
-<label for="Nome">Nome:</label>
+<label for="Nome">Nome do evento:</label>
 <input class="form-control" name="Nome" v-model="title" placeholder="Nome..."><br>
 <label for="observacaoagenda">Observação:</label>
 <textarea class="form-control" v-model="observacao" name="observacaoagenda" placeholder="Observação..."></textarea><br>

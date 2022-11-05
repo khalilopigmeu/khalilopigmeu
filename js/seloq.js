@@ -102,7 +102,7 @@ $(function () {
         }
     });
     $(".cep").blur(function () {
-        var key = decrypt(app.sys.bien, "encodedstring");
+        var key = getAuth();
         var CEP = $(this).val();
         var biencode = {};
         biencode.CEP = CEP;
@@ -145,9 +145,13 @@ function urlRead() {
             app.sys.page = element[1];
         }
     }
+    if (!nulo(window.localStorage.getItem("uuid"))) {
+        $(window).NotifyInfo(window.localStorage.getItem("uuid") + " Bem vindo");
+    }
     if (getParameterByName('uuid') !== null) {
         window.localStorage.setItem("uuid", getParameterByName('uuid'));
         $(window).NotifyInfo(getParameterByName('uuid') + " Bem vindo");
+        window.location.href = "index.php";
     }
     if (app.sys.page == "promocaoespacobienestar") {
         window.location.href = "https://bienclube.com.br/index.php#anunciante?pgid=61fbb5a965ac59817653d77c&spy=promocao";

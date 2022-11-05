@@ -64,6 +64,8 @@ app["Eventos"] = new Vue({
         IdCliente: null,
         pesqCliente: null,
         ClienteSrc: [],
+        
+        importavel:false,
     },
     methods: {
         populate: function () {

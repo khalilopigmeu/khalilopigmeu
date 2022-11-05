@@ -469,5 +469,10 @@ form{
 }
 
 .modal {
-  overflow-y:auto;
+    overflow-y:auto;
+}
+
+.notifyjs-container *{
+    font-size: 4vw !important;
+    white-space: nowrap;
 }
