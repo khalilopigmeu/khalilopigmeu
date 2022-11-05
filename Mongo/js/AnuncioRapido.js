@@ -28,7 +28,6 @@ app["AnuncioRapido"] = new Vue({
         populate: function () {
             this.biencode = {};
             this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-            this.biencode.acesso = window.localStorage.getItem("IdLogin");
             var data = {
                 biencode: encrypt(JSON.stringify(this.biencode))
             };
@@ -37,39 +36,25 @@ app["AnuncioRapido"] = new Vue({
         },
         clear: function () {
             this.id = null;
-            this.Acessos = null;
             this.Link = null;
             this.Titulo = null;
             this.Mensagem = null;
             this.Background = null;
-            CKEDITOR.instances['titulochamada'].setData("");
             CKEDITOR.instances['mensagemchamada'].setData("");
         },
         autocomplete: function () {
             this.id = this.row[0];
             this.Link = this.row[3];
             this.Titulo = this.row[1];
-            CKEDITOR.instances['titulochamada'].setData(unescapeHTML(this.Titulo))
             this.Mensagem = this.row[2];
             CKEDITOR.instances['mensagemchamada'].setData(unescapeHTML(this.Mensagem))
             this.Background = this.row[4];
-            var x = String(app.sys.foreignKeyRestore(this.Loginsrc, "Login", this.row[5]));
-            this.Acessos = eval(x.split(","));
         },
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
             this.biencode.id = this.id;
-            var ac = "";
-            for (var i = 0; i <= this.Acessos.length - 1; i++) {
-                ac += this.Acessos[i];
-                if (i < this.Acessos.length - 1) {
-                    ac += ";";
-                }
-            }
-            this.biencode.Acessos = ac;
             this.biencode.Link = this.Link;
-            this.Titulo = CKEDITOR.instances['titulochamada'].getData();
             this.biencode.Titulo = this.Titulo;
             this.Mensagem = CKEDITOR.instances['mensagemchamada'].getData();
             this.biencode.Mensagem = this.Mensagem;

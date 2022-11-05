@@ -52,7 +52,6 @@ app["sys"] = new Vue({
         start: function () {
             var dm = window.location.href;
             if (dm.includes("ws")) {
-                //app.calendar.progress = 0;
                 if (!nulo(window.localStorage.getItem("IdLogin")) && !nulo(window.localStorage.getItem("RAVEC"))) {
                     this.acessar(window.localStorage.getItem("IdLogin"), window.localStorage.getItem("RAVEC"));
                 }
@@ -330,6 +329,9 @@ app["sys"] = new Vue({
                             $(window).NotifyInfo(rs);
                             app[appcontrol].clear();
                             app[appcontrol].populate();
+                            if (typeof app[appcontrol].Criarpaginas === "function") {
+                                app[appcontrol].Criarpaginas();
+                            }
                         } else {
                             if (typeof app.erros.errors.push === "function")
                                 app.erros.errors.push(app[appcontrol].ELtitle + ": Erros");

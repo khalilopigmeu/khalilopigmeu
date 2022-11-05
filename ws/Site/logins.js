@@ -17,20 +17,27 @@ app["LoginsOauth"] = new Vue({
                     "biencode": encrypt(JSON.stringify(biencode), key)
                 };
                 var p = (post(app.LoginsOauth.Host + "RAVEC", data));
-                app.LoginsOauth.src = eval(decrypt(p, key));
-                var auth = getAuth();
-                if (window.localStorage.getItem("uuid") !== null) {
-                    var uid = window.localStorage.getItem("uuid");
-                    window.localStorage.clear();
-                    window.localStorage.setItem("uuid", uid);
-                    setAuth(auth);
+                var rav = decrypt(p, key);
+                if (!rav.includes("JSONException")) {
+                    app.LoginsOauth.src = eval(decrypt(p, key));
+                    var auth = getAuth();
+                    if (window.localStorage.getItem("uuid") !== null) {
+                        var uid = window.localStorage.getItem("uuid");
+                        window.localStorage.clear();
+                        window.localStorage.setItem("uuid", uid);
+                        setAuth(auth);
+                    } else {
+                        window.localStorage.clear();
+                        setAuth(auth);
+                    }
+                    window.localStorage.setItem("RAVEC", app.LoginsOauth.src[0].RAVEC);
+                    window.localStorage.setItem("IdLogin", app.LoginsOauth.src[0]._id["$oid"]);
+                    app.sys.acessar(window.localStorage.getItem("IdLogin"), window.localStorage.getItem("RAVEC"));
                 } else {
                     window.localStorage.clear();
-                    setAuth(auth);
+                    setAuth(decrypt(app.sys.bien, "encodedstring"));
+                    window.localStorage.setItem("IdLogin", id);
                 }
-                window.localStorage.setItem("RAVEC", app.LoginsOauth.src[0].RAVEC);
-                window.localStorage.setItem("IdLogin", app.LoginsOauth.src[0]._id["$oid"]);
-                app.sys.acessar(window.localStorage.getItem("IdLogin"), window.localStorage.getItem("RAVEC"));
             } else {
                 biencode = {};
                 biencode.all = "";

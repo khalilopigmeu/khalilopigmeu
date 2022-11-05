@@ -51,9 +51,9 @@ a:disabled,a.btn:disabled{
     color: var(--botoesoff) !important;
 }
 
-a:visited,a.btn:visited{
+/*a:visited,a.btn:visited{
     color: var(--botoesoff) !important;
-}
+}*/
 
 button:disabled,.btn:disabled{
     background: var(--botoesoff) !important;;
@@ -139,7 +139,7 @@ hr{
     height: 4vw;
 }
 
-
+/*
 .navbar{
     background: var(--navbarbg) !important;
 }
@@ -157,7 +157,7 @@ hr{
 .navbar .nav-link:hover{
     background: var(--botoesout);
 }
-
+*/
 .modal * {
     border-radius:10px !important;
 }

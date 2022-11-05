@@ -229,9 +229,6 @@ $(function () {
     CKEDITOR.replace('descricaoanuncio', {
         customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
     });
-    CKEDITOR.replace('titulochamada', {
-        customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
-    });
     CKEDITOR.replace('mensagemchamada', {
         customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
     });
