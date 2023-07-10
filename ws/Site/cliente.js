@@ -10,6 +10,8 @@ app["clientesite"] = new Vue({
         buscar: function (refid) {
             var key = decrypt(app.sys.bien, "encodedstring");
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             if (!nulo(refid)) {
                 this.biencode.empresa = refid;
             } else {
@@ -23,6 +25,8 @@ app["clientesite"] = new Vue({
         all: function () {
             var key = decrypt(app.sys.bien, "encodedstring");
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.all = "";
             var data = {
                 biencode: encrypt(JSON.stringify(this.biencode), key)

@@ -37,6 +37,9 @@ app["sys"] = new Vue({
         pallete: 0,
         emailmkt: atob("eGtleXNpYi1iZDIyMTYyYjQwMmViZjYxNWU0MzAzZDczZWNkZmQ4OWE4MTk0MmQ5ZDYzN2M3NzE3M2MxOTRiNTZiYWExMTVhLW4yMHNISkFkNkk4Z0NqUWg="),
         acesso: [],
+        keysite: null,
+        tokenv3: null,
+        onsys: false,
     },
     created: function () {
         var dm = window.location.hostname;
@@ -58,6 +61,7 @@ app["sys"] = new Vue({
                 app.sys.ravecUpdate();
                 $("#menu-toggle").hide();
                 $("#menu-toggle-R").show();
+                $("#menu-toggle-R i").removeClass("fa-shopping-bag").addClass("fa-bars");
             } else {
                 app.LoginsOauth.buscar(app.sys.reflog);
             }
@@ -110,6 +114,7 @@ app["sys"] = new Vue({
                 this.googleapikey = 'Ww8izv4t2LvrZMAV2OC8RKz0';
                 this.login_oauth = '1067522805118-jloabvn8n7vqlnd8qd6gj2ut11ojck1m.apps.googleusercontent.com';
                 this.key_oauth = atob('R09DU1BYLXgzQWRWdTlMSWY3ZFllSl93cDhYa1A2eVRRcnM=');
+                this.keysite = atob("NkxmdWVzb2tBQUFBQUNKY3F2UXFWcEUwb2lJX2tFTWwydmhHdzU3Sg==");
             }
             if (dm.includes("bienclube")) {
                 sandBox(false);
@@ -119,6 +124,7 @@ app["sys"] = new Vue({
                 this.googleapikey = 'Ww8izv4t2LvrZMAV2OC8RKz0';
                 this.login_oauth = '335814088949-4s5kvvptcpr76t2l23pkk7ptkfkmlapo.apps.googleusercontent.com';
                 this.key_oauth = atob('R09DU1BYLVJvdm5FZFZnSzVsa3FBMDNIdGdkbmRDUXZxOHY=');
+                this.keysite = atob("'NkxmdWVzb2tBQUFBQUNKY3F2UXFWcEUwb2lJX2tFTWwydmhHdzU3Sg=='");
             }
             if (dm.includes("borealmystic")) {
                 sandBox(false);
@@ -128,6 +134,7 @@ app["sys"] = new Vue({
                 this.googleapikey = 'Ww8izv4t2LvrZMAV2OC8RKz0';
                 this.login_oauth = '1037020366638-h57ishvlsjfjv4rltepcdp62b431hur3.apps.googleusercontent.com';
                 this.key_oauth = atob('R09DU1BYLTZNVG9tc29fSlhnZjZTTC1TX3dFbG1tWklLQXo=');
+                this.keysite = atob("'NkxmdWVzb2tBQUFBQUNKY3F2UXFWcEUwb2lJX2tFTWwydmhHdzU3Sg=='");
             }
         },
         sorter: function (arr, model, field) {
@@ -216,8 +223,17 @@ app["sys"] = new Vue({
             });
             mask();
         },
+        shuffleArray: function (array) {
+            for (var i = array.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+            return array;
+        },
         randomList: function (array) {
-            if (!nulo(null)) {
+            if (!nulo(array)) {
                 var currentIndex = array.length;
                 var temporaryValue;
                 var randomIndex;
@@ -367,6 +383,8 @@ app["sys"] = new Vue({
         seo: function (url, id) {
             var key = decrypt(app.sys.bien, "encodedstring");
             var biencode = {};
+            captchaSys(app.sys.keysite);
+            biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             if (typeof id === 'undefined') {
                 biencode.empresa = app.sys.refid;
             } else {
@@ -492,6 +510,8 @@ app["sys"] = new Vue({
             var key = decrypt(app.sys.bien, "encodedstring");
             var CEP = app[appVue].CEP;
             var biencode = {};
+            captchaSys(app.sys.keysite);
+            biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             biencode.CEP = CEP;
             var data = {
                 "biencode": encrypt(JSON.stringify(biencode), key)
@@ -510,23 +530,61 @@ app["sys"] = new Vue({
                 $("#modal .modal-body").text(rs);
             }
         },
-        oauthGoogle: function (func) {
+        oauthGoogle: function (url) {
             var cliente_oauth = app.sys.login_oauth;
             var googleapikey = app.sys.key_oauth;
             var CLIENT_ID = cliente_oauth;
             var API_KEY = googleapikey;
-            var SCOPES = 'email profile openid';
 
-            google.accounts.id.initialize({
-                client_id: CLIENT_ID,
-                ux_mode: 'redirect',
-                callback: func
-            });
-            google.accounts.id.prompt();
-            google.accounts.id.renderButton(
-                    document.getElementById("googlebtn"),
-                    {theme: "outline", size: "large"}
-            );
+            var SCOPES = 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile openid';
+
+            var oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
+            var form = document.createElement('form');
+            form.setAttribute('method', 'GET'); // Send as a GET request.
+            form.setAttribute('action', oauth2Endpoint);
+            var params = {'client_id': CLIENT_ID,
+                'redirect_uri': 'https://rtiempresarial.com.br/' + url,
+                'response_type': 'token',
+                'scope': SCOPES,
+                'include_granted_scopes': 'true'};
+            for (var p in params) {
+                var input = document.createElement('input');
+                input.setAttribute('type', 'hidden');
+                input.setAttribute('name', p);
+                input.setAttribute('value', params[p]);
+                form.appendChild(input);
+            }
+            document.body.appendChild(form);
+            form.submit();
+        },
+        RevokeoauthGoogle: function (token) {
+            var oauth2Endpoint = 'https://oauth2.googleapis.com/revoke';
+            var form = document.createElement('GET');
+            form.setAttribute('method', 'POST'); // Send as a GET request.
+            form.setAttribute('action', oauth2Endpoint);
+            var params = {'token': token};
+            for (var p in params) {
+                var input = document.createElement('input');
+                input.setAttribute('type', 'hidden');
+                input.setAttribute('name', p);
+                input.setAttribute('value', params[p]);
+                form.appendChild(input);
+            }
+            document.body.appendChild(form);
+            form.submit();
+        },
+        getUser: function () {
+            $.ajax({
+                type: "GET",
+                url: "https://www.googleapis.com/oauth2/v1/userinfo?access_token=" + window.localStorage.getItem("access_token"),
+                crossDomain: true,
+            }).done(function (result) {
+                window.localStorage.setItem("userinfoGG", JSON.stringify(result));
+                window.location.href = "index.php#modalLoginSys";
+            }).fail(function (result) {
+                window.localStorage.setItem("userinfoGG", JSON.stringify(result));
+                window.location.href = "index.php#modalLoginSys";
+            }).responseText;
         },
         parseJwt: function (token) {
             var base64Url = token.split('.')[1];
@@ -700,6 +758,7 @@ app["sys"] = new Vue({
             return Math.ceil(this.resultCount[nome] / this.itemsPerPage[nome])
         },
         setPage: function (pageNumber, nome) {
+            this.top();
             this.currentPage[nome] = pageNumber;
             this.paginate(this.ListaPage[nome], nome, this.Paginador[nome]);
         },
@@ -721,6 +780,69 @@ app["sys"] = new Vue({
             this.itemsPerPage[nome] = parseInt(qtd);
             this.paginate(this.ListaPage[nome], nome, this.Paginador[nome]);
         },
+        scanQRCode: function () {
+            function onScanSuccess(decodedText, decodedResult) {
+                console.log(`Code matched = ${decodedText}`, decodedResult);
+            }
+
+            function onScanFailure(error) {
+                console.warn(`Code scan error = ${error}`);
+            }
+
+            let html5QrcodeScanner = new Html5QrcodeScanner(
+                    "idBoxReader",
+                    {fps: 10, qrbox: {width: 250, height: 250}},
+                    false);
+            html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+        },
+        consultaCad: function (modelo, id) {
+            var biencode = {};
+            switch (modelo) {
+                case "login":
+                    biencode.login = id;
+                    break;
+                case "empresa":
+                    biencode.empresa = id;
+                    break;
+                case "cliente":
+                    biencode.cliente = id;
+                    break;
+                case "vendedor":
+                    biencode.vendedor = id;
+                    break;
+                case "revenda":
+                    biencode.revenda = id;
+                    break;
+            }
+            var data = {
+                "biencode": encrypt(JSON.stringify(biencode))
+            };
+            var ws = "Bienestar/Sistema/Login/ConsultaCad";
+            var p = (post(ws, data));
+            var rs = decrypt(p);
+            if (eval(rs).length > 0) {
+                switch (modelo) {
+                    case "login":
+                        $(window).NotifyWarn("e-mail já cadastrado");
+                        break;
+                    case "empresa":
+                        $(window).NotifyWarn("Empresa já cadastrada");
+                        break;
+                    case "cliente":
+                        $(window).NotifyWarn("Cliente já cadastrado");
+                        break;
+                    case "vendedor":
+                        $(window).NotifyWarn("Vendedor já cadastrado");
+                        break;
+                    case "revenda":
+                        $(window).NotifyWarn("Revenda já cadastrada");
+                        break;
+                }
+                this.onsys = false;
+            } else {
+                this.onsys = true;
+            }
+        }
     }
 });
 $(function () {

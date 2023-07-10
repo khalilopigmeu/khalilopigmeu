@@ -64,12 +64,14 @@ app["Eventos"] = new Vue({
         IdCliente: null,
         pesqCliente: null,
         ClienteSrc: [],
-        
-        importavel:false,
+
+        importavel: false,
     },
     methods: {
         populate: function () {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
             var d = new Date();
             var m = d.getMonth() + 1;
@@ -164,6 +166,8 @@ app["Eventos"] = new Vue({
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.groupId = this.groupId;
             this.biencode.allDay = this.allDay;
             if (this.horai.match(new RegExp(":", "g") || []).length === 1) {
@@ -287,6 +291,8 @@ app["Eventos"] = new Vue({
                 for (var i = 0; i <= this.LancamentoFinanceiro.length - 1; i++) {
                     app.erros.errors = {};
                     app.LancamentoFinanceiro.biencode = {};
+                    captchaSys(app.sys.keysite);
+                    app.LancamentoFinanceiro.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
                     app.LancamentoFinanceiro.biencode.id = this.LancamentoFinanceiro[i];
                     app.LancamentoFinanceiro.biencode.Status = true;
                     var data = {
@@ -300,6 +306,8 @@ app["Eventos"] = new Vue({
                 for (var i = 0; i <= this.FichaAtendimento.length - 1; i++) {
                     app.erros.errors = {};
                     app.FichaAtendimento.biencode = {};
+                    captchaSys(app.sys.keysite);
+                    app.FichaAtendimento.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
                     app.FichaAtendimento.biencode.id = this.FichaAtendimento[i];
                     app.FichaAtendimento.biencode.Registrado = true;
                     var data = {

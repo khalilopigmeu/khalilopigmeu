@@ -11,6 +11,8 @@ app["PromocaoSite"] = new Vue({
     methods: {
         buscaItens: function (refid) {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             if (!nulo(refid)) {
                 this.biencode.empresa = refid;
             } else {
@@ -26,6 +28,8 @@ app["PromocaoSite"] = new Vue({
         },
         buscaPacotes: function (refid) {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             if (!nulo(refid)) {
                 this.biencode.empresa = refid;
             } else {

@@ -10,6 +10,8 @@ app["configuracaosite"] = new Vue({
         buscar: function (refid) {
             var key = decrypt(app.sys.bien, "encodedstring");
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             if (!nulo(refid)) {
                 this.biencode.pgid = refid;
             } else {

@@ -10,6 +10,8 @@ app["midiasite"] = new Vue({
         buscar: function (refid, id) {
             var key = decrypt(app.sys.bien, "encodedstring");
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             if (!nulo(refid)) {
                 this.biencode.empresa = refid;
             } else {

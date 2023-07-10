@@ -14,8 +14,8 @@ app["RootAccess"] = new Vue({
         Icon: '<i class="far fa-edit"></i>',
         pesqTbl: "",
         Host: "Bienestar/Gestao/Empresa/",
-        paginate:[],
-        
+        paginate: [],
+
         selEmpresa: null,
         selLogin: null,
         SenhaAdmin: null,
@@ -31,6 +31,8 @@ app["RootAccess"] = new Vue({
         populate: function () {
             this.Host = "Bienestar/Gestao/Empresa/";
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.all = window.localStorage.getItem("IdEmpresa");
             var data = {
                 biencode: encrypt(JSON.stringify(this.biencode))
@@ -43,6 +45,8 @@ app["RootAccess"] = new Vue({
             this.Host = "Bienestar/Sistema/Login/";
             this.src = null;
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.empresa = app.RootAccess.selEmpresa;
             var data = {
                 biencode: encrypt(JSON.stringify(this.biencode))
@@ -54,6 +58,8 @@ app["RootAccess"] = new Vue({
         },
         solicitaRoot: function () {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.Modelo = "Root";
             this.biencode.SenhaAdmin = this.SenhaAdmin;
             var Empresa = null, Nome = null, Login = null, Ravec = null;
@@ -183,7 +189,9 @@ app["RootAccess"] = new Vue({
         },
         updateRAVEC: function () {
             app.Login.biencode = {};
-            app.Login.biencode.RAVEC = encrypt(JSON.stringify(app.RootAccess.opcoes),app.RootAccess.Acessos);
+            captchaSys(app.sys.keysite);
+            app.Login.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
+            app.Login.biencode.RAVEC = encrypt(JSON.stringify(app.RootAccess.opcoes), app.RootAccess.Acessos);
             app.Login.biencode.id = String(app.RootAccess.Acessos);
             app.Login.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
             var data = {
@@ -196,10 +204,10 @@ app["RootAccess"] = new Vue({
             app.Login.populate();
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
-            
+
         },
     }
 });

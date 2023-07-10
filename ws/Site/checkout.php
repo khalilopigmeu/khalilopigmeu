@@ -1,130 +1,141 @@
-<section class="checkout spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h6><span class="icon_tag_alt"></span> Have a coupon? <a href='#'>Click here</a> to enter your code
-                </h6>
-            </div>
-        </div>
-        <div class="checkout__form">
-            <h4>Billing Details</h4>
-            <form action="#">
-                <div class="row">
-                    <div class="col-lg-8 col-md-6">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="checkout__input">
-                                    <p>Fist Name<span>*</span></p>
-                                    <input type="text">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="checkout__input">
-                                    <p>Last Name<span>*</span></p>
-                                    <input type="text">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="checkout__input">
-                            <p>Country<span>*</span></p>
-                            <input type="text">
-                        </div>
-                        <div class="checkout__input">
-                            <p>Address<span>*</span></p>
-                            <input type="text" placeholder="Street Address" class="checkout__input__add">
-                            <input type="text" placeholder="Apartment, suite, unite ect (optinal)">
-                        </div>
-                        <div class="checkout__input">
-                            <p>Town/City<span>*</span></p>
-                            <input type="text">
-                        </div>
-                        <div class="checkout__input">
-                            <p>Country/State<span>*</span></p>
-                            <input type="text">
-                        </div>
-                        <div class="checkout__input">
-                            <p>Postcode / ZIP<span>*</span></p>
-                            <input type="text">
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="checkout__input">
-                                    <p>Phone<span>*</span></p>
-                                    <input type="text">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="checkout__input">
-                                    <p>Email<span>*</span></p>
-                                    <input type="text">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="checkout__input__checkbox">
-                            <label for="acc">
-                                Create an account?
-                                <input type="checkbox" id="acc">
-                                <span class="checkmark"></span>
-                            </label>
-                        </div>
-                        <p>Create an account by entering the information below. If you are a returning customer
-                            please login at the top of the page</p>
-                        <div class="checkout__input">
-                            <p>Account Password<span>*</span></p>
-                            <input type="text">
-                        </div>
-                        <div class="checkout__input__checkbox">
-                            <label for="diff-acc">
-                                Ship to a different address?
-                                <input type="checkbox" id="diff-acc">
-                                <span class="checkmark"></span>
-                            </label>
-                        </div>
-                        <div class="checkout__input">
-                            <p>Order notes<span>*</span></p>
-                            <input type="text"
-                                   placeholder="Notes about your order, e.g. special notes for delivery.">
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="checkout__order">
-                            <h4>Your Order</h4>
-                            <div class="checkout__order__products">Products <span>Total</span></div>
-                            <ul>
-                                <li>Vegetable’s Package <span>$75.99</span></li>
-                                <li>Fresh Vegetable <span>$151.99</span></li>
-                                <li>Organic Bananas <span>$53.99</span></li>
-                            </ul>
-                            <div class="checkout__order__subtotal">Subtotal <span>$750.99</span></div>
-                            <div class="checkout__order__total">Total <span>$750.99</span></div>
-                            <div class="checkout__input__checkbox">
-                                <label for="acc-or">
-                                    Create an account?
-                                    <input type="checkbox" id="acc-or">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do eiusmod tempor incididunt
-                                ut labore et dolore magna aliqua.</p>
-                            <div class="checkout__input__checkbox">
-                                <label for="payment">
-                                    Check Payment
-                                    <input type="checkbox" id="payment">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="checkout__input__checkbox">
-                                <label for="paypal">
-                                    Paypal
-                                    <input type="checkbox" id="paypal">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <button type="submit" class="site-btn">PLACE ORDER</button>
-                        </div>
-                    </div>
+<section id="checkoutvenda">
+    <div class="modal fade" role="dialog" aria-labelledby="" aria-hidden="true" id="FinalizarCompra">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Finalizar Compra</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
-            </form>
+                <div class="modal-body">
+                    <section class="checkout spad">
+                        <div class="container">
+                            <div class="checkout__form">
+                                <div class="row justify-content-center">
+                                    <div class="col-8 mx-auto">
+                                        <div v-if="flag==true" class="checkout__order">
+                                            <h4>Dados do pedido</h4>
+                                            <div class="checkout__order__products">Produtos <span>Total</span></div>
+                                            <ul>
+                                                <li v-for="(item,key) in carroCompra()">
+                                                    <div class="row  align-items-center">
+                                                        <img class="col-3 img-thumbnail" v-bind:src="app.empresasanunciando.Midias(listar(key).IdAlbum)[0].UrlMidia">
+                                                        <div class="col-9 text-center">
+                                                            <div class="row">
+                                                                <div class="col-6 text-center">
+                                                                    {{item}} x {{listar(key).NomeProduto}} 
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <span>R$ {{total(HasPromo(listar(key)._id['$oid'],listar(key).Preco),item)}}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+
+                                            <button onclick="$('#modalLoginSys').modal()" class="btn">Acesse para finalizar o pedido</button>
+
+                                            <div class="checkout__order__subtotal">Subtotal <span>R$ {{SubTotal}}</span></div>
+                                            <div class="checkout__order__subtotal">Frete <span>R$ 0</span></div>
+                                            <div class="checkout__order__total">Total + Frete<span>R$ {{SubTotal}}</span></div>
+                                            <br>
+                                            <div v-if='logado===true'>
+                                                <div class="row">
+                                                    <div class="checkout__input__checkbox col-12">
+                                                        <label for="diff-acc">
+                                                            Enviar em um endereço diferente?
+                                                            <input type="checkbox" v-model="outroEndereco" id="diff-acc">
+                                                            <span class="checkmark"></span>
+                                                        </label>
+                                                        <fieldset v-if="outroEndereco===true">
+                                                            <legend>Endereço de entrega</legend>
+                                                            <div class="checkout__input">
+                                                                <p>CEP<span>*</span></p>
+                                                                <input type="text" v-on:focus="app.sys.mascara" class="cep"  v-on:blur="app.sys.buscaCEP('checkoutvenda')" v-model="CEP">
+                                                            </div>
+                                                            <div class="checkout__input">
+                                                                <p>Logradouro<span>*</span></p>
+                                                                <input type="text" v-model="Rua">
+                                                            </div>
+                                                            <div class="checkout__input">
+                                                                <p>Numero<span>*</span></p>
+                                                                <input type="text" v-model="Num">
+                                                            </div>
+                                                            <div class="checkout__input">
+                                                                <p>complemento<span>*</span></p>
+                                                                <input type="text" v-model="Complemento">
+                                                            </div>
+                                                            <div class="checkout__input">
+                                                                <p>Bairro<span>*</span></p>
+                                                                <input type="text" v-model="Bairro">
+                                                            </div>
+                                                            <div class="checkout__input">
+                                                                <p>Cidade<span>*</span></p>
+                                                                <input type="text" v-model="Cidade">
+                                                            </div>
+                                                            <div class="checkout__input">
+                                                                <p>Estado<span>*</span></p>
+                                                                <input type="text" v-model="UF">
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                                <div class='row'>
+                                                    <div class="col-12">
+                                                        <p>Observação<span>*</span></p>
+                                                        <textarea type="text" class="form-control"
+                                                                  placeholder="Observação" v-model="observacao"></textarea>
+                                                        <p>Método de pagamento</p>
+                                                        <div>
+                                                            <label for="boleto">
+                                                                <input v-model="metodo" value="boleto" type="radio" id="boleto"> Boleto <i class="fas fa-receipt"></i>
+                                                            </label>
+                                                        </div>
+                                                        <div>
+                                                            <label for="pix">
+                                                                <input v-model="metodo" value="pix" type="radio" id="pix"> Pix <i class="fas fa-qrcode"></i>
+                                                            </label>
+                                                        </div>
+                                                        <div>
+                                                            <label for="cartao">
+                                                                <input v-model="metodo" value="credito" type="radio" id="cartao"> Crédito <i class="far fa-credit-card"></i>
+                                                            </label>
+                                                            <fieldset v-if="metodo==='credito'">
+                                                                <div class="checkout__input">
+                                                                    <p>Nome<span>*</span></p>
+                                                                    <input v-model="Nome" type="text">
+                                                                </div>
+                                                                <div class="checkout__input">
+                                                                    <p>Cartão<span>*</span></p>
+                                                                    <input v-model="cartao" type="text">
+                                                                </div>
+                                                                <div class="checkout__input">
+                                                                    <p>Validade<span>*</span></p>
+                                                                    <input v-model="expiracao" type="text">
+                                                                </div>
+                                                                <div class="checkout__input">
+                                                                    <p>CVV<span>*</span></p>
+                                                                    <input v-model="cvv" type="text">
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>
+                                                        <button type="submit" v-on:click="SalvarPedido()" class="site-btn">Salvar Pedido <i class="fab fa-gratipay"></i></button>
+                                                        <br><br>
+                                                        <button type="submit" v-on:click="FinalizarPedido()" class="site-btn">Realizar Compra <i class="fas fa-shopping-bag"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </section>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
         </div>
     </div>
 </section>
+<script src="ws/Site/checkout.js"></script>

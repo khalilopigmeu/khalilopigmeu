@@ -1,5 +1,4 @@
 "use strict",
-//LoginsOauth
 app["LoginsOauth"] = new Vue({
     el: '#LoginsOauth',
     data: {
@@ -12,6 +11,8 @@ app["LoginsOauth"] = new Vue({
             var key = decrypt(app.sys.bien, "encodedstring");
             if (!nulo(id)) {
                 biencode = {};
+                captchaSys(app.sys.keysite);
+                biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle");
                 biencode.id = id;
                 var data = {
                     "biencode": encrypt(JSON.stringify(biencode), key)
@@ -23,23 +24,21 @@ app["LoginsOauth"] = new Vue({
                     var auth = getAuth();
                     if (window.localStorage.getItem("uuid") !== null) {
                         var uid = window.localStorage.getItem("uuid");
-                        window.localStorage.clear();
                         window.localStorage.setItem("uuid", uid);
                         setAuth(auth);
                     } else {
-                        window.localStorage.clear();
                         setAuth(auth);
                     }
                     window.localStorage.setItem("RAVEC", app.LoginsOauth.src[0].RAVEC);
                     window.localStorage.setItem("IdLogin", app.LoginsOauth.src[0]._id["$oid"]);
                     app.sys.acessar(window.localStorage.getItem("IdLogin"), window.localStorage.getItem("RAVEC"));
                 } else {
-                    window.localStorage.clear();
                     setAuth(decrypt(app.sys.bien, "encodedstring"));
                     window.localStorage.setItem("IdLogin", id);
                 }
             } else {
                 biencode = {};
+                captchaSys(app.sys.keysite);
                 biencode.all = "";
                 var data = {
                     biencode: encrypt(JSON.stringify(biencode), key)
@@ -60,6 +59,7 @@ app["LoginsOauth"] = new Vue({
             var key = decrypt(app.sys.bien, "encodedstring");
             if (!nulo(id)) {
                 biencode = {};
+                captchaSys(app.sys.keysite);
                 biencode.id = id;
                 var data = {
                     "biencode": encrypt(JSON.stringify(biencode), key)
@@ -71,6 +71,7 @@ app["LoginsOauth"] = new Vue({
                 app.sys.acessar(window.localStorage.getItem("IdLogin"), window.localStorage.getItem("RAVEC"));
             } else {
                 biencode = {};
+                captchaSys(app.sys.keysite);
                 biencode.all = "";
                 var data = {
                     biencode: encrypt(JSON.stringify(biencode), key)
@@ -86,6 +87,8 @@ app["LoginsOauth"] = new Vue({
         },
         conectar: function (device) {
             var biencode = {};
+            captchaSys(app.sys.keysite);
+            biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             biencode.UUID = device.UUID;
             biencode.Modelo = "Google,Facebook,Dispositivo";
             var data = {

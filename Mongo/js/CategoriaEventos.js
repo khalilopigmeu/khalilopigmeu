@@ -24,6 +24,8 @@ app["CategoriaEventos"] = new Vue({
     methods: {
         populate: function () {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
             this.biencode.acesso = window.localStorage.getItem("IdLogin");
             var data = {
@@ -48,6 +50,8 @@ app["CategoriaEventos"] = new Vue({
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.id = this.id;
             var ac = "";
             for (var i = 0; i <= this.Acessos.length - 1; i++) {
@@ -106,7 +110,7 @@ app["CategoriaEventos"] = new Vue({
             return flag;
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
             if (nulo(app.Login)) {
@@ -114,7 +118,7 @@ app["CategoriaEventos"] = new Vue({
             } else {
                 this.Loginsrc = app.Login.src;
             }
-            
+
         },
 
     }

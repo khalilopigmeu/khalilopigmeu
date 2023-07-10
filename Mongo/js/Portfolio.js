@@ -14,7 +14,7 @@ app["Portfolio"] = new Vue({
         Icon: '<i class="far fa-handshake"></i>',
         pesqTbl: "",
         Host: "Bienestar/Portfolio/Portfolios/",
-        paginate:[],
+        paginate: [],
 
         IdAlbum: null,
         IdCategoriaPortfolio: null,
@@ -30,6 +30,8 @@ app["Portfolio"] = new Vue({
     methods: {
         populate: function () {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
             var data = {
                 biencode: encrypt(JSON.stringify(this.biencode))
@@ -61,6 +63,8 @@ app["Portfolio"] = new Vue({
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.IdAlbum = this.IdAlbum;
             this.biencode.IdCategoriaPortfolio = this.IdCategoriaPortfolio;
             this.biencode.Nome = this.Nome;
@@ -100,7 +104,7 @@ app["Portfolio"] = new Vue({
             this.evtDataCal = "exc";
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
             if (nulo(app.CategoriaPortfolio)) {
@@ -113,7 +117,7 @@ app["Portfolio"] = new Vue({
             } else {
                 this.AlbumSrc = app.Album.src;
             }
-            
+
         },
     }
 });

@@ -27,6 +27,13 @@ include $refUrl . "Mongo/template/head.php"
         <option v-if="LoginSrc!=null" v-for="el in app.sys.sorter(LoginSrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Login}}</option>
     </select>
     <span class="btn" onclick="setModal('Login', 'RootAccess')">Adicionar Login <i class="far fa-plus-square"></i></span><br>
+    <select>
+        <option>Cliente</option>
+        <option>Site</option>
+        <option>Loja Virtual</option>
+        <option>Consultorio</option>
+        <option>Full</option>
+    </select>
     <div v-for="(item,index) in opcoes" class="my-3 py-3">
         <label>{{item.nome}}: </label>
         <input type="checkbox" v-on:click="check(1,index,$event)"  :checked='item.nivel>=1'><span class="ml-1 pr-3 lead" >Visualizar</span>

@@ -49,6 +49,8 @@ app["PedidoVenda"] = new Vue({
     methods: {
         populate: function () {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
             var data = {
                 biencode: encrypt(JSON.stringify(this.biencode))
@@ -105,6 +107,8 @@ app["PedidoVenda"] = new Vue({
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.Nfatura = this.Nfatura;
             this.IdLogin = window.localStorage.getItem("IdLogin");
             this.biencode.IdLogin = this.IdLogin;
@@ -173,7 +177,7 @@ app["PedidoVenda"] = new Vue({
             }
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
             if (nulo(app.Cliente)) {
@@ -186,7 +190,7 @@ app["PedidoVenda"] = new Vue({
             } else {
                 this.Produtosrc = app.Produto.src;
             }
-            
+
         },
     }
 });

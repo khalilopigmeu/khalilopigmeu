@@ -32,6 +32,8 @@ app["Comissao"] = new Vue({
     methods: {
         populate: function () {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
             var data = {
                 biencode: encrypt(JSON.stringify(this.biencode))
@@ -54,6 +56,8 @@ app["Comissao"] = new Vue({
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.Referencia = this.Referencia;
             this.biencode.Percentual = this.Percentual;
             this.biencode.id = this.id;
@@ -203,7 +207,7 @@ app["Comissao"] = new Vue({
             });
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
             if (nulo(app.LancamentoFinanceiro)) {
@@ -216,7 +220,7 @@ app["Comissao"] = new Vue({
             } else {
                 this.eventos = app.Eventos.eventos;
             }
-            
+
         },
     }
 });

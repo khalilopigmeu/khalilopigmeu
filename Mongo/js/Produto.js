@@ -14,8 +14,8 @@ app["Produto"] = new Vue({
         Icon: '<i class="fas fa-warehouse"></i>',
         pesqTbl: "",
         Host: "Bienestar/Produtos/Produto/",
-        paginate:[],
-        
+        paginate: [],
+
         QtdMin: null,
         Caracteristicas: null,
         EspecificacaoProduto: null,
@@ -23,6 +23,7 @@ app["Produto"] = new Vue({
         DimensaoProduto: null,
         QtdEstoque: null,
         Preco: null,
+        Peso: null,
         UnidComp: null,
         CodBarras: null,
         KeyWord: null,
@@ -57,6 +58,8 @@ app["Produto"] = new Vue({
     methods: {
         populate: function () {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
             var data = {
                 biencode: encrypt(JSON.stringify(this.biencode))
@@ -72,6 +75,7 @@ app["Produto"] = new Vue({
             this.DimensaoProduto = null;
             this.QtdEstoque = null;
             this.Preco = null;
+            this.Peso = null;
             this.UnidComp = null;
             this.CodBarras = null;
             this.KeyWord = null;
@@ -112,23 +116,26 @@ app["Produto"] = new Vue({
             this.ResumoProduto = this.row[11];
             CKEDITOR.instances['resumo'].setData(unescapeHTML(this.ResumoProduto));
             this.Preco = this.row[12];
-            this.DimensaoProduto = this.row[13];
-            this.QtdMin = this.row[14];
-            this.QtdEstoque = this.row[15];
-            this.DataValidade = this.row[16];
-            this.CodBarras = this.row[17];
-            this.KeyWord = this.row[18];
-            this.DataCriacao = this.row[19];
-            this.UnidVend = this.row[20];
-            this.Contas = this.row[21];
-            this.Tipo = this.row[22];
-            this.Uso = this.row[23];
-            this.UnidComp = this.row[24];
+            this.Peso = this.row[13];
+            this.DimensaoProduto = this.row[14];
+            this.QtdMin = this.row[15];
+            this.QtdEstoque = this.row[16];
+            this.DataValidade = this.row[17];
+            this.CodBarras = this.row[18];
+            this.KeyWord = this.row[19];
+            this.DataCriacao = this.row[20];
+            this.UnidVend = this.row[21];
+            this.Contas = this.row[22];
+            this.Tipo = this.row[23];
+            this.Uso = this.row[24];
+            this.UnidComp = this.row[25];
             app.sys.mascara();
         },
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.QtdMin = this.QtdMin;
             this.Caracteristicas = CKEDITOR.instances['caracteristica'].getData();
             this.biencode.Caracteristicas = this.Caracteristicas;
@@ -139,6 +146,7 @@ app["Produto"] = new Vue({
             this.biencode.DimensaoProduto = this.DimensaoProduto;
             this.biencode.QtdEstoque = this.QtdEstoque;
             this.biencode.Preco = this.Preco;
+            this.biencode.Peso = this.Peso;
             this.biencode.UnidComp = this.UnidComp;
             this.biencode.CodBarras = this.CodBarras;
             this.biencode.KeyWord = this.KeyWord;
@@ -255,7 +263,7 @@ app["Produto"] = new Vue({
             return list.filter(app.sys.onlyUnique);
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
             if (nulo(app.FamiliaProdutos)) {
@@ -288,7 +296,7 @@ app["Produto"] = new Vue({
             } else {
                 this.AlbumSrc = app.Album.src;
             }
-            
+
         },
     }
 });

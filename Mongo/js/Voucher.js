@@ -14,7 +14,7 @@ app["Voucher"] = new Vue({
         Icon: '<i class="fas fa-ticket-alt"></i>',
         pesqTbl: "",
         Host: "Bienestar/Site/Voucher/",
-        paginate:[],
+        paginate: [],
 
         Taxa: null,
         Juros: null,
@@ -29,6 +29,8 @@ app["Voucher"] = new Vue({
     methods: {
         populate: function () {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
             this.biencode.acesso = window.localStorage.getItem("IdLogin");
             var data = {
@@ -60,6 +62,8 @@ app["Voucher"] = new Vue({
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.id = this.id;
             this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
             var ac = "";
@@ -104,7 +108,7 @@ app["Voucher"] = new Vue({
             this.evtDataCal = "exc";
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
             if (nulo(app.Login)) {
@@ -112,7 +116,7 @@ app["Voucher"] = new Vue({
             } else {
                 this.Loginsrc = app.Login.src;
             }
-            
+
         }
     }
 });

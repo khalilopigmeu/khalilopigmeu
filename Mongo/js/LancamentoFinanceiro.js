@@ -37,6 +37,8 @@ app["LancamentoFinanceiro"] = new Vue({
     methods: {
         populate: function () {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
             var data = {
                 biencode: encrypt(JSON.stringify(this.biencode))
@@ -67,6 +69,8 @@ app["LancamentoFinanceiro"] = new Vue({
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.Documento = this.Documento;
             this.biencode.Pago = this.Pago;
             this.biencode.Observacao = this.Observacao;
@@ -134,6 +138,8 @@ app["LancamentoFinanceiro"] = new Vue({
                 for (var i = 0; i <= this.FichaAtendimento.length - 1; i++) {
                     app.erros.errors = {};
                     app.FichaAtendimento.biencode = {};
+                    captchaSys(app.sys.keysite);
+                    app.FichaAtendimento.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
                     app.FichaAtendimento.biencode.id = this.FichaAtendimento[i];
                     app.FichaAtendimento.biencode.Status = true;
                     var data = {
@@ -147,6 +153,8 @@ app["LancamentoFinanceiro"] = new Vue({
                 for (var i = 0; i <= this.PedidoVenda.length - 1; i++) {
                     app.erros.errors = {};
                     app.PedidoVenda.biencode = {};
+                    captchaSys(app.sys.keysite);
+                    app.PedidoVenda.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
                     app.PedidoVenda.biencode.id = this.PedidoVenda[i];
                     app.PedidoVenda.biencode.Status = true;
                     var data = {
@@ -179,7 +187,7 @@ app["LancamentoFinanceiro"] = new Vue({
             window.localStorage.removeItem("evento");
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
             if (nulo(app.FormasPagamento)) {
@@ -197,7 +205,7 @@ app["LancamentoFinanceiro"] = new Vue({
             } else {
                 this.FichaAtendimentoSrc = app.FichaAtendimento.src;
             }
-            
+
         },
     }
 });

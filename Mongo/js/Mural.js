@@ -14,20 +14,22 @@ app["Mural"] = new Vue({
         Icon: '<i class="far fa-sticky-note"></i>',
         pesqTbl: "",
         Host: "Bienestar/Site/Mural/",
-        paginate:[],
+        paginate: [],
 
         Link: null,
         IdMidia: null,
         Texto: null,
         InOut: null,
         Acessos: null,
-        
-        Loginsrc:null,
-        MidiaSrc:null,
+
+        Loginsrc: null,
+        MidiaSrc: null,
     },
     methods: {
         populate: function () {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
             var data = {
                 biencode: encrypt(JSON.stringify(this.biencode))
@@ -55,6 +57,8 @@ app["Mural"] = new Vue({
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.IdMidia = this.IdMidia;
             this.biencode.Acessos = this.Acessos;
             this.biencode.Link = this.Link;
@@ -88,7 +92,7 @@ app["Mural"] = new Vue({
             this.evtDataCal = "exc";
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
             if (nulo(app.Login)) {
@@ -101,7 +105,7 @@ app["Mural"] = new Vue({
             } else {
                 this.MidiaSrc = app.Midia.src;
             }
-            
+
         },
     }
 });

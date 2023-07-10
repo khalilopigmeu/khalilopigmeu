@@ -183,6 +183,8 @@ include $refUrl . "Mongo/Formula.php";
 include $refUrl . "Mongo/Profissional.php";
 include $refUrl . "Mongo/PromocaoItem.php";
 include $refUrl . "Mongo/Promocao.php";
+include $refUrl . "Mongo/Smails.php";
+include $refUrl . "Mongo/Frete.php";
 #include $refUrl . "Mongo/Processo.php";
 #include $refUrl . "Mongo/Projetos.php";
 

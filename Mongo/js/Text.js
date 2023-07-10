@@ -31,6 +31,7 @@ app["Text"] = new Vue({
     methods: {
         populate: function () {
             this.biencode = {};
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
             this.biencode.acesso = window.localStorage.getItem("IdLogin");
             var data = {
@@ -68,6 +69,7 @@ app["Text"] = new Vue({
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.id = this.id;
             this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
             this.biencode.DataPublicacao = this.DataPublicacao;

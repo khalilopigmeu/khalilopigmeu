@@ -33,6 +33,8 @@ app["Chamado"] = new Vue({
     methods: {
         populate: function (e) {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
             var data = {
                 biencode: encrypt(JSON.stringify(this.biencode))
@@ -73,6 +75,8 @@ app["Chamado"] = new Vue({
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.id = this.id;
             this.biencode.Servico = this.Servico;
             this.biencode.Ticket = this.Ticket;
@@ -113,7 +117,7 @@ app["Chamado"] = new Vue({
             this.evtDataCal = "exc";
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
             if (nulo(app.Cliente)) {
@@ -121,7 +125,7 @@ app["Chamado"] = new Vue({
             } else {
                 this.ClienteSrc = app.Cliente.src;
             }
-            
+
         },
     }
 });

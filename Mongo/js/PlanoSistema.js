@@ -14,19 +14,21 @@ app["PlanoSistema"] = new Vue({
         Icon: '<i class="fas fa-hand-holding-usd"></i>',
         pesqTbl: "",
         Host: "Bienestar/Sistema/PlanoSistema/",
-        paginate:[],
+        paginate: [],
 
         IdCategoriaPlanoSistema: null,
         CodPlano: null,
         Descricao: null,
         Valor: null,
         Link: null,
-        
-        CategoriaPlanoSistemaSrc:null,
+
+        CategoriaPlanoSistemaSrc: null,
     },
     methods: {
         populate: function () {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
             var data = {
                 biencode: encrypt(JSON.stringify(this.biencode))
@@ -36,7 +38,7 @@ app["PlanoSistema"] = new Vue({
         },
         clear: function () {
             this.IdCategoriaPlanoSistema = null;
-            this.CodPlano = null;   
+            this.CodPlano = null;
             this.Descricao = null;
             this.Valor = null;
             this.Link = null;
@@ -52,6 +54,8 @@ app["PlanoSistema"] = new Vue({
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.IdCategoriaPlanoSistema = this.IdCategoriaPlanoSistema;
             this.biencode.CodPlano = this.CodPlano;
             this.biencode.Descricao = this.Descricao;
@@ -86,7 +90,7 @@ app["PlanoSistema"] = new Vue({
             this.evtDataCal = "exc";
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
             if (nulo(app.CategoriaPlanoSistema)) {
@@ -94,7 +98,7 @@ app["PlanoSistema"] = new Vue({
             } else {
                 this.CategoriaPlanoSistemaSrc = app.CategoriaPlanoSistema.src;
             }
-            
+
         },
     }
 });

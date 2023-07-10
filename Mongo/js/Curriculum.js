@@ -27,6 +27,8 @@ app["Curriculum"] = new Vue({
     methods: {
         populate: function () {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
             var data = {
                 biencode: encrypt(JSON.stringify(this.biencode))
@@ -52,6 +54,8 @@ app["Curriculum"] = new Vue({
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.id = this.id;
             this.Sobre = CKEDITOR.instances['sobrecurriculo'].getData();
             this.biencode.Sobre = this.Sobre;
@@ -105,7 +109,7 @@ app["Curriculum"] = new Vue({
             return flag;
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
             if (nulo(app.Cliente)) {
@@ -118,7 +122,7 @@ app["Curriculum"] = new Vue({
             } else {
                 this.Funcionariosrc = app.Funcionarios.src;
             }
-            
+
         },
     }
 });

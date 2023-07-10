@@ -33,12 +33,118 @@ app["clientLogin"] = new Vue({
         optCad: "",
         eula: false,
         lgpd: false,
-        loginbtn: null
+        loginbtn: null,
+        Modelo: null,
+        Host: "Bienestar/Dispositivos/Dispositivos/",
+        UUID: null,
+        FBID: null,
+        GGID: null,
+        flagDispositivo: null,
+        buscaDispositivo: false,
+        LoginSrc: null,
+        AuthSrc: [],
     },
     created: function () {
         this.getRandomNumber();
     },
     methods: {
+        buscar: function (refid) {
+            var key = decrypt(app.sys.bien, "encodedstring");
+            this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
+            if (!nulo(refid)) {
+                this.biencode.id = refid;
+                app.empresasanunciando.Anunciante(this.biencode.id);
+            } else {
+                this.biencode.all = "";
+            }
+            var data = {
+                biencode: encrypt(JSON.stringify(this.biencode), key)
+            };
+            app.sys.crud("clientLogin", "listar", data);
+            $(window).NotifyInfo("Dispositivo conectado");
+            this.busca = true;
+        },
+        listagem: function () {
+            app.empresasanunciando.buscar();
+            app.funcionariosite.all();
+            app.clientesite.all();
+            if (window.localStorage.hasOwnProperty("userinfoGG")) {
+                this.flag = "Google";
+                this.GGID = JSON.parse(window.localStorage.getItem("userinfoGG")).id;
+            }
+            this.FBID = app.sys.FB.getUserID();
+            this.AuthSrc = [];
+            app.LoginsOauth.atualizar(null);
+            this.LoginSrc = app.LoginsOauth.src;
+            var count = 0;
+            switch (this.flag) {
+                case "Facebook":
+                    for (var i = 0; i <= this.LoginSrc.length - 1; i++) {
+                        if (this.LoginSrc[i].UserIdFB === this.FBID) {
+                            this.AuthSrc.push(this.LoginSrc[i]);
+                            count++;
+                        }
+                    }
+                    $(window).NotifyInfo(count + " Contas encontradas");
+                    break;
+                case "Google":
+                    for (var i = 0; i <= this.LoginSrc.length - 1; i++) {
+                        if (this.LoginSrc[i].UserIdGG === this.GGID) {
+                            this.AuthSrc.push(this.LoginSrc[i]);
+                            count++;
+                        }
+                    }
+                    $(window).NotifyInfo(count + " Contas encontradas");
+                    break;
+                case "Dispositivo":
+                    for (var j = 0; j <= this.src.length - 1; j++) {
+                        for (var i = 0; i <= this.LoginSrc.length - 1; i++) {
+                            if (this.LoginSrc[i]._id["$oid"] === this.src[j].IdLogin) {
+                                if (this.src[j].UUID.toUpperCase() === window.localStorage.getItem("uuid").toUpperCase()) {
+                                    this.AuthSrc.push(this.LoginSrc[i]);
+                                    count++;
+                                }
+                            }
+                        }
+                    }
+                    $(window).NotifyInfo(count + " Contas encontradas");
+                    break;
+            }
+        },
+        getEmpresa: function (id) {
+            var lst = app.sys.searchByID(app.empresasanunciando.src, id);
+            if (lst.length > 0) {
+                return lst[0].NomeFantasia;
+            } else {
+                return "";
+            }
+        },
+        getFunc: function (id) {
+            if (!nulo(id)) {
+                var lst = app.sys.searchByID(app.funcionariosite.src, id);
+                if (lst.length > 0) {
+                    return lst[0].Nome;
+                } else {
+                    return "";
+                }
+            } else {
+                return "Não Possui";
+            }
+        },
+        getCliente: function (id) {
+            if (!nulo(id)) {
+                var lst = app.sys.searchByID(app.clientesite.src, id);
+                if (lst.length > 0) {
+                    return lst[0].Nome;
+                } else {
+                    return "";
+                }
+            } else {
+                return "Não Possui";
+            }
+        },
         loadNum: function () {
             this.min = 1;
             this.max = 25;
@@ -66,11 +172,14 @@ app["clientLogin"] = new Vue({
         cadastro: function (e) {
             setAuth(decrypt(app.sys.bien, "encodedstring"));
             var biencode = {};
+            captchaSys(app.sys.keysite);
+            biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             if (this.optCad === "fisica") {
                 biencode.Nome = this.Nome;
                 biencode.Cpf = this.Cpf;
                 biencode.Rg = this.Rg;
                 biencode.DataNasc = this.DataNasc;
+                biencode.modelo = "Cliente";
             } else {
                 biencode.NomeFantasia = this.NomeFantasia;
                 biencode.Cnpj = this.Cnpj;
@@ -83,6 +192,7 @@ app["clientLogin"] = new Vue({
                 biencode.Cpf = this.Cpf;
                 biencode.Rg = this.Rg;
                 biencode.DataNasc = this.DataNasc;
+                biencode.modelo = "Empresa";
             }
             biencode.CEP = this.CEP;
             biencode.UF = this.UF;
@@ -99,15 +209,31 @@ app["clientLogin"] = new Vue({
             var data = {
                 "biencode": encrypt(JSON.stringify(biencode))
             };
-            var ws = "Bienestar/Sistema/Login/CadCliente";
+            var ws = "Bienestar/Sistema/Login/CadPlataforma";
             var p = (post(ws, data));
-            alert("Cadastrado com sucesso! A administração irá entrar em contato com você.");
-            $(window).NotifyInfo("Cadastrado com sucesso! A administração irá entrar em contato com você.");
-            window.location.href = "https://www.bienclube.com.br/index.php#modalLoginSys";
+            var rs = decrypt(p);
+            if (rs.includes("erro")) {
+                $(window).NotifyErr("Erro ao realizar o cadastro" + rs);
+            } else {
+                rs = JSON.parse(rs);
+                $(window).NotifyInfo("Cadastrado com sucesso! A administração irá entrar em contato com você.");
+            }
+        },
+        conectarFB: function () {
+            this.flagDispositivo = 'Facebook';
+            app.sys.FB.login();
+            app.sys.flag = "Facebook";
+            this.buscaDispositivo = true;
+        },
+        conectarGG: function () {
+            this.flagDispositivo = 'Google';
+            app.sys.oauthGoogle("index.php");
         },
         recuperar: function () {
             var biencode = {};
-            biencode.Modelo = "Empresa";
+            captchaSys(app.sys.keysite);
+            biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
+            biencode.Modelo = this.Modelo;
             biencode.Empresa = this.Empresa;
             biencode.Login = this.Login;
             biencode.Cod = window.atob("MDc3eEY=");
@@ -120,14 +246,10 @@ app["clientLogin"] = new Vue({
             var rs = decrypt(p);
             $(window).NotifySucesso(rs);
         },
-        login: function (e) {
+        loginEmp: function (e) {
             setAuth(decrypt(app.sys.bien, "encodedstring"));
             e.preventDefault();
             var flag = true;
-            if (!this.Empresa && this.Empresa.length > 0) {
-                $(window).NotifyErr("Informe a Empresa");
-                flag = false;
-            }
             if (!this.Login && this.Login.length > 0) {
                 $(window).NotifyErr("Informe o Login");
                 flag = false;
@@ -136,9 +258,14 @@ app["clientLogin"] = new Vue({
                 $(window).NotifyErr("Informe o Senha");
                 flag = false;
             }
+            if (nulo(this.Modelo)) {
+                this.Modelo = "Cliente";
+            }
             if (flag) {
                 var biencode = {};
-                biencode.Modelo = "Empresa";
+                captchaSys(app.sys.keysite);
+                biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
+                biencode.Modelo = this.Modelo;
                 biencode.Empresa = this.Empresa;
                 biencode.Login = this.Login;
                 biencode.Senha = this.Senha;
@@ -161,8 +288,109 @@ app["clientLogin"] = new Vue({
                     window.localStorage.setItem("Nome", rs.Nome);
                     window.localStorage.setItem("RAVEC", rs.Ravec);
                     window.localStorage.setItem("auth", rs.Credencial.replace(/(\r\n|\n|\r)/gm, ""));
-                    window.location.href = "/ws/Agenda/eventos.php";
+                    if ("Chave" in rs) {
+                        window.localStorage.setItem("Chave", rs.Chave);
+                    }
+                    if ("LoginFoto" in rs) {
+                        window.localStorage.setItem("LoginFoto", rs.LoginFoto);
+                    }
+                    if ("UrlLogo" in rs) {
+                        window.localStorage.setItem("UrlLogo", rs.UrlLogo);
+                    }
+                    switch (this.Modelo) {
+                        case "Cliente":
+                            window.location.href = "/index.php#anunciante";
+                            break;
+                        case "Empresa":
+                            window.location.href = "/ws/Agenda/eventos.php";
+                            break;
+                        case "Vendedor":
+                            window.location.href = "/ws/Agenda/eventos.php";
+                            break;
+                        case "Revendedor":
+                            window.location.href = "/ws/Agenda/eventos.php";
+                            break;
+                    }
                 }
+            }
+        },
+        loginDevice: function (idlog,modelo) {
+            setAuth(decrypt(app.sys.bien, "encodedstring"));
+            e.preventDefault();
+            biencode.Formato = this.flagDispositivo;
+            this.Modelo = modelo;
+            switch (this.flagDispositivo) {
+                case "Facebook":
+                    biencode.id = idlog;
+                    biencode.FBID = this.FBID;
+                    break;
+                case "Google":
+                    biencode.id = idlog;
+                    biencode.GGID = this.GGID;
+                    break;
+                case "Dispositivo":
+                    biencode.IdLogin = idlog;
+                    biencode.UUID = window.localStorage.getItem("uuid").toUpperCase();
+                    break;
+            }
+            var biencode = {};
+            captchaSys(app.sys.keysite);
+            biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
+            var data = {
+                "biencode": encrypt(JSON.stringify(biencode))
+            };
+            var ws = "Bienestar/Sistema/Login/";
+            switch (this.Modelo) {
+                case "Cliente":
+                    ws += "/appLoginSistema";
+                    break;
+                case "Empresa":
+                    ws += "/appLoginCliente";
+                    break;
+            }
+            var p = (post(ws, data));
+            var rs = decrypt(p);
+            if (rs.includes("erro")) {
+                alert("Acesso inválido contate o administrador");
+                $(window).NotifyErr("Acesso inválido contate o administrador");
+            } else {
+                rs = JSON.parse(rs);
+                window.localStorage.setItem("Empresa", rs.Empresa);
+                window.localStorage.setItem("IdEmpresa", rs.IdEmpresa);
+                window.localStorage.setItem("IdLogin", rs.IdLogin);
+                window.localStorage.setItem("Nome", rs.Nome);
+                window.localStorage.setItem("RAVEC", rs.Ravec);
+                window.localStorage.setItem("auth", rs.Credencial.replace(/(\r\n|\n|\r)/gm, ""));
+                if ("Chave" in rs) {
+                    window.localStorage.setItem("Chave", rs.Chave);
+                }
+                if ("LoginFoto" in rs) {
+                    window.localStorage.setItem("LoginFoto", rs.LoginFoto);
+                }
+                if ("UrlLogo" in rs) {
+                    window.localStorage.setItem("UrlLogo", rs.UrlLogo);
+                }
+                switch (this.Modelo) {
+                    case "Cliente":
+                        window.location.href = "/index.php#anunciante";
+                        break;
+                    case "Empresa":
+                        window.location.href = "/ws/Agenda/eventos.php";
+                        break;
+                    case "Vendedor":
+                        window.location.href = "/ws/Agenda/eventos.php";
+                        break;
+                    case "Revendedor":
+                        window.location.href = "/ws/Agenda/eventos.php";
+                        break;
+                }
+            }
+        },
+        mobile: function () {
+            if (window.localStorage.getItem('uuid') === null) {
+                return false;
+            } else {
+                return true;
             }
         }
     }

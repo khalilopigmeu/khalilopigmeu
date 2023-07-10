@@ -15,15 +15,19 @@ app["MeioPagamento"] = new Vue({
         Icon: '<i class="fas fa-angle-double-right"></i>',
         pesqTbl: "",
         paginate: [],
-
-        ChavePagSeguro: null,
-        TokenPPagSeg: null,
-        TokenSPagSeg: null,
-        EmailPagSeguro: null,
+        Nome: "Nome",
+        API: "API",
+        Chave: "Chave",
+        Token: "Token",
+        SandBox: "SandBox",
+        Email: "Email",
+        IdEmpresa: "IdEmpresa"
     },
     methods: {
         populate: function () {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
             var data = {
                 biencode: encrypt(JSON.stringify(this.biencode))
@@ -32,26 +36,34 @@ app["MeioPagamento"] = new Vue({
             app.sys.tabs(this.href);
         },
         clear: function () {
-            this.EmailPagSeguro = null;
-            this.ChavePagSeguro = null;
-            this.TokenPPagSeg = null;
-            this.TokenSPagSeg = null;
+            this.Nome = null;
+            this.API = null;
+            this.Chave = null;
+            this.Token = null;
+            this.SandBox = null;
+            this.Email = null;
         },
         autocomplete: function () {
-            this.EmailPagSeguro = this.row[4];
-            this.TokenSPagSeg = this.row[3];
-            this.TokenPPagSeg = this.row[2];
-            this.ChavePagSeguro = this.row[1];
+            this.Nome = this.row[1];
+            this.API = this.row[2];
+            this.Chave = this.row[3];
+            this.Token = this.row[4];
+            this.SandBox = this.row[5];
+            this.Email = this.row[6];
             this.id = this.row[0];
         },
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
-            this.biencode.EmailPagSeguro = this.EmailPagSeguro;
-            this.biencode.TokenSPagSeg = this.TokenSPagSeg;
-            this.biencode.TokenPPagSeg = this.TokenPPagSeg;
-            this.biencode.ChavePagSeguro = this.ChavePagSeguro;
-            this.biencode.id = this.id;
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
+            this.biencode.Nome = this.Nome;
+            this.biencode.API = this.API;
+            this.biencode.Chave = this.Chave;
+            this.biencode.Token = this.Token;
+            this.biencode.SandBox = this.SandBox;
+            this.biencode.Email = this.Email;
+            this.biencode.biencode.id = this.id;
             this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
         },
         cadastrar: function () {
@@ -79,10 +91,10 @@ app["MeioPagamento"] = new Vue({
             this.evtDataCal = "exc";
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
-            
+
         },
     }
 });

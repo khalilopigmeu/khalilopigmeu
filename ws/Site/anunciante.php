@@ -95,7 +95,7 @@
         <div v-if="Anunciante(pgid).Tipo==='4'" id="toOpen" v-bind:data-url="getSite(pgid)">
             {{cast()}}
         </div>
-        <div v-if="Anunciante(pgid).Tipo==='5'" id="toOpen" v-bind:data-url="'https://wa.me/55'+cleanwap(Empresa(pgid).Celular)">
+        <div v-if="Anunciante(pgid).Tipo==='5'" id="toOpen" v-bind:data-url="'https://wa.me/55'+cleanwap(EmpresaSelecionada(pgid).Celular)">
             {{cast()}}
         </div>
         <div v-if="Anunciante(pgid).Tipo==='6'" id="toOpen" v-bind:data-url="'https://facebook.com/'+getFB(pgid)">

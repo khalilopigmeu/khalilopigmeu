@@ -14,7 +14,7 @@ app["Hints"] = new Vue({
         ELtitle: null,
         Icon: '<i class="fas fa-angle-double-right"></i>',
         pesqTbl: "",
-        paginate:[],
+        paginate: [],
 
         Nome: null,
         Codigo: null,
@@ -23,6 +23,8 @@ app["Hints"] = new Vue({
     methods: {
         populate: function (e) {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
             this.biencode.data = app.AnotacaoAgenda.datapesq;
             var data = {
@@ -45,6 +47,8 @@ app["Hints"] = new Vue({
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.Nome = this.Nome;
             this.biencode.Codigo = this.Codigo;
             this.biencode.Conteudo = this.Conteudo;
@@ -76,10 +80,10 @@ app["Hints"] = new Vue({
             this.evtDataCal = "exc";
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
-            
+
         },
     }
 });
