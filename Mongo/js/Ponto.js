@@ -14,7 +14,7 @@ app["Ponto"] = new Vue({
         ELtitle: null,
         Icon: '<i class="fas fa-angle-double-right"></i>',
         pesqTbl: "",
-        paginate:[],
+        paginate: [],
 
         ToleranciaEntrada: null,
         ToleranciaSaida: null,
@@ -22,14 +22,16 @@ app["Ponto"] = new Vue({
         Acessos: null,
         IdFP: null,
         CargaHorariaDia: null,
-        
-        Loginsrc:null,
-        Funcionariosrc:null,
-        Fingersrc:null,
+
+        Loginsrc: null,
+        Funcionariosrc: null,
+        Fingersrc: null,
     },
     methods: {
         populate: function () {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
             var data = {
                 biencode: encrypt(JSON.stringify(this.biencode))
@@ -57,6 +59,8 @@ app["Ponto"] = new Vue({
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.IdFunc = this.IdFunc;
             this.biencode.IdFP = this.IdFP;
             this.biencode.ToleranciaEntrada = this.ToleranciaEntrada;
@@ -91,7 +95,7 @@ app["Ponto"] = new Vue({
             this.evtDataCal = "exc";
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
             if (nulo(app.Login)) {
@@ -109,7 +113,7 @@ app["Ponto"] = new Vue({
             } else {
                 this.Fingersrc = app.FingerData.src;
             }
-            
+
         },
     }
 });

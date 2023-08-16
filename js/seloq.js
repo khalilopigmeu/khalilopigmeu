@@ -93,18 +93,25 @@ $(function () {
     });
     $("body").on("click", "#menu-toggle-R,#sidebar-wrapper-R a", function () {
         $("#wrapper").toggleClass("toggled-R");
+        $("#menu-toggle-R").popover("hide");
     });
     $(window).scroll(function () {
-        if ($(this).scrollTop() > $("nav").height()) {
-            $("#menu-toggle,#menu-toggle-R").css({"top": ($(this).scrollTop() - 50) + "px"});
+        if ($("#header").is(":visible") == false) {
+            $("#menu-toggle,#menu-toggle-R").css({"top": ($(this).scrollTop() + 25) + "px"});
         } else {
-            $("#menu-toggle,#menu-toggle-R").css({"top": ($("nav").height() - 25) + "px"});
+            if ($(this).scrollTop() > $("nav").height()) {
+                $("#menu-toggle,#menu-toggle-R").css({"top": ($(this).scrollTop() - 50) + "px"});
+            } else {
+                $("#menu-toggle,#menu-toggle-R").css({"top": ($("nav").height() - 25) + "px"});
+            }
         }
     });
     $(".cep").blur(function () {
         var key = getAuth();
         var CEP = $(this).val();
         var biencode = {};
+        captchaSys(app.sys.keysite);
+        biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
         biencode.CEP = CEP;
         var data = {
             "biencode": encrypt(JSON.stringify(biencode), key)
@@ -128,6 +135,16 @@ $(function () {
     $(".carousel.carousel-multi-item .carousel-item").eq(0).addClass("active");
     $("#Carousel,#Pricing").carousel();
 
+    if (urlSite.includes("ws/Agenda")) {
+        $("header h1").hide();
+    }
+    if (urlSite.includes("ws/Site")) {
+
+    }
+    if (urlSite.includes("ws/User")) {
+
+    }
+
 });
 function urlRead() {
     $("#menu-toggle").hide();
@@ -136,6 +153,11 @@ function urlRead() {
     app.paginasite.pg = null;
     urlSite = window.location.href;
     app.Customizar.defaultColor();
+    if (urlSite.includes("access_token")) {
+        var acs = urlSite.substr(urlSite.indexOf("access_token") + 13, urlSite.lastIndexOf("token_type") - 54);
+        window.localStorage.setItem("access_token", acs);
+        app.sys.getUser();
+    }
     if (urlSite.includes("#") || urlSite.includes("?")) {
         var urlclean = urlSite.split("?");
         var element = urlclean[0].split("#");
@@ -197,6 +219,8 @@ function urlRead() {
     }
     if (app.sys.page === "anunciante") {
         if (getParameterByName('pgid') !== null) {
+            $("#header").hide();
+            $("#byBien").show();
             $("#menu-toggle").show();
             app.configuracaosite.buscar(getParameterByName('pgid'));
             app.anunciante.buscar(getParameterByName('pgid'));
@@ -215,8 +239,16 @@ function urlRead() {
             app.empresasanunciando.pgid = getParameterByName('pgid');
             app.empresasanunciando.buscar(getParameterByName('pgid'));
             app.empresasanunciando.load();
-            //app.sys.seo("anuncio", getParameterByName('pgid'));
+            $("#menu-toggle-R i").removeClass("fa-bars").addClass("fa-shopping-bag");
+            $("#menu-toggle-R").show();
+            $("#menu-toggle-R .badge").show();
+            app.sidebarR.loja = true;
         } else {
+            $("#header").show();
+            $("#byBien").hide();
+            $("#menu-toggle-R .badge").hide();
+            $("#menu-toggle").hide();
+            $("#menu-toggle-R i").removeClass("fa-shopping-bag").addClass("fa-bars");
             app.anunciante.pgid = null;
             app.configuracaosite.buscar();
             app.empresasanunciando.buscar();
@@ -232,9 +264,35 @@ function urlRead() {
         if (getParameterByName('pg')) {
             app.paginasite.pg = getParameterByName('pg');
             app.paginasite.buscar();
+        } else if (getParameterByName('startpg')) {
+            app.paginasite.startpg = getParameterByName('startpg');
+            app.paginasite.buscar();
+        } else if (getParameterByName('endpg')) {
+            app.paginasite.endpg = getParameterByName('endpg');
+            app.paginasite.buscar();
         } else {
             app.paginasite.buscar();
         }
     }
     qrcode.makeCode(urlSite);
 }
+var widgetId1;
+var onloadCallback = function () {
+    var link = window.location.href;
+    if (urlSite.includes("boreal")) {
+        widgetId1 = grecaptcha.render('verify', {
+            'sitekey': '6Le5e8okAAAAAEdekkQyeeNccNY30n0vw371NOjp',
+            'theme': 'light'
+        });
+    } else if (urlSite.includes("bienclube")) {
+        widgetId1 = grecaptcha.render('verify', {
+            'sitekey': '6LcdesokAAAAAI5PVILN-RC5XE5nWly8NoOG6Rwz',
+            'theme': 'light'
+        });
+    } else if (urlSite.includes("rtiempresarial")) {
+        widgetId1 = grecaptcha.render('verify', {
+            'sitekey': '6LfuesokAAAAALhocXeibo_YtoIkqvnb_yekLGjl',
+            'theme': 'light'
+        });
+    }
+};

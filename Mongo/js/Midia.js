@@ -39,6 +39,8 @@ app["Midia"] = new Vue({
     methods: {
         populate: function () {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = captchaSys(app.sys.keysite);
             this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
             var data = {
                 biencode: encrypt(JSON.stringify(this.biencode))
@@ -70,6 +72,8 @@ app["Midia"] = new Vue({
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = captchaSys(app.sys.keysite);
             this.biencode.UrlMidia = this.UrlMidia;
             this.biencode.DescricaoMidia = this.DescricaoMidia;
             this.biencode.IdAlbum = this.IdAlbum;
@@ -84,6 +88,8 @@ app["Midia"] = new Vue({
         cadastrar: function () {
             if (app.Midia.fileBox.lenght > 0) {
                 this.biencode = {};
+                captchaSys(app.sys.keysite);
+                this.biencode.tokenCaptcha = captchaSys(app.sys.keysite);
                 this.biencode.nomes = {};
                 this.biencode.descricao = {};
                 this.biencode.files = {};
@@ -138,7 +144,7 @@ app["Midia"] = new Vue({
             };
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
             if (nulo(app.Album)) {
@@ -156,7 +162,7 @@ app["Midia"] = new Vue({
             } else {
                 this.ProdutoSrc = app.Produto.src;
             }
-            
+
         },
     }
 });

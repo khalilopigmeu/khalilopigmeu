@@ -47,7 +47,7 @@
     </div>
 </section>
 
-<section>
+<section v-if="(spy==='promocao' || spy==='all')">
     <div class="modal fade" role="dialog" aria-labelledby="" aria-hidden="true" id="AboutConPro">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">

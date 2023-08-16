@@ -335,6 +335,21 @@ function nulo(el) {
     }
 }
 
+var ReCaptchaCallbackV3 = function () {
+    grecaptcha.ready(function () {
+        grecaptcha.execute(atob("NkxmdWVzb2tBQUFBQUNKY3F2UXFWcEUwb2lJX2tFTWwydmhHdzU3Sg=="), {action: 'submit'}).then(function (token) {
+            window.localStorage.setItem("tokenGoogle", token);
+        });
+    });
+};
+
+function captchaSys(chave) {
+    grecaptcha.ready(function () {
+        grecaptcha.execute(chave, {action: 'submit'}).then(function (token) {
+            window.localStorage.setItem("tokenGoogle", token);
+        });
+    });
+}
 function XmlToJson(xml, ref) {
     parser = new DOMParser();
     xml = parser.parseFromString(xml, "text/xml");
@@ -961,6 +976,19 @@ function HmsToMs(h, m, s) {
 
 function padTo2Digits(num) {
     return num.toString().padStart(2, '0');
+}
+
+
+function encodeCard(key, holder, number, exp, year, cvv) {
+    var card = PagSeguro.encryptCard({
+        publicKey: key,
+        holder: holder,
+        number: number,
+        expMonth: exp,
+        expYear: year,
+        securityCode: cvv
+    });
+    return  card.encryptedCard;
 }
 
 /*

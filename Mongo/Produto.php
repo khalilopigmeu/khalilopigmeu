@@ -14,7 +14,7 @@ $page = "Produto";
 $td = ["" . $page => ["Id", "Famíalia", "Classe",
         "Categoria", "Sub-categoria", "Fornecedor",
         "Álbum", "Código", "Nome", "Características",
-        "Especificação", "Resumo", "Preço",
+        "Especificação", "Resumo", "Preço","Peso",
         "Dimensão", "Qtd. Mínima", "Qtd. Estoque",
         "Data de Validade", "Código de Barras",
         "Palavras-chave", "Data de fabricação",
@@ -32,6 +32,7 @@ $tdvue = ["" . $page => ["app.sys.foreignKeyReplace(FamiliaSrc,'TipoFamilia',td.
         "td.EspecificacaoProduto",
         "td.ResumoProduto",
         "td.Preco",
+        "td.Peso",
         "td.DimensaoProduto",
         "td.QtdMin",
         "td.QtdEstoque",
@@ -94,6 +95,8 @@ include $refUrl . "Mongo/template/head.php"
 <textarea class="form-control" name="resumo" placeholder=""></textarea><br>
 <label>Preço:</label>
 <input class="form-control" v-model="Preco" placeholder=""><br>
+<label>Peso:</label>
+<input class="form-control" v-model="Peso" placeholder=""><br>
 <label>Dimensão:</label>
 <input class="form-control" v-model="DimensaoProduto" placeholder="Altura-Largura-Profundidade"><br>
 <label>Qtd. Mínima:</label>

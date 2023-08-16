@@ -10,6 +10,12 @@
                     <form action="" method="post" class="my-3 py-3">
                         <fieldset class="border rounded container-fluid border-dark my-3 py-3 w-90">
                             <legend class="border rounded text-center border-dark">Bem Vindo</legend>
+                            <select class="form-control" v-model="Modelo">
+                                <option value="Cliente">Cliente</option>
+                                <option value="Empresa">Empresa</option>
+                                <option value="Vendedor">Vendedor</option>
+                                <option value="Revendedor">Revenda</option>
+                            </select>
                             <label for="Email">E-mail:</label>
                             <input class="form-control" name="Email" placeholder="E-mail..."><br>
                             <label for="Login">Login:</label>

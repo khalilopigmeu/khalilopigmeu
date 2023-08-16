@@ -14,8 +14,7 @@ app["RootAccess"] = new Vue({
         Icon: '<i class="far fa-edit"></i>',
         pesqTbl: "",
         Host: "Bienestar/Gestao/Empresa/",
-        paginate:[],
-        
+        paginate: [],
         selEmpresa: null,
         selLogin: null,
         SenhaAdmin: null,
@@ -23,14 +22,16 @@ app["RootAccess"] = new Vue({
         opcoes: [],
         acesso: [],
         Acessos: null,
-
         EmpresaSrc: null,
         LoginSrc: null,
+        padrao: null,
     },
     methods: {
         populate: function () {
             this.Host = "Bienestar/Gestao/Empresa/";
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.all = window.localStorage.getItem("IdEmpresa");
             var data = {
                 biencode: encrypt(JSON.stringify(this.biencode))
@@ -43,6 +44,8 @@ app["RootAccess"] = new Vue({
             this.Host = "Bienestar/Sistema/Login/";
             this.src = null;
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.empresa = app.RootAccess.selEmpresa;
             var data = {
                 biencode: encrypt(JSON.stringify(this.biencode))
@@ -54,6 +57,8 @@ app["RootAccess"] = new Vue({
         },
         solicitaRoot: function () {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.Modelo = "Root";
             this.biencode.SenhaAdmin = this.SenhaAdmin;
             var Empresa = null, Nome = null, Login = null, Ravec = null;
@@ -183,7 +188,9 @@ app["RootAccess"] = new Vue({
         },
         updateRAVEC: function () {
             app.Login.biencode = {};
-            app.Login.biencode.RAVEC = encrypt(JSON.stringify(app.RootAccess.opcoes),app.RootAccess.Acessos);
+            captchaSys(app.sys.keysite);
+            app.Login.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
+            app.Login.biencode.RAVEC = encrypt(JSON.stringify(app.RootAccess.opcoes), app.RootAccess.Acessos);
             app.Login.biencode.id = String(app.RootAccess.Acessos);
             app.Login.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
             var data = {
@@ -196,10 +203,34 @@ app["RootAccess"] = new Vue({
             app.Login.populate();
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
-            
+
         },
+        padronizar: function () {
+            switch (this.padrao) {
+                case "Empresa":
+                    this.acesso = eval("[{\"nome\": \"Controle de acesso\",\"nivel\": 4}, {\"nome\": \"Categorias de eventos\",\"nivel\": 4}, {\"nome\": \"Anotações\",\"nivel\": 4}, {\"nome\": \"Consulta\",\"nivel\": 4}, {\"nome\": \"Procedimento\",\"nivel\": 4}, {\"nome\": \"Eventos\",\"nivel\": 4}, {\"nome\": \"Empresa\",\"nivel\": 4}, {\"nome\": \"Cliente\",\"nivel\": 4}, {\"nome\": \"Departamento\",\"nivel\": 4}, {\"nome\": \"Cargo\",\"nivel\": 4}, {\"nome\": \"Plano Odontológico\",\"nivel\": 4}, {\"nome\": \"Plano de saúde\",\"nivel\": 4}, {\"nome\": \"Controle de Ponto\",\"nivel\": 4}, {\"nome\": \"Impressão digital\",\"nivel\": 4}, {\"nome\": \"Ponto\",\"nivel\": 4}, {\"nome\": \"E-tag\",\"nivel\": 4}, {\"nome\": \"Manutenção\",\"nivel\": 4}, {\"nome\": \"Categorias de Dispositivos\",\"nivel\": 4}, {\"nome\": \"Dispositivos\",\"nivel\": 4}, {\"nome\": \"Componente\",\"nivel\": 4}, {\"nome\": \"Sub Componente\",\"nivel\": 4}, {\"nome\": \"Dependentes\",\"nivel\": 4}, {\"nome\": \"Reserva de Produto\",\"nivel\": 4}, {\"nome\": \"Categorias de Planos de sistema\",\"nivel\": 4}, {\"nome\": \"Planos de Sistema\",\"nivel\": 4}, {\"nome\": \"Funcionários\",\"nivel\": 4}, {\"nome\": \"Currículo\",\"nivel\": 4}, {\"nome\": \"Fornecedor\",\"nivel\": 4}, {\"nome\": \"Vendedor\",\"nivel\": 4}, {\"nome\": \"Revenda\",\"nivel\": 4}, {\"nome\": \"Transportadora\",\"nivel\": 4}, {\"nome\": \"Configuração\",\"nivel\": 4}, {\"nome\": \"Família de produtos\",\"nivel\": 4}, {\"nome\": \"Classe de produtos\",\"nivel\": 4}, {\"nome\": \"Categoria de produtos\",\"nivel\": 4}, {\"nome\": \"Sub-categoria de produtos\",\"nivel\": 4}, {\"nome\": \"Produtos\",\"nivel\": 4}, {\"nome\": \"Álbum\",\"nivel\": 4}, {\"nome\": \"Mídia\",\"nivel\": 4}, {\"nome\": \"Categorias de Anúncio\",\"nivel\": 4}, {\"nome\": \"Anúncio\",\"nivel\": 4}, {\"nome\": \"Categoria De Texto\",\"nivel\": 4}, {\"nome\": \"Textos\",\"nivel\": 4}, {\"nome\": \"Páginas\",\"nivel\": 4}, {\"nome\": \"Seo\",\"nivel\": 4}, {\"nome\": \"Voucher\",\"nivel\": 4}, {\"nome\": \"Categoria de Portfólio\",\"nivel\": 4}, {\"nome\": \"Portfolio\",\"nivel\": 4}, {\"nome\": \"Mural\",\"nivel\": 4}, {\"nome\": \"Login\",\"nivel\": 4}, {\"nome\": \"Controle de Mensalidade\",\"nivel\": 4}, {\"nome\": \"Ficha de Atendimento\",\"nivel\": 4}, {\"nome\": \"Comissão\",\"nivel\": 4}, {\"nome\": \"Lançamento Financeiro\",\"nivel\": 4}, {\"nome\": \"Pedido de Venda\",\"nivel\": 4}, {\"nome\": \"Anúncios rápidos\",\"nivel\": 4}, {\"nome\": \"Chamado\",\"nivel\": 4}, {\"nome\": \"Dicionário\",\"nivel\": 4}, {\"nome\": \"Dicas\",\"nivel\": 4}, {\"nome\": \"Formas de Pagamento\",\"nivel\": 4}, {\"nome\": \"Ordem de serviço\",\"nivel\": 4}, {\"nome\": \"Fórmula\",\"nivel\": 4}, {\"nome\": \"Profissional\",\"nivel\": 4}, {\"nome\": \"Itens em Promoção\",\"nivel\": 4}, {\"nome\": \"Promoção recorrente\",\"nivel\": 4}, {\"nome\": \"Smails\",\"nivel\": 4}, {\"nome\": \"Frete de produtos\",\"nivel\": 4}]");
+                    this.opcoes = this.acesso;
+                    break;
+                case "Ecommerce":
+                    this.acesso = eval("[{\"nome\": \"Controle de acesso\",\"nivel\": 4}, {\"nome\": \"Empresa\",\"nivel\": 4}, {\"nome\": \"Cliente\",\"nivel\": 4}, {\"nome\": \"Departamento\",\"nivel\": 4}, {\"nome\": \"Cargo\",\"nivel\": 4}, {\"nome\": \"Plano Odontológico\",\"nivel\": 4}, {\"nome\": \"Plano de saúde\",\"nivel\": 4}, {\"nome\": \"Controle de Ponto\",\"nivel\": 4}, {\"nome\": \"Impressão digital\",\"nivel\": 4}, {\"nome\": \"Ponto\",\"nivel\": 4}, {\"nome\": \"E-tag\",\"nivel\": 4}, {\"nome\": \"Categorias de Dispositivos\",\"nivel\": 4}, {\"nome\": \"Dispositivos\",\"nivel\": 4}, {\"nome\": \"Dependentes\",\"nivel\": 4}, {\"nome\": \"Reserva de Produto\",\"nivel\": 4}, {\"nome\": \"Funcionários\",\"nivel\": 4}, {\"nome\": \"Currículo\",\"nivel\": 4}, {\"nome\": \"Fornecedor\",\"nivel\": 4}, {\"nome\": \"Vendedor\",\"nivel\": 4}, {\"nome\": \"Revenda\",\"nivel\": 4}, {\"nome\": \"Transportadora\",\"nivel\": 4}, {\"nome\": \"Configuração\",\"nivel\": 4}, {\"nome\": \"Família de produtos\",\"nivel\": 4}, {\"nome\": \"Classe de produtos\",\"nivel\": 4}, {\"nome\": \"Categoria de produtos\",\"nivel\": 4}, {\"nome\": \"Sub-categoria de produtos\",\"nivel\": 4}, {\"nome\": \"Produtos\",\"nivel\": 4}, {\"nome\": \"Álbum\",\"nivel\": 4}, {\"nome\": \"Mídia\",\"nivel\": 4}, {\"nome\": \"Categorias de Anúncio\",\"nivel\": 4}, {\"nome\": \"Anúncio\",\"nivel\": 4}, {\"nome\": \"Categoria De Texto\",\"nivel\": 4}, {\"nome\": \"Textos\",\"nivel\": 4}, {\"nome\": \"Páginas\",\"nivel\": 4}, {\"nome\": \"Seo\",\"nivel\": 4}, {\"nome\": \"Voucher\",\"nivel\": 4}, {\"nome\": \"Categoria de Portfólio\",\"nivel\": 4}, {\"nome\": \"Portfolio\",\"nivel\": 4}, {\"nome\": \"Mural\",\"nivel\": 4}, {\"nome\": \"Login\",\"nivel\": 4}, {\"nome\": \"Controle de Mensalidade\",\"nivel\": 4}, {\"nome\": \"Ficha de Atendimento\",\"nivel\": 4}, {\"nome\": \"Comissão\",\"nivel\": 4}, {\"nome\": \"Lançamento Financeiro\",\"nivel\": 4}, {\"nome\": \"Pedido de Venda\",\"nivel\": 4}, {\"nome\": \"Anúncios rápidos\",\"nivel\": 4}, {\"nome\": \"Chamado\",\"nivel\": 4}, {\"nome\": \"Dicionário\",\"nivel\": 4}, {\"nome\": \"Dicas\",\"nivel\": 4}, {\"nome\": \"Formas de Pagamento\",\"nivel\": 4}, {\"nome\": \"Ordem de serviço\",\"nivel\": 4}, {\"nome\": \"Itens em Promoção\",\"nivel\": 4}, {\"nome\": \"Promoção recorrente\",\"nivel\": 4}, {\"nome\": \"Smails\",\"nivel\": 4}, {\"nome\": \"Frete de produtos\",\"nivel\": 4}]");
+                    this.opcoes = this.acesso;
+                    break;
+                case "Atendimento":
+                    this.acesso = eval("[{\"nome\": \"Controle de acesso\",\"nivel\": 4}, {\"nome\": \"Categorias de eventos\",\"nivel\": 4}, {\"nome\": \"Anotações\",\"nivel\": 4}, {\"nome\": \"Consulta\",\"nivel\": 4}, {\"nome\": \"Procedimento\",\"nivel\": 4}, {\"nome\": \"Eventos\",\"nivel\": 4}, {\"nome\": \"Empresa\",\"nivel\": 4}, {\"nome\": \"Cliente\",\"nivel\": 4}, {\"nome\": \"Departamento\",\"nivel\": 4}, {\"nome\": \"Cargo\",\"nivel\": 4}, {\"nome\": \"Plano Odontológico\",\"nivel\": 4}, {\"nome\": \"Plano de saúde\",\"nivel\": 4}, {\"nome\": \"Controle de Ponto\",\"nivel\": 4}, {\"nome\": \"Impressão digital\",\"nivel\": 4}, {\"nome\": \"Ponto\",\"nivel\": 4}, {\"nome\": \"E-tag\",\"nivel\": 4}, {\"nome\": \"Categorias de Dispositivos\",\"nivel\": 4}, {\"nome\": \"Dispositivos\",\"nivel\": 4}, {\"nome\": \"Dependentes\",\"nivel\": 4   }, {\"nome\": \"Categorias de Planos de sistema\",\"nivel\": 4   }, {\"nome\": \"Planos de Sistema\",\"nivel\": 4  }, {\"nome\": \"Funcionários\",\"nivel\": 4  }, {\"nome\": \"Currículo\",\"nivel\": 4}, {\"nome\": \"Fornecedor\",\"nivel\": 4}, {\"nome\": \"Configuração\",\"nivel\": 4}, {\"nome\": \"Álbum\",\"nivel\": 4}, {\"nome\": \"Mídia\",\"nivel\": 4}, {\"nome\": \"Categorias de Anúncio\",\"nivel\": 4}, {\"nome\": \"Anúncio\",\"nivel\": 4   }, {\"nome\": \"Categoria De Texto\",\"nivel\": 4}, {\"nome\": \"Textos\",\"nivel\": 4   }, {\"nome\": \"Páginas\",\"nivel\": 4   }, {\"nome\": \"Seo\",\"nivel\": 4}, {\"nome\": \"Voucher\",\"nivel\": 4}, {\"nome\": \"Categoria de Portfólio\",\"nivel\": 4}, {\"nome\": \"Portfolio\",\"nivel\": 4}, {\"nome\": \"Mural\",\"nivel\": 4}, {\"nome\": \"Login\",\"nivel\": 4}, {\"nome\": \"Controle de Mensalidade\",\"nivel\": 4}, {\"nome\": \"Ficha de Atendimento\",\"nivel\": 4}, {\"nome\": \"Comissão\",\"nivel\": 4}, {\"nome\": \"Lançamento Financeiro\",\"nivel\": 4}, {\"nome\": \"Anúncios rápidos\",\"nivel\": 4}, {\"nome\": \"Chamado\",\"nivel\": 4}, {\"nome\": \"Dicionário\",\"nivel\": 4}, {\"nome\": \"Dicas\",\"nivel\": 4}, {\"nome\": \"Formas de Pagamento\",\"nivel\": 4}, {\"nome\": \"Itens em Promoção\",\"nivel\": 4}, {\"nome\": \"Promoção recorrente\",\"nivel\": 4}, {\"nome\": \"Smails\",\"nivel\": 4}]");
+                    this.opcoes = this.acesso;
+                    break;
+                case "Site":
+                    this.acesso = eval("[{\"nome\": \"Empresa\",\"nivel\": 4'}, {\"nome\": \"Cliente\",\"nivel\": 4}, {\"nome\": \"Categorias de Dispositivos\",\"nivel\": 4}, {\"nome\": \"Dispositivos\",\"nivel\": 4}, {\"nome\": \"Currículo\",\"nivel\": 4}, {\"nome\": \"Configuração\",\"nivel\": 4}, {\"nome\": \"Álbum\",\"nivel\": 4}, {\"nome\": \"Mídia\",\"nivel\": 4}, {\"nome\": \"Categorias de Anúncio\",\"nivel\": 4}, {\"nome\": \"Anúncio\",\"nivel\": 4}, {\"nome\": \"Categoria De Texto\",\"nivel\": 4}, {\"nome\": \"Textos\",\"nivel\": 4}, {\"nome\": \"Páginas\",\"nivel\": 4}, {\"nome\": \"Seo\",\"nivel\": 4}, {\"nome\": \"Voucher\",\"nivel\": 4}, {\"nome\": \"Categoria de Portfólio\",\"nivel\": 4}, {\"nome\": \"Portfolio\",\"nivel\": 4}, {\"nome\": \"Mural\",\"nivel\": 4}, {\"nome\": \"Login\",\"nivel\": 4}, {\"nome\": \"Controle de Mensalidade\",\"nivel\": 4}, {\"nome\": \"Lançamento Financeiro\",\"nivel\": 4}, {\"nome\": \"Dicionário\",\"nivel\": 4}, {\"nome\": \"Dicas\",\"nivel\": 4}, {\"nome\": \"Formas de Pagamento\",\"nivel\": 4}, {\"nome\": \"Itens em Promoção\",\"nivel\": 4}, {\"nome\": \"Promoção recorrente\",\"nivel\": 4}, {\"nome\": \"Smails\",\"nivel\": 4}]")
+                    this.opcoes = this.acesso;
+                    break;
+                case "Cliente":
+                    this.acesso = eval("[{\"nome\": \"Eventos\",\"nivel\": 3}, {\"nome\": \"Cliente\",\"nivel\": 3}, {\"nome\": \"Categorias de Dispositivos\",\"nivel\": 3}, {\"nome\": \"Dispositivos\",\"nivel\": 3}, {\"nome\": \"Currículo\",\"nivel\": 3}, {\"nome\": \"Login\",\"nivel\": 3}, {\"nome\": \"Ficha de Atendimento\",\"nivel\": 3}, {\"nome\": \"Pedido de Venda\",\"nivel\": 3}, {\"nome\": \"Chamado\",\"nivel\": 3}]");
+                    this.opcoes = this.acesso;
+                    break;
+            }
+        }
     }
 });

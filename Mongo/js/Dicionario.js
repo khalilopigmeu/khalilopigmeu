@@ -14,7 +14,7 @@ app["Dicionario"] = new Vue({
         ELtitle: null,
         Icon: '<i class="fas fa-angle-double-right"></i>',
         pesqTbl: "",
-        paginate:[],
+        paginate: [],
 
         JP: null,
         FR: null,
@@ -29,6 +29,8 @@ app["Dicionario"] = new Vue({
     methods: {
         populate: function (e) {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
             var data = {
                 biencode: encrypt(JSON.stringify(this.biencode))
@@ -62,6 +64,8 @@ app["Dicionario"] = new Vue({
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.JP = this.JP;
             this.biencode.FR = this.FR;
             this.biencode.ES = this.ES;
@@ -99,10 +103,10 @@ app["Dicionario"] = new Vue({
             this.evtDataCal = "exc";
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
-            
+
         },
     }
 });

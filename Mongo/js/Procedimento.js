@@ -14,7 +14,7 @@ app["Procedimento"] = new Vue({
         Icon: '<i class="fas fa-tasks"></i>',
         pesqTbl: "",
         Host: "Bienestar/Clinica/Procedimento/",
-        paginate:[],
+        paginate: [],
 
         text: null,
         Descricao: null,
@@ -25,6 +25,8 @@ app["Procedimento"] = new Vue({
     methods: {
         populate: function () {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
             var data = {
                 biencode: encrypt(JSON.stringify(this.biencode))
@@ -50,6 +52,8 @@ app["Procedimento"] = new Vue({
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.Nome = this.Nome;
             this.biencode.Valor = this.Valor;
             this.Descricao = CKEDITOR.instances['procedimentodescricao'].getData();
@@ -84,10 +88,10 @@ app["Procedimento"] = new Vue({
             this.evtDataCal = "exc";
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
-            
+
         },
     }
 });

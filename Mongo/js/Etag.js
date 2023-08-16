@@ -14,7 +14,7 @@ app["Etag"] = new Vue({
         ELtitle: null,
         Icon: '<i class="fas fa-angle-double-right"></i>',
         pesqTbl: "",
-        paginate:[],
+        paginate: [],
 
         Numero: null,
         Codigo: null,
@@ -22,6 +22,8 @@ app["Etag"] = new Vue({
     methods: {
         populate: function (e) {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
             var data = {
                 biencode: encrypt(JSON.stringify(this.biencode))
@@ -41,6 +43,8 @@ app["Etag"] = new Vue({
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.Numero = this.Numero;
             this.biencode.Codigo = this.Codigo;
             this.biencode.id = this.id;
@@ -71,10 +75,10 @@ app["Etag"] = new Vue({
             this.evtDataCal = "exc";
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
-            
+
         },
     }
 });

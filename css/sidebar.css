@@ -25,10 +25,12 @@ body {
     text-decoration: none;
     color:var(--navbarcolor) !important;
     padding-left: 15px;
+    cursor: pointer;
 }
 
 .sidebar-nav h3,.sidebar-nav h4{
     color:var(--navbarcolor) !important;
+    cursor: pointer;
 }
 
 .sidebar-nav hr{
@@ -128,7 +130,7 @@ body {
 .toggled-R #menu-toggle-R{
     position: absolute;
     z-index: 900;
-    right: 90%;
+    left: 10px;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -145,95 +147,107 @@ body {
     position: absolute;
 }
 
-@media (min-width: 576px) { 
+@media (min-width: 576px) {
     #menu-toggle{
-        width: 7vw; 
-        height: 7vw; 
+        width: 7vw;
+        height: 7vw;
         font-size: 4vw;
     }
     #menu-toggle-R{
-        width: 7vw; 
-        height: 7vw; 
+        width: 7vw;
+        height: 7vw;
         font-size: 4vw;
     }
     .toggled #menu-toggle{
-        width: 7vw; 
-        height: 7vw; 
+        width: 7vw;
+        height: 7vw;
         font-size: 4vw;
     }
     .toggled-R #menu-toggle-R{
-        width: 7vw; 
-        height: 7vw; 
+        width: 7vw;
+        height: 7vw;
         font-size: 4vw;
     }
 }
 
-@media (min-width: 768px) { 
+@media (min-width: 768px) {
     #menu-toggle{
-        width: 6vw; 
-        height: 6vw; 
+        width: 6vw;
+        height: 6vw;
         font-size: 4vw;
     }
     #menu-toggle-R{
-        width: 6vw; 
-        height: 6vw; 
+        width: 6vw;
+        height: 6vw;
         font-size: 4vw;
     }
     .toggled #menu-toggle{
-        width: 6vw; 
-        height: 6vw; 
+        width: 6vw;
+        height: 6vw;
         font-size: 4vw;
     }
     .toggled-R #menu-toggle-R{
-        width: 6vw; 
-        height: 6vw; 
+        width: 6vw;
+        height: 6vw;
         font-size: 4vw;
     }
 }
 
-@media (min-width: 992px) { 
+@media (min-width: 992px) {
     #menu-toggle{
-        width: 5vw; 
-        height: 5vw; 
+        width: 5vw;
+        height: 5vw;
         font-size: 3vw;
     }
     #menu-toggle-R{
-        width: 5vw; 
-        height: 5vw; 
+        width: 5vw;
+        height: 5vw;
         font-size: 3vw;
     }
     .toggled #menu-toggle{
-        width: 5vw; 
-        height: 5vw; 
+        width: 5vw;
+        height: 5vw;
         font-size: 3vw;
     }
     .toggled-R #menu-toggle-R{
-        width: 5vw; 
-        height: 5vw; 
+        width: 5vw;
+        height: 5vw;
         font-size: 3vw;
     }
 }
 
-@media (min-width: 1200px) { 
+@media (min-width: 1200px) {
     #menu-toggle{
-        width: 4vw; 
-        height: 4vw; 
+        width: 4vw;
+        height: 4vw;
         font-size: 2vw;
     }
     #menu-toggle-R{
-        width: 4vw; 
-        height: 4vw; 
+        width: 4vw;
+        height: 4vw;
         font-size: 2vw;
     }
     .toggled #menu-toggle{
-        width: 4vw; 
-        height: 4vw; 
+        width: 4vw;
+        height: 4vw;
         font-size: 2vw;
     }
     .toggled-R #menu-toggle-R{
-        width: 4vw; 
-        height: 4vw; 
+        width: 4vw;
+        height: 4vw;
         font-size: 2vw;
     }
 }
 
+#menu-toggle-R[data-toggle="popover"]{
+    width: 10vw !important;
+}
+
+.sidebarvalor{
+    border: none;
+    background: none !important;
+}
+
+#sidebar-wrapper-R .img-menu{
+    max-width: 15%;
+}

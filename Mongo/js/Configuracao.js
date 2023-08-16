@@ -15,49 +15,28 @@ app["Configuracao"] = new Vue({
         pesqTbl: "",
         Host: "Bienestar/Sistema/Configuracao/",
         paginate: [],
-
-        Nome: null,
-        NNF: null,
-        Model: null,
-        FinNFe: null,
-        Serie: null,
-        Ambiente: null,
-        TpImp: null,
-        TpEmis: null,
-        appId: null,
-        googleApiKey: null,
-        clienteOAuth: null,
-        ChaveGoogle: null,
-        AvisoChamado: null,
-        EmailsChamado: null,
-        AvisoVencimento: null,
-        EmailsVencimento: null,
-        AvisoContabil: null,
-        EmailsContabil: null,
-        AvisoAgenda: null,
-        EmailsAgenda: null,
-        AvisoCompra: null,
-        EmailsCompra: null,
-        AvisoEstoque: null,
-        EmailsEstoque: null,
-        Ghost: null,
-        SaldoCaixa: null,
-        LogoURL: null,
-        Site: null,
-        Instagram: null,
-        Facebook: null,
-        FtpUrl: null,
-        FtpLogin: null,
-        FtpSenha: null,
-        FtpPorta: null,
-        PagSeguroEmail: null,
-        PagSeguroToken: null,
-        PagSeguroKey: null,
-        PagSeguroId: null,
+        Nome: "Nome",
+        Site: "Site",
+        LogoURL: "LogoURL",
+        Ghost: "Ghost",
+        FtpUrl: "FtpUrl",
+        FtpLogin: "FtpLogin",
+        FtpPorta: "FtpPorta",
+        FtpSenha: "FtpSenha",
+        SaldoCaixa: "SaldoCaixa",
+        googleApiKey: "googleApiKey",
+        ChaveGoogle: "ChaveGoogle",
+        clienteOAuth: "clienteOAuth",
+        Facebook: "Facebook",
+        appId: "appId",
+        Instagram: "Instagram",
+        MeioPagamento: "MeioPagamento"
     },
     methods: {
         populate: function () {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
             var data = {
                 biencode: encrypt(JSON.stringify(this.biencode))
@@ -67,125 +46,61 @@ app["Configuracao"] = new Vue({
         },
         clear: function () {
             this.Nome = null;
-            this.NNF = null;
-            this.Model = null;
-            this.FinNFe = null;
-            this.Serie = null;
-            this.Ambiente = null;
-            this.TpImp = null;
-            this.TpEmis = null;
-            this.appId = null;
-            this.googleApiKey = null;
-            this.clienteOAuth = null;
-            this.ChaveGoogle = null;
-            this.AvisoChamado = null;
-            this.EmailsChamado = null;
-            this.AvisoVencimento = null;
-            this.EmailsVencimento = null;
-            this.AvisoContabil = null;
-            this.EmailsContabil = null;
-            this.AvisoAgenda = null;
-            this.EmailsAgenda = null;
-            this.AvisoCompra = null;
-            this.EmailsCompra = null;
-            this.AvisoEstoque = null;
-            this.EmailsEstoque = null;
-            this.Ghost = null;
-            this.SaldoCaixa = null;
-            this.LogoURL = null;
             this.Site = null;
-            this.Instagram = null;
-            this.Facebook = null;
+            this.LogoURL = null;
+            this.Ghost = null;
             this.FtpUrl = null;
             this.FtpLogin = null;
-            this.FtpSenha = null;
             this.FtpPorta = null;
-            this.PagSeguroEmail = null;
-            this.PagSeguroToken = null;
-            this.PagSeguroKey = null;
-            this.PagSeguroId = null;
+            this.FtpSenha = null;
+            this.SaldoCaixa = null;
+            this.googleApiKey = null;
+            this.ChaveGoogle = null;
+            this.clienteOAuth = null;
+            this.Facebook = null;
+            this.appId = null;
+            this.Instagram = null;
+            this.MeioPagamento = null;
         }, autocomplete: function () {
             this.id = this.row[0];
             this.Nome = this.row[1];
-            this.NNF = this.row[14];
-            this.Model = this.row[15];
-            this.FinNFe = this.row[16];
-            this.Serie = this.row[17];
-            this.Ambiente = this.row[18];
-            this.TpImp = this.row[19];
-            this.TpEmis = this.row[20];
-            this.appId = this.row[21];
-            this.googleApiKey = decrypt(this.row[22]);
-            this.clienteOAuth = decrypt(this.row[23]);
-            this.ChaveGoogle = decrypt(this.row[24]);
-            this.AvisoChamado = this.row[25];
-            this.EmailsChamado = this.row[26];
-            this.AvisoVencimento = this.row[27];
-            this.EmailsVencimento = this.row[28];
-            this.AvisoContabil = this.row[29];
-            this.EmailsContabil = this.row[30];
-            this.AvisoAgenda = this.row[31];
-            this.EmailsAgenda = this.row[32];
-            this.AvisoCompra = this.row[33];
-            this.EmailsCompra = this.row[34];
-            this.AvisoEstoque = this.row[35];
-            this.EmailsEstoque = this.row[36];
-            this.Ghost = this.row[2];
-            this.SaldoCaixa = this.row[3];
-            this.Site = this.row[4];
-            this.LogoURL = this.row[38];
-            this.Instagram = this.row[5];
-            this.Facebook = this.row[6];
-            this.FtpUrl = decrypt(this.row[7]);
-            this.FtpLogin = decrypt(this.row[8]);
-            this.FtpSenha = decrypt(this.row[9]);
-            this.FtpPorta = this.row[10];
-            this.PagSeguroEmail = decrypt(this.row[11]);
-            this.PagSeguroToken = decrypt(this.row[14]);
-            this.PagSeguroKey = decrypt(this.row[12]);
-            this.PagSeguroId = this.row[13];
+            this.Site = this.row[2];
+            this.LogoURL = this.row[3];
+            this.Ghost = this.row[4];
+            this.FtpUrl = this.row[5];
+            this.FtpLogin = this.row[6];
+            this.FtpPorta = this.row[7];
+            this.FtpSenha = this.row[8];
+            this.SaldoCaixa = this.row[9];
+            this.googleApiKey = decrypt(this.row[10]);
+            this.ChaveGoogle = decrypt(this.row[11]);
+            this.clienteOAuth = decrypt(this.row[12]);
+            this.Facebook = this.row[13];
+            this.appId = this.row[14];
+            this.Instagram = this.row[15];
+            this.MeioPagamento = this.row[16];
         },
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.Nome = this.Nome;
-            this.biencode.NNF = this.NNF;
-            this.biencode.Model = this.Model;
-            this.biencode.FinNFe = this.FinNFe;
-            this.biencode.Serie = this.Serie;
-            this.biencode.Ambiente = this.Ambiente;
-            this.biencode.TpImp = this.TpImp;
-            this.biencode.TpEmis = this.TpEmis;
-            this.biencode.appId = this.appId;
-            this.biencode.googleApiKey = this.googleApiKey;
-            this.biencode.clienteOAuth = this.clienteOAuth;
-            this.biencode.ChaveGoogle = this.ChaveGoogle;
-            this.biencode.AvisoChamado = this.AvisoChamado;
-            this.biencode.EmailsChamado = this.EmailsChamado;
-            this.biencode.AvisoVencimento = this.AvisoVencimento;
-            this.biencode.EmailsVencimento = this.EmailsVencimento;
-            this.biencode.AvisoContabil = this.AvisoContabil;
-            this.biencode.EmailsContabil = this.EmailsContabil;
-            this.biencode.AvisoAgenda = this.AvisoAgenda;
-            this.biencode.EmailsAgenda = this.EmailsAgenda;
-            this.biencode.AvisoCompra = this.AvisoCompra;
-            this.biencode.EmailsCompra = this.EmailsCompra;
-            this.biencode.AvisoEstoque = this.AvisoEstoque;
-            this.biencode.EmailsEstoque = this.EmailsEstoque;
-            this.biencode.Ghost = this.Ghost;
-            this.biencode.SaldoCaixa = this.SaldoCaixa;
             this.biencode.Site = this.Site;
             this.biencode.LogoURL = this.LogoURL;
-            this.biencode.Instagram = this.Instagram;
-            this.biencode.Facebook = this.Facebook;
+            this.biencode.Ghost = this.Ghost;
             this.biencode.FtpUrl = this.FtpUrl;
             this.biencode.FtpLogin = this.FtpLogin;
-            this.biencode.FtpSenha = this.FtpSenha;
             this.biencode.FtpPorta = this.FtpPorta;
-            this.biencode.PagSeguroEmail = this.PagSeguroEmail;
-            this.biencode.PagSeguroToken = this.PagSeguroToken;
-            this.biencode.PagSeguroKey = this.PagSeguroKey;
-            this.biencode.PagSeguroId = this.PagSeguroId;
+            this.biencode.FtpSenha = this.FtpSenha;
+            this.biencode.SaldoCaixa = this.SaldoCaixa;
+            this.biencode.googleApiKey = this.googleApiKey;
+            this.biencode.ChaveGoogle = this.ChaveGoogle;
+            this.biencode.clienteOAuth = this.clienteOAuth;
+            this.biencode.Facebook = this.Facebook;
+            this.biencode.appId = this.appId;
+            this.biencode.Instagram = this.Instagram;
+            this.biencode.MeioPagamento = this.MeioPagamento;
             this.biencode.id = this.id;
             this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
         },
@@ -214,10 +129,10 @@ app["Configuracao"] = new Vue({
             this.evtDataCal = "exc";
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
-            
+
         },
     }
 });

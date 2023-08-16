@@ -27,6 +27,8 @@ app["AnotacaoAgenda"] = new Vue({
     methods: {
         populate: function () {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
             this.biencode.data = app.AnotacaoAgenda.datapesq;
             var data = {
@@ -52,6 +54,8 @@ app["AnotacaoAgenda"] = new Vue({
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.Anotacao = this.Anotacao;
             this.biencode.Titulo = this.Titulo;
             this.biencode.Data = this.Data;
@@ -85,7 +89,7 @@ app["AnotacaoAgenda"] = new Vue({
             this.evtDataCal = "exc";
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
             if (nulo(app.CategoriaEventos)) {
@@ -93,7 +97,7 @@ app["AnotacaoAgenda"] = new Vue({
             } else {
                 this.CategoriaSrc = app.CategoriaEventos.src;
             }
-            
+
         },
     }
 });

@@ -14,7 +14,7 @@ app["Formula"] = new Vue({
         ELtitle: null,
         Icon: '<i class="fas fa-angle-double-right"></i>',
         pesqTbl: "",
-        paginate:[],
+        paginate: [],
 
         custototal: null,
         Especificacao: null,
@@ -26,12 +26,14 @@ app["Formula"] = new Vue({
         Count: 0,
         IdProdutos: [],
         Qtd: [],
-        
-        ProdutosSrc:null,
+
+        ProdutosSrc: null,
     },
     methods: {
         populate: function () {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
             var data = {
                 biencode: $(window).Encrypt(JSON.stringify(this.biencode))
@@ -65,6 +67,8 @@ app["Formula"] = new Vue({
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.IdProdutos = this.IdProdutos;
             this.biencode.Qtd = this.Qtd;
             this.biencode.id = this.id;
@@ -116,7 +120,7 @@ app["Formula"] = new Vue({
             this.custo = Real(valor);
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
             if (nulo(app.Produto)) {
@@ -124,7 +128,7 @@ app["Formula"] = new Vue({
             } else {
                 this.ProdutosSrc = app.Produto.src;
             }
-            
+
         },
     }
 });

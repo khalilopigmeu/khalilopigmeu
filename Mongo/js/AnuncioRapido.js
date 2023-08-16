@@ -27,6 +27,8 @@ app["AnuncioRapido"] = new Vue({
     methods: {
         populate: function () {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
             var data = {
                 biencode: encrypt(JSON.stringify(this.biencode))
@@ -53,6 +55,8 @@ app["AnuncioRapido"] = new Vue({
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.id = this.id;
             this.biencode.Link = this.Link;
             this.biencode.Titulo = this.Titulo;
@@ -106,7 +110,7 @@ app["AnuncioRapido"] = new Vue({
             return flag;
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
             if (nulo(app.Login)) {
@@ -114,7 +118,7 @@ app["AnuncioRapido"] = new Vue({
             } else {
                 this.Loginsrc = app.Login.src;
             }
-            
+
         },
     }
 });

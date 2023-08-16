@@ -33,6 +33,8 @@ app["FingerData"] = new Vue({
     methods: {
         populate: function () {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
             var data = {
                 biencode: encrypt(JSON.stringify(this.biencode))
@@ -70,6 +72,8 @@ app["FingerData"] = new Vue({
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.IdFuncionario = this.IdFuncionario;
             this.biencode.D1 = this.D1;
             this.biencode.D2 = this.D2;
@@ -109,7 +113,7 @@ app["FingerData"] = new Vue({
             this.evtDataCal = "exc";
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
             if (nulo(app.Funcionarios)) {
@@ -117,7 +121,7 @@ app["FingerData"] = new Vue({
             } else {
                 this.FuncionarioSrc = app.Funcionarios.src;
             }
-            
+
         },
     }
 });

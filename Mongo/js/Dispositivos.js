@@ -32,6 +32,8 @@ app["Dispositivos"] = new Vue({
     methods: {
         populate: function () {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
             var data = {
                 biencode: encrypt(JSON.stringify(this.biencode))
@@ -65,6 +67,8 @@ app["Dispositivos"] = new Vue({
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.id = this.id;
             this.biencode.IdCategoria = this.IdCategoria;
             this.biencode.IdLogin = this.IdLogin;
@@ -121,7 +125,7 @@ app["Dispositivos"] = new Vue({
             return flag;
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
             if (nulo(app.Login)) {
@@ -134,7 +138,7 @@ app["Dispositivos"] = new Vue({
             } else {
                 this.CategoriaDispositivosSrc = app.CategoriaDispositivos.src;
             }
-            
+
         },
     }
 });

@@ -14,7 +14,7 @@ app["Revenda"] = new Vue({
         Icon: '<i class="far fa-handshake"></i>',
         pesqTbl: "",
         Host: "Bienestar/Gestao/Revenda/",
-        paginate:[],
+        paginate: [],
 
         UF: null,
         CNAE: null,
@@ -41,6 +41,8 @@ app["Revenda"] = new Vue({
     methods: {
         populate: function () {
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
             var data = {
                 biencode: encrypt(JSON.stringify(this.biencode))
@@ -96,6 +98,8 @@ app["Revenda"] = new Vue({
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             if (this.optCad === "fisica") {
                 this.biencode.Nome = this.Nome;
                 this.biencode.Cpf = this.Cpf;
@@ -152,10 +156,10 @@ app["Revenda"] = new Vue({
             this.evtDataCal = "exc";
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
-            
+
         },
     }
 });

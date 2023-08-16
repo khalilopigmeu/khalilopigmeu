@@ -44,16 +44,54 @@ app["empresasanunciando"] = new Vue({
         subcategoriaprodutos: null,
         modalidadeServico: 1,
         owl: [],
+        qtdProd: {},
         page: null,
         conpro: null,
 
         PaginasAnunciante: [],
         PaginasLoja: [],
+        flagProd: false,
+
+        min: 1,
+        max: 25,
+        posicao: 0,
+        Empresa: null,
+        Email: null,
+        Login: null,
+        Senha: null,
+        Cod: null,
+        UF: null,
+        CNAE: null,
+        CRT: null,
+        DataNasc: null,
+        IE: null,
+        Rg: null,
+        CEP: null,
+        Bairro: null,
+        Rua: null,
+        Num: null,
+        Complemento: null,
+        RazaoSocial: null,
+        NomeFantasia: null,
+        Nome: null,
+        Cnpj: null,
+        Cpf: null,
+        Telefone: null,
+        IM: null,
+        Celular: null,
+        Cidade: null,
+        optCad: "",
+        eula: false,
+        lgpd: false,
+        loginbtn: null,
+        Modelo: null,
     },
     methods: {
         buscar: function (refid) {
             var key = decrypt(app.sys.bien, "encodedstring");
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             if (!nulo(refid)) {
                 this.biencode.id = refid;
                 app.empresasanunciando.Anunciante(this.biencode.id);
@@ -221,7 +259,7 @@ app["empresasanunciando"] = new Vue({
                     break;
             }
         },
-        Empresa: function (id) {
+        EmpresaSelecionada: function (id) {
             var temp = app.sys.searchByID(this.src, id);
             if (typeof temp !== "undefined") {
                 if (temp.length > 0) {
@@ -313,36 +351,53 @@ app["empresasanunciando"] = new Vue({
         },
         espiar: function (id) {
             this.spy = id;
-            window.scrollTo({top: 0, behavior: 'smooth'});
             if (id == "loja") {
                 this.loja();
             }
+            if (id == "anunciante") {
+                window.location.href = "index.php#anunciante";
+            }
+            if (id == "login") {
+                $("#modalLoginSys").modal();
+            }
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        },
+        carroCompra: function () {
+            app.sidebarR.qtdProd = app.empresasanunciando.qtdProd;
+            window.localStorage.setItem("CarroCompra", JSON.stringify(app.empresasanunciando.qtdProd));
+            $("#menu-toggle-R .badge").html(Object.keys(app.empresasanunciando.qtdProd).length);
+            $("#menu-toggle-R").popover('show');
+            $(window).NotifySucesso("Adicionado a sacola");
+            app.sidebarR.loja = false;
+            app.sidebarR.loja = true;
+        },
+        dec: function (id) {
+            var item = app.empresasanunciando.qtdProd[id];
+            if (isNaN(item) || item === "") {
+                item = 0;
+            }
+            if (item > 0) {
+                item = item - 1;
+            } else {
+                item = 0;
+            }
+            $("#" + id).val(item);
+            app.empresasanunciando.qtdProd[id] = item;
+            window.localStorage.setItem("CarroCompra", JSON.stringify(app.empresasanunciando.qtdProd));
+        },
+        inc: function (id) {
+            var item = app.empresasanunciando.qtdProd[id];
+            if (isNaN(item) || item === "") {
+                item = 0;
+            }
+            item = item + 1;
+            $("#" + id).val(item);
+            app.empresasanunciando.qtdProd[id] = item;
+            window.localStorage.setItem("CarroCompra", JSON.stringify(app.empresasanunciando.qtdProd));
         },
         loja: function () {
             $(function () {
-                var proQty = $('.pro-qty');
-                $(".qtybtn").remove();
-                proQty.prepend('<span class="dec qtybtn">-</span>');
-                proQty.append('<span class="inc qtybtn">+</span>');
-                proQty.on('click', '.qtybtn', function () {
-                    var $button = $(this);
-                    var oldValue = $button.parent().find('input').val();
-                    if ($button.hasClass('inc')) {
-                        var newVal = parseFloat(oldValue) + 1;
-                    } else {
-                        if (oldValue > 0) {
-                            var newVal = parseFloat(oldValue) - 1;
-                        } else {
-                            newVal = 0;
-                        }
-                    }
-                    $button.parent().find('input').val(newVal);
-                });
-                $('.set-bg').each(function () {
-                    var bg = $(this).data('setbg');
-                    $(this).css('background-image', 'url(' + bg + ')');
-                });
-                $('.product__details__pic__slider img').on('click', function () {
+                $(".pro-qty").on("click", '.product__details__pic__slider img', function () {
                     var imgurl = $(this).data('imgbigurl');
                     var bigImg = $('.product__details__pic__item--large').attr('src');
                     if (imgurl !== bigImg) {
@@ -350,6 +405,10 @@ app["empresasanunciando"] = new Vue({
                             src: imgurl
                         });
                     }
+                });
+                $('.set-bg').each(function () {
+                    var bg = $(this).data('setbg');
+                    $(this).css('background-image', 'url(' + bg + ')');
                 });
             });
         },
@@ -530,9 +589,15 @@ app["empresasanunciando"] = new Vue({
             }
         },
         buscaProduto: function (id) {
+            if (this.flagProd === false) {
+                this.flagProd = true;
+            }
             this.selectProduto = null;
             var item = app.sys.searchByID(this.produtos, id);
             this.selectProduto = item[0];
+            if (nulo(this.qtdProd[this.selectProduto._id['$oid']])) {
+                this.qtdProd[this.selectProduto._id['$oid']] = 1
+            }
             this.loja();
         },
         buscaConsulta: function (id) {
@@ -547,23 +612,38 @@ app["empresasanunciando"] = new Vue({
         },
         HasPromo: function (id, preco) {
             var search = app.sys.searchall(this.Itemsrc, id)[0];
+            var lote;
             if (!nulo(search)) {
                 if (!nulo(search.LoteAtivo)) {
                     switch (search.LoteAtivo) {
                         case "1":
+                            lote = search.lote1;
+                            //console.log(app.sys.searchByID(this.produtos, search.Produto)[0].NomeProduto + "," + preco+","+lote);
                             return "de <del>R$ " + preco + "</del> por R$ " + search.lote1;
                         case "2":
+                            lote = search.lote2;
+                            //console.log(app.sys.searchByID(this.produtos, search.Produto)[0].NomeProduto + "," + preco+","+lote);
                             return "de <del>R$ " + preco + "</del> por R$ " + search.lote2;
                         case "3":
+                            lote = search.lote3;
+                            //console.log(app.sys.searchByID(this.produtos, search.Produto)[0].NomeProduto + "," + preco+","+lote);
                             return "de <del>R$ " + preco + "</del> por R$ " + search.lote3;
                         case "4":
+                            lote = search.lote4;
+                            //console.log(app.sys.searchByID(this.produtos, search.Produto)[0].NomeProduto + "," + preco+","+lote);
                             return "de <del>R$ " + preco + "</del> por R$ " + search.lote4;
                         case "5":
+                            lote = search.lote5;
+                            //console.log(app.sys.searchByID(this.produtos, search.Produto)[0].NomeProduto + "," + preco+","+lote);
                             return "de <del>R$ " + preco + "</del> por R$ " + search.lote5;
                         default :
+                            lote = search.lote5;
+                            //console.log(app.sys.searchByID(this.produtos, search.Produto)[0].NomeProduto + "," + preco+","+lote);
                             return "de <del>R$ " + preco + "</del> por R$ " + search.lote5;
                     }
                 } else {
+                    lote = search.lote5;
+                    //console.log(app.sys.searchByID(this.produtos, search.Produto)[0].NomeProduto + "," + preco+","+lote);
                     return "de <del>R$ " + preco + "</del> por R$ " + search.lote5;
                 }
             } else {
@@ -595,6 +675,8 @@ app["empresasanunciando"] = new Vue({
         },
         load: function () {
             app.sidebar.newmenu = [];
+            app.empresasanunciando.addSpy("<i class='fas fa-arrow-left'</i> Voltar", "anunciante");
+            app.empresasanunciando.addSpy("<i class='far fa-user-circle'></i> Login", "login");
             app.empresasanunciando.addSpy("<i class='fas fa-bullhorn'></i> Anúncio", "all");
             if (nulo(app.anunciante)) {
                 this.anunciosSrc = [];
@@ -698,7 +780,7 @@ app["empresasanunciando"] = new Vue({
                 this.espiar(getParameterByName('spy'));
             }
             this.Criarpaginas();
-        },
+        }
     },
 });
         

@@ -17,6 +17,8 @@ app["Dispositivos"] = new Vue({
         buscar: function (refid) {
             var key = decrypt(app.sys.bien, "encodedstring");
             this.biencode = {};
+            captchaSys(app.sys.keysite);
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             if (!nulo(refid)) {
                 this.biencode.id = refid;
                 app.empresasanunciando.Anunciante(this.biencode.id);
@@ -113,6 +115,8 @@ app["Dispositivos"] = new Vue({
         },
         conectarSistema: function (idlog) {
             var biencode = {};
+            captchaSys(app.sys.keysite);
+            biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             biencode.Formato = this.flag;
             switch (this.flag) {
                 case "Facebook":
@@ -151,6 +155,8 @@ app["Dispositivos"] = new Vue({
         },
         conectarCliente: function (idlog) {
             var biencode = {};
+            captchaSys(app.sys.keysite);
+            biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             biencode.Modelo = this.flag;
             switch (this.flag) {
                 case "Facebook":
