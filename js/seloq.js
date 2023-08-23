@@ -173,9 +173,8 @@ function urlRead() {
     if (getParameterByName('uuid') !== null) {
         window.localStorage.setItem("uuid", getParameterByName('uuid'));
         $(window).NotifyInfo(getParameterByName('uuid') + " Bem vindo");
-        window.location.href = "index.php";
     }
-    if (app.sys.page == "promocaoespacobienestar") {
+    if (app.sys.page === "promocaoespacobienestar") {
         window.location.href = "https://bienclube.com.br/index.php#anunciante?pgid=61fbb5a965ac59817653d77c&spy=promocao";
     }
     if (app.sys.page === "dispositivos") {
@@ -263,6 +262,12 @@ function urlRead() {
     if (app.sys.page === "paginas") {
         if (getParameterByName('pg')) {
             app.paginasite.pg = getParameterByName('pg');
+            app.paginasite.buscar();
+        } else if (getParameterByName('startpg')) {
+            app.paginasite.startpg = getParameterByName('startpg');
+            app.paginasite.buscar();
+        } else if (getParameterByName('endpg')) {
+            app.paginasite.endpg = getParameterByName('endpg');
             app.paginasite.buscar();
         } else {
             app.paginasite.buscar();
