@@ -5,6 +5,8 @@ app["paginasite"] = new Vue({
         src: null,
         Host: "Bienestar/Site/pagina/",
         pg: null,
+        endpg: null,
+        startpg: null,
     },
     methods: {
         buscar: function (refid) {
@@ -14,6 +16,12 @@ app["paginasite"] = new Vue({
             this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             if (app.paginasite.pg !== null) {
                 this.biencode.urlpage = getParameterByName("pg");
+            }
+            if (app.paginasite.startpg !== null) {
+                this.biencode.startpg = getParameterByName("startpg");
+            }
+            if (app.paginasite.endpg !== null) {
+                this.biencode.endpg = getParameterByName("endpg");
             }
             if (!nulo(refid)) {
                 this.biencode.empresa = refid;
@@ -30,6 +38,23 @@ app["paginasite"] = new Vue({
         },
         ravec: function (nivel) {
             return true;
+        },
+        validapg: function (url) {
+            if (app.paginasite.startpg !== null) {
+                if (url.startsWith(app.paginasite.startpg)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else if (app.paginasite.endpg !== null) {
+                if (url.endsWith(app.paginasite.endpg)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return true;
+            }
         }
     }
 });

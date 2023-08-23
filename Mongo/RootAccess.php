@@ -27,12 +27,23 @@ include $refUrl . "Mongo/template/head.php"
         <option v-if="LoginSrc!=null" v-for="el in app.sys.sorter(LoginSrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Login}}</option>
     </select>
     <span class="btn" onclick="setModal('Login', 'RootAccess')">Adicionar Login <i class="far fa-plus-square"></i></span><br>
+<<<<<<< HEAD
+    <label>Padrão:</label>
+    <select class="form-control" v-on:change="padronizar" v-model="padrao">
+        <option value="">Selecione uma opção</option>
+        <option value="Cliente">Cliente</option>
+        <option value="Site">Site</option>
+        <option valule="Ecommerce">Loja Virtual</option>
+        <option value="Atendimento">Consultorio</option>
+        <option value="Empresa">Full</option>
+=======
     <select>
         <option>Cliente</option>
         <option>Site</option>
         <option>Loja Virtual</option>
         <option>Consultorio</option>
         <option>Full</option>
+>>>>>>> ae495cfda6d7ffd1705dcd61954fe4a377af964a
     </select>
     <div v-for="(item,index) in opcoes" class="my-3 py-3">
         <label>{{item.nome}}: </label>
