@@ -15,10 +15,6 @@ app["RootAccess"] = new Vue({
         pesqTbl: "",
         Host: "Bienestar/Gestao/Empresa/",
         paginate: [],
-<<<<<<< HEAD
-=======
-
->>>>>>> ae495cfda6d7ffd1705dcd61954fe4a377af964a
         selEmpresa: null,
         selLogin: null,
         SenhaAdmin: null,

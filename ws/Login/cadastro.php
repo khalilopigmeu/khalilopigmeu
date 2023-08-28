@@ -19,8 +19,9 @@
                                 <label>Tipo de pessoa:</label>
                                 <select class="form-control" v-model="optCad" name="optCad">
                                     <option selected>Selecione o tipo de cadastro</option>
-                                    <option value="fisica">Pessoa Física</option>
-                                    <option value="juridica">Pessoa Jurídica</option>
+                                    <option value="usuario">Usuário</option>
+                                    <option value="fisica">Anunciante</option>
+                                    <option value="juridica">Empresa</option>
                                 </select><br>
                             </fieldset>
                             <fieldset  v-if="optCad==='fisica'" class="border rounded container-fluid border-dark">
