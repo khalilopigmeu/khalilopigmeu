@@ -6,8 +6,8 @@ app["sys"] = new Vue({
         refid: "64dca6e7f4f70bda9ba100a9",
         reflog: "613ea0cdb8f611d6e2029031",
         /*BIENESTAR CLUBE 
-        bien: "eXZGM2l1SjZ5TjErbzRMS1RsbXkwbmpaNk9FVTBwTlIzRjBXcHJab1lGSmZUVXVwbGRhMUFCMmU5MUVXSWEwR3NjQS9JOUtpM2tNcko5b1hKd2F5U242RmtnRE1MMnhBcDdINXFKejNKZG5GZ0p2RVdHRk94ZytBT01NaVRDMzljejltb2Z1M1U3bHBuRXBzM0NvbTBGOWc0SDNUNU5mTUxnOHhqaVpGYjdERlcyM2h5cXVIK3ViS25CcGl6Qzhpd2xVamhOZW9TUjdRbG9HV2N1ekRiSlJLUWlWVzk4dHQ5NmtjcllnR0NMMklWcUgyb3RNTTc0TE12VU5QemRJNyM4ZjA4NzQ4YzlkNWM3NWEzYjU3YTFkNGZiZjE0NzRjNiM1MjRkMzg3MmI3NTA1NGZlYWFkODdiNTk5NzEyYzgzZQ==",
-        RTI EMPRESARIAL*/
+         bien: "eXZGM2l1SjZ5TjErbzRMS1RsbXkwbmpaNk9FVTBwTlIzRjBXcHJab1lGSmZUVXVwbGRhMUFCMmU5MUVXSWEwR3NjQS9JOUtpM2tNcko5b1hKd2F5U242RmtnRE1MMnhBcDdINXFKejNKZG5GZ0p2RVdHRk94ZytBT01NaVRDMzljejltb2Z1M1U3bHBuRXBzM0NvbTBGOWc0SDNUNU5mTUxnOHhqaVpGYjdERlcyM2h5cXVIK3ViS25CcGl6Qzhpd2xVamhOZW9TUjdRbG9HV2N1ekRiSlJLUWlWVzk4dHQ5NmtjcllnR0NMMklWcUgyb3RNTTc0TE12VU5QemRJNyM4ZjA4NzQ4YzlkNWM3NWEzYjU3YTFkNGZiZjE0NzRjNiM1MjRkMzg3MmI3NTA1NGZlYWFkODdiNTk5NzEyYzgzZQ==",
+         RTI EMPRESARIAL*/
         bien: "OXJEUzgzT3VLZjVGREdZTWdmVk5EcXJSaENlb1JOTi9xL09ZMGw1cWdBYktwRitwQTdSUkMzUlFDeEpvY2J0Qm9qNko2eHhLSDU1TEJseTNRcmRDZ2FaMEhNQVFxVlJhbHR6RlE1L1BOdUdHYlpLRGMrbTBkb0NCdWNDNStvdk0wWUFURnR4V2x4WnF6MEMxTXJWYkkyUnF4SmZmRkdCUk1YZDF0K1dOWGhma25zdXFNcEtocng5NU9md01YWlJ1NjlvWlFFUkREUG14Mkh0R2FhdTkwclZmb2dzTk1VYVc2Mm0xQXRjblEwYkF1Z1VTR3JweUk5bnI0NjRuZ0tSYSNjY2Q3YmNmMjU2MGE5NzgzYTQ1ODkwZTJkMWIwOWZmMCMzOTU5N2NjYjRjZGU2YWE0NjkwOWQxYmJjNmZmYWNkMg==",
         page: "index",
         gapi: null,
@@ -295,8 +295,25 @@ app["sys"] = new Vue({
                 app.sys.mascara();
             }
         },
-        crud: function (appcontrol, op, param) {
+        crud: function (appcontrol, op, param, ex, func) {
             if (!nulo(app[appcontrol])) {
+                if (op.includes("variavel")) {
+                    app[appcontrol].clear();
+                    if (!app.sys.ravec(1, appcontrol)) {
+                        if (typeof app.erros.errors.push === "function")
+                            app.erros.errors.push(app[appcontrol].ELtitle + ": Sem permissão de acesso de leitura");
+                    } else {
+                        var data = param;
+                        var ws = app[appcontrol].Host + ex;
+                        var p = post(ws, data);
+                        if (appcontrol === "Eventos") {
+                            app[appcontrol].src = decrypt(p);
+                        } else {
+                            app[appcontrol].src = eval(decrypt(p));
+                        }
+                        func();
+                    }
+                }
                 if (op.includes("listar")) {
                     app[appcontrol].clear();
                     if (!app.sys.ravec(1, appcontrol)) {

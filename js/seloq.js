@@ -170,6 +170,9 @@ function urlRead() {
     if (!nulo(window.localStorage.getItem("uuid"))) {
         $(window).NotifyInfo(window.localStorage.getItem("uuid") + " Bem vindo");
     }
+    if (getParameterByName('cli') !== null) {
+        app.configuracaosite.buscaurl(getParameterByName('cli'));
+    }
     if (getParameterByName('uuid') !== null) {
         window.localStorage.setItem("uuid", getParameterByName('uuid'));
         $(window).NotifyInfo(getParameterByName('uuid') + " Bem vindo");
