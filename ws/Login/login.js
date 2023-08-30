@@ -170,17 +170,26 @@ app["clientLogin"] = new Vue({
             app.sys.mascara();
         },
         cadastro: function (e) {
+            app.sys.onsys=false;
             setAuth(decrypt(app.sys.bien, "encodedstring"));
             var biencode = {};
             captchaSys(app.sys.keysite);
             biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
-            if (this.optCad === "fisica") {
+            if (this.optCad === "usuario") {
                 biencode.Nome = this.Nome;
                 biencode.Cpf = this.Cpf;
                 biencode.Rg = this.Rg;
                 biencode.DataNasc = this.DataNasc;
+                biencode.modelo = "Usuario";
+            } else if (this.optCad === "fisica") {
+                biencode.Nome = this.Nome;
+                biencode.NomeFantasia = this.Nome;
+                biencode.Cpf = this.Cpf;
+                biencode.RazaoSocial = this.Rg;
+                biencode.Rg = this.Rg;
+                biencode.DataNasc = this.DataNasc;
                 biencode.modelo = "Cliente";
-            } else {
+            } else if (this.optCad === "juridica") {
                 biencode.NomeFantasia = this.NomeFantasia;
                 biencode.Cnpj = this.Cnpj;
                 biencode.RazaoSocial = this.RazaoSocial;
@@ -314,7 +323,7 @@ app["clientLogin"] = new Vue({
                 }
             }
         },
-        loginDevice: function (idlog,modelo) {
+        loginDevice: function (idlog, modelo) {
             setAuth(decrypt(app.sys.bien, "encodedstring"));
             e.preventDefault();
             biencode.Formato = this.flagDispositivo;

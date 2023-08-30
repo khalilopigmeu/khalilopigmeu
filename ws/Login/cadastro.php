@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-centered mw-100 w-75">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Cliente Bienestar</h4>
+                <h4 class="modal-title">Cadastre-se no Bienestar</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body justify-content-center container-fluid">
@@ -16,11 +16,12 @@
                         <fieldset class="border rounded container-fluid border-dark my-3 py-3 w-90">
                             <legend class="border rounded text-center border-dark">Dados de cliente</legend>
                             <fieldset>
-                                <label>Tipo de pessoa:</label>
+                                <label>Tipo de cadastro:</label>
                                 <select class="form-control" v-model="optCad" name="optCad">
                                     <option selected>Selecione o tipo de cadastro</option>
-                                    <option value="fisica">Pessoa Física</option>
-                                    <option value="juridica">Pessoa Jurídica</option>
+                                    <option value="usuario">Usuário</option>
+                                    <option value="fisica">Anunciante</option>
+                                    <option value="juridica">Empresa</option>
                                 </select><br>
                             </fieldset>
                             <fieldset  v-if="optCad==='fisica'" class="border rounded container-fluid border-dark">
