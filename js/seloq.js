@@ -88,10 +88,10 @@ $(function () {
         cdn = "https://cdn.pongongo.com.br/";
     }
     $("form").attr("autocomplete", "off");
-    $("body").on("click", "#menu-toggle", function () {
+    $("body").on("click", "#menu-toggle,.sidemenuitem", function () {
         $("#wrapper").toggleClass("toggled");
     });
-    $("body").on("click", "#menu-toggle-R,#sidebar-wrapper-R a", function () {
+    $("body").on("click", "#menu-toggle-R,#sidebar-wrapper-R a,.sidemenuitem-R", function () {
         $("#wrapper").toggleClass("toggled-R");
         $("#menu-toggle-R").popover("hide");
     });
@@ -137,6 +137,8 @@ $(function () {
 
     if (urlSite.includes("ws/Agenda")) {
         $("header h1").hide();
+        app.Customizar.setDefault();
+        app.Customizar.setColorSystem();
     }
     if (urlSite.includes("ws/Site")) {
 
@@ -152,7 +154,7 @@ function urlRead() {
     app.anunciante.pgid = null;
     app.paginasite.pg = null;
     urlSite = window.location.href;
-    app.Customizar.defaultColor();
+    app.Customizar.setDefault();
     if (urlSite.includes("access_token")) {
         var acs = urlSite.substr(urlSite.indexOf("access_token") + 13, urlSite.lastIndexOf("token_type") - 54);
         window.localStorage.setItem("access_token", acs);
@@ -245,6 +247,7 @@ function urlRead() {
             $("#menu-toggle-R").show();
             $("#menu-toggle-R .badge").show();
             app.sidebarR.loja = true;
+            app.Customizar.setColorSite();
         } else {
             $("#header").show();
             $("#byBien").hide();

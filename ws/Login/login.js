@@ -170,7 +170,7 @@ app["clientLogin"] = new Vue({
             app.sys.mascara();
         },
         cadastro: function (e) {
-            app.sys.onsys=false;
+            app.sys.onsys = false;
             setAuth(decrypt(app.sys.bien, "encodedstring"));
             var biencode = {};
             captchaSys(app.sys.keysite);
@@ -224,7 +224,12 @@ app["clientLogin"] = new Vue({
             if (rs.includes("erro")) {
                 $(window).NotifyErr("Erro ao realizar o cadastro" + rs);
             } else {
-                rs = JSON.parse(rs);
+                /*
+                 * RS[0] - RAVEC
+                 * RS[1] - EMPRESA
+                 * RS[2] - LOGIN
+                 */
+                alert("Cadastrado com sucesso! A administração irá entrar em contato com você.");
                 $(window).NotifyInfo("Cadastrado com sucesso! A administração irá entrar em contato com você.");
             }
         },

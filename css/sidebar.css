@@ -29,11 +29,7 @@ body {
 }
 
 .sidebar-nav h3,.sidebar-nav h4{
-<<<<<<< HEAD
     color:var(--navbarcolor) !important;
-=======
-    color:var(--navbarbg) !important;
->>>>>>> ae495cfda6d7ffd1705dcd61954fe4a377af964a
     cursor: pointer;
 }
 

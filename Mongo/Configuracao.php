@@ -2,9 +2,9 @@
 $pgtitle = "Configuração";
 $page = "Configuracao";
 $td = ["" . $page => ["Id", "Nome", "Site", "LogoURL", "Ghost", "FtpUrl", "FtpLogin", "FtpPorta", "FtpSenha", "SaldoCaixa",
-        "googleApiKey", "ChaveGoogle", "clienteOAuth", "Facebook", "appId", "Instagram", "MeioPagamento"]];
+        "googleApiKey", "ChaveGoogle", "clienteOAuth", "Facebook", "appId", "Instagram", "MeioPagamento", "Maioridade", "Esquema de Cores"]];
 $tdvue = ["" . $page => ["td.Nome", "td.Site", "td.LogoURL", "td.Ghost", "td.FtpUrl", "td.FtpLogin", "td.FtpPorta", "td.FtpSenha", "td.SaldoCaixa",
-        "td.googleApiKey", "td.ChaveGoogle", "td.clienteOAuth", "td.Facebook", "td.appId", "td.Instagram", "td.MeioPagamento"]];
+        "td.googleApiKey", "td.ChaveGoogle", "td.clienteOAuth", "td.Facebook", "td.appId", "td.Instagram", "td.MeioPagamento", "td.majority", "td.RootColors"]];
 
 include $refUrl . "Mongo/template/head.php"
 ?>
@@ -12,12 +12,15 @@ include $refUrl . "Mongo/template/head.php"
 <nav>
     <div class="nav nav-tabs" id="nav-config" role="tablist">
         <a class="nav-item nav-link active" id="tnav-conf" data-toggle="tab" href="#nav-sys" role="tab" aria-controls="nav-web" aria-selected="true" data-model="1">Sistema</a>
+        <a class="nav-item nav-link" id="tnav-cus" data-toggle="tab" href="#nav-cus" role="tab" aria-controls="nav-cus" data-model="1">Customização</a>
         <a class="nav-item nav-link" id="tnav-web" data-toggle="tab" href="#nav-web" role="tab" aria-controls="nav-web" data-model="1">Web</a>
     </div>
 </nav>
 <div class="row justify-content-center mt-4">
     <div class="tab-content justify-content-center container-fluid mt-3" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-sys" role="tabpanel" aria-labelledby="nav-evt-tab">
+            <label>Conteúdo +18:</label>
+            <input type="checkbox" v-model="majority" placeholder="Campo..." ><br>
             <label>Nome:</label>
             <input class="form-control" v-model="Nome" placeholder="Campo..." ><br>
             <label>Saldo em caixa:</label>
@@ -25,6 +28,13 @@ include $refUrl . "Mongo/template/head.php"
             <br>
             <label>Backup:</label>
             <input class="form-control" v-model="Ghost" placeholder="Campo..." ><br>
+        </div>
+        <div class="tab-pane fade" id="nav-cus" role="tabpanel" aria-labelledby="nav-cus-tab">
+            <label>Customização:</label>
+            <button class="btn" v-on:click="createOpts">Carregar cores</button>
+            <div id="formcustomize"></div>
+            <br>
+            <button class="btn" v-on:click="changeColorSystem">Atualizar cores</button>
         </div>
         <div class="tab-pane fade" id="nav-web" role="tabpanel" aria-labelledby="nav-evt-tab">
             <label>Logo:</label>

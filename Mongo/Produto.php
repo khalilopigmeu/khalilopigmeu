@@ -19,7 +19,7 @@ $td = ["" . $page => ["Id", "Famíalia", "Classe",
         "Data de Validade", "Código de Barras",
         "Palavras-chave", "Data de fabricação",
         "Unidade de venda", "Plano de contas", "Tipo",
-        "Uso", "Unidade de compra"]];
+        "Uso", "Unidade de compra","Custo","Valor de Mercado"]];
 $tdvue = ["" . $page => ["app.sys.foreignKeyReplace(FamiliaSrc,'TipoFamilia',td.IdFamilia)",
         "app.sys.foreignKeyReplace(ClasseSrc,'TipoClasse',td.IdClasse)",
         "app.sys.foreignKeyReplace(CategoriaSrc,'TipoCategoria',td.IdCategoriaProduto)",
@@ -44,7 +44,7 @@ $tdvue = ["" . $page => ["app.sys.foreignKeyReplace(FamiliaSrc,'TipoFamilia',td.
         "td.Contas",
         "td.Tipo",
         "td.Uso",
-        "td.UnidComp"]];
+        "td.UnidComp","td.Custo","td.ValorMercado"]];
 
 include $refUrl . "Mongo/template/head.php"
 ?>
@@ -93,6 +93,10 @@ include $refUrl . "Mongo/template/head.php"
 <textarea class="form-control" name="especificacao"  placeholder=""></textarea><br>
 <label>Resumo:</label>
 <textarea class="form-control" name="resumo" placeholder=""></textarea><br>
+<label>Custo:</label>
+<input class="form-control" v-model="Custo" placeholder=""><br>
+<label>Valor de Mercado:</label>
+<input class="form-control" v-model="ValorMercado" placeholder=""><br>
 <label>Preço:</label>
 <input class="form-control" v-model="Preco" placeholder=""><br>
 <label>Peso:</label>

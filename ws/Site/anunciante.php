@@ -88,21 +88,26 @@
         <?php include $refUrl . "Mongo/template/pagination.php" ?>
     </div>
     <div v-else>
-        <?php include "anunciante_associado.php" ?>
-        <?php include "anunciante_paginas.php" ?>
-        <?php include "anunciante_promocoes.php" ?>
-        <?php include "anunciante_loja.php" ?>
-        <div v-if="Anunciante(pgid).Tipo==='4'" id="toOpen" v-bind:data-url="getSite(pgid)">
-            {{cast()}}
+        <div v-if="ismajor==false || ismajor==true && majority==true">
+            <?php include "anunciante_associado.php" ?>
+            <?php include "anunciante_paginas.php" ?>
+            <?php include "anunciante_promocoes.php" ?>
+            <?php include "anunciante_loja.php" ?>
+            <div v-if="Anunciante(pgid).Tipo==='4'" id="toOpen" v-bind:data-url="getSite(pgid)">
+                {{cast()}}
+            </div>
+            <div v-if="Anunciante(pgid).Tipo==='5'" id="toOpen" v-bind:data-url="'https://wa.me/55'+cleanwap(EmpresaSelecionada(pgid).Celular)">
+                {{cast()}}
+            </div>
+            <div v-if="Anunciante(pgid).Tipo==='6'" id="toOpen" v-bind:data-url="'https://facebook.com/'+getFB(pgid)">
+                {{cast()}}
+            </div>
+            <div v-if="Anunciante(pgid).Tipo==='7'"  id="toOpen" v-bind:data-url="'https://instagram.com/'+getInsta(pgid)">
+                {{cast()}}
+            </div>
         </div>
-        <div v-if="Anunciante(pgid).Tipo==='5'" id="toOpen" v-bind:data-url="'https://wa.me/55'+cleanwap(EmpresaSelecionada(pgid).Celular)">
-            {{cast()}}
-        </div>
-        <div v-if="Anunciante(pgid).Tipo==='6'" id="toOpen" v-bind:data-url="'https://facebook.com/'+getFB(pgid)">
-            {{cast()}}
-        </div>
-        <div v-if="Anunciante(pgid).Tipo==='7'"  id="toOpen" v-bind:data-url="'https://instagram.com/'+getInsta(pgid)">
-            {{cast()}}
+        <div  v-if="ismajor==true && majority==false">
+            <button onclick="window.location.href = 'index.php#anunciante'">Retornar</button>
         </div>
     </div>
 </div>

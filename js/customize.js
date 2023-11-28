@@ -2,6 +2,9 @@
 app["Customizar"] = new Vue({
     el: '#Customizar',
     data: {
+        src: null,
+        Host: "Bienestar/Sistema/Configuracao/",
+
         dark: null,
         medium: null,
         light: null,
@@ -16,8 +19,6 @@ app["Customizar"] = new Vue({
         linhaeven: null,
         linhaodd: null,
 
-        src: null,
-        Host: "Bienestar/",
         navbarbg: null,
         navbarfont: null,
         navbarcolor: null,
@@ -65,173 +66,104 @@ app["Customizar"] = new Vue({
         anunciotitulosfont: null,
         anuncioconteudofont: null,
     },
-    /* props: ['value'],
-     render: function (createElement) {
-     var self = this
-     return createElement('input', {
-     domProps: {
-     value: self.value,
-     class: "form-control",
-     type: "color"
-     },
-     on: {
-     input: function (event) {
-     self.$emit('input', event.target.value)
-     }
-     }
-     })
-     },*/
+
     methods: {
-        /*buscar: function () {
-         $(function () {
-         var preauth = getAuth();
-         setAuth("encodedstring");
-         var auth = decrypt(app.sys.bien);
-         setAuth(auth);
-         this.biencode = {}; captchaSys(app.sys.keysite);
-         this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
-         this.biencode.empresa = app.sys.refid;
-         var data = {
-         biencode: encrypt(JSON.stringify(this.biencode))
-         };
-         app.sys.crud("Customizar", "listar", data);
-         setAuth(preauth);
-         });
-         },*/
-        defaultPallete: function () {
-            var itens = Object.keys(app.Customizar._data);
-            for (var i = 0; i <= itens.length - 1; i++) {
-                if (itens[i] !== "src" || itens[i] !== "Host") {
-                    //app.Customizar[itens[i]] = app.Customizar.src[app.sys.pallete][itens[i]];
-                    app.Customizar[itens[i]] = app.Customizar.src[0][itens[i]];
-                }
-            }
-        },
-        createOpts: function () {
-            for (var i = 0; i <= Object.keys(app.Customizar._data).length - 1; i++) {
-                console.log(Object.keys(app.Customizar._data)[i])
-            }
-        },
-        readDef: function () {
-            var itens = Object.keys(app.Customizar._data);
-            for (var i = 0; i <= itens.length - 1; i++) {
-                if (itens[i] !== "src" || itens[i] !== "Host") {
-                    var element = window.localStorage.getItem(itens[i]);
-                    if (typeof element === "undefined" || element === null) {
-                        if (app.Customizar[itens[i]] === null) {
-                            this.setDefault(itens[i]);
-                        } else {
-                            window.localStorage.setItem(app.Customizar[itens[i]], app.Customizar[itens[i]]);
-                        }
-                    }
-                }
-            }
-        },
-        setDefault: function (element) {
-            var dflt = {};
+        setDefault: function () {
             if (urlSite.includes("borealmystic")) {
-                dflt.navbarbg = "#333333";
-                dflt.navbarfont = "inherit";
-                dflt.navbarcolor = "#fff";
+                app.Customizar.navbarbg = "#333333";
+                app.Customizar.navbarfont = "inherit";
+                app.Customizar.navbarcolor = "#fff";
 
-                dflt.modalbg = "#fff";
-                dflt.modalfont = "inherit";
-                dflt.modalcolor = "#000000";
+                app.Customizar.modalbg = "#fff";
+                app.Customizar.modalfont = "inherit";
+                app.Customizar.modalcolor = "#000000";
 
-                dflt.fieldesetbg = "#ddd";
-                dflt.fieldsetfont = "inherit";
-                dflt.fieldsetcolor = "#000000";
+                app.Customizar.fieldesetbg = "#ddd";
+                app.Customizar.fieldsetfont = "inherit";
+                app.Customizar.fieldsetcolor = "#000000";
 
-                dflt.tabbg = "#d5d5d5";
-                dflt.tabfont = "inherit";
-                dflt.tabcolor = "#fff";
+                app.Customizar.tabbg = "#d5d5d5";
+                app.Customizar.tabfont = "inherit";
+                app.Customizar.tabcolor = "#fff";
 
-                dflt.tableheadbg = "#c67c2e";
-                dflt.tableheadfont = "inherit";
-                dflt.tableheadcolor = "#fff";
+                app.Customizar.tableheadbg = "#c67c2e";
+                app.Customizar.tableheadfont = "inherit";
+                app.Customizar.tableheadcolor = "#fff";
 
-                dflt.rowevenbg = "#fff";
-                dflt.rowevencolor = "#000";
+                app.Customizar.rowevenbg = "#fff";
+                app.Customizar.rowevencolor = "#000";
 
-                dflt.rowoddbg = " #ccc";
-                dflt.rowoddcolor = "#000";
+                app.Customizar.rowoddbg = " #ccc";
+                app.Customizar.rowoddcolor = "#000";
 
-                dflt.tablefootbg = "#c67c2e";
-                dflt.tablefootfont = "inherit";
-                dflt.tablefootcolor = "#fff";
+                app.Customizar.tablefootbg = "#c67c2e";
+                app.Customizar.tablefootfont = "inherit";
+                app.Customizar.tablefootcolor = "#fff";
 
-                dflt.botoesbg = "#c67c2e";
-                dflt.botoesout = "#ffcc80";
-                dflt.botoesoff = "#808080";
-                dflt.botoesfont = "inherit";
-                dflt.botoescolor = "#fff";
+                app.Customizar.botoesbg = "#c67c2e";
+                app.Customizar.botoesout = "#ffcc80";
+                app.Customizar.botoesoff = "#808080";
+                app.Customizar.botoesfont = "inherit";
+                app.Customizar.botoescolor = "#fff";
 
-                dflt.hrefbg = "#454545";
-                dflt.hreffont = "inherit";
-                dflt.hrefcolor = "#fff";
+                app.Customizar.hrefbg = "#454545";
+                app.Customizar.hreffont = "inherit";
+                app.Customizar.hrefcolor = "#fff";
 
-                dflt.anunciobg = "#e6e6e6";
-                dflt.anunciocolor = "#000000";
-                dflt.anunciolink = "#454545";
-                dflt.anuncionavbar = "#333333";
-                dflt.anunciotitulosfont = "inherit";
-                dflt.anuncioconteudofont = "inherit";
+                app.Customizar.anunciobg = "#e6e6e6";
+                app.Customizar.anunciocolor = "#000000";
+                app.Customizar.anunciolink = "#454545";
+                app.Customizar.anuncionavbar = "#333333";
+                app.Customizar.anunciotitulosfont = "inherit";
+                app.Customizar.anuncioconteudofont = "inherit";
             } else {
-                dflt.navbarbg = "#076633";
-                dflt.navbarfont = "inherit";
-                dflt.navbarcolor = "#fff";
+                app.Customizar.navbarbg = "#076633";
+                app.Customizar.navbarfont = "inherit";
+                app.Customizar.navbarcolor = "#fff";
 
-                dflt.modalbg = "#fff";
-                dflt.modalfont = "inherit";
-                dflt.modalcolor = "#333333";
+                app.Customizar.modalbg = "#fff";
+                app.Customizar.modalfont = "inherit";
+                app.Customizar.modalcolor = "#333333";
 
-                dflt.fieldesetbg = "#99cfb3";
-                dflt.fieldsetfont = "inherit";
-                dflt.fieldsetcolor = "#000000";
+                app.Customizar.fieldesetbg = "#99cfb3";
+                app.Customizar.fieldsetfont = "inherit";
+                app.Customizar.fieldsetcolor = "#000000";
 
-                dflt.tabbg = "#c4e3d3";
-                dflt.tabfont = "inherit";
-                dflt.tabcolor = "#000";
+                app.Customizar.tabbg = "#c4e3d3";
+                app.Customizar.tabfont = "inherit";
+                app.Customizar.tabcolor = "#000";
 
-                dflt.tableheadbg = "#006633";
-                dflt.tableheadfont = "inherit";
-                dflt.tableheadcolor = "#fff";
+                app.Customizar.tableheadbg = "#006633";
+                app.Customizar.tableheadfont = "inherit";
+                app.Customizar.tableheadcolor = "#fff";
 
-                dflt.rowevenbg = "#fff";
-                dflt.rowevencolor = "#000";
+                app.Customizar.rowevenbg = "#fff";
+                app.Customizar.rowevencolor = "#000";
 
-                dflt.rowoddbg = "#ddd";
-                dflt.rowoddcolor = "#000";
+                app.Customizar.rowoddbg = "#ddd";
+                app.Customizar.rowoddcolor = "#000";
 
-                dflt.tablefootbg = "#006633";
-                dflt.tablefootfont = "inherit";
-                dflt.tablefootcolor = "#fff";
+                app.Customizar.tablefootbg = "#006633";
+                app.Customizar.tablefootfont = "inherit";
+                app.Customizar.tablefootcolor = "#fff";
 
-                dflt.botoesbg = "#006633";
-                dflt.botoesout = "#4cbd86";
-                dflt.botoesoff = "#00cc66";
-                dflt.botoesfont = "inherit";
-                dflt.botoescolor = "#fff";
+                app.Customizar.botoesbg = "#006633";
+                app.Customizar.botoesout = "#4cbd86";
+                app.Customizar.botoesoff = "#00cc66";
+                app.Customizar.botoesfont = "inherit";
+                app.Customizar.botoescolor = "#fff";
 
-                dflt.hrefbg = "#006633";
-                dflt.hreffont = "inherit";
-                dflt.hrefcolor = "#ff8000";
+                app.Customizar.hrefbg = "#006633";
+                app.Customizar.hreffont = "inherit";
+                app.Customizar.hrefcolor = "#ff8000";
 
-                dflt.anunciobg = "#fff";
-                dflt.anunciocolor = "#333333";
-                dflt.anunciolink = "#006633";
-                dflt.anuncionavbar = "#006633";
-                dflt.anunciotitulosfont = "inherit";
-                dflt.anuncioconteudofont = "inherit";
+                app.Customizar.anunciobg = "#fff";
+                app.Customizar.anunciocolor = "#333333";
+                app.Customizar.anunciolink = "#006633";
+                app.Customizar.anuncionavbar = "#006633";
+                app.Customizar.anunciotitulosfont = "inherit";
+                app.Customizar.anuncioconteudofont = "inherit";
             }
-            app.Customizar[element] = dflt[element];
-            this.changeColorSystem();
-        },
-        defaultColor: function () {
-            this.readDef();
-            this.changeColorSystem();
-        },
-        changeColorSystem: function () {
             var css = ":root{";
             var itens = Object.keys(app.Customizar._data);
             for (var i = 0; i <= itens.length - 1; i++) {
@@ -242,13 +174,27 @@ app["Customizar"] = new Vue({
             css += "}";
             document.getElementsByTagName("style")[0].textContent = css;
         },
-        clearColor: function () {
-            var itens = Object.keys(app.Customizar._data);
-            for (var i = 0; i <= itens.length - 1; i++) {
-                if (itens[i] !== "src" || itens[i] !== "Host") {
-                    window.localStorage.removeItem(itens[i]);
+        setColorSite: function () {
+            if (nulo(app.configuracaosite.src)) {
+                if (app.configuracaosite.src[0].RootColors) {
+                    document.getElementsByTagName("style")[0].textContent = app.configuracaosite.src[0].RootColors.replace("'", "");
+                } else {
+                    this.setDefault();
                 }
+            } else {
+                this.setDefault();
             }
         },
+        setColorSystem: function () {
+            if (nulo(app.Configuracao.src)) {
+                if (app.Configuracao.src[0].RootColors) {
+                    document.getElementsByTagName("style")[0].textContent = app.Configuracao.RootColors.replace("'", "");
+                } else {
+                    this.setDefault();
+                }
+            } else {
+                this.setDefault();
+            }
+        }
     }
 });

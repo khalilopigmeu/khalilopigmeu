@@ -759,15 +759,17 @@ AesUtil.prototype.decrypt = function (salt, iv, passPhrase, cipherText) {
     return decrypted.toString(CryptoJS.enc.Utf8);
 };
 
-var modalConfirm = function (callback) {
+function modalConfirm(el,vr,text) {
     $("#ynmodal").modal();
+    $("#ynmodal .modal-body").text(text);
     $("#modal-btn-si").on("click", function () {
-        callback(true);
+        app[el][vr] = true;
     });
     $("#modal-btn-no").on("click", function () {
-        callback(false);
+        app[el][vr] = false;
     });
-};
+}
+
 
 function DataMaior(date, date2) {
     let parts = date.split("/");

@@ -85,6 +85,8 @@ app["empresasanunciando"] = new Vue({
         lgpd: false,
         loginbtn: null,
         Modelo: null,
+        majority: false,
+        ismajor: false
     },
     methods: {
         buscar: function (refid) {
@@ -780,6 +782,12 @@ app["empresasanunciando"] = new Vue({
                 this.espiar(getParameterByName('spy'));
             }
             this.Criarpaginas();
+            if (app.empresasanunciando.Config(app.empresasanunciando.pgid).majority == 'true') {
+                modalConfirm("empresasanunciando", "majority", "Esta é uma área com conteúdo para Maiores de 18 anos, esteja ciente caso deseje continuar.");
+                app.empresasanunciando.ismajor = true;
+            }else{
+                app.empresasanunciando.ismajor = false;
+            }
         }
     },
 });

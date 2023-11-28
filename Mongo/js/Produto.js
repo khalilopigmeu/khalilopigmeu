@@ -41,6 +41,8 @@ app["Produto"] = new Vue({
         Contas: null,
         Tipo: null,
         Uso: null,
+        Custo: null,
+        ValorMercado: null,
 
         familiaselect: null,
         classeselect: null,
@@ -93,6 +95,8 @@ app["Produto"] = new Vue({
             this.Contas = null;
             this.Tipo = null;
             this.Uso = null;
+            this.Custo = null;
+            this.ValorMercado = null;
             this.id = null;
         },
         autocomplete: function () {
@@ -129,6 +133,8 @@ app["Produto"] = new Vue({
             this.Tipo = this.row[23];
             this.Uso = this.row[24];
             this.UnidComp = this.row[25];
+            this.Custo = this.row[26];
+            this.ValorMercado = this.row[27];
             app.sys.mascara();
         },
         checkForm: function () {
@@ -164,6 +170,8 @@ app["Produto"] = new Vue({
             this.biencode.Contas = this.Contas;
             this.biencode.Tipo = this.Tipo;
             this.biencode.Uso = this.Uso;
+            this.biencode.Custo = this.Custo;
+            this.biencode.ValorMercado = this.ValorMercado;
             this.biencode.id = this.id;
             this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
         },
