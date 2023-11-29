@@ -138,7 +138,6 @@ $(function () {
     if (urlSite.includes("ws/Agenda")) {
         $("header h1").hide();
         app.Customizar.setDefault();
-        app.Customizar.setColorSystem();
     }
     if (urlSite.includes("ws/Site")) {
 
@@ -247,7 +246,7 @@ function urlRead() {
             $("#menu-toggle-R").show();
             $("#menu-toggle-R .badge").show();
             app.sidebarR.loja = true;
-            app.Customizar.setColorSite();
+            app.sys.setColorSite();
         } else {
             $("#header").show();
             $("#byBien").hide();

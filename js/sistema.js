@@ -43,6 +43,67 @@ app["sys"] = new Vue({
         keysite: null,
         tokenv3: null,
         onsys: false,
+
+        dark: null,
+        medium: null,
+        light: null,
+        fssistema: null,
+        fundoform: null,
+        fsform: null,
+        cabecalhotabela: null,
+        fscabecalho: null,
+        rodapetabela: null,
+        fsrodape: null,
+        fstabela: null,
+        linhaeven: null,
+        linhaodd: null,
+
+        navbarbg: null,
+        navbarfont: null,
+        navbarcolor: null,
+
+        modalbg: null,
+        modalfont: null,
+        modalcolor: null,
+
+        fieldesetbg: null,
+        fieldsetfont: null,
+        fieldsetcolor: null,
+
+        tabbg: null,
+        tabfont: null,
+        tabcolor: null,
+
+        tableheadbg: null,
+        tableheadfont: null,
+        tableheadcolor: null,
+
+        rowevenbg: null,
+        rowevencolor: null,
+
+        rowoddbg: null,
+        rowoddcolor: null,
+
+        tablefootbg: null,
+        tablefootfont: null,
+        tablefootcolor: null,
+
+        botoesbg: null,
+        botoesout: null,
+        botoesoff: null,
+        botoesfont: null,
+        botoescolor: null,
+
+        hrefbg: null,
+        hreffont: null,
+        hrefcolor: null,
+
+        anunciobg: null,
+        anunciocolor: null,
+        anunciolink: null,
+        anuncionavbar: null,
+        anunciotitulosfont: null,
+        anuncioconteudofont: null,
     },
     created: function () {
         var dm = window.location.hostname;
@@ -104,7 +165,10 @@ app["sys"] = new Vue({
                     console.log(e)
                 }
                 app.calendar.progress += ratio;
-                //app.sidebarR.newmenu = app.sys.sorter(app.sidebarR.newmenu, 'ASC', 'nome');
+                //onendload
+                if (i === Object.keys(app).length - 1) {
+                    app.sys.setColorSystem();
+                }
             }
         },
         keys: function () {
@@ -861,6 +925,134 @@ app["sys"] = new Vue({
                 this.onsys = false;
             } else {
                 this.onsys = true;
+            }
+        },
+        setDefault: function () {
+            if (urlSite.includes("borealmystic")) {
+                app.sys.navbarbg = "#333333";
+                app.sys.navbarfont = "inherit";
+                app.sys.navbarcolor = "#fff";
+
+                app.sys.modalbg = "#fff";
+                app.sys.modalfont = "inherit";
+                app.sys.modalcolor = "#000000";
+
+                app.sys.fieldesetbg = "#ddd";
+                app.sys.fieldsetfont = "inherit";
+                app.sys.fieldsetcolor = "#000000";
+
+                app.sys.tabbg = "#d5d5d5";
+                app.sys.tabfont = "inherit";
+                app.sys.tabcolor = "#fff";
+
+                app.sys.tableheadbg = "#c67c2e";
+                app.sys.tableheadfont = "inherit";
+                app.sys.tableheadcolor = "#fff";
+
+                app.sys.rowevenbg = "#fff";
+                app.sys.rowevencolor = "#000";
+
+                app.sys.rowoddbg = " #ccc";
+                app.sys.rowoddcolor = "#000";
+
+                app.sys.tablefootbg = "#c67c2e";
+                app.sys.tablefootfont = "inherit";
+                app.sys.tablefootcolor = "#fff";
+
+                app.sys.botoesbg = "#c67c2e";
+                app.sys.botoesout = "#ffcc80";
+                app.sys.botoesoff = "#808080";
+                app.sys.botoesfont = "inherit";
+                app.sys.botoescolor = "#fff";
+
+                app.sys.hrefbg = "#454545";
+                app.sys.hreffont = "inherit";
+                app.sys.hrefcolor = "#fff";
+
+                app.sys.anunciobg = "#e6e6e6";
+                app.sys.anunciocolor = "#000000";
+                app.sys.anunciolink = "#454545";
+                app.sys.anuncionavbar = "#333333";
+                app.sys.anunciotitulosfont = "inherit";
+                app.sys.anuncioconteudofont = "inherit";
+            } else {
+                app.sys.navbarbg = "#076633";
+                app.sys.navbarfont = "inherit";
+                app.sys.navbarcolor = "#fff";
+
+                app.sys.modalbg = "#fff";
+                app.sys.modalfont = "inherit";
+                app.sys.modalcolor = "#333333";
+
+                app.sys.fieldesetbg = "#99cfb3";
+                app.sys.fieldsetfont = "inherit";
+                app.sys.fieldsetcolor = "#000000";
+
+                app.sys.tabbg = "#c4e3d3";
+                app.sys.tabfont = "inherit";
+                app.sys.tabcolor = "#000";
+
+                app.sys.tableheadbg = "#006633";
+                app.sys.tableheadfont = "inherit";
+                app.sys.tableheadcolor = "#fff";
+
+                app.sys.rowevenbg = "#fff";
+                app.sys.rowevencolor = "#000";
+
+                app.sys.rowoddbg = "#ddd";
+                app.sys.rowoddcolor = "#000";
+
+                app.sys.tablefootbg = "#006633";
+                app.sys.tablefootfont = "inherit";
+                app.sys.tablefootcolor = "#fff";
+
+                app.sys.botoesbg = "#006633";
+                app.sys.botoesout = "#4cbd86";
+                app.sys.botoesoff = "#00cc66";
+                app.sys.botoesfont = "inherit";
+                app.sys.botoescolor = "#fff";
+
+                app.sys.hrefbg = "#006633";
+                app.sys.hreffont = "inherit";
+                app.sys.hrefcolor = "#ff8000";
+
+                app.sys.anunciobg = "#fff";
+                app.sys.anunciocolor = "#333333";
+                app.sys.anunciolink = "#006633";
+                app.sys.anuncionavbar = "#006633";
+                app.sys.anunciotitulosfont = "inherit";
+                app.sys.anuncioconteudofont = "inherit";
+            }
+            var css = ":root{";
+            var itens = Object.keys(app.sys._data);
+            for (var i = 0; i <= itens.length - 1; i++) {
+                if (itens[i] !== "src" || itens[i] !== "Host") {
+                    css += "--" + itens[i] + ": " + app.sys[itens[i]] + ";";
+                }
+            }
+            css += "}";
+            document.getElementsByTagName("style")[0].textContent = css;
+        },
+        setColorSite: function () {
+            if (nulo(app.configuracaosite.src)) {
+                if (app.configuracaosite.src[0].RootColors) {
+                    document.getElementsByTagName("style")[0].textContent = app.configuracaosite.src[0].RootColors.replace("'", "");
+                } else {
+                    this.setDefault();
+                }
+            } else {
+                this.setDefault();
+            }
+        },
+        setColorSystem: function () {
+            if (!nulo(app.Configuracao.src)) {
+                if (app.Configuracao.src[0].RootColors) {
+                    document.getElementsByTagName("style")[0].textContent = app.Configuracao.src[0].RootColors.replace("'", "");
+                } else {
+                    this.setDefault();
+                }
+            } else {
+                this.setDefault();
             }
         }
     }

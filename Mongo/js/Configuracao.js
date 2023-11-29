@@ -201,7 +201,7 @@ app["Configuracao"] = new Vue({
             app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
-            app.Customizar.setColorSystem();
+            app.sys.setColorSystem();
         },
         createOpts: function () {
             if (this.RootColors.length > 10) {
