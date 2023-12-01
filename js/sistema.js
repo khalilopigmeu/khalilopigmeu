@@ -165,7 +165,7 @@ app["sys"] = new Vue({
                     console.log(e)
                 }
                 app.calendar.progress += ratio;
-                //onendload
+                //onendloadsys
                 if (i === Object.keys(app).length - 1) {
                     app.sys.setColorSystem();
                 }
@@ -1034,7 +1034,7 @@ app["sys"] = new Vue({
             document.getElementsByTagName("style")[0].textContent = css;
         },
         setColorSite: function () {
-            if (nulo(app.configuracaosite.src)) {
+            if (!nulo(app.configuracaosite.src)) {
                 if (app.configuracaosite.src[0].RootColors) {
                     document.getElementsByTagName("style")[0].textContent = app.configuracaosite.src[0].RootColors.replace("'", "");
                 } else {

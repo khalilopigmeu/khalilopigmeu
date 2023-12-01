@@ -12,6 +12,7 @@ app["Home"] = new Vue({
         chamadas: [],
         chamadashome: [],
         pghome: null,
+        src: null,
     },
     methods: {
         diasnoar: function () {

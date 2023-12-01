@@ -69,7 +69,7 @@
             <div class="row justify-content-center text-center">
                 <div v-for="itens in PaginasLoja" class="col-3 m-1 p-1 border rounded border-dark produto">
                     <div class="product__item" data-toggle="modal" data-target="#AboutProduto" v-on:click="buscaProduto(itens._id['$oid'])">
-                        <div class="product__item__pic set-bg" v-bind:data-setbg="Midias(itens.IdAlbum)[0].UrlMidia">
+                        <div class="product__item__pic set-bg"  v-bind:style="'background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">
                         </div>
                         <hr>
                         <div class="product__item__text">
@@ -197,9 +197,9 @@
                                 </div>
                             </div>
                             <div class="row justify-content-center text-center" v-if="!nulo(selectProduto)">
-                                <div v-for="itens in app.sys.search(produtos,selectProduto.IdSubCategoriaProduto,'IdSubCategoriaProduto')"  class="col-lg-3 col-md-10 col-sm-4 m-1 p-1 border rounded border-dark produto">
+                                <div v-for="(itens,index) in app.sys.search(produtos,selectProduto.IdSubCategoriaProduto,'IdSubCategoriaProduto')" v-if="index<9" class="col-lg-3 col-md-10 col-sm-3 m-1 p-1 border rounded border-dark produto">
                                     <div class="product__item" v-on:click="buscaProduto(itens._id['$oid'])">
-                                        <div class="product__item__pic set-bg" v-bind:data-setbg="Midias(selectProduto.IdAlbum)[0].UrlMidia">
+                                        <div class="product__item__pic set-bg" v-bind:style="'background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">
                                         </div>
                                         <div v-on:click="buscaProduto(itens._id['$oid'])" >
                                             <h6>{{itens.NomeProduto}}</h6>

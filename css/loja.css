@@ -448,6 +448,7 @@ and open the template in the editor.
 
 .product__item__text h6 {
     margin-bottom: 10px;
+    font-family: var(--navbarfont);
 }
 
 .product__item__text h6 a {
@@ -458,6 +459,10 @@ and open the template in the editor.
     font-size: 30px;
     color: var(--anunciolink) !important;
     font-weight: 600;
+}
+
+.product__item__text div{
+    font-family: var(--modalfont);
 }
 
 .product__item__text .seemore{
@@ -519,11 +524,14 @@ and open the template in the editor.
 }
 
 .product__details__pic__item img {
-    min-width: 100%;
+    width:100%;
+    border: 2px solid var(--navbarbg) !important;
 }
 
 .product__details__pic__slider img {
     cursor: pointer;
+    border: 2px solid var(--fieldesetbg) !important;
+    width: 100%;
 }
 
 .product__details__pic__slider.owl-carousel .owl-item img {

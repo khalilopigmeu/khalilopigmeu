@@ -205,7 +205,7 @@ app["Configuracao"] = new Vue({
         },
         createOpts: function () {
             if (this.RootColors.length > 10) {
-                document.getElementsByTagName("style")[0].textContent = app.Configuracao.RootColors.replace("'","");
+                document.getElementsByTagName("style")[0].textContent = app.Configuracao.RootColors.replace("'", "");
                 var css = app.Configuracao.RootColors.replace(":root{", "").replace("}", "").split(";");
                 for (var i = 0; i <= css.length - 1; i++) {
                     var key = css[i].split(":")[0].replace("--", "");
@@ -218,9 +218,37 @@ app["Configuracao"] = new Vue({
             for (var i = 0; i <= Object.keys(app.Configuracao._data).length - 1; i++) {
                 if (Object.keys(app.Configuracao._data)[i].includes("C_")) {
                     if (Object.keys(app.Configuracao._data)[i].includes("font")) {
-                        //$("#formcustomize").append("<label>" + Object.keys(app.Configuracao._data)[i] + ":</label><input class='form-control'  value='"+app.Configuracao[Object.keys(app.Configuracao._data)[i]]+"' type='text' disabled name='" + Object.keys(app.Configuracao._data)[i] + "'><br>");
+                        $("#formcustomize").append("<label>" + replaceAll("C_", "", Object.keys(app.Configuracao._data)[i]) + ":</label><select class='form-control' name='" + Object.keys(app.Configuracao._data)[i] + "'>"
+                                + "<option style='font-family: Acme !important ' Acme !important '>Bienestar Clube</option>"
+                                + "<option style='font-family: Aladin !important ' Aladin !important '>Bienestar Clube</option>"
+                                + "<option style='font-family: Allura !important ' Allura !important '>Bienestar Clube</option>"
+                                + "<option style='font-family: Audiowide !important ' Audiowide !important '>Bienestar Clube</option>"
+                                + "<option style='font-family: Cinzel Decorative !important ' Cinzel Decorative !important '>Bienestar Clube</option>"
+                                + "<option style='font-family: Cookie !important ' Cookie !important '>Bienestar Clube</option>"
+                                + "<option style='font-family: Courgette !important ' Courgette !important '>Bienestar Clube</option>"
+                                + "<option style='font-family: Delius Swash Caps !important ' Delius Swash Caps !important '>Bienestar Clube</option>"
+                                + "<option style='font-family: Dosis !important ' Dosis !important '>Bienestar Clube</option>"
+                                + "<option style='font-family: Ephesis !important ' Ephesis !important '>Bienestar Clube</option>"
+                                + "<option style='font-family: Gruppo !important ' Gruppo !important '>Bienestar Clube</option>"
+                                + "<option style='font-family: Kaushan Script !important ' Kaushan Script !important '>Bienestar Clube</option>"
+                                + "<option style='font-family: Lobster !important ' Lobster !important '>Bienestar Clube</option>"
+                                + "<option style='font-family: Macondo !important ' Macondo !important '>Bienestar Clube</option>"
+                                + "<option style='font-family: Medula One !important ' Medula One !important '>Bienestar Clube</option>"
+                                + "<option style='font-family: My Soul !important ' My Soul !important '>Bienestar Clube</option>"
+                                + "<option style='font-family: Nova Mono !important ' Nova Mono !important '>Bienestar Clube</option>"
+                                + "<option style='font-family: Oleo Script !important ' Oleo Script !important '>Bienestar Clube</option>"
+                                + "<option style='font-family: Paprika !important ' Paprika !important '>Bienestar Clube</option>"
+                                + "<option style='font-family: Prata !important ' Prata !important '>Bienestar Clube</option>"
+                                + "<option style='font-family: Quintessential !important ' Quintessential !important '>Bienestar Clube</option>"
+                                + "<option style='font-family: Racing Sans One !important ' Racing Sans One !important '>Bienestar Clube</option>"
+                                + "<option style='font-family: Rum Raisin !important ' Rum Raisin !important '>Bienestar Clube</option>"
+                                + "<option style='font-family: Saira Extra Condensed !important ' Saira Extra Condensed !important '>Bienestar Clube</option>"
+                                + "<option style='font-family: Sriracha !important ' Sriracha !important '>Bienestar Clube</option>"
+                                + "<option style='font-family: Tilt Neon !important ' Tilt Neon !important '>Bienestar Clube</option>"
+                                + "<option style='font-family: WindSong !important ' WindSong !important '>Bienestar Clube</option>"
+                                + "</select>");
                     } else {
-                        $("#formcustomize").append("<label>" + replaceAll("C_", "", Object.keys(app.Configuracao._data)[i]) + ":</label><input class='form-control'<input value='" + app.Configuracao[Object.keys(app.Configuracao._data)[i]] + "' type='color' name='" + Object.keys(app.Configuracao._data)[i] + "'><br>");
+                        $("#formcustomize").append("<label>" + replaceAll("C_", "", Object.keys(app.Configuracao._data)[i]) + ":</label><input class='form-control' value='" + app.Configuracao[Object.keys(app.Configuracao._data)[i]] + "' type='color' name='" + Object.keys(app.Configuracao._data)[i] + "'><br>");
                     }
                 }
             }
@@ -338,7 +366,7 @@ app["Configuracao"] = new Vue({
 });
 
 $(function () {
-    $("body").on("change", "#formcustomize input", function () {
+    $("body").on("change", "#formcustomize input,#formcustomize select", function () {
         app.Configuracao[$(this).prop("name")] = $(this).val();
     });
 });

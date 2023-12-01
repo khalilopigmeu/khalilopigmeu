@@ -408,10 +408,7 @@ app["empresasanunciando"] = new Vue({
                         });
                     }
                 });
-                $('.set-bg').each(function () {
-                    var bg = $(this).data('setbg');
-                    $(this).css('background-image', 'url(' + bg + ')');
-                });
+                app.sys.setColorSite();
             });
         },
         addSpy: function (nome, href) {
@@ -782,10 +779,10 @@ app["empresasanunciando"] = new Vue({
                 this.espiar(getParameterByName('spy'));
             }
             this.Criarpaginas();
-            if (app.empresasanunciando.Config(app.empresasanunciando.pgid).majority == 'true') {
+            if (app.empresasanunciando.Config(app.empresasanunciando.pgid).majority === 'true') {
                 modalConfirm("empresasanunciando", "majority", "Esta é uma área com conteúdo para Maiores de 18 anos, esteja ciente caso deseje continuar.");
                 app.empresasanunciando.ismajor = true;
-            }else{
+            } else {
                 app.empresasanunciando.ismajor = false;
             }
         }

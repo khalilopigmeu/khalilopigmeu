@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Courgette&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Glory:wght@500&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Acme&family=Aladin&family=Allura&family=Audiowide&family=Cinzel+Decorative&family=Cookie&family=Courgette&family=Delius+Swash+Caps&family=Dosis&family=Ephesis&family=Gruppo&family=Kaushan+Script&family=Lobster&family=Macondo&family=Medula+One&family=My+Soul&family=Nova+Mono&family=Oleo+Script&family=Paprika&family=Prata&family=Quintessential&family=Racing+Sans+One&family=Rum+Raisin&family=Saira+Extra+Condensed&family=Sriracha&family=Tilt+Neon&family=WindSong&display=swap');
+
+
 h1 {
     font-size: 4vw !important;
 }
@@ -45,7 +48,6 @@ td {
 
 button:disabled,.btn:disabled{
     background: var(--botoesoff) !important;
-    ;
 }
 
 a:disabled,a.btn:disabled{
@@ -167,8 +169,13 @@ section{
 .modal * {
     border-radius:10px !important;
 }
-.modal-header,.modal-content,.modal-footer {
-    background: var(--modalbg) !important;
+.modal-content{
+     background: var(--modalbg) !important;
+     color: var(--modalcolor) !important;
+}
+.modal-header,.modal-footer {
+    background: var(--navbarbg) !important;
+    color: var(--navbarcolor) !important;
 }
 
 .modal-dialog {

@@ -137,7 +137,7 @@ $(function () {
 
     if (urlSite.includes("ws/Agenda")) {
         $("header h1").hide();
-        app.Customizar.setDefault();
+        app.sys.setDefault();
     }
     if (urlSite.includes("ws/Site")) {
 
@@ -153,7 +153,7 @@ function urlRead() {
     app.anunciante.pgid = null;
     app.paginasite.pg = null;
     urlSite = window.location.href;
-    app.Customizar.setDefault();
+    app.sys.setDefault();
     if (urlSite.includes("access_token")) {
         var acs = urlSite.substr(urlSite.indexOf("access_token") + 13, urlSite.lastIndexOf("token_type") - 54);
         window.localStorage.setItem("access_token", acs);
