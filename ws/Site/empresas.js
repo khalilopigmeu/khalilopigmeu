@@ -86,7 +86,8 @@ app["empresasanunciando"] = new Vue({
         loginbtn: null,
         Modelo: null,
         majority: false,
-        ismajor: false
+        ismajor: false,
+        order: null,
     },
     methods: {
         buscar: function (refid) {
@@ -243,7 +244,7 @@ app["empresasanunciando"] = new Vue({
         },
         changeItensCount: function (nome) {
             app.sys.itemsPerPage[nome] = this.itensporpagina;
-            this.loja();
+            app.sys.paginate(app.sys.searchall(app.empresasanunciando.produtos, app.empresasanunciando.produtopesq), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
         },
         autoList: function (src, opcao) {
             switch (opcao) {
@@ -650,20 +651,29 @@ app["empresasanunciando"] = new Vue({
             }
         },
         orderProdutos: function (order) {
+            var pesq = null;
             switch (order) {
                 case "AZ":
-                    this.produtos = app.sys.sorter(this.produtos, "ASC", "NomeProduto");
+                    pesq = app.sys.sorter(app.empresasanunciando.produtos, "ASC", "NomeProduto");
+                    app.sys.paginate(app.sys.searchall(pesq, app.empresasanunciando.produtopesq), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
                     break;
                 case "ZA":
-                    this.produtos = app.sys.sorter(this.produtos, "DESC", "NomeProduto");
+                    pesq = app.sys.sorter(app.empresasanunciando.produtos, "DESC", "NomeProduto");
+                    app.sys.paginate(app.sys.searchall(pesq, app.empresasanunciando.produtopesq), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
                     break;
                 case "UP":
-                    this.produtos = app.sys.sorter(this.produtos, "ASC", "Preco");
+                    pesq = app.sys.sorter(app.empresasanunciando.produtos, "ASC", "Preco");
+                    app.sys.paginate(app.sys.searchall(pesq, app.empresasanunciando.produtopesq), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
                     break;
                 case "DW":
-                    this.produtos = app.sys.sorter(this.produtos, "DESC", "Preco");
+                    pesq = app.sys.sorter(app.empresasanunciando.produtos, "DESC", "Preco");
+                    app.sys.paginate(app.sys.searchall(pesq, app.empresasanunciando.produtopesq), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
                     break;
             }
+        },
+        pesquisaprodutos: function () {
+            var pesq = app.sys.searchall(app.empresasanunciando.produtos, app.empresasanunciando.produtopesq);
+            app.sys.paginate(app.sys.searchall(pesq, app.empresasanunciando.produtopesq), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
         },
         setPg: function (item) {
             this.page = item;

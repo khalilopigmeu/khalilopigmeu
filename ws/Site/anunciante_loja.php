@@ -16,14 +16,14 @@
                             </select>
                         </div>
                         <div class="col-6 row text-center">
-                            <div class="col-3"><input v-on:click="orderProdutos('AZ')" name='order' type="radio"><span> A-Z</span></div>
-                            <div class="col-3"><input v-on:click="orderProdutos('ZA')" name='order' type="radio"><span> Z-A</span></div>
-                            <div class="col-3"><input v-on:click="orderProdutos('UP')" name='order' type="radio"><span> Maior Preço</span></div>
+                            <div class="col-3"><input v-on:click="orderProdutos('AZ')" v-model="order" name='order' type="radio"><span> A-Z</span></div>
+                            <div class="col-3"><input v-on:click="orderProdutos('ZA')" v-model="order" name='order' type="radio"><span> Z-A</span></div>
+                            <div class="col-3"><input v-on:click="orderProdutos('UP')" v-model="order" name='order' type="radio"><span> Maior Preço</span></div>
                             <div class="col-3"><input v-on:click="orderProdutos('DW')" name='order' type="radio"><span> Menor Preço</span></div>
                         </div>
                     </div>
                     <br>
-                    <input class="form-control mx-auto col-7 mt-1" type="text" v-model="produtopesq" v-on:change="app.sys.setPage(0,'<?php echo $pageName; ?>')" class="form-control col-10 p-1 m-1" placeholder="Pesquise" aria-label="Pesquise" aria-describedby="basic-addon1">
+                    <input class="form-control mx-auto col-7 mt-1" type="text" v-model="produtopesq" v-on:keypress="pesquisaprodutos()" class="form-control col-10 p-1 m-1" placeholder="Pesquise" aria-label="Pesquise" aria-describedby="basic-addon1">
                     <br>
                     <nav class="navbar bg-m navbar-light res col-12" id="navbarProdutos">
                         <div class="container-fluid justify-content-center w-75 p-1">
@@ -150,9 +150,6 @@
                                             </div>
                                             <button v-on:click="carroCompra" data-dismiss="modal">Adicionar ao carrinho</button>
                                         </div>
-                                        <ul>
-                                            <li>Dimensão: <div v-html="selectProduto.DimensaoProduto"></div></li>
-                                        </ul>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -160,24 +157,34 @@
                                         <ul class="nav nav-tabs" role="tablist">
                                             <li class="nav-item">
                                                 <a class="nav-link active m-1 p-1" data-toggle="tab" href="#tabs-1" role="tab"
-                                                   aria-selected="true">Descrição</a>
+                                                   aria-selected="true">Resumo</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link m-1 p-1" data-toggle="tab" href="#tabs-2" role="tab"
                                                    aria-selected="false">Especificação</a>
                                             </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link m-1 p-1" data-toggle="tab" href="#tabs-3" role="tab"
+                                                   aria-selected="false">Dimensao</a>
+                                            </li>
                                         </ul>
                                         <div class="tab-content">
                                             <div class="tab-pane active" id="tabs-1" role="tabpanel">
                                                 <div class="product__details__tab__desc">
-                                                    <h6>Informações</h6>
-                                                    <div v-html="selectProduto.Caracteristicas"></div>
+                                                    <h6>Resumo</h6>
+                                                    <div v-html="selectProduto.ResumoProduto"></div>
                                                 </div>
                                             </div>
                                             <div class="tab-pane" id="tabs-2" role="tabpanel">
                                                 <div class="product__details__tab__desc">
-                                                    <h6>Especificação</h6>
-                                                    <div v-html="selectProduto.EspecificacaoProduto"></div></p>
+                                                    <h6>Informações</h6>
+                                                    <div v-html="selectProduto.EspecificacaoProduto"></div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="tabs-3" role="tabpanel">
+                                                <div class="product__details__tab__desc">
+                                                    <h6>Dimensões</h6>
+                                                    <div v-html="selectProduto.DimensaoProduto"></div></p>
                                                 </div>
                                             </div>
                                         </div>

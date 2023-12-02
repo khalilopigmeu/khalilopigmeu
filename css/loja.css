@@ -458,6 +458,7 @@ and open the template in the editor.
 .product__item__text h5{
     font-size: 30px;
     color: var(--anunciolink) !important;
+    font-family: var(--navbarfont);
     font-weight: 600;
 }
 
@@ -467,6 +468,7 @@ and open the template in the editor.
 
 .product__item__text .seemore{
     color: var(--anunciolink) !important;
+    font-family: var(--navbarfont);
 }
 
 .product__item__text div *{
@@ -542,6 +544,7 @@ and open the template in the editor.
     color: #252525;
     font-weight: 700;
     margin-bottom: 16px;
+    font-family: var(--navbarfont);
 }
 
 .product__details__text .product__details__rating {
@@ -562,6 +565,7 @@ and open the template in the editor.
 .product__details__text .product__details__price {
     font-size: 30px;
     color: var(--anunciolink) !important;
+    font-family: var(--navbarfont);
     font-weight: 600;
     margin-bottom: 15px;
 }
@@ -657,7 +661,7 @@ and open the template in the editor.
 }
 
 .product__details__tab {
-    padding-top: 85px;
+
 }
 
 .product__details__tab .nav-tabs {
@@ -666,29 +670,9 @@ and open the template in the editor.
     position: relative;
 }
 
-.product__details__tab .nav-tabs:before {
-    position: absolute;
-    left: 0;
-    top: 12px;
-    height: 1px;
-    width: 370px;
-    background: #ebebeb;
-    content: "";
-}
-
-.product__details__tab .nav-tabs:after {
-    position: absolute;
-    right: 0;
-    top: 12px;
-    height: 1px;
-    width: 370px;
-    background: #ebebeb;
-    content: "";
-}
 
 .product__details__tab .nav-tabs li {
     margin-bottom: 0;
-    margin-right: 65px;
 }
 
 .product__details__tab .nav-tabs li:last-child {
@@ -707,12 +691,14 @@ and open the template in the editor.
 
 .product__details__tab .product__details__tab__desc {
     padding-top: 44px;
+    font-family: var(--modalfont);
 }
 
 .product__details__tab .product__details__tab__desc h6 {
     font-weight: 700;
     color: #333333;
     margin-bottom: 26px;
+    font-family: var(--navbarfont);
 }
 
 .product__details__tab .product__details__tab__desc p {
@@ -722,6 +708,14 @@ and open the template in the editor.
 /*---------------------
   Shop Details
 -----------------------*/
+
+.related-product {
+    padding-bottom: 30px;
+}
+
+.related-product h2,.related-product h5, .related-product h6{
+    font-family: var(--navbarfont);
+}
 
 .related-product {
     padding-bottom: 30px;
