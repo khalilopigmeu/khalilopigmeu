@@ -92,6 +92,7 @@ app["Eventos"] = new Vue({
             if (app.calendar.fimpesq !== null) {
                 this.biencode.fim = app.calendar.fimpesq;
             }
+            console.log(this.biencode);
             var data = {
                 biencode: encrypt(JSON.stringify(this.biencode))
             };

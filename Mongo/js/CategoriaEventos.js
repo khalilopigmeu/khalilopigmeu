@@ -54,9 +54,9 @@ app["CategoriaEventos"] = new Vue({
             this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             this.biencode.id = this.id;
             var ac = "";
-            for (var i = 0; i <= this.Acessos.length - 1; i++) {
-                ac += this.Acessos[i];
-                if (i < this.Acessos.length - 1) {
+            for (var i = 0; i <= app.CategoriaEventos.Acessos.length - 1; i++) {
+                ac += app.CategoriaEventos.Acessos[i];
+                if (i < app.CategoriaEventos.Acessos.length - 1) {
                     ac += ";";
                 }
             }

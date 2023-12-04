@@ -78,9 +78,9 @@ app["LancamentoFinanceiro"] = new Vue({
             this.biencode.Valor = this.Valor;
             this.biencode.Modalidade = this.Modalidade;
             if (this.Evento !== null) {
-                this.biencode.Status = this.Status;
-            } else {
                 this.biencode.Status = true;
+            } else {
+                this.biencode.Status = false;
             }
             this.biencode.id = this.id;
             this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
