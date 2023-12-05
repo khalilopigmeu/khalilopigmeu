@@ -24,8 +24,8 @@ and open the template in the editor.
 
 .set-bg {
     background-repeat: no-repeat;
-    background-size: cover;
-    background-position: top center;
+    background-size: contain;
+    background-position: center center;
 }
 
 .latest-product {

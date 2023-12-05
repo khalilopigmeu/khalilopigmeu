@@ -74,7 +74,8 @@
                             </div>
                         </div>
                         <div v-else>
-                            <div class="product__item__pic set-bg"  v-bind:style="'filter: grayscale(100%); background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">
+                            <!--<div class="product__item__pic set-bg"  v-bind:style="'filter: grayscale(100%); background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">-->
+                            <div class="product__item__pic set-bg"  v-bind:style="'background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">
                             </div>
                         </div>
                         <hr>
@@ -84,10 +85,10 @@
                             <div v-html="itens.ResumoProduto"></div>
                             <p class="seemore">Clique para ver mais</p>
                             <div v-if="itens.QtdMin==1">
-                                <span class="badge badge-success" >Em Estoque!</span>
+                                <span class="badge badge-success" >Disponível em estoque!</span>
                             </div>
                             <div v-else>
-                                <span class="badge badge-warning" >Encomenda!</span>
+                                <span class="badge badge-warning" >Apenas por encomenda!</span>
                             </div>
                         </div>
                     </div>
@@ -226,10 +227,10 @@
                                             <h6>{{itens.NomeProduto}}</h6>
                                             <h5 v-html="HasPromo(itens._id['$oid'],itens.Preco)"></h5>
                                             <div v-if="itens.QtdMin==1">
-                                                <span class="badge badge-success" >Em Estoque!</span>
+                                                <span class="badge badge-success" >Disponível em estoque!</span>
                                             </div>
                                             <div v-else>
-                                                <span class="badge badge-warning" >Encomenda!</span>
+                                                <span class="badge badge-warning" >Apenas por encomenda!</span>
                                             </div>
                                         </div>
                                     </div>
