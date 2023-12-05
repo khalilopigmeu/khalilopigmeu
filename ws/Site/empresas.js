@@ -589,6 +589,7 @@ app["empresasanunciando"] = new Vue({
             }
         },
         buscaProduto: function (id) {
+            window.scrool({top:0,behavior:"smooth"});
             if (this.flagProd === false) {
                 this.flagProd = true;
             }

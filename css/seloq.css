@@ -30,6 +30,7 @@ html,label {
 }
 body {
     font-size: 1.5vw;
+    background: var(--fundoform)
 }
 table {
     font-size: 1.5vw;
@@ -416,6 +417,45 @@ form{
 .logoanunciante{
     max-width: 100%;
     max-height: 100%;
+}
+
+@media(max-width: 700px){
+    h1 {
+        font-size: 8.5vw !important;
+    }
+    h2 {
+        font-size: 7vw !important;
+    }
+    h3 {
+        font-size: 6vw !important;
+    }
+    h4 {
+        font-size: 5vw !important;
+    }
+    h5 {
+        font-size: 4.5vw !important;
+    }
+    h6 {
+        font-size: 4vw !important;
+    }
+    p {
+        font-size: 3.5vw;
+    }
+    html,label {
+        font-size: 3.5vw;
+    }
+    body {
+        font-size: 3.5vw;
+    }
+    table {
+        font-size: 3.5vw;
+    }
+    td {
+        font-size: 3.5vw;
+    }
+    .btn,button{
+        font-size: 3.5vw;
+    }
 }
 
 @media (min-width: 576px) {

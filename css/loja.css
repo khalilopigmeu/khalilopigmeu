@@ -10,10 +10,16 @@ and open the template in the editor.
 
 .produto{
     cursor: pointer;
+    background: var(--anunciobg)
 }
 
 .produto:hover{
     background-color: var(--fieldesetbg);
+}
+
+.aboutvendor{
+    background-color: var(--fieldesetbg);
+    border-color: var(--navbarbg);
 }
 
 .set-bg {

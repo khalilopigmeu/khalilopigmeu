@@ -31,7 +31,7 @@
                                 Categorias
                             </button>
                             <div class="collapse navbar-collapse justify-content-center" id="navbarResponsivePro">
-                                <h4 class="spanCli m-1 p-1"> Famílias </h4>
+                                <h4 class="spanCli m-1 p-1"> Categorias </h4>
                                 <ul v-for="itens in autoList(familiaprodutos,'familia')" class="navbar-nav justify-content-center text-center flex-column">
                                     <li class="nav-item">
                                         <span class="nav-link">
@@ -41,21 +41,21 @@
                                     </li>
                                 </ul>
                                 <hr class="border bg-light">
-                                <h4 class="spanCli m-1 p-1"> Classes </h4>
+                                <h4 class="spanCli m-1 p-1"> Subcategorias </h4>
                                 <ul v-for="itens in app.sys.searchinArray(autoList(classeprodutos,'classe'),familiaselect,'IdFamilia')" class="navbar-nav justify-content-center text-center flex-column">
                                     <li class="nav-item">
                                         <span class="nav-link"><input type="checkbox"  v-model="classeselect"  v-bind:value="itens._id['$oid']"> {{itens.TipoClasse}} <i class="fas fa-angle-double-right"></i></span>
                                     </li>
                                 </ul>
                                 <hr class="border bg-light">
-                                <h4 class="spanCli m-1 p-1"> Categorias </h4>
+                                <h4 class="spanCli m-1 p-1"> Variedades </h4>
                                 <ul v-for="itens in app.sys.searchinArray(autoList(categoriaprodutos,'categoria'),classeselect,'IdClasse')" class="navbar-nav justify-content-center text-center flex-column">
                                     <li class="nav-item">
                                         <span class="nav-link"><input type="checkbox" v-model="categoriaselect"  v-bind:value="itens._id['$oid']" > {{itens.TipoCategoria}} <i class="fas fa-angle-double-right"></i></span>
                                     </li>
                                 </ul>
                                 <hr class="border bg-light">
-                                <h4 class="spanCli m-1 p-1"> Subcategorias </h4>
+                                <h4 class="spanCli m-1 p-1"> Opções </h4>
                                 <ul v-for="itens in app.sys.searchinArray(autoList(subcategoriaprodutos,'subcategoria'),categoriaselect,'IdCategoria')" class="navbar-nav justify-content-center text-center flex-column">
                                     <li class="nav-item">
                                         <span class="nav-link"><input type="checkbox" v-model="subcategoriaselect"  v-bind:value="itens._id['$oid']" > {{itens.TipoSubCategoria}} <i class="fas fa-angle-double-right"></i></span>
@@ -67,16 +67,28 @@
                 </fieldset>
             </div>
             <div class="row justify-content-center text-center">
-                <div v-for="itens in PaginasLoja" class="col-3 m-1 p-1 border rounded border-dark produto">
+                <div v-for="itens in PaginasLoja" class="col-lg-3 col-md-5 col-sm-10 m-1 p-1 border rounded border-dark produto">
                     <div class="product__item" data-toggle="modal" data-target="#AboutProduto" v-on:click="buscaProduto(itens._id['$oid'])">
-                        <div class="product__item__pic set-bg"  v-bind:style="'background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">
+                        <div v-if="itens.QtdMin==1">
+                            <div class="product__item__pic set-bg"  v-bind:style="'background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">
+                            </div>
+                        </div>
+                        <div v-else>
+                            <div class="product__item__pic set-bg"  v-bind:style="'filter: grayscale(100%); background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">
+                            </div>
                         </div>
                         <hr>
                         <div class="product__item__text">
                             <h6>{{itens.NomeProduto}}</h6>
                             <h5 v-html="HasPromo(itens._id['$oid'],itens.Preco)"></h5>
                             <div v-html="itens.ResumoProduto"></div>
-                            <p class="seemore">Ver mais</p>
+                            <p class="seemore">Clique para ver mais</p>
+                            <div v-if="itens.QtdMin==1">
+                                <span class="badge badge-success" >Em Estoque!</span>
+                            </div>
+                            <div v-else>
+                                <span class="badge badge-warning" >Encomenda!</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -84,31 +96,33 @@
             <?php include $refUrl . "Mongo/template/pagination.php" ?>
         </div>
     </div>
-    <div class="row justify-content-center text-center text-capitalize">
-        <div v-if="typeof EmpresaSelecionada(pgid).NomeFantasia !== 'undefined'" class="col-md-12 col-lg-12 col-xl-12 col-12 row justify-content-center text-center">
-            <div class="col-6" v-if="EmpresaSelecionada(pgid).NomeFantasia!='null'"><span class='spanCli m-1 p-1'>Empresa:</span> {{EmpresaSelecionada(pgid).NomeFantasia}}</div>
-            <div class="col-6" v-if="EmpresaSelecionada(pgid).Cnpj!='null'"><span class='spanCli m-1 p-1'>CNPJ:</span> {{EmpresaSelecionada(pgid).Cnpj}}</div>
-        </div>
-        <div v-else>
-            <div class="col-12 row">
-                <div v-if="EmpresaSelecionada(pgid).Nome!='null'"><span class='spanCli m-1 p-1'>Responsável:</span> {{EmpresaSelecionada(pgid).Nome}}</div>
+    <div class="rounded aboutvendor">
+        <div class="row justify-content-center text-center text-capitalize">
+            <div v-if="typeof EmpresaSelecionada(pgid).NomeFantasia !== 'undefined'" class="col-md-12 col-lg-12 col-xl-12 col-12 row justify-content-center text-center">
+                <div class="col-6" v-if="EmpresaSelecionada(pgid).NomeFantasia!='null'"><span class='spanCli m-1 p-1'>Empresa:</span> {{EmpresaSelecionada(pgid).NomeFantasia}}</div>
+                <div class="col-6" v-if="EmpresaSelecionada(pgid).Cnpj!='null'"><span class='spanCli m-1 p-1'>CNPJ:</span> {{EmpresaSelecionada(pgid).Cnpj}}</div>
+            </div>
+            <div v-else>
+                <div class="col-12 row">
+                    <div v-if="EmpresaSelecionada(pgid).Nome!='null'"><span class='spanCli m-1 p-1'>Responsável:</span> {{EmpresaSelecionada(pgid).Nome}}</div>
+                </div>
             </div>
         </div>
-    </div>
-    <br>
-    <br>
-    <div class="row justify-content-center text-center text-capitalize">
-        <div class="col-6" v-if="EmpresaSelecionada(pgid).Celular!='null'"><span class='spanCli m-1 p-1'><i class="fab fa-whatsapp"></i> whatsapp:</span> <a class='listA' target="_blank" v-bind:href="'https://wa.me/55'+cleanwap(EmpresaSelecionada(pgid).Celular)">{{EmpresaSelecionada(pgid).Celular}}</a></div>
-        <div class="col-6" v-if="getFB(pgid)!=null"><span class='spanCli m-1 p-1'><i class="fab fa-facebook-f"></i> Facebook:</span> <a class='listA' target="_blank" v-bind:href="'https://facebook.com/'+getFB(EmpresaSelecionada(pgid)._id['$oid'])">@{{getFB(EmpresaSelecionada(pgid)._id['$oid'])}}</a></div>
-        <div class="col-6" v-if="getInsta(pgid)!=null"><span class='spanCli m-1 p-1'><i class="fab fa-instagram"></i> Instagram:</span> <a class='listA' target="_blank" v-bind:href="'https://instagram.com/'+getInsta(EmpresaSelecionada(pgid)._id['$oid'])">@{{getInsta(EmpresaSelecionada(pgid)._id['$oid'])}}</a></div>
-        <div class="col-6" v-if="getSite(pgid)!=null"><span class='spanCli m-1 p-1'><i class="fas fa-globe"></i> Site:</span> <a class='listA' target="_blank" v-bind:href="getSite(EmpresaSelecionada(pgid)._id['$oid'])">
-                <span v-if="EmpresaSelecionada(pgid).NomeFantasia">
-                    {{EmpresaSelecionada(pgid).NomeFantasia}}
-                </span>
-                <span class="spanCli" v-else>
-                    {{EmpresaSelecionada(pgid).Nome}}    
-                </span>
-            </a></div>
+        <br>
+        <br>
+        <div class="row justify-content-center text-center text-capitalize">
+            <div class="col-6" v-if="EmpresaSelecionada(pgid).Celular!='null'"><span class='spanCli m-1 p-1'><i class="fab fa-whatsapp"></i> whatsapp:</span> <a class='listA' target="_blank" v-bind:href="'https://wa.me/55'+cleanwap(EmpresaSelecionada(pgid).Celular)">{{EmpresaSelecionada(pgid).Celular}}</a></div>
+            <div class="col-6" v-if="getFB(pgid)!=null"><span class='spanCli m-1 p-1'><i class="fab fa-facebook-f"></i> Facebook:</span> <a class='listA' target="_blank" v-bind:href="'https://facebook.com/'+getFB(EmpresaSelecionada(pgid)._id['$oid'])">@{{getFB(EmpresaSelecionada(pgid)._id['$oid'])}}</a></div>
+            <div class="col-6" v-if="getInsta(pgid)!=null"><span class='spanCli m-1 p-1'><i class="fab fa-instagram"></i> Instagram:</span> <a class='listA' target="_blank" v-bind:href="'https://instagram.com/'+getInsta(EmpresaSelecionada(pgid)._id['$oid'])">@{{getInsta(EmpresaSelecionada(pgid)._id['$oid'])}}</a></div>
+            <div class="col-6" v-if="getSite(pgid)!=null"><span class='spanCli m-1 p-1'><i class="fas fa-globe"></i> Site:</span> <a class='listA' target="_blank" v-bind:href="getSite(EmpresaSelecionada(pgid)._id['$oid'])">
+                    <span v-if="EmpresaSelecionada(pgid).NomeFantasia">
+                        {{EmpresaSelecionada(pgid).NomeFantasia}}
+                    </span>
+                    <span class="spanCli" v-else>
+                        {{EmpresaSelecionada(pgid).Nome}}    
+                    </span>
+                </a></div>
+        </div>
     </div>
 </section>
 <section>
@@ -204,13 +218,19 @@
                                 </div>
                             </div>
                             <div class="row justify-content-center text-center" v-if="!nulo(selectProduto)">
-                                <div v-for="(itens,index) in app.sys.search(produtos,selectProduto.IdSubCategoriaProduto,'IdSubCategoriaProduto')" v-if="index<9" class="col-lg-3 col-md-10 col-sm-3 m-1 p-1 border rounded border-dark produto">
+                                <div v-for="(itens,index) in app.sys.search(produtos,selectProduto.IdSubCategoriaProduto,'IdSubCategoriaProduto')" v-if="index<9" class="col-lg-3 col-md-5 col-sm-10 m-1 p-1 border rounded border-dark produto">
                                     <div class="product__item" v-on:click="buscaProduto(itens._id['$oid'])">
                                         <div class="product__item__pic set-bg" v-bind:style="'background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">
                                         </div>
                                         <div v-on:click="buscaProduto(itens._id['$oid'])" >
                                             <h6>{{itens.NomeProduto}}</h6>
                                             <h5 v-html="HasPromo(itens._id['$oid'],itens.Preco)"></h5>
+                                            <div v-if="itens.QtdMin==1">
+                                                <span class="badge badge-success" >Em Estoque!</span>
+                                            </div>
+                                            <div v-else>
+                                                <span class="badge badge-warning" >Encomenda!</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
