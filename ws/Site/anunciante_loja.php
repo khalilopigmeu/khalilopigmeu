@@ -88,7 +88,7 @@
                                 <span class="badge badge-success" >Disponível em estoque!</span>
                             </div>
                             <div v-else>
-                                <span class="badge badge-warning" >Apenas por encomenda!</span>
+                                <span class="badge badge-warning" >Apenas por encomenda! <br> tempo de espera de 7 a 10 dias úteis*</span>
                             </div>
                         </div>
                     </div>
