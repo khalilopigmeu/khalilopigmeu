@@ -4,8 +4,8 @@
     <div class="row"  v-if="produtos!==null && produtos.length>0">
         <div class="mx-auto col-12 text-center justify-content-center">
             <div class="row text-center justify-content-center">
-                <fieldset class="col-10 mx-auto border rounded p-1 m-1 container-fluid border-dark">
-                    <div class="row justify-content-center mb-1 text-center">
+                <fieldset class="col-10 mx-auto border rounded p-1 m-1 container-fluid border-dark anunciobox">
+                    <div  v-if="urlSite.includes('rti')"  class="row justify-content-center mb-1 text-center">
                         <div class="col-4">
                             <label>Itens por página:</label>
                             <select type="text" class="form-control" v-on:change="changeItensCount('<?php echo $pageName; ?>')" v-model="itensporpagina">
@@ -16,23 +16,26 @@
                             </select>
                         </div>
                         <div class="col-6 row text-center">
-                            <div class="col-3"><input v-on:click="orderProdutos('AZ')" v-model="order" name='order' type="radio"><span> A-Z</span></div>
-                            <div class="col-3"><input v-on:click="orderProdutos('ZA')" v-model="order" name='order' type="radio"><span> Z-A</span></div>
-                            <div class="col-3"><input v-on:click="orderProdutos('UP')" v-model="order" name='order' type="radio"><span> Maior Preço</span></div>
-                            <div class="col-3"><input v-on:click="orderProdutos('DW')" name='order' type="radio"><span> Menor Preço</span></div>
+                            <div class="col-3"><input v-on:click="orderProdutos('RN')" v-model="order" name='order' value="RN" type="radio"><span> Aleatório</span></div>
+                            <div class="col-3"><input v-on:click="orderProdutos('DS')" v-model="order" name='order' value="DS" type="radio"><span> Disponíveis</span></div>
+                            <div class="col-3"><input v-on:click="orderProdutos('EN')" v-model="order" name='order' value="EN" type="radio"><span> Encomendas</span></div>
+                            <div class="col-3"><input v-on:click="orderProdutos('AZ')" v-model="order" name='order' value="AZ" type="radio"><span> A-Z</span></div>
+                            <div class="col-3"><input v-on:click="orderProdutos('ZA')" v-model="order" name='order' value="ZA" type="radio"><span> Z-A</span></div>
+                            <div class="col-3"><input v-on:click="orderProdutos('UP')" v-model="order" name='order' value="UP" type="radio"><span> Maior Preço</span></div>
+                            <div class="col-3"><input v-on:click="orderProdutos('DW')" name='order' name="order" value="DW" type="radio"><span> Menor Preço</span></div>
                         </div>
                     </div>
                     <br>
-                    <input class="form-control mx-auto col-7 mt-1" type="text" v-model="produtopesq" v-on:keypress="pesquisaprodutos()" class="form-control col-10 p-1 m-1" placeholder="Pesquise" aria-label="Pesquise" aria-describedby="basic-addon1">
+                    <input class="form-control mx-auto col-7 mt-1" type="text" v-model="produtopesq" v-on:keypress="pesquisaprodutos()"  v-on:change="pesquisaprodutos()" class="form-control col-10 p-1 m-1" placeholder="Pesquise" aria-label="Pesquise" aria-describedby="basic-addon1">
                     <br>
-                    <nav class="navbar bg-m navbar-light res col-12" id="navbarProdutos">
+                    <nav  v-if="urlSite.includes('rti')"  class="navbar bg-m navbar-light res col-12" id="navbarProdutos">
                         <div class="container-fluid justify-content-center w-75 p-1">
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsivePro" aria-controls="navbarResponsivePro" aria-expanded="false" aria-label="Toggle navigation">
                                 Categorias
                             </button>
                             <div class="collapse navbar-collapse justify-content-center" id="navbarResponsivePro">
                                 <h4 class="spanCli m-1 p-1"> Categorias </h4>
-                                <ul v-for="itens in autoList(familiaprodutos,'familia')" class="navbar-nav justify-content-center text-center flex-column">
+                                <ul v-if="!nulo(familiaprodutos)" v-for="itens in autoList(familiaprodutos,'familia')" class="navbar-nav justify-content-center text-center flex-column">
                                     <li class="nav-item">
                                         <span class="nav-link">
                                             <input type="checkbox" v-model="familiaselect" v-bind:value="itens._id['$oid']">
@@ -42,21 +45,21 @@
                                 </ul>
                                 <hr class="border bg-light">
                                 <h4 class="spanCli m-1 p-1"> Subcategorias </h4>
-                                <ul v-for="itens in app.sys.searchinArray(autoList(classeprodutos,'classe'),familiaselect,'IdFamilia')" class="navbar-nav justify-content-center text-center flex-column">
+                                <ul v-if="!nulo(classeprodutos)" v-for="itens in app.sys.searchinArray(autoList(classeprodutos,'classe'),familiaselect,'IdFamilia')" class="navbar-nav justify-content-center text-center flex-column">
                                     <li class="nav-item">
                                         <span class="nav-link"><input type="checkbox"  v-model="classeselect"  v-bind:value="itens._id['$oid']"> {{itens.TipoClasse}} <i class="fas fa-angle-double-right"></i></span>
                                     </li>
                                 </ul>
                                 <hr class="border bg-light">
                                 <h4 class="spanCli m-1 p-1"> Variedades </h4>
-                                <ul v-for="itens in app.sys.searchinArray(autoList(categoriaprodutos,'categoria'),classeselect,'IdClasse')" class="navbar-nav justify-content-center text-center flex-column">
+                                <ul v-if="!nulo(categoriaprodutos)" v-for="itens in app.sys.searchinArray(autoList(categoriaprodutos,'categoria'),classeselect,'IdClasse')" class="navbar-nav justify-content-center text-center flex-column">
                                     <li class="nav-item">
                                         <span class="nav-link"><input type="checkbox" v-model="categoriaselect"  v-bind:value="itens._id['$oid']" > {{itens.TipoCategoria}} <i class="fas fa-angle-double-right"></i></span>
                                     </li>
                                 </ul>
                                 <hr class="border bg-light">
                                 <h4 class="spanCli m-1 p-1"> Opções </h4>
-                                <ul v-for="itens in app.sys.searchinArray(autoList(subcategoriaprodutos,'subcategoria'),categoriaselect,'IdCategoria')" class="navbar-nav justify-content-center text-center flex-column">
+                                <ul v-if="!nulo(subcategoriaprodutos)" v-for="itens in app.sys.searchinArray(autoList(subcategoriaprodutos,'subcategoria'),categoriaselect,'IdCategoria')" class="navbar-nav justify-content-center text-center flex-column">
                                     <li class="nav-item">
                                         <span class="nav-link"><input type="checkbox" v-model="subcategoriaselect"  v-bind:value="itens._id['$oid']" > {{itens.TipoSubCategoria}} <i class="fas fa-angle-double-right"></i></span>
                                     </li>
@@ -97,7 +100,7 @@
             <?php include $refUrl . "Mongo/template/pagination.php" ?>
         </div>
     </div>
-    <div class="rounded aboutvendor">
+    <div class="rounded aboutvendor anunciobox">
         <div class="row justify-content-center text-center text-capitalize">
             <div v-if="typeof EmpresaSelecionada(pgid).NomeFantasia !== 'undefined'" class="col-md-12 col-lg-12 col-xl-12 col-12 row justify-content-center text-center">
                 <div class="col-6" v-if="EmpresaSelecionada(pgid).NomeFantasia!='null'"><span class='spanCli m-1 p-1'>Empresa:</span> {{EmpresaSelecionada(pgid).NomeFantasia}}</div>
@@ -163,7 +166,8 @@
                                                     <span v-on:click="inc(selectProduto._id['$oid'])" class="inc qtybtn">+</span>
                                                 </div>
                                             </div>
-                                            <button v-on:click="carroCompra" data-dismiss="modal">Adicionar ao carrinho</button>
+                                            <button v-if="urlSite.includes('rti')" v-on:click="carroCompra" data-dismiss="modal">Adicionar ao carrinho</button>
+                                            <button v-on:click="window.open('https://wa.me/55'+cleanwap(EmpresaSelecionada(pgid).Celular)+'?text='+encodeURI('Produto:'+selectProduto.NomeProduto+' Qtd.:'+qtdProd[selectProduto._id['$oid']]),'_blank')" data-dismiss="modal">Comprar</button>
                                         </div>
                                     </div>
                                 </div>

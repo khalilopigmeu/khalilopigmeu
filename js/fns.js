@@ -522,7 +522,11 @@ function BarcodeWS(el, val, tipo, cor, bg, flag) {
 }
 
 function unescapeHTML(escapedHTML) {
-    return escapedHTML.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+    if (!nulo(escapedHTML)) {
+        return escapedHTML.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+    } else {
+        return escapedHTML;
+    }
 }
 
 function apiFB(fn, el) {
@@ -759,7 +763,7 @@ AesUtil.prototype.decrypt = function (salt, iv, passPhrase, cipherText) {
     return decrypted.toString(CryptoJS.enc.Utf8);
 };
 
-function modalConfirm(el,vr,text) {
+function modalConfirm(el, vr, text) {
     $("#ynmodal").modal();
     $("#ynmodal .modal-body").text(text);
     $("#modal-btn-si").on("click", function () {

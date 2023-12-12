@@ -1216,3 +1216,7 @@ and open the template in the editor.
 .bgsacola{
     background: var(--fieldesetbg);
 }
+
+.anunciobox{
+    background: var(--modalbg) !important;
+}
