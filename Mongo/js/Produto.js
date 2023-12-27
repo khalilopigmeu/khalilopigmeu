@@ -15,7 +15,6 @@ app["Produto"] = new Vue({
         pesqTbl: "",
         Host: "Bienestar/Produtos/Produto/",
         paginate: [],
-
         QtdMin: null,
         Caracteristicas: null,
         EspecificacaoProduto: null,
@@ -43,19 +42,19 @@ app["Produto"] = new Vue({
         Uso: null,
         Custo: null,
         ValorMercado: null,
-
         familiaselect: null,
         classeselect: null,
         categoriaselect: null,
         subcategoriaselect: null,
         produtoselect: null,
-
         FamiliaSrc: null,
         ClasseSrc: null,
         SubCategoriaSrc: null,
         CategoriaSrc: null,
         FornecedorSrc: null,
         AlbumSrc: null,
+        Encargos: "14%+4,20",
+        CustoComposto: ""
     },
     methods: {
         populate: function () {
@@ -306,5 +305,12 @@ app["Produto"] = new Vue({
             }
 
         },
+        calcCusto: function () {
+            var part = app.Produto.Encargos.split("%+");
+            var percent = parseFloat(part[0]) / 100;
+            var inteiro = parseFloat(part[1]);
+            app.Produto.CustoComposto = parseFloat(app.Produto.Custo) + (parseFloat(app.Produto.Custo) * percent) + inteiro;
+        }
+       
     }
 });

@@ -93,8 +93,12 @@ include $refUrl . "Mongo/template/head.php"
 <textarea class="form-control" name="especificacao"  placeholder=""></textarea><br>
 <label>Resumo:</label>
 <textarea class="form-control" name="resumo" placeholder=""></textarea><br>
+<label>Encargos:</label>
+<input class="form-control" v-model="Encargos" disabled="true" placeholder=""><br>
 <label>Custo:</label>
-<input class="form-control" v-model="Custo" placeholder=""><br>
+<input class="form-control" v-on:keypress="calcCusto" v-on:change="calcCusto" v-model="Custo" placeholder=""><br>
+<label>Custo composto:</label>
+<input class="form-control" v-model="CustoComposto" disabled="true" placeholder=""><br>
 <label>Valor de Mercado:</label>
 <input class="form-control" v-model="ValorMercado" placeholder=""><br>
 <label>Preço:</label>

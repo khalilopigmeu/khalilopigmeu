@@ -88,6 +88,7 @@ app["empresasanunciando"] = new Vue({
         majority: false,
         ismajor: false,
         order: "RN",
+        formato: "coluna"
     },
     methods: {
         buscar: function (refid) {
@@ -244,7 +245,7 @@ app["empresasanunciando"] = new Vue({
         },
         changeItensCount: function (nome) {
             app.sys.itemsPerPage[nome] = this.itensporpagina;
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(app.empresasanunciando.produtos, app.empresasanunciando.produtopesq),"DESC","QtdMin"), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(app.empresasanunciando.produtos, app.empresasanunciando.produtopesq), "DESC", "QtdMin"), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
         },
         autoList: function (src, opcao) {
             switch (opcao) {
@@ -589,7 +590,7 @@ app["empresasanunciando"] = new Vue({
             }
         },
         buscaProduto: function (id) {
-            window.scroll({top:0,behavior:"smooth"});
+            window.scroll({top: 0, behavior: "smooth"});
             if (this.flagProd === false) {
                 this.flagProd = true;
             }
@@ -649,40 +650,40 @@ app["empresasanunciando"] = new Vue({
             switch (order) {
                 case "RN":
                     pesq = app.sys.sorter(app.empresasanunciando.produtos, "ASC", "NomeProduto");
-                    app.sys.paginate(app.sys.sorter(app.sys.searchall(pesq, app.empresasanunciando.produtopesq),"DESC","QtdMin"), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
+                    app.sys.paginate(app.sys.sorter(app.sys.searchall(pesq, app.empresasanunciando.produtopesq), "DESC", "QtdMin"), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
                     break;
                 case "DS":
                     pesq = app.sys.sorter(app.empresasanunciando.produtos, "DESC", "QtdMin");
-                    app.sys.paginate(app.sys.sorter(app.sys.searchall(pesq, app.empresasanunciando.produtopesq),"DESC","QtdMin"), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
+                    app.sys.paginate(app.sys.sorter(app.sys.searchall(pesq, app.empresasanunciando.produtopesq), "DESC", "QtdMin"), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
                     break;
                 case "EN":
                     pesq = app.sys.sorter(app.empresasanunciando.produtos, "ASC", "QtdMin");
-                    app.sys.paginate(app.sys.sorter(app.sys.searchall(pesq, app.empresasanunciando.produtopesq),"DESC","QtdMin"), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
+                    app.sys.paginate(app.sys.sorter(app.sys.searchall(pesq, app.empresasanunciando.produtopesq), "DESC", "QtdMin"), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
                     break;
                 case "ZA":
                     pesq = app.sys.sorter(app.empresasanunciando.produtos, "DESC", "NomeProduto");
-                    app.sys.paginate(app.sys.sorter(app.sys.searchall(pesq, app.empresasanunciando.produtopesq),"DESC","QtdMin"), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
+                    app.sys.paginate(app.sys.sorter(app.sys.searchall(pesq, app.empresasanunciando.produtopesq), "DESC", "QtdMin"), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
                     break;
                 case "UP":
                     pesq = app.sys.sorter(app.empresasanunciando.produtos, "ASC", "Preco");
-                    app.sys.paginate(app.sys.sorter(app.sys.searchall(pesq, app.empresasanunciando.produtopesq),"DESC","QtdMin"), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
+                    app.sys.paginate(app.sys.sorter(app.sys.searchall(pesq, app.empresasanunciando.produtopesq), "DESC", "QtdMin"), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
                     break;
                 case "DW":
                     pesq = app.sys.sorter(app.empresasanunciando.produtos, "DESC", "Preco");
-                    app.sys.paginate(app.sys.sorter(app.sys.searchall(pesq, app.empresasanunciando.produtopesq),"DESC","QtdMin"), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
+                    app.sys.paginate(app.sys.sorter(app.sys.searchall(pesq, app.empresasanunciando.produtopesq), "DESC", "QtdMin"), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
                     break;
             }
         },
         pesquisaprodutos: function () {
-            var pesq = app.sys.sorter(app.sys.searchall(app.empresasanunciando.produtos, app.empresasanunciando.produtopesq),"DESC","QtdMin");
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(pesq, app.empresasanunciando.produtopesq),"DESC","QtdMin"), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
+            var pesq = app.sys.sorter(app.sys.searchall(app.empresasanunciando.produtos, app.empresasanunciando.produtopesq), "DESC", "QtdMin");
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(pesq, app.empresasanunciando.produtopesq), "DESC", "QtdMin"), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
         },
         setPg: function (item) {
             this.page = item;
         },
         Criarpaginas: function () {
             app.sys.paginate(app.empresasanunciando.Divulgando(), 'AnuncianteSite', ["empresasanunciando", "PaginasAnunciante"]);
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(app.empresasanunciando.produtos, app.empresasanunciando.produtopesq),"DESC","QtdMin"), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(app.empresasanunciando.produtos, app.empresasanunciando.produtopesq), "DESC", "QtdMin"), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
         },
         load: function () {
             app.sidebar.newmenu = [];
@@ -797,6 +798,19 @@ app["empresasanunciando"] = new Vue({
             } else {
                 app.empresasanunciando.ismajor = false;
             }
+        },
+        catalogoProdutos: function (opt) {
+            //|1 - estoque | 0 - encomenda|
+            var itens = app.empresasanunciando.produtos;
+            var selecionados = [];
+            var step = 0;
+            for (var i = 0; i <= itens.length - 1; i++) {
+                if (itens[i].QtdMin == opt) {
+                    selecionados[step] = itens[i];
+                    step++;
+                }
+            }
+            return selecionados;
         }
     },
 });

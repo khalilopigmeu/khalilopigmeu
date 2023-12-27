@@ -15,6 +15,11 @@
                                 <option value="24">24</option>
                             </select>
                         </div>
+                        <div class="col-4">
+                            <label>Formato:</label>
+                            <span class='btn' v-on:click="app.empresasanunciando.formato='lista'"><i class="fas fa-list"></i> - Lista</span>
+                            <span class='btn' v-on:click="app.empresasanunciando.formato='coluna'"><i class="fas fa-columns"></i>- Colunas</span>
+                        </div>
                         <div class="col-6 row text-center">
                             <div class="col-3"><input v-on:click="orderProdutos('RN')" v-model="order" name='order' value="RN" type="radio"><span> Aleatório</span></div>
                             <div class="col-3"><input v-on:click="orderProdutos('DS')" v-model="order" name='order' value="DS" type="radio"><span> Disponíveis</span></div>
@@ -69,7 +74,35 @@
                     </nav>
                 </fieldset>
             </div>
-            <div class="row justify-content-center text-center">
+            <div v-if="formato=='lista'" class="row justify-content-center text-center">
+                <div v-for="itens in PaginasLoja" class="col-12 m-1 p-1 border rounded border-dark produto">
+                    <div class="product__item row" data-toggle="modal" data-target="#AboutProduto" v-on:click="buscaProduto(itens._id['$oid'])">
+                        <div class="col-4" v-if="itens.QtdMin==1">
+                            <div class="product__item__pic set-bg"  v-bind:style="'background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">
+                            </div>
+                        </div>
+                        <div class="col-4" v-else>
+                            <!--<div class="product__item__pic set-bg"  v-bind:style="'filter: grayscale(100%); background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">-->
+                            <div class="product__item__pic set-bg"  v-bind:style="'background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">
+                            </div>
+                        </div>
+                        <div class="product__item__text col-7">
+                            <h6>{{itens.NomeProduto}}</h6>
+                            <h5 v-if="itens.QtdMin==1" v-html="HasPromo(itens._id['$oid'],itens.Preco)"></h5>
+                            <div v-html="itens.EspecificacaoProduto"></div>
+                            <div v-if="itens.QtdMin==1" class="badge badge-success">
+                                Disponível em estoque!
+                            </div>
+                            <div v-else class="badge badge-warning">
+                                Apenas por encomenda! <br> tempo de espera de 7 a 10 dias úteis;<br>
+                                Preço em exibição tem como base a última compra<br> o preço final poderá sofrer acréscimo ou decréscimo.
+                            </div>
+                            <p class="mt-2 seemore">Clique para ver mais</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div  v-if="formato=='coluna'"  class="row justify-content-center text-center">
                 <div v-for="itens in PaginasLoja" class="col-lg-3 col-md-5 col-sm-10 m-1 p-1 border rounded border-dark produto">
                     <div class="product__item" data-toggle="modal" data-target="#AboutProduto" v-on:click="buscaProduto(itens._id['$oid'])">
                         <div v-if="itens.QtdMin==1">
@@ -84,15 +117,16 @@
                         <hr>
                         <div class="product__item__text">
                             <h6>{{itens.NomeProduto}}</h6>
-                            <h5 v-html="HasPromo(itens._id['$oid'],itens.Preco)"></h5>
-                            <div v-html="itens.ResumoProduto"></div>
-                            <p class="seemore">Clique para ver mais</p>
-                            <div v-if="itens.QtdMin==1">
-                                <span class="badge badge-success" >Disponível em estoque!</span>
+                            <h5 v-if="itens.QtdMin==1" v-html="HasPromo(itens._id['$oid'],itens.Preco)"></h5>
+                            <div v-html="itens.EspecificacaoProduto"></div>
+                            <div v-if="itens.QtdMin==1" class="badge badge-success">
+                                Disponível em estoque!
                             </div>
-                            <div v-else>
-                                <span class="badge badge-warning" >Apenas por encomenda! <br> tempo de espera de 7 a 10 dias úteis*</span>
+                            <div v-else class="badge badge-warning">
+                                Apenas por encomenda! <br> tempo de espera de 7 a 10 dias úteis;<br>
+                                Preço em exibição tem como base a última compra<br> o preço final poderá sofrer acréscimo ou decréscimo.
                             </div>
+                            <p class="mt-2 seemore">Clique para ver mais</p>
                         </div>
                     </div>
                 </div>
@@ -157,7 +191,7 @@
                                 <div class="col-lg-6 col-md-6">
                                     <div class="product__details__text">
                                         <h3>{{selectProduto.NomeProduto}}</h3>
-                                        <div class="product__details__price" v-html="HasPromo(selectProduto._id['$oid'],selectProduto.Preco)"></div>
+                                        <div class="product__details__price" v-if="selectProduto.QtdMin==1" v-html="HasPromo(selectProduto._id['$oid'],selectProduto.Preco)"></div>
                                         <div class="product__details__quantity">
                                             <div class="quantity" v-bind:data-id="selectProduto._id['$oid']">
                                                 <div class="pro-qty" v-bind:data-id="selectProduto._id['$oid']">
@@ -168,6 +202,14 @@
                                             </div>
                                             <button v-if="urlSite.includes('rti')" v-on:click="carroCompra" data-dismiss="modal">Adicionar ao carrinho</button>
                                             <button v-on:click="window.open('https://wa.me/55'+cleanwap(EmpresaSelecionada(pgid).Celular)+'?text='+encodeURI('Produto:'+selectProduto.NomeProduto+' Qtd.:'+qtdProd[selectProduto._id['$oid']]),'_blank')" data-dismiss="modal">Comprar</button>
+                                            <br><br>
+                                            <div v-if="selectProduto.QtdMin==1" class="badge badge-success">
+                                                Disponível em estoque!
+                                            </div>
+                                            <div v-else class="badge badge-warning">
+                                                Apenas por encomenda! <br> tempo de espera de 7 a 10 dias úteis;<br>
+                                                Preço em exibição tem como base a última compra<br> o preço final poderá sofrer acréscimo ou decréscimo.
+                                            </div>                                            
                                         </div>
                                     </div>
                                 </div>
@@ -229,7 +271,7 @@
                                         </div>
                                         <div v-on:click="buscaProduto(itens._id['$oid'])" >
                                             <h6>{{itens.NomeProduto}}</h6>
-                                            <h5 v-html="HasPromo(itens._id['$oid'],itens.Preco)"></h5>
+                                            <h5 v-if="itens.QtdMin==1" v-html="HasPromo(itens._id['$oid'],itens.Preco)"></h5>
                                             <div v-if="itens.QtdMin==1">
                                                 <span class="badge badge-success" >Disponível em estoque!</span>
                                             </div>
