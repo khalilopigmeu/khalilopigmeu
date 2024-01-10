@@ -181,6 +181,9 @@ function urlRead() {
     if (app.sys.page === "promocaoespacobienestar") {
         window.location.href = "https://bienclube.com.br/index.php#anunciante?pgid=61fbb5a965ac59817653d77c&spy=promocao";
     }
+    if (app.sys.page === "index") {
+        app.Home.home = true;
+    }
     if (app.sys.page === "dispositivos") {
         app.sys.keys();
         app.sys.gapi = gapi;
