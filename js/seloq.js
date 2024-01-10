@@ -244,6 +244,10 @@ function urlRead() {
             app.procedimentosite.buscar(getParameterByName('pgid'));
             app.empresasanunciando.pgid = getParameterByName('pgid');
             app.empresasanunciando.buscar(getParameterByName('pgid'));
+            if (!nulo(getParameterByName('major'))) {
+                app.empresasanunciando.ismajor = parseBoolean(getParameterByName('major'));
+                app.empresasanunciando.majority = parseBoolean(getParameterByName('major'));
+            }
             app.empresasanunciando.load();
             $("#menu-toggle-R i").removeClass("fa-bars").addClass("fa-shopping-bag");
             $("#menu-toggle-R").show();

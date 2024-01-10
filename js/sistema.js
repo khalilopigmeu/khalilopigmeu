@@ -104,6 +104,7 @@ app["sys"] = new Vue({
         anuncionavbar: null,
         anunciotitulosfont: null,
         anuncioconteudofont: null,
+        progress: null,
     },
     created: function () {
         var dm = window.location.hostname;
@@ -132,6 +133,7 @@ app["sys"] = new Vue({
         },
         acessar: function (idlogin, ravec) {
             this.acesso = eval(decrypt(ravec, idlogin));
+            app.sys.progress = 100;
         },
         ravecmenu: function (href, nivel) {
             if (typeof app[href] !== "undefined" && app[href] !== null) {
@@ -164,8 +166,7 @@ app["sys"] = new Vue({
                 } catch (e) {
                     console.log(e)
                 }
-                app.calendar.progress += ratio;
-                //onendloadsys
+                app.sys.progress += ratio;
                 if (i === Object.keys(app).length - 1) {
                     app.sys.setColorSystem();
                 }
@@ -1054,6 +1055,7 @@ app["sys"] = new Vue({
             } else {
                 this.setDefault();
             }
+            //$("#loader").hide();
         }
     }
 });
