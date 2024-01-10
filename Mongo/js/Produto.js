@@ -54,7 +54,9 @@ app["Produto"] = new Vue({
         FornecedorSrc: null,
         AlbumSrc: null,
         Encargos: "14%+4,20",
-        CustoComposto: ""
+        CustoComposto: "",
+        Midia: "",
+        Cotacao: "",
     },
     methods: {
         populate: function () {
@@ -96,6 +98,7 @@ app["Produto"] = new Vue({
             this.Uso = null;
             this.Custo = null;
             this.ValorMercado = null;
+            this.Cotacao = null;
             this.id = null;
         },
         autocomplete: function () {
@@ -108,7 +111,8 @@ app["Produto"] = new Vue({
             this.categoriaselect = this.IdCategoriaProduto;
             this.IdSubCategoriaProduto = app.sys.foreignKeyRestore(this.SubCategoriaSrc, "TipoSubCategoria", this.row[4]);
             this.subcategoriaselect = this.IdSubCategoriaProduto;
-            this.IdFornecedor = app.sys.foreignKeyRestore(this.FornecedorSrc, "Nome", this.row[5]);
+            var fornecs = String(app.sys.foreignKeyRestore(this.FornecedorSrc, "Nome", this.row[5]));
+            this.IdFornecedor = eval(fornecs.split(","));
             this.IdAlbum = app.sys.foreignKeyRestore(this.AlbumSrc, "NomeAlbum", this.row[6]);
             this.CodProduto = this.row[7];
             this.NomeProduto = this.row[8];
@@ -134,6 +138,12 @@ app["Produto"] = new Vue({
             this.UnidComp = this.row[25];
             this.Custo = this.row[26];
             this.ValorMercado = this.row[27];
+            this.Cotacao = eval(this.row[28]);
+            for (var i = 0; i <= this.Cotacao.length - 1; i++) {
+                var id = this.Cotacao[i].split("#")[0];
+                var val = this.Cotacao[i].split("#")[1];
+                document.getElementById("cot" + id).value = val;
+            }
             app.sys.mascara();
         },
         checkForm: function () {
@@ -164,7 +174,22 @@ app["Produto"] = new Vue({
             this.biencode.IdCategoriaProduto = this.IdCategoriaProduto;
             this.biencode.IdClasse = this.IdClasse;
             this.biencode.IdSubCategoriaProduto = this.IdSubCategoriaProduto;
-            this.biencode.IdFornecedor = this.IdFornecedor;
+            var fornec = "";
+            for (var i = 0; i <= this.IdFornecedor.length - 1; i++) {
+                fornec += this.IdFornecedor[i];
+                if (i < this.IdFornecedor.length - 1) {
+                    fornec += ";";
+                }
+            }
+            this.biencode.IdFornecedor = fornec;
+            var cotacao = "";
+            for (var i = 0; i <= this.IdFornecedor.length - 1; i++) {
+                cotacao += this.IdFornecedor[i] + "#" + document.getElementById("cot" + this.IdFornecedor[i]).value;
+                if (i < this.IdFornecedor.length - 1) {
+                    cotacao += ";";
+                }
+            }
+            this.biencode.Cotacao = cotacao;
             this.biencode.IdAlbum = this.IdAlbum;
             this.biencode.Contas = this.Contas;
             this.biencode.Tipo = this.Tipo;
@@ -310,7 +335,12 @@ app["Produto"] = new Vue({
             var percent = parseFloat(part[0]) / 100;
             var inteiro = parseFloat(part[1]);
             app.Produto.CustoComposto = parseFloat(app.Produto.Custo) + (parseFloat(app.Produto.Custo) * percent) + inteiro;
+        },
+        cotacao: function () {
+            for (var i = 0; i <= this.IdFornecedor.length - 1; i++) {
+                this.Cotacao[this.IdFornecedor[i]] = 0;
+            }
         }
-       
+
     }
 });

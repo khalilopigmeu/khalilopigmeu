@@ -117,10 +117,10 @@ include $refUrl . "Mongo/template/head.php"
     <input type="text" class="ie form-control" v-model="IE" name="IE"><br>
     <label for="IM">IM:</label>
     <input type="text" v-model="IM" name="IM" class="form-control"><br>
-    <label for="cnae">CNAE:</label>
-    <input type="text" v-model="cnae" name="cnae"  class="form-control"><br>
-    <label for="crt">CRT:</label>
-    <input type="text" v-model="crt" name="crt"  class="form-control"><br>
+    <label for="CNAE">CNAE:</label>
+    <input type="text" v-model="CNAE" name="CNAE"  class="form-control"><br>
+    <label for="CRT">CRT:</label>
+    <input type="text" v-model="CRT" name="CRT"  class="form-control"><br>
 </fieldset>
 <fieldset  v-else class="border rounded container-fluid border-dark">
     {{optCad}}

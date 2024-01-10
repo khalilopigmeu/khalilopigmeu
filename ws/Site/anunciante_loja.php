@@ -15,11 +15,6 @@
                                 <option value="24">24</option>
                             </select>
                         </div>
-                        <div class="col-4">
-                            <label>Formato:</label>
-                            <span class='btn' v-on:click="app.empresasanunciando.formato='lista'"><i class="fas fa-list"></i> - Lista</span>
-                            <span class='btn' v-on:click="app.empresasanunciando.formato='coluna'"><i class="fas fa-columns"></i>- Colunas</span>
-                        </div>
                         <div class="col-6 row text-center">
                             <div class="col-3"><input v-on:click="orderProdutos('RN')" v-model="order" name='order' value="RN" type="radio"><span> Aleatório</span></div>
                             <div class="col-3"><input v-on:click="orderProdutos('DS')" v-model="order" name='order' value="DS" type="radio"><span> Disponíveis</span></div>
@@ -31,7 +26,14 @@
                         </div>
                     </div>
                     <br>
-                    <input class="form-control mx-auto col-7 mt-1" type="text" v-model="produtopesq" v-on:keypress="pesquisaprodutos()"  v-on:change="pesquisaprodutos()" class="form-control col-10 p-1 m-1" placeholder="Pesquise" aria-label="Pesquise" aria-describedby="basic-addon1">
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Formato:</label>
+                            <span class='btn' v-on:click="app.empresasanunciando.formato='lista'"><i class="fas fa-list"></i> - Lista</span>
+                            <span class='btn' v-on:click="app.empresasanunciando.formato='coluna'"><i class="fas fa-columns"></i>- Colunas</span>
+                        </div>
+                        <input class="form-control col-7 " type="text" v-model="produtopesq" v-on:keypress="pesquisaprodutos()"  v-on:change="pesquisaprodutos()" class="form-control col-10 p-1 m-1" placeholder="Pesquise" aria-label="Pesquise" aria-describedby="basic-addon1">
+                    </div>
                     <br>
                     <nav  v-if="urlSite.includes('rti')"  class="navbar bg-m navbar-light res col-12" id="navbarProdutos">
                         <div class="container-fluid justify-content-center w-75 p-1">

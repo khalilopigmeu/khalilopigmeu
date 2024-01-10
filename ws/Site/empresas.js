@@ -88,7 +88,10 @@ app["empresasanunciando"] = new Vue({
         majority: false,
         ismajor: false,
         order: "RN",
-        formato: "coluna"
+        formato: "coluna",
+        printpdf: false,
+        TipoCatalogo: 1,
+        print: 0
     },
     methods: {
         buscar: function (refid) {
@@ -814,6 +817,24 @@ app["empresasanunciando"] = new Vue({
                 }
             }
             return selecionados;
+        },
+        resetPrint: function () {
+            this.print = 0;
+        },
+        ImprimirCatalogo: function (tipo) {
+            app.empresasanunciando.printpdf = true;
+            this.TipoCatalogo = tipo;
+            var pages = Array.from(document.querySelectorAll('.html2pdf__page-break'));
+            var worker = html2pdf().set({
+                margin: 1,
+                filename: 'catalogo.pdf'}).from(pages[0]);
+            worker = worker.toPdf();
+            for (var i = 1; i <= pages.length - 1; i++) {
+                worker = worker.get('pdf').then(pdf => {
+                    pdf.addPage();
+                }).from(pages[i]).toContainer().toCanvas().toPdf();
+            }
+            worker.save();
         }
     },
 });

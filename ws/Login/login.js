@@ -2,6 +2,7 @@
 app["clientLogin"] = new Vue({
     el: '#clientLogin',
     data: {
+        id: null,
         min: 1,
         max: 25,
         posicao: 0,

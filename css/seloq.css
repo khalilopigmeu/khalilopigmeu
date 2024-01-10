@@ -199,7 +199,7 @@ fieldset,legend{
 }
 
 input{
-    background: #eee !important;
+    background: #eee ;
     color: #000 !important;
 }
 

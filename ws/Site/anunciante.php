@@ -93,6 +93,7 @@
             <?php include "anunciante_paginas.php" ?>
             <?php include "anunciante_promocoes.php" ?>
             <?php include "anunciante_loja.php" ?>
+            <?php include "exportpdf.php" ?>
             <div v-if="Anunciante(pgid).Tipo==='4'" id="toOpen" v-bind:data-url="getSite(pgid)">
                 {{cast()}}
             </div>

@@ -134,4 +134,4 @@
 <div id="funcionariosite"></div>
 <script src="<?php echo $cdn; ?>ws/Site/cliente.js"></script>
 <script src="<?php echo $cdn; ?>ws/Site/funcionario.js"></script>
-<script  type="application/javascript" src="<?php echo $refUrl; ?>ws/Login/login.js"></script>
+<script src="<?php echo $refUrl; ?>ws/Login/login.js"></script>
