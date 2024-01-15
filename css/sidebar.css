@@ -147,29 +147,6 @@ body {
     position: absolute;
 }
 
-@media (min-width: 576px) {
-    #menu-toggle{
-        width: 7vw;
-        height: 7vw;
-        font-size: 4vw;
-    }
-    #menu-toggle-R{
-        width: 7vw;
-        height: 7vw;
-        font-size: 4vw;
-    }
-    .toggled #menu-toggle{
-        width: 7vw;
-        height: 7vw;
-        font-size: 4vw;
-    }
-    .toggled-R #menu-toggle-R{
-        width: 7vw;
-        height: 7vw;
-        font-size: 4vw;
-    }
-}
-
 @media (min-width: 768px) {
     #menu-toggle{
         width: 6vw;

@@ -197,12 +197,14 @@ function urlRead() {
             app.paginasite.buscar();
             app.Promocao.servicos = eval("app.Promocao.servicos_" + getParameterByName('pgid'));
             app.Promocao.pacotes = null
+            $("#waiter").hide();
         } else {
             app.anunciante.pgid = null;
             app.empresasanunciando.pgid = null;
             app.paginasite.buscar();
             app.Promocao.servicos = app.Promocao.servicosBienestar;
             app.Promocao.pacotes = app.Promocao.pacotesBienestar;
+            $("#waiter").hide();
         }
     }
     if (app.sys.page === "portfolio") {
@@ -211,17 +213,20 @@ function urlRead() {
             app.empresasanunciando.pgid = getParameterByName('pgid');
             app.categoriaportfolio.buscar();
             app.portfolio.buscar();
+            $("#waiter").hide();
         } else {
             app.anunciante.pgid = null;
             app.empresasanunciando.pgid = null;
             app.categoriaportfolio.buscar();
             app.portfolio.buscar();
+            $("#waiter").hide();
         }
     }
     if (app.sys.page === "videos") {
         app.anunciante.buscar();
         app.empresasanunciando.video = true;
         app.empresasanunciando.buscar();
+        $("#waiter").hide();
     }
     if (app.sys.page === "anunciante") {
         if (getParameterByName('pgid') !== null) {
@@ -284,6 +289,7 @@ function urlRead() {
         } else {
             app.paginasite.buscar();
         }
+        $("#waiter").hide();
     }
     qrcode.makeCode(urlSite);
 }

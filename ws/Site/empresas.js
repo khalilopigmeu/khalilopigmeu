@@ -653,33 +653,80 @@ app["empresasanunciando"] = new Vue({
             switch (order) {
                 case "RN":
                     pesq = app.sys.sorter(app.empresasanunciando.produtos, "ASC", "NomeProduto");
-                    app.sys.paginate(app.sys.sorter(app.sys.searchall(pesq, app.empresasanunciando.produtopesq), "DESC", "QtdMin"), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
+                    app.sys.paginate(pesq, 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
                     break;
                 case "DS":
                     pesq = app.sys.sorter(app.empresasanunciando.produtos, "DESC", "QtdMin");
-                    app.sys.paginate(app.sys.sorter(app.sys.searchall(pesq, app.empresasanunciando.produtopesq), "DESC", "QtdMin"), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
+                    app.sys.paginate(pesq, 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
                     break;
                 case "EN":
                     pesq = app.sys.sorter(app.empresasanunciando.produtos, "ASC", "QtdMin");
-                    app.sys.paginate(app.sys.sorter(app.sys.searchall(pesq, app.empresasanunciando.produtopesq), "DESC", "QtdMin"), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
+                    app.sys.paginate(pesq, 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
                     break;
                 case "ZA":
                     pesq = app.sys.sorter(app.empresasanunciando.produtos, "DESC", "NomeProduto");
-                    app.sys.paginate(app.sys.sorter(app.sys.searchall(pesq, app.empresasanunciando.produtopesq), "DESC", "QtdMin"), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
+                    app.sys.paginate(pesq, 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
                     break;
                 case "UP":
                     pesq = app.sys.sorter(app.empresasanunciando.produtos, "ASC", "Preco");
-                    app.sys.paginate(app.sys.sorter(app.sys.searchall(pesq, app.empresasanunciando.produtopesq), "DESC", "QtdMin"), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
+                    app.sys.paginate(pesq, 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
                     break;
                 case "DW":
                     pesq = app.sys.sorter(app.empresasanunciando.produtos, "DESC", "Preco");
-                    app.sys.paginate(app.sys.sorter(app.sys.searchall(pesq, app.empresasanunciando.produtopesq), "DESC", "QtdMin"), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
+                    app.sys.paginate(pesq, 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
                     break;
             }
         },
         pesquisaprodutos: function () {
             var pesq = app.sys.sorter(app.sys.searchall(app.empresasanunciando.produtos, app.empresasanunciando.produtopesq), "DESC", "QtdMin");
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(pesq, app.empresasanunciando.produtopesq), "DESC", "QtdMin"), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
+            app.sys.paginate(pesq, 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
+        },
+        pesquisaFamilia: function () {
+            if (app.empresasanunciando.familiaselect.length === 0) {
+                $(".chkfamilia").attr("disabled", false);
+                app.empresasanunciando.classeselect = [];
+                app.empresasanunciando.categoriaselect = [];
+                app.empresasanunciando.subcategoriaselect = [];
+            } else {
+                $(".chkfamilia").attr("disabled", true);
+                $(".chkfamilia:checked").attr("disabled", false);
+            }
+            var pesq = app.sys.sorter(app.sys.searchall(app.empresasanunciando.produtos, app.empresasanunciando.familiaselect.toString()), "DESC", "QtdMin");
+            app.sys.paginate(pesq, 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
+
+        },
+        pesquisaClasse: function () {
+            if (app.empresasanunciando.classeselect.length === 0) {
+                $(".chkclasse").attr("disabled", false);
+                app.empresasanunciando.categoriaselect = [];
+                app.empresasanunciando.subcategoriaselect = [];
+            } else {
+                $(".chkclasse").attr("disabled", true);
+                $(".chkclasse:checked").attr("disabled", false);
+            }
+            var pesq = app.sys.sorter(app.sys.searchall(app.empresasanunciando.produtos, app.empresasanunciando.classeselect.toString()), "DESC", "QtdMin");
+            app.sys.paginate(pesq, 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
+        },
+        pesquisaCategoria: function () {
+            if (app.empresasanunciando.categoriaselect.length === 0) {
+                $(".chkcategoria").attr("disabled", false);
+                app.empresasanunciando.subcategoriaselect = [];
+            } else {
+                $(".chkcategoria").attr("disabled", true);
+                $(".chkcategoria:checked").attr("disabled", false);
+            }
+            var pesq = app.sys.sorter(app.sys.searchall(app.empresasanunciando.produtos, app.empresasanunciando.categoriaselect.toString()), "DESC", "QtdMin");
+            app.sys.paginate(pesq, 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
+        },
+        pesquisaSubCategoria: function () {
+            if (app.empresasanunciando.subcategoriaselect.length === 0) {
+                $(".chksubcategoria").attr("disabled", false);
+            } else {
+                $(".chksubcategoria").attr("disabled", true);
+                $(".chksubcategoria:checked").attr("disabled", false);
+            }
+            var pesq = app.sys.sorter(app.sys.searchall(app.empresasanunciando.produtos, app.empresasanunciando.subcategoriaselect.toString()), "DESC", "QtdMin");
+            app.sys.paginate(pesq, 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
         },
         setPg: function (item) {
             this.page = item;
@@ -796,7 +843,7 @@ app["empresasanunciando"] = new Vue({
             }
             this.Criarpaginas();
             if (nulo(window.localStorage.ismajor) || window.localStorage.ismajor === false) {
-                if (app.empresasanunciando.Config(app.empresasanunciando.pgid).majority === 'true') {
+                if (app.empresasanunciando.Config(app.empresasanunciando.pgid).majority === 'true' || app.empresasanunciando.ismajor !== true) {
                     modalConfirm("empresasanunciando", "majority", "Esta é uma área com conteúdo para Maiores de 18 anos, esteja ciente caso deseje continuar.");
                     app.empresasanunciando.ismajor = true;
                     window.localStorage.ismajor = true;
@@ -804,6 +851,7 @@ app["empresasanunciando"] = new Vue({
                     app.empresasanunciando.ismajor = false;
                 }
             }
+            $("#waiter").hide();
         },
         catalogoProdutos: function (opt) {
             //|1 - estoque | 0 - encomenda|
@@ -823,19 +871,61 @@ app["empresasanunciando"] = new Vue({
         },
         ImprimirCatalogo: function (tipo) {
             app.empresasanunciando.printpdf = true;
-            this.TipoCatalogo = tipo;
-            var pages = Array.from(document.querySelectorAll('.html2pdf__page-break'));
-            var worker = html2pdf().set({
-                margin: 1,
-                filename: 'catalogo.pdf'}).from(pages[0]);
-            worker = worker.toPdf();
-            for (var i = 1; i <= pages.length - 1; i++) {
-                worker = worker.get('pdf').then(pdf => {
-                    pdf.addPage();
-                }).from(pages[i]).toContainer().toCanvas().toPdf();
-            }
-            worker.save();
-        }
+            app.empresasanunciando.TipoCatalogo = tipo;
+            $("#CatalogoDeProdutos").modal();
+            $(function () {
+                return new Swiper('.swipe', {
+                    // Optional parameters
+                    direction: 'horizontal',
+                    loop: true,
+                    autoplay: {
+                        delay: 7000,
+                    },
+                    /*effect: 'creative',
+                     creativeEffect: {
+                     prev: {
+                     // will set `translateZ(-400px)` on previous slides
+                     translate: [0, 0, -400],
+                     },
+                     next: {
+                     // will set `translateX(100%)` on next slides
+                     translate: ['100%', 0, 0],
+                     },
+                     },
+                     effect: 'cube',
+                     cubeEffect: {
+                     slideShadows: false,
+                     },*/
+                    effect: 'fade',
+                    fadeEffect: {
+                        crossFade: true
+                    },
+                    /*effect: 'flip',
+                     flipEffect: {
+                     slideShadows: false,
+                     },*/
+
+                    pagination: {
+                        el: '.swiper-pagination',
+                        dynamicBullets: true,
+                        clickable: true,
+                    },
+                    mousewheel: true,
+                    keyboard: {
+                        enabled: true,
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+
+                    // And if we need scrollbar
+                    scrollbar: {
+                        el: '.swiper-scrollbar',
+                    },
+                });
+            })
+        },
     },
 });
         

@@ -133,7 +133,6 @@ app["sys"] = new Vue({
         },
         acessar: function (idlogin, ravec) {
             this.acesso = eval(decrypt(ravec, idlogin));
-            app.sys.progress = 100;
         },
         ravecmenu: function (href, nivel) {
             if (typeof app[href] !== "undefined" && app[href] !== null) {
@@ -169,6 +168,7 @@ app["sys"] = new Vue({
                 app.sys.progress += ratio;
                 if (i === Object.keys(app).length - 1) {
                     app.sys.setColorSystem();
+                    $("#waiter").hide();
                 }
             }
         },

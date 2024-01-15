@@ -5,17 +5,8 @@
         <div class="mx-auto col-12 text-center justify-content-center">
             <div class="row text-center justify-content-center">
                 <fieldset class="col-10 mx-auto border rounded p-1 m-1 container-fluid border-dark anunciobox">
-                    <div  v-if="urlSite.includes('rti')"  class="row justify-content-center mb-1 text-center">
-                        <div class="col-4">
-                            <label>Itens por página:</label>
-                            <select type="text" class="form-control" v-on:change="changeItensCount('<?php echo $pageName; ?>')" v-model="itensporpagina">
-                                <option value="6">6</option>
-                                <option value="12">12</option>
-                                <option value="16">16</option>
-                                <option value="24">24</option>
-                            </select>
-                        </div>
-                        <div class="col-6 row text-center">
+                    <div v-if="urlSite.includes('rti')" class="row justify-content-center mb-1 text-center">
+                        <div class="col-10 row justify-content-center text-center">
                             <div class="col-3"><input v-on:click="orderProdutos('RN')" v-model="order" name='order' value="RN" type="radio"><span> Aleatório</span></div>
                             <div class="col-3"><input v-on:click="orderProdutos('DS')" v-model="order" name='order' value="DS" type="radio"><span> Disponíveis</span></div>
                             <div class="col-3"><input v-on:click="orderProdutos('EN')" v-model="order" name='order' value="EN" type="radio"><span> Encomendas</span></div>
@@ -26,109 +17,115 @@
                         </div>
                     </div>
                     <br>
-                    <div class="row">
-                        <div class="col-4">
-                            <label>Formato:</label>
-                            <span class='btn' v-on:click="app.empresasanunciando.formato='lista'"><i class="fas fa-list"></i> - Lista</span>
-                            <span class='btn' v-on:click="app.empresasanunciando.formato='coluna'"><i class="fas fa-columns"></i>- Colunas</span>
+                    <div class="row justify-content-center text-center">
+                        <input class="form-control mb-2 mx-auto col-8 " type="text" v-model="produtopesq" v-on:keypress="pesquisaprodutos"  v-on:change="pesquisaprodutos" v-on:blur="pesquisaprodutos" class="form-control col-10 p-1 m-1" placeholder="Pesquise" aria-label="Pesquise" aria-describedby="basic-addon1">
+                        <div class="col-8 mx-auto">
+                            <span class='btn' v-on:click="app.empresasanunciando.formato='lista'"><i class="fas fa-list"></i> Lista</span>
+                            <span class='btn' v-on:click="app.empresasanunciando.formato='coluna'"><i class="fas fa-columns"></i> Colunas</span>
+                            <span class='btn' v-on:click="app.empresasanunciando.ImprimirCatalogo(1)"><i class="fas fa-book"></i> Estoque</span>
+                            <span class='btn' v-on:click="app.empresasanunciando.ImprimirCatalogo(0)"><i class="fas fa-book"></i> Encomenda</span>
                         </div>
-                        <input class="form-control col-7 " type="text" v-model="produtopesq" v-on:keypress="pesquisaprodutos()"  v-on:change="pesquisaprodutos()" class="form-control col-10 p-1 m-1" placeholder="Pesquise" aria-label="Pesquise" aria-describedby="basic-addon1">
                     </div>
-                    <br>
-                    <nav  v-if="urlSite.includes('rti')"  class="navbar bg-m navbar-light res col-12" id="navbarProdutos">
-                        <div class="container-fluid justify-content-center w-75 p-1">
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsivePro" aria-controls="navbarResponsivePro" aria-expanded="false" aria-label="Toggle navigation">
-                                Categorias
-                            </button>
-                            <div class="collapse navbar-collapse justify-content-center" id="navbarResponsivePro">
-                                <h4 class="spanCli m-1 p-1"> Categorias </h4>
-                                <ul v-if="!nulo(familiaprodutos)" v-for="itens in autoList(familiaprodutos,'familia')" class="navbar-nav justify-content-center text-center flex-column">
-                                    <li class="nav-item">
-                                        <span class="nav-link">
-                                            <input type="checkbox" v-model="familiaselect" v-bind:value="itens._id['$oid']">
-                                            {{itens.TipoFamilia}} <i class="fas fa-angle-double-right"></i>
-                                        </span>
-                                    </li>
-                                </ul>
-                                <hr class="border bg-light">
-                                <h4 class="spanCli m-1 p-1"> Subcategorias </h4>
-                                <ul v-if="!nulo(classeprodutos)" v-for="itens in app.sys.searchinArray(autoList(classeprodutos,'classe'),familiaselect,'IdFamilia')" class="navbar-nav justify-content-center text-center flex-column">
-                                    <li class="nav-item">
-                                        <span class="nav-link"><input type="checkbox"  v-model="classeselect"  v-bind:value="itens._id['$oid']"> {{itens.TipoClasse}} <i class="fas fa-angle-double-right"></i></span>
-                                    </li>
-                                </ul>
-                                <hr class="border bg-light">
-                                <h4 class="spanCli m-1 p-1"> Variedades </h4>
-                                <ul v-if="!nulo(categoriaprodutos)" v-for="itens in app.sys.searchinArray(autoList(categoriaprodutos,'categoria'),classeselect,'IdClasse')" class="navbar-nav justify-content-center text-center flex-column">
-                                    <li class="nav-item">
-                                        <span class="nav-link"><input type="checkbox" v-model="categoriaselect"  v-bind:value="itens._id['$oid']" > {{itens.TipoCategoria}} <i class="fas fa-angle-double-right"></i></span>
-                                    </li>
-                                </ul>
-                                <hr class="border bg-light">
-                                <h4 class="spanCli m-1 p-1"> Opções </h4>
-                                <ul v-if="!nulo(subcategoriaprodutos)" v-for="itens in app.sys.searchinArray(autoList(subcategoriaprodutos,'subcategoria'),categoriaselect,'IdCategoria')" class="navbar-nav justify-content-center text-center flex-column">
-                                    <li class="nav-item">
-                                        <span class="nav-link"><input type="checkbox" v-model="subcategoriaselect"  v-bind:value="itens._id['$oid']" > {{itens.TipoSubCategoria}} <i class="fas fa-angle-double-right"></i></span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
                 </fieldset>
             </div>
-            <div v-if="formato=='lista'" class="row justify-content-center text-center">
-                <div v-for="itens in PaginasLoja" class="col-12 m-1 p-1 border rounded border-dark produto">
-                    <div class="product__item row" data-toggle="modal" data-target="#AboutProduto" v-on:click="buscaProduto(itens._id['$oid'])">
-                        <div class="col-4" v-if="itens.QtdMin==1">
-                            <div class="product__item__pic set-bg"  v-bind:style="'background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">
+            <div class="row">
+                <div class="col-4 text-left justify-content-start">
+                    <span class="spanCli m-1 p-1"> Categorias </span>
+                    <ul v-if="!nulo(familiaprodutos)" v-for="itens in autoList(familiaprodutos,'familia')" class="list-group text-left">
+                        <li class="list-group-item d-inline-block text-truncate">
+                            <span>
+                                <input type="checkbox" class="chkfamilia" v-on:change="pesquisaFamilia" v-model="familiaselect" v-bind:value="itens._id['$oid']">
+                                {{itens.TipoFamilia}}
+                            </span>
+                        </li>
+                    </ul>
+                    <hr class="border bg-light">
+                    <span class="spanCli m-1 p-1"> Subcategorias </span>
+                    <ul v-if="!nulo(classeprodutos)" v-for="itens in app.sys.searchinArray(autoList(classeprodutos,'classe'),familiaselect,'IdFamilia')" class="list-group text-left">
+                        <li class="list-group-item d-inline-block text-truncate">
+                            <span>
+                                <input class="chkclasse" type="checkbox" v-on:change="pesquisaClasse" v-model="classeselect"  v-bind:value="itens._id['$oid']"> 
+                                {{itens.TipoClasse}}
+                            </span>
+                        </li>
+                    </ul>
+                    <hr class="border bg-light">
+                    <span class="spanCli m-1 p-1"> Variedades </span>
+                    <ul v-if="!nulo(categoriaprodutos)" v-for="itens in app.sys.searchinArray(autoList(categoriaprodutos,'categoria'),classeselect,'IdClasse')" class="list-group text-left">
+                        <li class="list-group-item d-inline-block text-truncate">
+                            <span>
+                                <input class="chkcategoria" type="checkbox" v-on:change="pesquisaCategoria" v-model="categoriaselect"  v-bind:value="itens._id['$oid']" > 
+                                {{itens.TipoCategoria}}
+                            </span>
+                        </li>
+                    </ul>
+                    <hr class="border bg-light">
+                    <span class="spanCli m-1 p-1"> Opções </span>
+                    <ul v-if="!nulo(subcategoriaprodutos)" v-for="itens in app.sys.searchinArray(autoList(subcategoriaprodutos,'subcategoria'),categoriaselect,'IdCategoria')" class="list-group text-left">
+                        <li class="list-group-item d-inline-block text-truncate">
+                            <span>
+                                <input class="chksubcategoria" type="checkbox" v-on:change="pesquisaSubCategoria" v-model="subcategoriaselect"  v-bind:value="itens._id['$oid']" > 
+                                {{itens.TipoSubCategoria}}
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-8">
+                    <div v-if="formato=='lista'" class="row justify-content-center text-center">
+                        <div v-for="itens in PaginasLoja" class="col-12 m-1 p-1 border rounded border-dark produto">
+                            <div class="product__item row" data-toggle="modal" data-target="#AboutProduto" v-on:click="buscaProduto(itens._id['$oid'])">
+                                <div class="col-4" v-if="itens.QtdMin==1">
+                                    <div class="product__item__pic set-bg"  v-bind:style="'background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">
+                                    </div>
+                                </div>
+                                <div class="col-4" v-else>
+                                    <!--<div class="product__item__pic set-bg"  v-bind:style="'filter: grayscale(100%); background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">-->
+                                    <div class="product__item__pic set-bg"  v-bind:style="'background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">
+                                    </div>
+                                </div>
+                                <div class="product__item__text col-7">
+                                    <h6>{{itens.NomeProduto}}</h6>
+                                    <h5 v-if="itens.QtdMin==1" v-html="HasPromo(itens._id['$oid'],itens.Preco)"></h5>
+                                    <div v-html="itens.EspecificacaoProduto"></div>
+                                    <div v-if="itens.QtdMin==1" class="badge badge-success">
+                                        Disponível em estoque!
+                                    </div>
+                                    <div v-else class="badge badge-warning">
+                                        Apenas por encomenda! <br> tempo de espera de 7 a 10 dias úteis;<br>
+                                        Preço em exibição tem como base a última compra<br> o preço final poderá sofrer acréscimo ou decréscimo.
+                                    </div>
+                                    <p class="mt-2 seemore">Clique para ver mais</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-4" v-else>
-                            <!--<div class="product__item__pic set-bg"  v-bind:style="'filter: grayscale(100%); background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">-->
-                            <div class="product__item__pic set-bg"  v-bind:style="'background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">
-                            </div>
-                        </div>
-                        <div class="product__item__text col-7">
-                            <h6>{{itens.NomeProduto}}</h6>
-                            <h5 v-if="itens.QtdMin==1" v-html="HasPromo(itens._id['$oid'],itens.Preco)"></h5>
-                            <div v-html="itens.EspecificacaoProduto"></div>
-                            <div v-if="itens.QtdMin==1" class="badge badge-success">
-                                Disponível em estoque!
-                            </div>
-                            <div v-else class="badge badge-warning">
-                                Apenas por encomenda! <br> tempo de espera de 7 a 10 dias úteis;<br>
-                                Preço em exibição tem como base a última compra<br> o preço final poderá sofrer acréscimo ou decréscimo.
-                            </div>
-                            <p class="mt-2 seemore">Clique para ver mais</p>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div  v-if="formato=='coluna'"  class="row justify-content-center text-center">
-                <div v-for="itens in PaginasLoja" class="col-lg-3 col-md-5 col-sm-10 m-1 p-1 border rounded border-dark produto">
-                    <div class="product__item" data-toggle="modal" data-target="#AboutProduto" v-on:click="buscaProduto(itens._id['$oid'])">
-                        <div v-if="itens.QtdMin==1">
-                            <div class="product__item__pic set-bg"  v-bind:style="'background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">
+                    <div  v-if="formato=='coluna'"  class="row justify-content-center text-center">
+                        <div v-for="itens in PaginasLoja" class="col-lg-3 m-1 p-1 col-md-5 col-sm-11 border rounded border-dark produto">
+                            <div class="product__item" data-toggle="modal" data-target="#AboutProduto" v-on:click="buscaProduto(itens._id['$oid'])">
+                                <div v-if="itens.QtdMin==1">
+                                    <div class="product__item__pic set-bg"  v-bind:style="'background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">
+                                    </div>
+                                </div>
+                                <div v-else>
+                                    <!--<div class="product__item__pic set-bg"  v-bind:style="'filter: grayscale(100%); background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">-->
+                                    <div class="product__item__pic set-bg"  v-bind:style="'background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="product__item__text">
+                                    <h6>{{itens.NomeProduto}}</h6>
+                                    <h5 v-if="itens.QtdMin==1" v-html="HasPromo(itens._id['$oid'],itens.Preco)"></h5>
+                                    <div v-html="itens.EspecificacaoProduto"></div>
+                                    <div v-if="itens.QtdMin==1" class="badge badge-success">
+                                        Disponível em estoque!
+                                    </div>
+                                    <div v-else class="badge badge-warning">
+                                        Apenas por encomenda! <br> tempo de espera de 7 a 10 dias úteis;<br>
+                                        Preço em exibição tem como base a última compra<br> o preço final poderá sofrer acréscimo ou decréscimo.
+                                    </div>
+                                    <p class="mt-2 seemore">Clique para ver mais</p>
+                                </div>
                             </div>
-                        </div>
-                        <div v-else>
-                            <!--<div class="product__item__pic set-bg"  v-bind:style="'filter: grayscale(100%); background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">-->
-                            <div class="product__item__pic set-bg"  v-bind:style="'background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="product__item__text">
-                            <h6>{{itens.NomeProduto}}</h6>
-                            <h5 v-if="itens.QtdMin==1" v-html="HasPromo(itens._id['$oid'],itens.Preco)"></h5>
-                            <div v-html="itens.EspecificacaoProduto"></div>
-                            <div v-if="itens.QtdMin==1" class="badge badge-success">
-                                Disponível em estoque!
-                            </div>
-                            <div v-else class="badge badge-warning">
-                                Apenas por encomenda! <br> tempo de espera de 7 a 10 dias úteis;<br>
-                                Preço em exibição tem como base a última compra<br> o preço final poderá sofrer acréscimo ou decréscimo.
-                            </div>
-                            <p class="mt-2 seemore">Clique para ver mais</p>
                         </div>
                     </div>
                 </div>
@@ -267,7 +264,7 @@
                                 </div>
                             </div>
                             <div class="row justify-content-center text-center" v-if="!nulo(selectProduto)">
-                                <div v-for="(itens,index) in app.sys.search(produtos,selectProduto.IdSubCategoriaProduto,'IdSubCategoriaProduto')" v-if="index<9" class="col-lg-3 col-md-5 col-sm-10 m-1 p-1 border rounded border-dark produto">
+                                <div v-for="(itens,index) in app.sys.search(produtos,selectProduto.IdSubCategoriaProduto,'IdSubCategoriaProduto')" v-if="index<9" class="col-lg-4 col-md-7 col-sm-10 m-1 p-1 border rounded border-dark produto">
                                     <div class="product__item" v-on:click="buscaProduto(itens._id['$oid'])">
                                         <div class="product__item__pic set-bg" v-bind:style="'background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">
                                         </div>

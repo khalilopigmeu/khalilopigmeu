@@ -261,6 +261,7 @@ table tfoot tr{
 #menu-toggle{
     position: absolute;
     z-index: 900;
+    height: auto;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -270,6 +271,7 @@ table tfoot tr{
     position: absolute;
     z-index: 900;
     right: 35px;
+    height: auto;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -536,4 +538,130 @@ form{
 .notifyjs-container *{
     font-size: 4vw !important;
     white-space: nowrap;
+}
+
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes ldio-l5wz11m8g2 {
+    0% {
+        opacity: 1
+    }
+    100% {
+        opacity: 0
+    }
+}
+.ldio-l5wz11m8g2 div {
+    left: 114.94500000000001px;
+    top: 52.14px;
+    position: absolute;
+    animation: ldio-l5wz11m8g2 linear 0.9615384615384615s infinite;
+    background: #010712;
+    width: 7.11px;
+    height: 28.44px;
+    border-radius: 0px / 0px;
+    transform-origin: 3.555px 66.36px;
+}
+.ldio-l5wz11m8g2 div:nth-child(1) {
+    transform: rotate(0deg);
+    animation-delay: -0.8974358974358974s;
+    background: #010712;
+}
+.ldio-l5wz11m8g2 div:nth-child(2) {
+    transform: rotate(24deg);
+    animation-delay: -0.8333333333333333s;
+    background: #6b7382;
+}
+.ldio-l5wz11m8g2 div:nth-child(3) {
+    transform: rotate(48deg);
+    animation-delay: -0.7692307692307692s;
+    background: #ffffff;
+}
+.ldio-l5wz11m8g2 div:nth-child(4) {
+    transform: rotate(72deg);
+    animation-delay: -0.7051282051282051s;
+    background: #fefefe;
+}
+.ldio-l5wz11m8g2 div:nth-child(5) {
+    transform: rotate(96deg);
+    animation-delay: -0.641025641025641s;
+    background: #010712;
+}
+.ldio-l5wz11m8g2 div:nth-child(6) {
+    transform: rotate(120deg);
+    animation-delay: -0.5769230769230769s;
+    background: #6b7382;
+}
+.ldio-l5wz11m8g2 div:nth-child(7) {
+    transform: rotate(144deg);
+    animation-delay: -0.5128205128205128s;
+    background: #ffffff;
+}
+.ldio-l5wz11m8g2 div:nth-child(8) {
+    transform: rotate(168deg);
+    animation-delay: -0.4487179487179487s;
+    background: #fefefe;
+}
+.ldio-l5wz11m8g2 div:nth-child(9) {
+    transform: rotate(192deg);
+    animation-delay: -0.3846153846153846s;
+    background: #010712;
+}
+.ldio-l5wz11m8g2 div:nth-child(10) {
+    transform: rotate(216deg);
+    animation-delay: -0.3205128205128205s;
+    background: #6b7382;
+}
+.ldio-l5wz11m8g2 div:nth-child(11) {
+    transform: rotate(240deg);
+    animation-delay: -0.2564102564102564s;
+    background: #ffffff;
+}
+.ldio-l5wz11m8g2 div:nth-child(12) {
+    transform: rotate(264deg);
+    animation-delay: -0.1923076923076923s;
+    background: #fefefe;
+}
+.ldio-l5wz11m8g2 div:nth-child(13) {
+    transform: rotate(288deg);
+    animation-delay: -0.1282051282051282s;
+    background: #010712;
+}
+.ldio-l5wz11m8g2 div:nth-child(14) {
+    transform: rotate(312deg);
+    animation-delay: -0.0641025641025641s;
+    background: #6b7382;
+}
+.ldio-l5wz11m8g2 div:nth-child(15) {
+    transform: rotate(336deg);
+    animation-delay: 0s;
+    background: #ffffff;
+}
+.loadingio-spinner-spinner-h1kx3fbfox {
+    width: 237px;
+    height: 237px;
+    display: inline-block;
+    overflow: hidden;
+}
+.ldio-l5wz11m8g2 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform: translateZ(0) scale(1);
+    backface-visibility: hidden;
+    transform-origin: 0 0; /* see note above */
+}
+.ldio-l5wz11m8g2 div {
+    box-sizing: content-box;
 }
