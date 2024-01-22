@@ -140,7 +140,7 @@
 </div>
 <div id="midiasite" v-if="app.sys.page==='midia'" class="border rounded glory m-3 p-3 shadow-lg borda-x">
 </div>
-<?php $pageName = "AnuncianteSite"; ?>
+
 <script>
     window.onload = function () {
         app.empresasanunciando.load();

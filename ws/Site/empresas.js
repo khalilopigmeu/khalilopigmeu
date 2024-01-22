@@ -852,6 +852,13 @@ app["empresasanunciando"] = new Vue({
                 }
             }
             $("#waiter").hide();
+            if (!nulo(getParameterByName("pdid"))) {
+                console.log(getParameterByName("pdid"));
+                this.buscaProduto(getParameterByName("pdid"));
+                $(function () {
+                    $("#AboutProduto").modal();
+                });
+            }
         },
         catalogoProdutos: function (opt) {
             //|1 - estoque | 0 - encomenda|
@@ -905,11 +912,11 @@ app["empresasanunciando"] = new Vue({
                      slideShadows: false,
                      },*/
 
-                    pagination: {
+                    /*pagination: {
                         el: '.swiper-pagination',
                         dynamicBullets: true,
                         clickable: true,
-                    },
+                    },*/
                     mousewheel: true,
                     keyboard: {
                         enabled: true,
@@ -926,6 +933,12 @@ app["empresasanunciando"] = new Vue({
                 });
             })
         },
+        popin: function (item, index) {
+            $("." + item).eq(index).closest("li").popover("show");
+        },
+        popout: function (item, index) {
+            $("." + item).eq(index).closest("li").popover("hide");
+        }
     },
 });
         

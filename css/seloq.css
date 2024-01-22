@@ -554,6 +554,10 @@ form{
     align-items: center;
 }
 
+.badge{
+    white-space: normal !important;
+}
+
 @keyframes ldio-l5wz11m8g2 {
     0% {
         opacity: 1
@@ -586,12 +590,12 @@ form{
 .ldio-l5wz11m8g2 div:nth-child(3) {
     transform: rotate(48deg);
     animation-delay: -0.7692307692307692s;
-    background: #ffffff;
+    background: darkgray;
 }
 .ldio-l5wz11m8g2 div:nth-child(4) {
     transform: rotate(72deg);
     animation-delay: -0.7051282051282051s;
-    background: #fefefe;
+    background: darkslategrey;
 }
 .ldio-l5wz11m8g2 div:nth-child(5) {
     transform: rotate(96deg);
@@ -606,12 +610,12 @@ form{
 .ldio-l5wz11m8g2 div:nth-child(7) {
     transform: rotate(144deg);
     animation-delay: -0.5128205128205128s;
-    background: #ffffff;
+    background: darkgray;
 }
 .ldio-l5wz11m8g2 div:nth-child(8) {
     transform: rotate(168deg);
     animation-delay: -0.4487179487179487s;
-    background: #fefefe;
+    background: darkslategrey;
 }
 .ldio-l5wz11m8g2 div:nth-child(9) {
     transform: rotate(192deg);
@@ -626,12 +630,12 @@ form{
 .ldio-l5wz11m8g2 div:nth-child(11) {
     transform: rotate(240deg);
     animation-delay: -0.2564102564102564s;
-    background: #ffffff;
+    background: darkgray;
 }
 .ldio-l5wz11m8g2 div:nth-child(12) {
     transform: rotate(264deg);
     animation-delay: -0.1923076923076923s;
-    background: #fefefe;
+    background: darkslategrey;
 }
 .ldio-l5wz11m8g2 div:nth-child(13) {
     transform: rotate(288deg);
@@ -646,7 +650,7 @@ form{
 .ldio-l5wz11m8g2 div:nth-child(15) {
     transform: rotate(336deg);
     animation-delay: 0s;
-    background: #ffffff;
+    background: black;
 }
 .loadingio-spinner-spinner-h1kx3fbfox {
     width: 237px;
@@ -665,3 +669,4 @@ form{
 .ldio-l5wz11m8g2 div {
     box-sizing: content-box;
 }
+

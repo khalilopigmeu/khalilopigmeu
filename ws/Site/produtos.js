@@ -30,4 +30,3 @@ app["ProdutosSite"] = new Vue({
         }
     }
 });
-        

@@ -3,9 +3,6 @@ include"../../header.php";
 ?>
 <script src="<?php echo $cdn; ?>js/calendar.js"></script>
 <div class="container-fluid" id="CalendarApp">
-    <div class="progress" v-if="progress<99">
-        <div class="text-center progress-bar progress-bar-striped progress-bar-animated" role="progressbar" v-bind:aria-valuenow="progress" aria-valuemin="0" aria-valuemax="100" v-bind:style="'width: '+progress+'%'">{{progress}}%</div>
-    </div>
     <div class="row text-center justify-content-center my-2 py-2">
         <div class=" col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 res">
             <h4 class=" py-2 my-2 border border-dark rounded" data-toggle="collapse" href="#colcategoria" aria-expanded="false" aria-controls="colcategoria">Categorias <i class="fas fa-ellipsis-v"></i></h4>

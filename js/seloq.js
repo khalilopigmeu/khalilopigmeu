@@ -228,6 +228,9 @@ function urlRead() {
         app.empresasanunciando.buscar();
         $("#waiter").hide();
     }
+    if (app.sys.page === "verproduto") {
+        app.ProdutosLoja.buscar(getParameterByName('pdid'));
+    }
     if (app.sys.page === "anunciante") {
         if (getParameterByName('pgid') !== null) {
             $("#header").hide();
