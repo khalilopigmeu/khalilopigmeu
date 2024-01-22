@@ -682,50 +682,46 @@ app["empresasanunciando"] = new Vue({
             app.sys.paginate(pesq, 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
         },
         pesquisaFamilia: function () {
+            var pesq;
             if (app.empresasanunciando.familiaselect.length === 0) {
-                $(".chkfamilia").attr("disabled", false);
+                pesq = app.sys.sorter(app.empresasanunciando.produtos, "DESC", "QtdMin");
+            } else {
+                pesq = app.sys.sorter(app.sys.searchinArray(app.empresasanunciando.produtos, app.empresasanunciando.familiaselect, "IdFamilia"), "DESC", "QtdMin");
                 app.empresasanunciando.classeselect = [];
                 app.empresasanunciando.categoriaselect = [];
                 app.empresasanunciando.subcategoriaselect = [];
-            } else {
-                $(".chkfamilia").attr("disabled", true);
-                $(".chkfamilia:checked").attr("disabled", false);
             }
-            var pesq = app.sys.sorter(app.sys.searchall(app.empresasanunciando.produtos, app.empresasanunciando.familiaselect.toString()), "DESC", "QtdMin");
             app.sys.paginate(pesq, 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
-
         },
         pesquisaClasse: function () {
+            var pesq;
             if (app.empresasanunciando.classeselect.length === 0) {
-                $(".chkclasse").attr("disabled", false);
+                pesq = app.sys.sorter(app.sys.searchinArray(app.empresasanunciando.produtos, app.empresasanunciando.familiaselect, "IdFamilia"), "DESC", "QtdMin");
+            } else {
+                pesq = app.sys.sorter(app.sys.searchinArray(app.empresasanunciando.produtos, app.empresasanunciando.classeselect, "IdClasse"), "DESC", "QtdMin");
                 app.empresasanunciando.categoriaselect = [];
                 app.empresasanunciando.subcategoriaselect = [];
-            } else {
-                $(".chkclasse").attr("disabled", true);
-                $(".chkclasse:checked").attr("disabled", false);
             }
-            var pesq = app.sys.sorter(app.sys.searchall(app.empresasanunciando.produtos, app.empresasanunciando.classeselect.toString()), "DESC", "QtdMin");
             app.sys.paginate(pesq, 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
         },
         pesquisaCategoria: function () {
+            var pesq;
             if (app.empresasanunciando.categoriaselect.length === 0) {
-                $(".chkcategoria").attr("disabled", false);
-                app.empresasanunciando.subcategoriaselect = [];
+                pesq = app.sys.sorter(app.sys.searchinArray(app.empresasanunciando.produtos, app.empresasanunciando.classeselect, "IdClasse"), "DESC", "QtdMin");
             } else {
-                $(".chkcategoria").attr("disabled", true);
-                $(".chkcategoria:checked").attr("disabled", false);
+                pesq = app.sys.sorter(app.sys.searchinArray(app.empresasanunciando.produtos, app.empresasanunciando.categoriaselect, "IdCategoriaProduto"), "DESC", "QtdMin");
+                app.empresasanunciando.subcategoriaselect = [];
             }
-            var pesq = app.sys.sorter(app.sys.searchall(app.empresasanunciando.produtos, app.empresasanunciando.categoriaselect.toString()), "DESC", "QtdMin");
             app.sys.paginate(pesq, 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
         },
         pesquisaSubCategoria: function () {
+            var pesq;
             if (app.empresasanunciando.subcategoriaselect.length === 0) {
-                $(".chksubcategoria").attr("disabled", false);
+                pesq = app.sys.sorter(app.sys.searchinArray(app.empresasanunciando.produtos, app.empresasanunciando.categoriaselect, "IdCategoriaProduto"), "DESC", "QtdMin");
             } else {
-                $(".chksubcategoria").attr("disabled", true);
-                $(".chksubcategoria:checked").attr("disabled", false);
+                pesq = app.sys.sorter(app.sys.searchinArray(app.empresasanunciando.produtos, app.empresasanunciando.subcategoriaselect, "IdSubCategoriaProduto"), "DESC", "QtdMin");
+                app.empresasanunciando.subcategoriaselect = [];
             }
-            var pesq = app.sys.sorter(app.sys.searchall(app.empresasanunciando.produtos, app.empresasanunciando.subcategoriaselect.toString()), "DESC", "QtdMin");
             app.sys.paginate(pesq, 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
         },
         setPg: function (item) {
@@ -913,10 +909,10 @@ app["empresasanunciando"] = new Vue({
                      },*/
 
                     /*pagination: {
-                        el: '.swiper-pagination',
-                        dynamicBullets: true,
-                        clickable: true,
-                    },*/
+                     el: '.swiper-pagination',
+                     dynamicBullets: true,
+                     clickable: true,
+                     },*/
                     mousewheel: true,
                     keyboard: {
                         enabled: true,
@@ -938,6 +934,13 @@ app["empresasanunciando"] = new Vue({
         },
         popout: function (item, index) {
             $("." + item).eq(index).closest("li").popover("hide");
+        },
+        share(item) {
+            navigator.share({
+                title: item.NomeProduto,
+                text: "Preço especial: " + this.HasPromo(item._id['$oid'], item.Preco) + "\n \n" + item.EspecificacaoProduto.replace(/<[^>]*>?/gm, '').replace(/&quot;/g, "") + "\n",
+                url: window.location.href + "&pdid=" + item._id['$oid']
+            });
         }
     },
 });

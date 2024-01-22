@@ -19,11 +19,11 @@
                     <br>
                     <div class="row justify-content-center text-center">
                         <input class="form-control mb-2 mx-auto col-8 " type="text" v-model="produtopesq" v-on:keypress="pesquisaprodutos"  v-on:change="pesquisaprodutos" v-on:blur="pesquisaprodutos" class="form-control col-10 p-1 m-1" placeholder="Pesquise" aria-label="Pesquise" aria-describedby="basic-addon1">
-                        <div class="col-8 mx-auto">
-                            <span class='btn' v-on:click="app.empresasanunciando.formato='lista'"><i class="fas fa-list"></i> Lista</span>
-                            <span class='btn' v-on:click="app.empresasanunciando.formato='coluna'"><i class="fas fa-columns"></i> Colunas</span>
-                            <span class='btn' v-on:click="app.empresasanunciando.ImprimirCatalogo(1)"><i class="fas fa-book"></i> Estoque</span>
-                            <span class='btn' v-on:click="app.empresasanunciando.ImprimirCatalogo(0)"><i class="fas fa-book"></i> Encomenda</span>
+                        <div class="col-8 mx-auto row">
+                            <span class='btn m-1 p-1' v-on:click="app.empresasanunciando.formato='lista'"><i class="fas fa-list"></i> Lista</span>
+                            <span class='btn m-1 p-1' v-on:click="app.empresasanunciando.formato='coluna'"><i class="fas fa-columns"></i> Colunas</span>
+                            <span class='btn m-1 p-1' v-on:click="app.empresasanunciando.ImprimirCatalogo(1)"><i class="fas fa-book"></i> Estoque</span>
+                            <span class='btn m-1 p-1' v-on:click="app.empresasanunciando.ImprimirCatalogo(0)"><i class="fas fa-book"></i> Encomenda</span>
                         </div>
                     </div>
                 </fieldset>
@@ -44,7 +44,7 @@
                     <span class="spanCli m-1 p-1"> Subcategorias </span>
                     <ul v-if="!nulo(classeprodutos)" class="list-group text-left">
                         <li  v-for="itens,index in app.sys.searchinArray(autoList(classeprodutos,'classe'),familiaselect,'IdFamilia')"  v-on:mouseover="popin('chkclasse',index)" v-on:touchstart="popin('chkclasse',index)"
-                            v-on:mouseleave="popout('chkclasse',index)" v-on:touchend="popout('chkclasse',index)"  class="list-group-item d-inline-block text-truncate"   data-toggle="popover" data-placement="bottom" v-bind:data-content="itens.TipoClasse">
+                             v-on:mouseleave="popout('chkclasse',index)" v-on:touchend="popout('chkclasse',index)"  class="list-group-item d-inline-block text-truncate"   data-toggle="popover" data-placement="bottom" v-bind:data-content="itens.TipoClasse">
                             <span>
                                 <input class="chkclasse" type="checkbox" v-on:change="pesquisaClasse" v-model="classeselect"  v-bind:value="itens._id['$oid']"> 
                                 {{itens.TipoClasse}}
@@ -55,7 +55,7 @@
                     <span class="spanCli m-1 p-1"> Variedades </span>
                     <ul v-if="!nulo(categoriaprodutos)" class="list-group text-left">
                         <li  v-for="itens,index in app.sys.searchinArray(autoList(categoriaprodutos,'categoria'),classeselect,'IdClasse')" v-on:mouseover="popin('chkcategoria',index)" v-on:touchstart="popin('chkcategoria',index)"
-                            v-on:mouseleave="popout('chkcategoria',index)" v-on:touchend="popout('chkcategoria',index)"  class="list-group-item d-inline-block text-truncate"   data-toggle="popover" data-placement="bottom" v-bind:data-content="itens.TipoCategoria">
+                             v-on:mouseleave="popout('chkcategoria',index)" v-on:touchend="popout('chkcategoria',index)"  class="list-group-item d-inline-block text-truncate"   data-toggle="popover" data-placement="bottom" v-bind:data-content="itens.TipoCategoria">
                             <span>
                                 <input class="chkcategoria" type="checkbox" v-on:change="pesquisaCategoria" v-model="categoriaselect"  v-bind:value="itens._id['$oid']" > 
                                 {{itens.TipoCategoria}}
@@ -66,7 +66,7 @@
                     <span class="spanCli m-1 p-1"> Opções </span>
                     <ul v-if="!nulo(subcategoriaprodutos)" class="list-group text-left">
                         <li  v-for="itens,index in app.sys.searchinArray(autoList(subcategoriaprodutos,'subcategoria'),categoriaselect,'IdCategoria')"  v-on:mouseover="popin('chksubcategoria',index)" v-on:touchstart="popin('chksubcategoria',index)"
-                            v-on:mouseleave="popout('chksubcategoria',index)" v-on:touchend="popout('chksubcategoria',index)" class="list-group-item d-inline-block text-truncate"   data-toggle="popover" data-placement="bottom" v-bind:data-content="itens.TipoSubCategoria">
+                             v-on:mouseleave="popout('chksubcategoria',index)" v-on:touchend="popout('chksubcategoria',index)" class="list-group-item d-inline-block text-truncate"   data-toggle="popover" data-placement="bottom" v-bind:data-content="itens.TipoSubCategoria">
                             <span>
                                 <input class="chksubcategoria" type="checkbox" v-on:change="pesquisaSubCategoria" v-model="subcategoriaselect"  v-bind:value="itens._id['$oid']" > 
                                 {{itens.TipoSubCategoria}}
@@ -77,7 +77,7 @@
                 <div class="col-lg-9 col-md-8 col-sm-7">
                     <div v-if="formato=='lista'" class="row justify-content-center text-center">
                         <div v-for="itens in PaginasLoja" class="col-11 p-1 m-1 border rounded border-dark produto">
-                            <div class="product__item row h-100" data-toggle="modal" data-target="#AboutProduto" v-on:click="buscaProduto(itens._id['$oid'])">
+                            <div class="product__item row h-100">
                                 <div class="col-lg-4 col-md-12 col-sm-12 my-auto" v-if="itens.QtdMin==1">
                                     <div class="product__item__pic set-bg"  v-bind:style="'background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">
                                     </div>
@@ -87,7 +87,7 @@
                                     <div class="product__item__pic set-bg"  v-bind:style="'background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">
                                     </div>
                                 </div>
-                                <div class="product__item__text col-lg-7 col-md-12 col-sm-12">
+                                <div class="product__item__text col-lg-7 col-md-12 col-sm-12"  data-toggle="modal" data-target="#AboutProduto" v-on:click="buscaProduto(itens._id['$oid'])">
                                     <h6>{{itens.NomeProduto}}</h6>
                                     <h5 v-if="itens.QtdMin==1" v-html="HasPromo(itens._id['$oid'],itens.Preco)"></h5>
                                     <div v-html="itens.EspecificacaoProduto"></div>
@@ -100,6 +100,7 @@
                                     </div>
                                     <p class="mt-2 seemore">Clique para ver mais</p>
                                 </div>
+                                <div v-on:click="share(itens)" class="mt-2 col-10 mx-auto seemore">Compartilhar <i class="fas fa-share-square"></i></div>
                             </div>
                         </div>
                     </div>
@@ -130,6 +131,8 @@
                                     <p class="mt-2 seemore">Clique para ver mais</p>
                                 </div>
                             </div>
+                            <br>
+                            <p v-on:click="share(itens)" class="mt-2 seemore">Compartilhar <i class="fas fa-share-square"></i></p>
                         </div>
                     </div>
                 </div>

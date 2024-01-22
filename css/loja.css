@@ -472,11 +472,6 @@ and open the template in the editor.
     font-family: var(--modalfont);
 }
 
-.product__item__text .seemore{
-    color: var(--anunciolink) !important;
-    font-family: var(--navbarfont);
-}
-
 .product__item__text div *{
     font-family: inherit !important;
     font-size: inherit !important;

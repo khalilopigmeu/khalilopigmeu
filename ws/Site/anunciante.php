@@ -50,23 +50,23 @@
                 </div>
                 <br>
                 <div class='row text-center justify-content-center'>
-                    <a v-if="Promocoes(itens._id['$oid']).length>0" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'#anunciante?pgid='+itens._id['$oid']+'&spy=promocao'">
+                    <a v-if="Promocoes(itens._id['$oid']).length>0" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'?pgid='+itens._id['$oid']+'&spy=promocao#anunciante'">
                         Promoções <i class="fas fa-hand-holding-usd"></i>
                     </a>
-                    <a v-if="Pacotes(itens._id['$oid']).length>0" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'#anunciante?pgid='+itens._id['$oid']+'&spy=promocao'">
+                    <a v-if="Pacotes(itens._id['$oid']).length>0" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'?pgid='+itens._id['$oid']+'&spy=promocao#anunciante'">
                         Pacotes <i class="fas fa-hand-holding-usd"></i>
                     </a>
-                    <!--<a class="btn btn-dark col-10 my-1 py-1" v-bind:href="'#anunciante?pgid='+itens._id['$oid']">
+                    <!--<a class="btn btn-dark col-10 my-1 py-1" v-bind:href="'?pgid='+itens._id['$oid']+'#anunciante'">
                     Cupom <i class="fas fa-ticket-alt"></i>
                     </a>-->
                     <div class='col-12' v-if="Anunciante(itens._id['$oid']).Ativo==='true'">
-                        <a v-if="Anunciante(itens._id['$oid']).Tipo==='1'" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'#anunciante?pgid='+itens._id['$oid']">
+                        <a v-if="Anunciante(itens._id['$oid']).Tipo==='1'" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'?pgid='+itens._id['$oid']+'#anunciante'">
                             Clique para ver a página <i class="fas fa-angle-double-right"></i>
                         </a>
-                        <a v-if="Anunciante(itens._id['$oid']).Tipo==='2'" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'#loja?pgid='+itens._id['$oid']">
+                        <a v-if="Anunciante(itens._id['$oid']).Tipo==='2'" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'?pgid='+itens._id['$oid']+'#loja'">
                             Clique para ver a loja <i class="fas fa-angle-double-right"></i>
                         </a>
-                        <a v-if="Anunciante(itens._id['$oid']).Tipo==='3'" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'#anunciante?pgid='+itens._id['$oid']">
+                        <a v-if="Anunciante(itens._id['$oid']).Tipo==='3'" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'?pgid='+itens._id['$oid']+'#anunciante'">
                             Clique para ver a página <i class="fas fa-angle-double-right"></i>
                         </a>
                         <a v-if="Anunciante(itens._id['$oid']).Tipo==='4'" target="_blank" class="btn btn-dark col-10 my-1 py-1" v-bind:href="getSite(itens._id['$oid'])">

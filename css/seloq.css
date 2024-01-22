@@ -558,6 +558,11 @@ form{
     white-space: normal !important;
 }
 
+.seemore{
+    color: var(--anunciolink) !important;
+    font-family: var(--navbarfont);
+}
+
 @keyframes ldio-l5wz11m8g2 {
     0% {
         opacity: 1

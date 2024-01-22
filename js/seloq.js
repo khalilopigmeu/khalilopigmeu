@@ -161,7 +161,7 @@ function urlRead() {
     }
     if (urlSite.includes("#") || urlSite.includes("?")) {
         var urlclean = urlSite.split("?");
-        var element = urlclean[0].split("#");
+        var element = urlclean[1].split("#");
         if ($("#" + element[1]).hasClass("modal")) {
             $("#" + element[1]).modal('show');
         } else {
@@ -233,6 +233,10 @@ function urlRead() {
     }
     if (app.sys.page === "anunciante") {
         if (getParameterByName('pgid') !== null) {
+            if (!nulo(getParameterByName('major'))) {
+                app.empresasanunciando.ismajor = parseBoolean(getParameterByName('major'));
+                app.empresasanunciando.majority = parseBoolean(getParameterByName('major'));
+            }
             $("#header").hide();
             $("#byBien").show();
             $("#menu-toggle").show();
@@ -252,10 +256,6 @@ function urlRead() {
             app.procedimentosite.buscar(getParameterByName('pgid'));
             app.empresasanunciando.pgid = getParameterByName('pgid');
             app.empresasanunciando.buscar(getParameterByName('pgid'));
-            if (!nulo(getParameterByName('major'))) {
-                app.empresasanunciando.ismajor = parseBoolean(getParameterByName('major'));
-                app.empresasanunciando.majority = parseBoolean(getParameterByName('major'));
-            }
             app.empresasanunciando.load();
             $("#menu-toggle-R i").removeClass("fa-bars").addClass("fa-shopping-bag");
             $("#menu-toggle-R").show();

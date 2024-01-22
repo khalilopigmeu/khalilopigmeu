@@ -4,7 +4,7 @@ include 'src.php';
 ?>
 <script>
     function urlRead() {
-        window.location.href = "https://bienclube.com.br/index.php#anunciante?pgid=6560a8e12dda985864d91316&spy=loja&major=true"
+        window.location.href = "https://bienclube.com.br/index.php?pgid=6560a8e12dda985864d91316&spy=loja&major=true#anunciante"
     }
     window.onload = function () {
         setAuth(decrypt(app.sys.bien, "encodedstring"));

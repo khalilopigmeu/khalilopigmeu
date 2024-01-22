@@ -507,8 +507,17 @@ app["sys"] = new Vue({
             if (!nulo(arr)) {
                 if (!nulo(pesq)) {
                     if (typeof arr.filter === "function") {
-                        let filteredList = arr.filter(field => app.sys.infield(field, pesq));
-                        return filteredList;
+                        var filteredList=[];
+                        if (pesq.includes(",")) {
+                            var itens = pesq.split(",");
+                            for (var j = 0; j <= itens.length - 1; j++) {
+                                filteredList += arr.filter(field => app.sys.infield(field, itens[j]));
+                            }
+                            return filteredList;
+                        } else {
+                            filteredList = arr.filter(field => app.sys.infield(field, pesq));
+                            return filteredList;
+                        }
                     } else {
                         return arr;
                     }
@@ -551,7 +560,15 @@ app["sys"] = new Vue({
             if (!nulo(src)) {
                 if (!nulo(search)) {
                     if (src.length > 0 || search.length > 0) {
-                        var tempSrc = src.filter(i => search.includes(i[fieldname]));
+                        var tempSrc=[];
+                        if (search.includes(",")) {
+                            var itens = search.split(",");
+                            for (var j = 0; j <= itens.length - 1; j++) {
+                                tempSrc += src.filter(i => itens[j].includes(i[fieldname]));
+                            }
+                        } else {
+                            tempSrc = src.filter(i => search.includes(i[fieldname]));
+                        }
                         return tempSrc;
                     } else {
                         return src;
