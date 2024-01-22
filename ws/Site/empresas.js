@@ -936,10 +936,11 @@ app["empresasanunciando"] = new Vue({
             $("." + item).eq(index).closest("li").popover("hide");
         },
         share(item) {
+            var sharer = window.location.href.split("#");
             navigator.share({
                 title: item.NomeProduto,
                 text: "Preço especial: " + this.HasPromo(item._id['$oid'], item.Preco) + "\n \n" + item.EspecificacaoProduto.replace(/<[^>]*>?/gm, '').replace(/&quot;/g, "") + "\n",
-                url: window.location.href + "&pdid=" + item._id['$oid']
+                url: +sharer[0] + "&pdid=" + item._id['$oid'] + "#" + sharer[1]
             });
         }
     },
