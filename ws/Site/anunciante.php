@@ -140,12 +140,17 @@
 </div>
 <div id="midiasite" v-if="app.sys.page==='midia'" class="border rounded glory m-3 p-3 shadow-lg borda-x">
 </div>
-
 <script>
     window.onload = function () {
         app.empresasanunciando.load();
     };
 </script>
+
+<?php include 'pedido.php'; ?>
+<?php include 'user.php'; ?>
+<?php include 'ficha.php'; ?>
+<?php include 'lista.php'; ?>
+
 <script src="<?php echo $cdn; ?>ws/Site/pagina.js"></script>
 <script src="<?php echo $cdn; ?>ws/Site/empresas.js"></script>
 <script src="<?php echo $cdn; ?>ws/Site/configuracao.js"></script>
@@ -158,7 +163,7 @@
 <script src="<?php echo $cdn; ?>ws/Site/anunciante.js"></script>
 <script src="<?php echo $cdn; ?>ws/Site/logins.js"></script>
 <script src="<?php echo $cdn; ?>ws/Site/promocoes.js"></script>
-<script src="<?php echo $cdn; ?>ws/Site/consulta.js"></script>
-<script src="<?php echo $cdn; ?>ws/Site/procedimento.js"></script>
 <script src="<?php echo $cdn; ?>ws/Site/album.js"></script>
 <script src="<?php echo $cdn; ?>ws/Site/midias.js"></script>
+<script src="<?php echo $cdn; ?>ws/Site/consulta.js"></script>
+<script src="<?php echo $cdn; ?>ws/Site/procedimento.js"></script>

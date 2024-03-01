@@ -12,7 +12,7 @@
                             setAuth(decrypt(app.sys.bien, "encodedstring"));
                         }
                     </script>
-                    <div id="frmlogin" class="container-fluid">
+                    <div id="frmlogin" class="container-fluid" v-if="logado===false">
                         <nav>
                             <div class="nav nav-tabs" id="nav-tabEvt" role="tablist">
                                 <a class="nav-item nav-link active" id="nav-evt-tab" data-toggle="tab" href="#nav-cli" role="tab" aria-controls="nav-cli" aria-selected="true" data-model="1">Cliente</a>
@@ -29,7 +29,6 @@
                                             <input class="form-control" v-model="Login" placeholder="Login..."><br>
                                             <label for="Senha">Senha:</label>
                                             <input class="form-control" type="password" v-model="Senha" placeholder="Senha..."><br>
-                                            <input type="hidden" v-model="Modelo" value="Cliente">
                                             <div class="text-center justify-content-center my-4">
                                                 <button class="btn btn-dark text-white" v-on:click="loginEmp">Enviar</button>
                                                 <br><br>
@@ -48,6 +47,7 @@
                                             <legend class="border rounded text-center border-dark">Bem Vindo</legend>
                                             <label for="Modelo=">Modalidade:</label>
                                             <select class="form-control" v-model="Modelo">
+                                                <option value="Cliente">Selecione o tipo de login</option>
                                                 <option value="Empresa">Empresa</option>
                                                 <option value="Vendedor">Vendedor</option>
                                                 <option value="Revendedor">Revenda</option>
@@ -115,6 +115,10 @@
                                 </div>
                             </fieldset>
                         </div>
+                    </div>
+                    <div>
+                        <h4>Você já está conectado, Clique aqui para ir para sua central de acesso.</h4><br>
+                        <h4>Clique aqui para desconectar.</h4>
                     </div>
                 </div>
                 <div class="modal-footer">

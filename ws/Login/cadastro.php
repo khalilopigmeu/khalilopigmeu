@@ -24,32 +24,7 @@
                                     <option value="juridica">Empresa</option>
                                 </select><br>
                             </fieldset>
-                            <fieldset  v-if="optCad==='fisica'" class="border rounded container-fluid border-dark">
-                                <legend class="border rounded text-center border-dark">Pessoa Física</legend>
-                                <label for="Cpf">CPF:</label>
-                                <input type="text" class="cpf form-control" v-on:blur="app.sys.consultaCad('cliente',app.clientLogin.Cpf)" placeholder="xxx.xxx.xxx-xx" v-on:focus="mascara" v-model="Cpf" name="Cpf"><br>
-                                <label for="Rg">Rg:</label>
-                                <input type="text" class="rg form-control" placeholder="xx.xxx.xxx-x" v-model="Rg" name="Rg"><br>
-                                <label for="Nome">Nome:</label>
-                                <input type="text" v-model="Nome" name="Nome"  class="form-control"><br>
-                                <label for="DataNasc">Data de Nascimento:</label>
-                                <input type="text" v-model="DataNasc" name="DataNasc" class="data datepicker form-control"><br>
-                                <label for="CEP">CEP:</label>
-                                <input type="text" v-on:blur="app.sys.buscaCEP('clientLogin')" v-model="CEP" name="CEP" placeholder="xxxxx-xxx" class="cep form-control"><br>
-                                <label for="UF">Estado:</label>
-                                <input type="text" v-model="UF" name="UF" class="estado form-control"><br>
-                                <label for="Cidade">Cidade:</label>
-                                <input type="text" v-model="Cidade" name="Cidade" class="cidade form-control"><br>
-                                <label for="Bairro">Bairro:</label>
-                                <input type="text" v-model="Bairro" name="Bairro" class="bairro form-control"><br>
-                                <label for="Rua">Rua:</label>
-                                <input type="text" v-model="Rua" name="Rua" class="rua form-control"><br>
-                                <label for="Num">Número:</label>
-                                <input type="text" v-model="Num" name="Num" class="form-control"><br>
-                                <label for="Complemento">Complemento:</label>
-                                <input type="text" v-model="Complemento" name="Complemento" class="form-control" ><br>
-                            </fieldset>
-                            <fieldset v-else-if="optCad==='juridica'" class="border rounded container-fluid border-dark">
+                            <fieldset v-if="optCad==='juridica'" class="border rounded container-fluid border-dark">
                                 <legend class="border rounded text-center border-dark">Pessoa Jurídica</legend>
                                 <label for="NomeFantasia">Nome Fantasia:</label>
                                 <input type="text" v-model="NomeFantasia" name="Nome" class="form-control"><br>
@@ -123,7 +98,29 @@
                                 </fieldset>
                             </fieldset>
                             <fieldset  v-else class="border rounded container-fluid border-dark">
-                                {{optCad}}
+                                <legend class="border rounded text-center border-dark">Pessoa Física</legend>
+                                <label for="Cpf">CPF:</label>
+                                <input type="text" class="cpf form-control" v-on:blur="app.sys.consultaCad('cliente',app.clientLogin.Cpf)" placeholder="xxx.xxx.xxx-xx" v-on:focus="mascara" v-model="Cpf" name="Cpf"><br>
+                                <label for="Rg">Rg:</label>
+                                <input type="text" class="rg form-control" placeholder="xx.xxx.xxx-x" v-model="Rg" name="Rg"><br>
+                                <label for="Nome">Nome:</label>
+                                <input type="text" v-model="Nome" name="Nome"  class="form-control"><br>
+                                <label for="DataNasc">Data de Nascimento:</label>
+                                <input type="text" v-model="DataNasc" name="DataNasc" class="data datepicker form-control"><br>
+                                <label for="CEP">CEP:</label>
+                                <input type="text" v-on:blur="app.sys.buscaCEP('clientLogin')" v-model="CEP" name="CEP" placeholder="xxxxx-xxx" class="cep form-control"><br>
+                                <label for="UF">Estado:</label>
+                                <input type="text" v-model="UF" name="UF" class="estado form-control"><br>
+                                <label for="Cidade">Cidade:</label>
+                                <input type="text" v-model="Cidade" name="Cidade" class="cidade form-control"><br>
+                                <label for="Bairro">Bairro:</label>
+                                <input type="text" v-model="Bairro" name="Bairro" class="bairro form-control"><br>
+                                <label for="Rua">Rua:</label>
+                                <input type="text" v-model="Rua" name="Rua" class="rua form-control"><br>
+                                <label for="Num">Número:</label>
+                                <input type="text" v-model="Num" name="Num" class="form-control"><br>
+                                <label for="Complemento">Complemento:</label>
+                                <input type="text" v-model="Complemento" name="Complemento" class="form-control" ><br>
                             </fieldset>
                             <br>
                             <label for="celular">Celular:</label>

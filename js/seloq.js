@@ -4,7 +4,7 @@ var table = {};
 var qrcode;
 var urlSite = window.location.href;
 var path;
-const Real = value => currency(value, {symbol: 'R$', decimal: '.', separator: ''});
+const Real = value => currency(value, {symbol: 'R$', decimal: ',', separator: ''});
 var cdn;
 var swiper;
 $(function () {
@@ -142,9 +142,6 @@ $(function () {
     if (urlSite.includes("ws/Site")) {
 
     }
-    if (urlSite.includes("ws/User")) {
-
-    }
 
 });
 function urlRead() {
@@ -160,8 +157,14 @@ function urlRead() {
         app.sys.getUser();
     }
     if (urlSite.includes("#") || urlSite.includes("?")) {
-        var urlclean = urlSite.split("?");
-        var element = urlclean[1].split("#");
+        var urlclean;
+        var element;
+        if (urlSite.includes("?")) {
+            urlclean = urlSite.split("?");
+            element = urlclean[1].split("#");
+        } else {
+            element = urlSite.split("#");
+        }
         if ($("#" + element[1]).hasClass("modal")) {
             $("#" + element[1]).modal('show');
         } else {
@@ -234,8 +237,8 @@ function urlRead() {
     if (app.sys.page === "anunciante") {
         if (getParameterByName('pgid') !== null) {
             if (!nulo(getParameterByName('major'))) {
-                app.empresasanunciando.ismajor = parseBoolean(getParameterByName('major'));
                 app.empresasanunciando.majority = parseBoolean(getParameterByName('major'));
+                app.empresasanunciando.ismajor = parseBoolean(getParameterByName('major'));
             }
             $("#header").hide();
             $("#byBien").show();
@@ -262,6 +265,20 @@ function urlRead() {
             $("#menu-toggle-R .badge").show();
             app.sidebarR.loja = true;
             app.sys.setColorSite();
+            if (!urlSite.includes('ws') && !nulo(window.localStorage.getItem("IdLoginCliente"))) {
+                $("#modalLoginSys").modal("hide");
+                app.checkoutvenda.logado = true;
+                app.clientLogin.logado = true;
+                app.sidebarR.logado = true;
+                app.clientLogin.getLogin(window.localStorage.getItem("IdLoginCliente"));
+                app.usuariosite.buscar(null, window.localStorage.getItem("IdLoginCliente"));
+                //app.eventossite.buscar(window.localStorage.getItem("IdLoginCliente"));
+                app.pedidovendasite.buscar(window.localStorage.getItem("IdLoginCliente"));
+                app.fichaatendimentosite.buscar(window.localStorage.getItem("IdLoginCliente"));
+                app.listacomprasite.buscar(window.localStorage.getItem("IdLoginCliente"));
+                app.sidebarR.loja = false;
+                app.sidebarR.loja = true;
+            }
         } else {
             $("#header").show();
             $("#byBien").hide();
@@ -304,15 +321,18 @@ var onloadCallback = function () {
             'sitekey': '6Le5e8okAAAAAEdekkQyeeNccNY30n0vw371NOjp',
             'theme': 'light'
         });
-    } else if (urlSite.includes("bienclube")) {
+    }
+    if (urlSite.includes("bienclube")) {
         widgetId1 = grecaptcha.render('verify', {
             'sitekey': '6LcdesokAAAAAI5PVILN-RC5XE5nWly8NoOG6Rwz',
             'theme': 'light'
         });
-    } else if (urlSite.includes("rtiempresarial")) {
+    }
+    if (urlSite.includes("rtiempresarial")) {
         widgetId1 = grecaptcha.render('verify', {
             'sitekey': '6LfuesokAAAAALhocXeibo_YtoIkqvnb_yekLGjl',
             'theme': 'light'
         });
     }
-};
+}
+;

@@ -128,7 +128,7 @@ app["sys"] = new Vue({
                 $("#menu-toggle-R").show();
                 $("#menu-toggle-R i").removeClass("fa-shopping-bag").addClass("fa-bars");
             } else {
-                app.LoginsOauth.buscar(app.sys.reflog);
+                    app.LoginsOauth.buscar(app.sys.reflog);
             }
         },
         acessar: function (idlogin, ravec) {
@@ -507,7 +507,7 @@ app["sys"] = new Vue({
             if (!nulo(arr)) {
                 if (!nulo(pesq)) {
                     if (typeof arr.filter === "function") {
-                        var filteredList=[];
+                        var filteredList = [];
                         if (pesq.includes(",")) {
                             var itens = pesq.split(",");
                             for (var j = 0; j <= itens.length - 1; j++) {
@@ -560,7 +560,7 @@ app["sys"] = new Vue({
             if (!nulo(src)) {
                 if (!nulo(search)) {
                     if (src.length > 0 || search.length > 0) {
-                        var tempSrc=[];
+                        var tempSrc = [];
                         if (search.includes(",")) {
                             var itens = search.split(",");
                             for (var j = 0; j <= itens.length - 1; j++) {

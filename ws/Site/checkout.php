@@ -22,10 +22,10 @@
                                                         <div class="col-9 text-center">
                                                             <div class="row">
                                                                 <div class="col-6 text-center">
-                                                                    {{item}} x {{listar(key).NomeProduto}} 
+                                                                    {{item}} x {{listar(key).NomeProduto}}                                                                 
                                                                 </div>
                                                                 <div class="col-6">
-                                                                    <span>R$ {{total(HasPromo(listar(key)._id['$oid'],listar(key).Preco),item)}}</span>
+                                                                   <span>{{total(app.empresasanunciando.HasPromo(key,listar(key).Preco),item)}}</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -33,7 +33,7 @@
                                                 </li>
                                             </ul>
 
-                                            <button onclick="$('#modalLoginSys').modal()" class="btn">Acesse para finalizar o pedido</button>
+                                            <button v-if="logado==false" onclick="$('#modalLoginSys').modal()" class="btn">Acesse para finalizar o pedido</button>
 
                                             <div class="checkout__order__subtotal">Subtotal <span>R$ {{SubTotal}}</span></div>
                                             <div class="checkout__order__subtotal">Frete <span>R$ 0</span></div>
@@ -44,7 +44,7 @@
                                                     <div class="checkout__input__checkbox col-12">
                                                         <label for="diff-acc">
                                                             Enviar em um endereço diferente?
-                                                            <input type="checkbox" v-model="outroEndereco" id="diff-acc">
+                                                            <input type="checkbox" v-model="outroEndereco" value="true" id="diff-acc">
                                                             <span class="checkmark"></span>
                                                         </label>
                                                         <fieldset v-if="outroEndereco===true">

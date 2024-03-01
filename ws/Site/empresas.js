@@ -619,30 +619,34 @@ app["empresasanunciando"] = new Vue({
             var search = app.sys.searchall(this.Itemsrc, id)[0];
             var lote;
             if (!nulo(search)) {
-                if (!nulo(search.LoteAtivo)) {
-                    switch (search.LoteAtivo) {
-                        case "1":
-                            lote = search.lote1;
-                            return "de <del>R$ " + preco + "</del> por R$ " + search.lote1;
-                        case "2":
-                            lote = search.lote2;
-                            return "de <del>R$ " + preco + "</del> por R$ " + search.lote2;
-                        case "3":
-                            lote = search.lote3;
-                            return "de <del>R$ " + preco + "</del> por R$ " + search.lote3;
-                        case "4":
-                            lote = search.lote4;
-                            return "de <del>R$ " + preco + "</del> por R$ " + search.lote4;
-                        case "5":
-                            lote = search.lote5;
-                            return "de <del>R$ " + preco + "</del> por R$ " + search.lote5;
-                        default :
-                            lote = search.lote5;
-                            return "de <del>R$ " + preco + "</del> por R$ " + search.lote5;
+                if (search.length > 0) {
+                    if (!nulo(search.LoteAtivo)) {
+                        switch (search.LoteAtivo) {
+                            case "1":
+                                lote = search.lote1;
+                                return "de <del>R$ " + preco + "</del> por R$ " + search.lote1;
+                            case "2":
+                                lote = search.lote2;
+                                return "de <del>R$ " + preco + "</del> por R$ " + search.lote2;
+                            case "3":
+                                lote = search.lote3;
+                                return "de <del>R$ " + preco + "</del> por R$ " + search.lote3;
+                            case "4":
+                                lote = search.lote4;
+                                return "de <del>R$ " + preco + "</del> por R$ " + search.lote4;
+                            case "5":
+                                lote = search.lote5;
+                                return "de <del>R$ " + preco + "</del> por R$ " + search.lote5;
+                            default :
+                                lote = search.lote5;
+                                return "de <del>R$ " + preco + "</del> por R$ " + search.lote5;
+                        }
+                    } else {
+                        lote = search.lote5;
+                        return "de <del>R$ " + preco + "</del> por R$ " + search.lote5;
                     }
                 } else {
-                    lote = search.lote5;
-                    return "de <del>R$ " + preco + "</del> por R$ " + search.lote5;
+                    return "R$" + preco;
                 }
             } else {
                 return "R$" + preco;
@@ -872,9 +876,28 @@ app["empresasanunciando"] = new Vue({
         resetPrint: function () {
             this.print = 0;
         },
-        ImprimirCatalogo: function (tipo) {
-            app.empresasanunciando.printpdf = true;
+        filtrarCatalogo: function (tipo) {
             app.empresasanunciando.TipoCatalogo = tipo;
+            var pesq = app.empresasanunciando.produtos;
+            var filt = [];
+            for (var i = 0; i <= pesq.length - 1; i++) {
+                if (tipo === 1) {
+                    if (pesq[i].QtdMin === "1") {
+                        filt.push(pesq[i]);
+                    }
+                } else if (tipo === 0) {
+                    if (pesq[i].QtdMin === "0") {
+                        filt.push(pesq[i]);
+                    }
+                } else {
+                    filt = pesq;
+                }
+            }
+            pesq = app.sys.sorter(app.sys.sorter(filt, "DESC", "QtdMin"), "ASC", "NomeProduto");
+            app.sys.paginate(pesq, 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
+        },
+        ImprimirCatalogo: function () {
+            app.empresasanunciando.printpdf = true;
             $("#CatalogoDeProdutos").modal();
             $(function () {
                 return new Swiper('.swipe', {

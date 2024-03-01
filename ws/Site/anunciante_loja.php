@@ -18,12 +18,20 @@
                     </div>
                     <br>
                     <div class="row justify-content-center text-center">
-                        <input class="form-control mb-2 mx-auto col-8 " type="text" v-model="produtopesq" v-on:keypress="pesquisaprodutos"  v-on:change="pesquisaprodutos" v-on:blur="pesquisaprodutos" class="form-control col-10 p-1 m-1" placeholder="Pesquise" aria-label="Pesquise" aria-describedby="basic-addon1">
-                        <div class="col-8 mx-auto row">
+                        <input class="form-control mb-2 mx-auto col-8" type="text" v-model="produtopesq" v-on:keypress="pesquisaprodutos"  v-on:change="pesquisaprodutos" v-on:blur="pesquisaprodutos" class="form-control col-10 p-1 m-1" placeholder="Pesquise" aria-label="Pesquise" aria-describedby="basic-addon1">
+                        <div class="col-8 mx-auto row  text-center justify-content-center">
                             <span class='btn m-1 p-1' v-on:click="app.empresasanunciando.formato='lista'"><i class="fas fa-list"></i> Lista</span>
                             <span class='btn m-1 p-1' v-on:click="app.empresasanunciando.formato='coluna'"><i class="fas fa-columns"></i> Colunas</span>
-                            <span class='btn m-1 p-1' v-on:click="app.empresasanunciando.ImprimirCatalogo(1)"><i class="fas fa-book"></i> Estoque</span>
-                            <span class='btn m-1 p-1' v-on:click="app.empresasanunciando.ImprimirCatalogo(0)"><i class="fas fa-book"></i> Encomenda</span>
+                        </div>
+                        <br>
+                        <div class="col-8 mx-auto row  text-center justify-content-center">    
+                            <span class='btn m-1 p-1' v-on:click="app.empresasanunciando.filtrarCatalogo(null)"><i class="fas fa-book"></i> Todos os produtos</span>
+                            <span class='btn m-1 p-1' v-on:click="app.empresasanunciando.filtrarCatalogo(1)"><i class="fas fa-book"></i> Estoque</span>
+                            <span class='btn m-1 p-1' v-on:click="app.empresasanunciando.filtrarCatalogo(0)"><i class="fas fa-book"></i> Encomenda</span>
+                        </div>
+                        <br>
+                        <div class="col-8 mx-auto row  text-center justify-content-center">
+                            <span class='btn m-1 p-1' v-on:click="app.empresasanunciando.ImprimirCatalogo()"><i class="fas fa-book"></i> Apresentação</span>
                         </div>
                     </div>
                 </fieldset>

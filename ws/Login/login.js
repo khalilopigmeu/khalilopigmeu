@@ -35,7 +35,7 @@ app["clientLogin"] = new Vue({
         eula: false,
         lgpd: false,
         loginbtn: null,
-        Modelo: null,
+        Modelo: "Cliente",
         Host: "Bienestar/Dispositivos/Dispositivos/",
         UUID: null,
         FBID: null,
@@ -44,6 +44,9 @@ app["clientLogin"] = new Vue({
         buscaDispositivo: false,
         LoginSrc: null,
         AuthSrc: [],
+        src: null,
+        logado: false,
+        dadosLogin: null,
     },
     created: function () {
         this.getRandomNumber();
@@ -66,6 +69,23 @@ app["clientLogin"] = new Vue({
             app.sys.crud("clientLogin", "listar", data);
             $(window).NotifyInfo("Dispositivo conectado");
             this.busca = true;
+        },
+        getLogin: function (refid) {
+            setAuth(decrypt(app.sys.bien, "encodedstring"));
+            var biencode = {};
+            captchaSys(app.sys.keysite);
+            biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle");
+            biencode.idcomprador = refid;
+            var data = {
+                "biencode": encrypt(JSON.stringify(biencode))
+            };
+            var ws = "Bienestar/Sistema/Login/listar";
+            var p = (post(ws, data));
+            var rs = decrypt(p);
+            app.clientLogin.dadosLogin = eval(rs);
+        },
+        clear: function () {
+
         },
         listagem: function () {
             app.empresasanunciando.buscar();
@@ -261,9 +281,8 @@ app["clientLogin"] = new Vue({
             var rs = decrypt(p);
             $(window).NotifySucesso(rs);
         },
-        loginEmp: function (e) {
+        loginEmp: function () {
             setAuth(decrypt(app.sys.bien, "encodedstring"));
-            e.preventDefault();
             var flag = true;
             if (!this.Login && this.Login.length > 0) {
                 $(window).NotifyErr("Informe o Login");
@@ -300,6 +319,7 @@ app["clientLogin"] = new Vue({
                     window.localStorage.setItem("Empresa", rs.Empresa);
                     window.localStorage.setItem("IdEmpresa", rs.IdEmpresa);
                     window.localStorage.setItem("IdLogin", rs.IdLogin);
+                    window.localStorage.setItem("IdLoginCliente", rs.IdCliente);
                     window.localStorage.setItem("Nome", rs.Nome);
                     window.localStorage.setItem("RAVEC", rs.Ravec);
                     window.localStorage.setItem("auth", rs.Credencial.replace(/(\r\n|\n|\r)/gm, ""));
@@ -314,7 +334,18 @@ app["clientLogin"] = new Vue({
                     }
                     switch (this.Modelo) {
                         case "Cliente":
-                            window.location.href = "/index.php#anunciante";
+                            $("#modalLoginSys").modal("hide");
+                            app.checkoutvenda.logado = true;
+                            app.clientLogin.logado = true;
+                            app.sidebarR.logado = true;
+                            app.clientLogin.getLogin(window.localStorage.getItem("IdLoginCliente"));
+                            app.usuariosite.buscar(null, window.localStorage.getItem("IdLoginCliente"));
+                            //app.eventossite.buscar(window.localStorage.getItem("IdLoginCliente"));
+                            app.pedidovendasite.buscar(window.localStorage.getItem("IdLoginCliente"));
+                            app.fichaatendimentosite.buscar(window.localStorage.getItem("IdLoginCliente"));
+                            app.listacomprasite.buscar(window.localStorage.getItem("IdLoginCliente"));
+                            app.sidebarR.loja = false;
+                            app.sidebarR.loja = true;
                             break;
                         case "Empresa":
                             window.location.href = "/ws/Agenda/eventos.php";
@@ -357,10 +388,10 @@ app["clientLogin"] = new Vue({
             var ws = "Bienestar/Sistema/Login/";
             switch (this.Modelo) {
                 case "Cliente":
-                    ws += "/appLoginSistema";
+                    ws += "/appCliente";
                     break;
                 case "Empresa":
-                    ws += "/appLoginCliente";
+                    ws += "/appSistema";
                     break;
             }
             var p = (post(ws, data));
@@ -387,7 +418,14 @@ app["clientLogin"] = new Vue({
                 }
                 switch (this.Modelo) {
                     case "Cliente":
-                        window.location.href = "/index.php#anunciante";
+                        window.localStorage.setItem("IdLoginCliente", rs.IdLogin);
+                        $("#modalLoginSys").modal("hide");
+                        app.checkoutvenda.logado = true;
+                        app.clientLogin.logado = true;
+                        app.eventossite.buscar(window.localStorage.getItem("IdLoginCliente"));
+                        app.pedidovendasite.buscar(window.localStorage.getItem("IdLoginCliente"));
+                        app.fichaatendimentosite.buscar(window.localStorage.getItem("IdLoginCliente"));
+                        app.listacomprasite.buscar(window.localStorage.getItem("IdLoginCliente"));
                         break;
                     case "Empresa":
                         window.location.href = "/ws/Agenda/eventos.php";

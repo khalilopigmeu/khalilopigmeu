@@ -36,19 +36,20 @@ app["sidebarR"] = new Vue({
         pesqmenu: null,
         loja: false,
         qtdProd: {},
+        logado: false,
     },
-    created: function () {
-        if (!urlSite.includes('ws')) {
-            if (!nulo(window.localStorage.getItem("CarroCompra")) && app.sys.page === "anunciante") {
+    mounted: function () {
+        $(function () {
+            if (!urlSite.includes('ws') && !nulo(window.localStorage.getItem("CarroCompra"))) {
                 var itens = JSON.parse(window.localStorage.getItem("CarroCompra"));
-                this.qtdProd = itens;
+                app.sidebarR.qtdProd = itens;
                 app.empresasanunciando.qtdProd = itens;
                 $("#menu-toggle-R .badge").html(Object.keys(app.empresasanunciando.qtdProd).length);
                 $("#menu-toggle-R").popover('show');
                 this.loja = false;
                 this.loja = true;
             }
-        }
+        });
     },
     methods: {
         atualizaFBBar: function () {
@@ -90,7 +91,7 @@ app["sidebarR"] = new Vue({
             }
         },
         total: function (preco, qtd) {
-            return parseFloat(preco) * parseFloat(qtd);
+            return Real(Real(preco).multiply(qtd), {separator: '', decimal: ','}).format();
         },
         alteraQtd: function (key) {
             this.qtdProd[key] = document.getElementById('c' + key).value;
@@ -103,7 +104,7 @@ app["sidebarR"] = new Vue({
 
         },
         finalizar: function () {
-            app.checkoutvenda.qtdProd = this.qtdProd;
+            app.checkoutvenda.qtdProd = app.sidebarR.qtdProd;
             app.checkoutvenda.flag = false;
             app.checkoutvenda.flag = true;
             $("#FinalizarCompra").modal("show");

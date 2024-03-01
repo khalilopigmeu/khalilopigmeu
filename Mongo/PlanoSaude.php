@@ -7,7 +7,7 @@ $tdvue = ["" . $page => ["td.CNPJ", "td.Tipo", "td.Nome", "td.Descricao", "td.Va
 include $refUrl . "Mongo/template/head.php"
 ?>
 <label for="Cnpj">CNPJ:</label>
-<input type="text" placeholder="xx.xxx.xxx/xxxx-xx" class="cnpj form-control" v-on:focus="mascara" v-model="CNPJ" name="Cnpj"><br>
+<input type="text" placeholder="xx.xxx.xxx/xxxx-xx" class="cnpj form-control" v-on:focus="app.sys.mascara" v-model="CNPJ" name="Cnpj"><br>
 <label>Tipo:</label>
 <input class="form-control" v-model="Tipo" placeholder="Tipo..."><br>
 <label>Nome:</label>
