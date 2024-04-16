@@ -7,31 +7,36 @@ app["paginasite"] = new Vue({
         pg: null,
         endpg: null,
         startpg: null,
+        href: "Page"
     },
     methods: {
         buscar: function (refid) {
-            var key = decrypt(app.sys.bien, "encodedstring");
-            this.biencode = {};
-            captchaSys(app.sys.keysite);
-            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
-            if (app.paginasite.pg !== null) {
-                this.biencode.urlpage = getParameterByName("pg");
-            }
-            if (app.paginasite.startpg !== null) {
-                this.biencode.startpg = getParameterByName("startpg");
-            }
-            if (app.paginasite.endpg !== null) {
-                this.biencode.endpg = getParameterByName("endpg");
-            }
-            if (!nulo(refid)) {
-                this.biencode.empresa = refid;
+            if (app.sys.system.hasOwnProperty("Page")) {
+                this.src = app.sys.system["Page"];
             } else {
-                this.biencode.empresa = app.sys.refid;
+                var key = decrypt(app.sys.bien, "encodedstring");
+                this.biencode = {};
+                captchaSys(app.sys.keysite);
+                this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
+                if (app.paginasite.pg !== null) {
+                    this.biencode.urlpage = getParameterByName("pg");
+                }
+                if (app.paginasite.startpg !== null) {
+                    this.biencode.startpg = getParameterByName("startpg");
+                }
+                if (app.paginasite.endpg !== null) {
+                    this.biencode.endpg = getParameterByName("endpg");
+                }
+                if (!nulo(refid)) {
+                    this.biencode.empresa = refid;
+                } else {
+                    this.biencode.empresa = app.sys.refid;
+                }
+                var data = {
+                    biencode: encrypt(JSON.stringify(this.biencode), key)
+                };
+                app.sys.crud("paginasite", "listar", data);
             }
-            var data = {
-                biencode: encrypt(JSON.stringify(this.biencode), key)
-            };
-            app.sys.crud("paginasite", "listar", data);
         },
         clear: function () {
             this.src = null;

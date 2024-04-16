@@ -91,7 +91,7 @@ include $refUrl . "Mongo/template/head.php"
                 <label>Código de produto:</label>
                 <input class="form-control" v-model="CodProduto" placeholder=""><br>
                 <label>Nome:</label>
-                <input class="form-control" v-model="NomeProduto" placeholder="" required="required"><br>
+                <input class="form-control" v-model="NomeProduto" placeholder=""><br>
                 <label>Características:</label>
                 <textarea class="form-control" name="caracteristica" placeholder=""></textarea><br>
                 <label>Especificação:</label>

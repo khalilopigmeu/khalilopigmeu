@@ -3,7 +3,4 @@
     
 </div>
 <script src="<?php echo $cdn; ?>ws/Site/categoriaanuncio.js"></script>
-<script>
-    app.categoriaanuncioclube.buscar();
-</script>
 <?php include"footer.php"; ?>

@@ -43,7 +43,7 @@ app["sys"] = new Vue({
         keysite: null,
         tokenv3: null,
         onsys: false,
-
+        system: null,
         dark: null,
         medium: null,
         light: null,
@@ -123,12 +123,26 @@ app["sys"] = new Vue({
                 if (!nulo(window.localStorage.getItem("IdLogin")) && !nulo(window.localStorage.getItem("RAVEC"))) {
                     this.acessar(window.localStorage.getItem("IdLogin"), window.localStorage.getItem("RAVEC"));
                 }
+
+                setAuth(decrypt(app.sys.bien, "encodedstring"));
+                var biencode = {};
+                captchaSys(app.sys.keysite);
+                biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle");
+                biencode.empresa = window.localStorage.getItem("IdEmpresa");
+                var data = {
+                    "biencode": encrypt(JSON.stringify(biencode))
+                };
+                var ws = "Bienestar/Sistema/Start/Sistema";
+                var p = (post(ws, data));
+                var rs = decrypt(p);
+                app.sys.system = JSON.parse(rs);
+
                 app.sys.ravecUpdate();
                 $("#menu-toggle").hide();
                 $("#menu-toggle-R").show();
                 $("#menu-toggle-R i").removeClass("fa-shopping-bag").addClass("fa-bars");
             } else {
-                    app.LoginsOauth.buscar(app.sys.reflog);
+                app.LoginsOauth.buscar(app.sys.reflog);
             }
         },
         acessar: function (idlogin, ravec) {
@@ -163,14 +177,13 @@ app["sys"] = new Vue({
                         }
                     }
                 } catch (e) {
-                    console.log(e)
+                    console.log(e);
                 }
                 app.sys.progress += ratio;
-                if (i === Object.keys(app).length - 1) {
-                    app.sys.setColorSystem();
-                    $("#waiter").hide();
-                }
             }
+            app.sys.system = "";
+            app.sys.setColorSystem();
+            $("#waiter").hide();
         },
         keys: function () {
             var dm = window.location.hostname;
@@ -350,6 +363,9 @@ app["sys"] = new Vue({
             if (!nulo(app[appcontrol])) {
                 if (typeof app[appcontrol].load === "function") {
                     app[appcontrol].load();
+                }
+                if (typeof app[appcontrol].Criarpaginas === "function") {
+                    app[appcontrol].Criarpaginas();
                 }
                 $(function () {
                     $("#" + app[appcontrol].href + " .modal-body .nav-link").removeClass("active show");

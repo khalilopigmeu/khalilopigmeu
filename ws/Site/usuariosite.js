@@ -39,21 +39,26 @@ app["usuariosite"] = new Vue({
     },
     methods: {
         buscar: function (refid, refcli) {
-            var key = decrypt(app.sys.bien, "encodedstring");
-            this.biencode = {};
-            captchaSys(app.sys.keysite);
-            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
-            if (!nulo(refcli)) {
-                this.biencode.id = refcli;
-            } else if (!nulo(refid)) {
-                this.biencode.empresa = refid;
+            if (app.sys.system.hasOwnProperty("Cliente")) {
+                this.href = "Cliente";
+                this.src = app.sys.system["Cliente"];
             } else {
-                this.biencode.id = app.usuariosite.id;
+                var key = decrypt(app.sys.bien, "encodedstring");
+                this.biencode = {};
+                captchaSys(app.sys.keysite);
+                this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
+                if (!nulo(refcli)) {
+                    this.biencode.id = refcli;
+                } else if (!nulo(refid)) {
+                    this.biencode.empresa = refid;
+                } else {
+                    this.biencode.id = app.usuariosite.id;
+                }
+                var data = {
+                    biencode: encrypt(JSON.stringify(this.biencode), key)
+                };
+                app.sys.crud("usuariosite", "listar", data);
             }
-            var data = {
-                biencode: encrypt(JSON.stringify(this.biencode), key)
-            };
-            app.sys.crud("usuariosite", "listar", data);
         },
         all: function () {
             var key = decrypt(app.sys.bien, "encodedstring");
@@ -66,8 +71,8 @@ app["usuariosite"] = new Vue({
             };
             app.sys.crud("usuariosite", "listar", data);
         },
-        checkForm : function(){
-            
+        checkForm: function () {
+
         },
         ravec: function (nivel) {
             return true;

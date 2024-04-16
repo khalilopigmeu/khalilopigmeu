@@ -23,16 +23,21 @@ app["CategoriaPlanoSistema"] = new Vue({
     },
     methods: {
         populate: function () {
-            this.biencode = {};
-            captchaSys(app.sys.keysite);
-            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
-            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-            this.biencode.acesso = window.localStorage.getItem("IdLogin");
-            var data = {
-                biencode: encrypt(JSON.stringify(this.biencode))
-            };
-            app.sys.crud(app.CategoriaPlanoSistema.href, "listar", data);
-            app.sys.tabs(this.href);
+            if (app.sys.system.hasOwnProperty(this.href)) {
+                this.src = app.sys.system[this.href];
+                app.sys.tabs(this.href);
+            } else {
+                this.biencode = {};
+                captchaSys(app.sys.keysite);
+                this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
+                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+                this.biencode.acesso = window.localStorage.getItem("IdLogin");
+                var data = {
+                    biencode: encrypt(JSON.stringify(this.biencode))
+                };
+                app.sys.crud(app.CategoriaPlanoSistema.href, "listar", data);
+                app.sys.tabs(this.href);
+            }
         },
         clear: function () {
             this.id = null;

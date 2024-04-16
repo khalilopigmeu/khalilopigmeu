@@ -38,15 +38,20 @@ app["Midia"] = new Vue({
     },
     methods: {
         populate: function () {
-            this.biencode = {};
-            captchaSys(app.sys.keysite);
-            this.biencode.tokenCaptcha = captchaSys(app.sys.keysite);
-            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-            var data = {
-                biencode: encrypt(JSON.stringify(this.biencode))
-            };
-            app.sys.crud(app.Midia.href, "listar", data);
-            app.sys.tabs(this.href);
+            if (app.sys.system.hasOwnProperty(this.href)) {
+                this.src = app.sys.system[this.href];
+                app.sys.tabs(this.href);
+            } else {
+                this.biencode = {};
+                captchaSys(app.sys.keysite);
+                this.biencode.tokenCaptcha = captchaSys(app.sys.keysite);
+                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+                var data = {
+                    biencode: encrypt(JSON.stringify(this.biencode))
+                };
+                app.sys.crud(app.Midia.href, "listar", data);
+                app.sys.tabs(this.href);
+            }
         },
         clear: function () {
             this.UrlMidia = null;

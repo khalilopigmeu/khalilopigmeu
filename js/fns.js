@@ -638,10 +638,14 @@ function validaData(data) {
 }
 
 function replaceAll(find, replace, str) {
-    if (!nulo(find) && !nulo(replace) && !nulo(str)) {
-        return str.replace(new RegExp(find, 'g'), replace);
-    } else {
+    if (nulo(find) || nulo(replace) || nulo(str)) {
         return str;
+    } else {
+        if (str.hasOwnProperty("replace")){
+            return str.replace(new RegExp(find, 'g'), replace);
+        } else {
+            return str;
+        }
     }
 }
 

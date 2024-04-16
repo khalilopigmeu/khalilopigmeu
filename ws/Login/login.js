@@ -47,6 +47,7 @@ app["clientLogin"] = new Vue({
         src: null,
         logado: false,
         dadosLogin: null,
+        href: "Login",
     },
     created: function () {
         this.getRandomNumber();
@@ -71,18 +72,23 @@ app["clientLogin"] = new Vue({
             this.busca = true;
         },
         getLogin: function (refid) {
-            setAuth(decrypt(app.sys.bien, "encodedstring"));
-            var biencode = {};
-            captchaSys(app.sys.keysite);
-            biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle");
-            biencode.idcomprador = refid;
-            var data = {
-                "biencode": encrypt(JSON.stringify(biencode))
-            };
-            var ws = "Bienestar/Sistema/Login/listar";
-            var p = (post(ws, data));
-            var rs = decrypt(p);
-            app.clientLogin.dadosLogin = eval(rs);
+            if (app.sys.system.hasOwnProperty(this.href)) {
+                this.href = "Login";
+                app.clientLogin.dadosLogin = app.sys.system[this.href];
+            } else {
+                setAuth(decrypt(app.sys.bien, "encodedstring"));
+                var biencode = {};
+                captchaSys(app.sys.keysite);
+                biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle");
+                biencode.idcomprador = refid;
+                var data = {
+                    "biencode": encrypt(JSON.stringify(biencode))
+                };
+                var ws = "Bienestar/Sistema/Login/listar";
+                var p = (post(ws, data));
+                var rs = decrypt(p);
+                app.clientLogin.dadosLogin = eval(rs);
+            }
         },
         clear: function () {
 

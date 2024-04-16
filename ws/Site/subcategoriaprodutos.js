@@ -4,23 +4,28 @@ app["SubcategoriaProdutosSite"] = new Vue({
     data: {
         src: null,
         Host: "Bienestar/Produtos/SubCatProdutos/",
-        pgid: null
+        pgid: null,
+        href: "SubcategoriaProdutos"
     },
     methods: {
         buscar: function (refid) {
-            var key = decrypt(app.sys.bien, "encodedstring");
-            this.biencode = {};
-            captchaSys(app.sys.keysite);
-            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
-            if (!nulo(refid)) {
-                this.biencode.empresa = refid;
+            if (app.sys.system.hasOwnProperty("SubcategoriaProdutos")) {
+                this.src = app.sys.system["SubcategoriaProdutos"];
             } else {
-                this.biencode.all = "";
+                var key = decrypt(app.sys.bien, "encodedstring");
+                this.biencode = {};
+                captchaSys(app.sys.keysite);
+                this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
+                if (!nulo(refid)) {
+                    this.biencode.empresa = refid;
+                } else {
+                    this.biencode.all = "";
+                }
+                var data = {
+                    biencode: encrypt(JSON.stringify(this.biencode), key)
+                };
+                app.sys.crud("SubcategoriaProdutosSite", "listar", data);
             }
-            var data = {
-                biencode: encrypt(JSON.stringify(this.biencode), key)
-            };
-            app.sys.crud("SubcategoriaProdutosSite", "listar", data);
         },
         clear: function () {
             this.src = null;

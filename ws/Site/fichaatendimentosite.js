@@ -35,23 +35,27 @@ app["fichaatendimentosite"] = new Vue({
 
         PromocaoSrc: null,
         Promocao: null,
-
+        href: "FichaAtendimento"
     },
     methods: {
         buscar: function (refid) {
-            var key = decrypt(app.sys.bien, "encodedstring");
-            this.biencode = {};
-            captchaSys(app.sys.keysite);
-            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
-            if (!nulo(refid)) {
-                this.biencode.cliente = refid;
+            if (app.sys.system.hasOwnProperty("FichaAtendimento")) {
+                this.src = app.sys.system["FichaAtendimento"];
             } else {
-                this.biencode.all = "";
+                var key = decrypt(app.sys.bien, "encodedstring");
+                this.biencode = {};
+                captchaSys(app.sys.keysite);
+                this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
+                if (!nulo(refid)) {
+                    this.biencode.cliente = refid;
+                } else {
+                    this.biencode.all = "";
+                }
+                var data = {
+                    biencode: encrypt(JSON.stringify(this.biencode), key)
+                };
+                app.sys.crud("fichaatendimentosite", "listar", data);
             }
-            var data = {
-                biencode: encrypt(JSON.stringify(this.biencode), key)
-            };
-            app.sys.crud("fichaatendimentosite", "listar", data);
         },
         clear: function () {
             this.IdCliente = null;

@@ -12,25 +12,32 @@ app["Dispositivos"] = new Vue({
         GGID: null,
         flag: null,
         busca: false,
+        href: "Dispositivos"
     },
     methods: {
         buscar: function (refid) {
-            var key = decrypt(app.sys.bien, "encodedstring");
-            this.biencode = {};
-            captchaSys(app.sys.keysite);
-            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
-            if (!nulo(refid)) {
-                this.biencode.id = refid;
-                app.empresasanunciando.Anunciante(this.biencode.id);
+            if (app.sys.system.hasOwnProperty("Dispositivos")) {
+                this.src = app.sys.system["Dispositivos"];
+                $(window).NotifyInfo("Dispositivo conectado");
+                this.busca = true;
             } else {
-                this.biencode.all = "";
+                var key = decrypt(app.sys.bien, "encodedstring");
+                this.biencode = {};
+                captchaSys(app.sys.keysite);
+                this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
+                if (!nulo(refid)) {
+                    this.biencode.id = refid;
+                    app.empresasanunciando.Anunciante(this.biencode.id);
+                } else {
+                    this.biencode.all = "";
+                }
+                var data = {
+                    biencode: encrypt(JSON.stringify(this.biencode), key)
+                };
+                app.sys.crud("Dispositivos", "listar", data);
+                $(window).NotifyInfo("Dispositivo conectado");
+                this.busca = true;
             }
-            var data = {
-                biencode: encrypt(JSON.stringify(this.biencode), key)
-            };
-            app.sys.crud("Dispositivos", "listar", data);
-            $(window).NotifyInfo("Dispositivo conectado");
-            this.busca = true;
         },
         clear: function () {
             this.src = null;

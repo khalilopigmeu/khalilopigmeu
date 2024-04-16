@@ -4,24 +4,29 @@ app["configuracaosite"] = new Vue({
     data: {
         src: null,
         Host: "Bienestar/Sistema/Configuracao/",
-        pgid: null
+        pgid: null,
+        href: "Configuracao"
     },
     methods: {
         buscar: function (refid) {
-            var key = decrypt(app.sys.bien, "encodedstring");
-            this.biencode = {};
-            captchaSys(app.sys.keysite);
-            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
-            if (!nulo(refid)) {
-                this.biencode.pgid = refid;
+            if (app.sys.system.hasOwnProperty("Configuracao")) {
+                this.src = app.sys.system["Configuracao"];
             } else {
-                this.biencode.all = "";
+                var key = decrypt(app.sys.bien, "encodedstring");
+                this.biencode = {};
+                captchaSys(app.sys.keysite);
+                this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
+                if (!nulo(refid)) {
+                    this.biencode.pgid = refid;
+                } else {
+                    this.biencode.all = "";
+                }
+                var data = {
+                    biencode: encrypt(JSON.stringify(this.biencode), key)
+                };
+                //app.sys.crud("configuracaosite", "listar", data);
+                app.sys.crud("configuracaosite", "variavel", data, "listar", app.configuracaosite.id);
             }
-            var data = {
-                biencode: encrypt(JSON.stringify(this.biencode), key)
-            };
-            //app.sys.crud("configuracaosite", "listar", data);
-            app.sys.crud("configuracaosite", "variavel", data, "listar", app.configuracaosite.id);
         },
         buscaurl: function () {
             var key = decrypt(app.sys.bien, "encodedstring");

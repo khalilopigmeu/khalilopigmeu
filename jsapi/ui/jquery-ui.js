@@ -15123,24 +15123,14 @@
                         }
                     });
 
-            this.tabs = this.tablist.find("> li:has(a[href])")
-                    .attr({
-                        role: "tab",
-                        tabIndex: -1
-                    });
+            this.tabs = this.tablist.find("> li:has(a[href])").attr({role: "tab", tabIndex: -1});
             this._addClass(this.tabs, "ui-tabs-tab", "ui-state-default");
 
             this.anchors = this.tabs.map(function () {
                 return $("a", this)[ 0 ];
-            })
-                    .attr({
-                        role: "presentation",
-                        tabIndex: -1
-                    });
+            }).attr({role: "presentation", tabIndex: -1});
             this._addClass(this.anchors, "ui-tabs-anchor");
-
             this.panels = $();
-
             this.anchors.each(function (i, anchor) {
                 var selector, panel, panelId,
                         anchorId = $(anchor).uniqueId().attr("id"),

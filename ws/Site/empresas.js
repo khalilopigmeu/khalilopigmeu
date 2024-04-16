@@ -91,25 +91,31 @@ app["empresasanunciando"] = new Vue({
         formato: "coluna",
         printpdf: false,
         TipoCatalogo: 1,
-        print: 0
+        print: 0,
+        href: "Empresa"
     },
     methods: {
         buscar: function (refid) {
-            var key = decrypt(app.sys.bien, "encodedstring");
-            this.biencode = {};
-            captchaSys(app.sys.keysite);
-            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
-            if (!nulo(refid)) {
-                this.biencode.id = refid;
-                app.empresasanunciando.Anunciante(this.biencode.id);
+            if (app.sys.system.hasOwnProperty("Empresa")) {
+                this.src = app.sys.system["Empresa"];
+                app.empresasanunciando.src = app.sys.randomList(app.empresasanunciando.src);
             } else {
-                this.biencode.all = "";
+                var key = decrypt(app.sys.bien, "encodedstring");
+                this.biencode = {};
+                captchaSys(app.sys.keysite);
+                this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
+                if (!nulo(refid)) {
+                    this.biencode.id = refid;
+                    app.empresasanunciando.Anunciante(this.biencode.id);
+                } else {
+                    this.biencode.all = "";
+                }
+                var data = {
+                    biencode: encrypt(JSON.stringify(this.biencode), key)
+                };
+                app.sys.crud("empresasanunciando", "listar", data);
+                app.empresasanunciando.src = app.sys.randomList(app.empresasanunciando.src);
             }
-            var data = {
-                biencode: encrypt(JSON.stringify(this.biencode), key)
-            };
-            app.sys.crud("empresasanunciando", "listar", data);
-            app.empresasanunciando.src = app.sys.randomList(app.empresasanunciando.src);
         },
         cleanwap: function (number) {
             var num = number.replace(/[^\w\s]/gi, '');

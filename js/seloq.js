@@ -52,16 +52,16 @@ $(function () {
     } else {
         urlSys = true;
     }
-    qrcode = new QRCode(document.getElementById("qrcode"), {
-        text: urlSite,
-        logo: "/img/sobre.png",
-        width: 85,
-        height: 85,
-        logoWidth: undefined,
-        logoHeight: undefined,
-        logoBackgroundColor: '#ffffff',
-        logoBackgroundTransparent: false
-    });
+    /*qrcode = new QRCode(document.getElementById("qrcode"), {
+     text: urlSite,
+     logo: "/img/sobre.png",
+     width: 85,
+     height: 85,
+     logoWidth: undefined,
+     logoHeight: undefined,
+     logoBackgroundColor: '#ffffff',
+     logoBackgroundTransparent: false
+     });*/
 
     window.onhashchange = function () {
         urlRead();
@@ -236,13 +236,24 @@ function urlRead() {
     }
     if (app.sys.page === "anunciante") {
         if (getParameterByName('pgid') !== null) {
-            if (!nulo(getParameterByName('major'))) {
-                app.empresasanunciando.majority = parseBoolean(getParameterByName('major'));
-                app.empresasanunciando.ismajor = parseBoolean(getParameterByName('major'));
-            }
+
             $("#header").hide();
             $("#byBien").show();
             $("#menu-toggle").show();
+
+            setAuth(decrypt(app.sys.bien, "encodedstring"));
+            var biencode = {};
+            captchaSys(app.sys.keysite);
+            biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle");
+            biencode.empresa = getParameterByName('pgid');
+            var data = {
+                "biencode": encrypt(JSON.stringify(biencode))
+            };
+            var ws = "Bienestar/Sistema/Start/Anuncio";
+            var p = (post(ws, data));
+            var rs = decrypt(p);
+            app.sys.system = JSON.parse(rs);
+
             app.configuracaosite.buscar(getParameterByName('pgid'));
             app.anunciante.buscar(getParameterByName('pgid'));
             app.PromocaoSite.buscaItens(getParameterByName('pgid'));
@@ -260,6 +271,7 @@ function urlRead() {
             app.empresasanunciando.pgid = getParameterByName('pgid');
             app.empresasanunciando.buscar(getParameterByName('pgid'));
             app.empresasanunciando.load();
+
             $("#menu-toggle-R i").removeClass("fa-bars").addClass("fa-shopping-bag");
             $("#menu-toggle-R").show();
             $("#menu-toggle-R .badge").show();
@@ -270,6 +282,20 @@ function urlRead() {
                 app.checkoutvenda.logado = true;
                 app.clientLogin.logado = true;
                 app.sidebarR.logado = true;
+
+                setAuth(decrypt(app.sys.bien, "encodedstring"));
+                var biencode = {};
+                captchaSys(app.sys.keysite);
+                biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle");
+                biencode.empresa = window.localStorage.getItem("IdLoginCliente");
+                var data = {
+                    "biencode": encrypt(JSON.stringify(biencode))
+                };
+                var ws = "Bienestar/Sistema/Start/Cliente";
+                var p = (post(ws, data));
+                var rs = decrypt(p);
+                app.sys.system = JSON.parse(rs);
+
                 app.clientLogin.getLogin(window.localStorage.getItem("IdLoginCliente"));
                 app.usuariosite.buscar(null, window.localStorage.getItem("IdLoginCliente"));
                 //app.eventossite.buscar(window.localStorage.getItem("IdLoginCliente"));
@@ -279,6 +305,7 @@ function urlRead() {
                 app.sidebarR.loja = false;
                 app.sidebarR.loja = true;
             }
+            app.sys.sytem = "";
         } else {
             $("#header").show();
             $("#byBien").hide();
@@ -311,7 +338,7 @@ function urlRead() {
         }
         $("#waiter").hide();
     }
-    qrcode.makeCode(urlSite);
+    //qrcode.makeCode(urlSite);
 }
 var widgetId1;
 var onloadCallback = function () {

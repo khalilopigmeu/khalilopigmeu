@@ -69,39 +69,48 @@ app["Eventos"] = new Vue({
     },
     methods: {
         populate: function () {
-            this.biencode = {};
-            captchaSys(app.sys.keysite);
-            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
-            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-            var d = new Date();
-            var m = d.getMonth() + 1;
-            var y = d.getFullYear();
-            this.biencode.inicio = y + "-" + m;
-            if (!nulo(app.CategoriaEventos.src) && app.CategoriaEventos.src.length > 0) {
-                this.biencode.grupo = "";
-                for (var i = 0; i <= app.CategoriaEventos.src.length - 1; i++) {
-                    this.biencode.grupo += app.CategoriaEventos.src[i]._id['$oid'];
-                    if (i < app.CategoriaEventos.src.length - 1) {
-                        this.biencode.grupo += ",";
+            if (app.sys.system.hasOwnProperty(this.href)) {
+                this.src = app.sys.system[this.href];
+                app.sys.tabs(this.href);
+                app.Eventos.eventos = app.Eventos.src;
+                app.Eventos.src = null;
+                app.calendar.load();
+                this.itensporpagina = app.sys.itemsPerPage;
+            } else {
+                this.biencode = {};
+                captchaSys(app.sys.keysite);
+                this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
+                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+                var d = new Date();
+                var m = d.getMonth() + 1;
+                var y = d.getFullYear();
+                this.biencode.inicio = y + "-" + m;
+                if (!nulo(app.CategoriaEventos.src) && app.CategoriaEventos.src.length > 0) {
+                    this.biencode.grupo = "";
+                    for (var i = 0; i <= app.CategoriaEventos.src.length - 1; i++) {
+                        this.biencode.grupo += app.CategoriaEventos.src[i]._id['$oid'];
+                        if (i < app.CategoriaEventos.src.length - 1) {
+                            this.biencode.grupo += ",";
+                        }
                     }
                 }
+                if (app.calendar.iniciopesq !== null) {
+                    this.biencode.inicio = app.calendar.iniciopesq;
+                }
+                if (app.calendar.fimpesq !== null) {
+                    this.biencode.fim = app.calendar.fimpesq;
+                }
+                console.log(this.biencode);
+                var data = {
+                    biencode: encrypt(JSON.stringify(this.biencode))
+                };
+                app.sys.crud(app.Eventos.href, "listar", data);
+                app.Eventos.eventos = app.Eventos.src;
+                app.Eventos.src = null;
+                app.calendar.load();
+                app.sys.tabs(this.href);
+                this.itensporpagina = app.sys.itemsPerPage;
             }
-            if (app.calendar.iniciopesq !== null) {
-                this.biencode.inicio = app.calendar.iniciopesq;
-            }
-            if (app.calendar.fimpesq !== null) {
-                this.biencode.fim = app.calendar.fimpesq;
-            }
-            console.log(this.biencode);
-            var data = {
-                biencode: encrypt(JSON.stringify(this.biencode))
-            };
-            app.sys.crud(app.Eventos.href, "listar", data);
-            app.Eventos.eventos = app.Eventos.src;
-            app.Eventos.src = null;
-            app.calendar.load();
-            app.sys.tabs(this.href);
-            this.itensporpagina = app.sys.itemsPerPage;
         },
         clear: function () {
             this.groupId = null;

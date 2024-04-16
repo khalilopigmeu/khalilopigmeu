@@ -4,9 +4,15 @@ var urlSys = false;
 var auth = "";
 var preAuth = null;
 var tac = "";
+var labele = null;
 
 function authenticate() {
     auth = window.localStorage.getItem("auth");
+    if (nulo(window.localStorage.getItem("labeledby"))) {
+        labele = window.location.hostname;
+    } else {
+        labele = window.localStorage.getItem("labeledby");
+    }
 }
 
 
@@ -20,8 +26,13 @@ function post(url, data) {
         async: false,
         data: data,
         headers: {
+            "Model": labele,
             "Authorization": auth,
             "Content-Type": contype,
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, HEAD"
         }
     }).done(function (result) {
         logSandBox(result);
@@ -41,8 +52,13 @@ function get(url, data) {
         async: false,
         data: data,
         headers: {
+            "Model": labele,
             "Authorization": auth,
             "Content-Type": contype,
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, HEAD"
         }
     }).done(function (result) {
         logSandBox(result);
@@ -66,8 +82,13 @@ function host(path, op, ac) {
             "ac": encrypt(ac)
         },
         headers: {
+            "Model": labele,
             "Authorization": auth,
             "Content-Type": contype,
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, HEAD"
         }
     }).done(function (result) {
         logSandBox(result);
@@ -93,8 +114,13 @@ function gost(path, op, ac) {
             "ac": encrypt(ac)
         },
         headers: {
+            "Model": labele,
             "Authorization": auth,
             "Content-Type": contype,
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, HEAD"
         }
     }).done(function (result) {
         logSandBox(result);
@@ -123,7 +149,7 @@ function postCross(url, data, header) {
     }).responseText;
 }
 
-function getCross(url, data) {
+function getCross(url, data, header) {
     return $.ajax({
         type: "GET",
         url: url,
@@ -165,25 +191,14 @@ function sandBox(amb) {
 }
 
 function WebServer(amb) {
-    var host = window.location.hostname;
-    if (host.includes("rtiempresarial")) {
-        if (window.localStorage.getItem("sandbox") !== null) {
-            amb = window.localStorage.getItem("sandbox");
-        }
-        if (amb) {
-            return "https://rtiempresarial.com.br:8080/staging/api/";
-        } else {
-            return "https://rtiempresarial.com.br:8080/webservice/api/";
-        }
+    if (window.localStorage.getItem("sandbox") !== null) {
+        amb = window.localStorage.getItem("sandbox");
+    }
+    if (amb) {
+        return "https://rtiempresarial.com.br:7077/staging/api/";
     } else {
-        if (window.localStorage.getItem("sandbox") !== null) {
-            amb = window.localStorage.getItem("sandbox");
-        }
-        if (amb) {
-            return "https://bienclube.com.br:8080/staging/api/";
-        } else {
-            return "https://bienclube.com.br:8080/webservice/api/";
-        }
+        return "https://rtiempresarial.com.br:7077/webservice/api/";
+
     }
 }
 

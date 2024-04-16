@@ -38,26 +38,31 @@ app["pedidovendasite"] = new Vue({
         Bairro: null,
         Rua: null,
         Numero: null,
-        Complemento: null
+        Complemento: null,
+        href: "PedidoVenda"
     },
     methods: {
         buscar: function (refid) {
-            var key = decrypt(app.sys.bien, "encodedstring");
-            this.biencode = {};
-            captchaSys(app.sys.keysite);
-            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
-            if (!nulo(refid)) {
-                this.biencode.cliente = refid;
+            if (app.sys.system.hasOwnProperty("PedidoVenda")) {
+                this.src = app.sys.system["PedidoVenda"];
             } else {
-                this.biencode.all = "";
+                var key = decrypt(app.sys.bien, "encodedstring");
+                this.biencode = {};
+                captchaSys(app.sys.keysite);
+                this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
+                if (!nulo(refid)) {
+                    this.biencode.cliente = refid;
+                } else {
+                    this.biencode.all = "";
+                }
+                var data = {
+                    biencode: encrypt(JSON.stringify(this.biencode), key)
+                };
+                app.sys.crud("pedidovendasite", "listar", data);
             }
-            var data = {
-                biencode: encrypt(JSON.stringify(this.biencode), key)
-            };
-            app.sys.crud("pedidovendasite", "listar", data);
         },
         clear: function () {
-            
+
         },
         autocomplete: function () {
             this.NomeLista = this.row[1];

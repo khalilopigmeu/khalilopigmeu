@@ -1,5 +1,5 @@
 <div class="col-md-12 col-lg-12 col-xl-12 col-12 m-3 p-3 mb-4">
-    <img v-bind:src="getLogo(pgid)" class="img-thumbnail rounded mx-auto d-block">
+    <img v-bind:src="getLogo(pgid)" style="width: 25%;" class="img-thumbnail rounded mx-auto d-block">
 </div>
 <section v-if="(spy==='associado' || spy===null || spy==='all') && (Anunciante(pgid).Tipo==='1'||Anunciante(pgid).Tipo==='2'||Anunciante(pgid).Tipo==='3')">
     <h2 class="spanCli m-1 p-1">Associado:</h2>

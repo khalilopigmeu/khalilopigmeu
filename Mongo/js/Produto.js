@@ -60,15 +60,20 @@ app["Produto"] = new Vue({
     },
     methods: {
         populate: function () {
-            this.biencode = {};
-            captchaSys(app.sys.keysite);
-            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
-            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-            var data = {
-                biencode: encrypt(JSON.stringify(this.biencode))
-            };
-            app.sys.crud(app.Produto.href, "listar", data);
-            app.sys.tabs(this.href);
+            if (app.sys.system.hasOwnProperty(this.href)) {
+                this.src = app.sys.system[this.href];
+                app.sys.tabs(this.href);
+            } else {
+                this.biencode = {};
+                captchaSys(app.sys.keysite);
+                this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
+                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+                var data = {
+                    biencode: encrypt(JSON.stringify(this.biencode))
+                };
+                app.sys.crud(app.Produto.href, "listar", data);
+                app.sys.tabs(this.href);
+            }
         },
         clear: function () {
             this.QtdMin = null;
@@ -175,18 +180,24 @@ app["Produto"] = new Vue({
             this.biencode.IdClasse = this.IdClasse;
             this.biencode.IdSubCategoriaProduto = this.IdSubCategoriaProduto;
             var fornec = "";
-            for (var i = 0; i <= this.IdFornecedor.length - 1; i++) {
-                fornec += this.IdFornecedor[i];
-                if (i < this.IdFornecedor.length - 1) {
-                    fornec += ";";
+            if (!nulo(this.IdFornecedor.length)) {
+                for (var i = 0; i <= this.IdFornecedor.length - 1; i++) {
+                    fornec += this.IdFornecedor[i];
+                    if (i < this.IdFornecedor.length - 1) {
+                        fornec += ";";
+                    }
                 }
+            } else {
+
             }
             this.biencode.IdFornecedor = fornec;
             var cotacao = "";
-            for (var i = 0; i <= this.IdFornecedor.length - 1; i++) {
-                cotacao += this.IdFornecedor[i] + "#" + document.getElementById("cot" + this.IdFornecedor[i]).value;
-                if (i < this.IdFornecedor.length - 1) {
-                    cotacao += ";";
+            if (!nulo(this.IdFornecedor.length)) {
+                for (var i = 0; i <= this.IdFornecedor.length - 1; i++) {
+                    cotacao += this.IdFornecedor[i] + "#" + document.getElementById("cot" + this.IdFornecedor[i]).value;
+                    if (i < this.IdFornecedor.length - 1) {
+                        cotacao += ";";
+                    }
                 }
             }
             this.biencode.Cotacao = cotacao;
