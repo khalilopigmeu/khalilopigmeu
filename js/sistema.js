@@ -165,7 +165,7 @@ app["sys"] = new Vue({
             var rs = decrypt(p);
             app.sys.system = JSON.parse(rs);
         },
-        loja: function () {
+        loja: function (id) {
             setAuth(decrypt(app.sys.bien, "encodedstring"));
             var biencode = {};
             captchaSys(app.sys.keysite);
@@ -185,7 +185,7 @@ app["sys"] = new Vue({
             var rs = decrypt(p);
             app.sys.system = JSON.parse(rs);
         },
-        site: function () {
+        site: function (id) {
             setAuth(decrypt(app.sys.bien, "encodedstring"));
             var biencode = {};
             captchaSys(app.sys.keysite);
@@ -205,7 +205,7 @@ app["sys"] = new Vue({
             var rs = decrypt(p);
             app.sys.system = JSON.parse(rs);
         },
-        cliente: function () {
+        cliente: function (id) {
             setAuth(decrypt(app.sys.bien, "encodedstring"));
             var biencode = {};
             captchaSys(app.sys.keysite);
