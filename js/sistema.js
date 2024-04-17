@@ -145,6 +145,62 @@ app["sys"] = new Vue({
                 app.LoginsOauth.buscar(app.sys.reflog);
             }
         },
+        anuncio: function () {
+            setAuth(decrypt(app.sys.bien, "encodedstring"));
+            var biencode = {};
+            captchaSys(app.sys.keysite);
+            biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle");
+            biencode.empresa = getParameterByName('pgid');
+            var data = {
+                "biencode": encrypt(JSON.stringify(biencode))
+            };
+            var ws = "Bienestar/Sistema/Start/Anuncio";
+            var p = (post(ws, data));
+            var rs = decrypt(p);
+            app.sys.system = JSON.parse(rs);
+        },
+        loja: function () {
+            setAuth(decrypt(app.sys.bien, "encodedstring"));
+            var biencode = {};
+            captchaSys(app.sys.keysite);
+            biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle");
+            biencode.empresa = getParameterByName('pgid');
+            var data = {
+                "biencode": encrypt(JSON.stringify(biencode))
+            };
+            var ws = "Bienestar/Sistema/Start/Loja";
+            var p = (post(ws, data));
+            var rs = decrypt(p);
+            app.sys.system = JSON.parse(rs);
+        },
+        site: function () {
+            setAuth(decrypt(app.sys.bien, "encodedstring"));
+            var biencode = {};
+            captchaSys(app.sys.keysite);
+            biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle");
+            biencode.empresa = getParameterByName('pgid');
+            var data = {
+                "biencode": encrypt(JSON.stringify(biencode))
+            };
+            var ws = "Bienestar/Sistema/Start/Site";
+            var p = (post(ws, data));
+            var rs = decrypt(p);
+            app.sys.system = JSON.parse(rs);
+        },
+        cliente: function () {
+            setAuth(decrypt(app.sys.bien, "encodedstring"));
+            var biencode = {};
+            captchaSys(app.sys.keysite);
+            biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle");
+            biencode.empresa = getParameterByName('pgid');
+            var data = {
+                "biencode": encrypt(JSON.stringify(biencode))
+            };
+            var ws = "Bienestar/Sistema/Start/Site";
+            var p = (post(ws, data));
+            var rs = decrypt(p);
+            app.sys.system = JSON.parse(rs);
+        },
         acessar: function (idlogin, ravec) {
             this.acesso = eval(decrypt(ravec, idlogin));
         },
