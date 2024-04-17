@@ -145,12 +145,18 @@ app["sys"] = new Vue({
                 app.LoginsOauth.buscar(app.sys.reflog);
             }
         },
-        anuncio: function () {
+        anuncio: function (id) {
             setAuth(decrypt(app.sys.bien, "encodedstring"));
             var biencode = {};
             captchaSys(app.sys.keysite);
             biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle");
-            biencode.empresa = getParameterByName('pgid');
+            if (!nulo(id)) {
+                biencode.empresa = id;
+            } else if (!nulo(getParameterByName('pgid'))) {
+                biencode.empresa = getParameterByName('pgid');
+            } else {
+                biencode.empresa = "";
+            }
             var data = {
                 "biencode": encrypt(JSON.stringify(biencode))
             };
@@ -164,7 +170,13 @@ app["sys"] = new Vue({
             var biencode = {};
             captchaSys(app.sys.keysite);
             biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle");
-            biencode.empresa = getParameterByName('pgid');
+            if (!nulo(id)) {
+                biencode.empresa = id;
+            } else if (!nulo(getParameterByName('pgid'))) {
+                biencode.empresa = getParameterByName('pgid');
+            } else {
+                biencode.empresa = "";
+            }
             var data = {
                 "biencode": encrypt(JSON.stringify(biencode))
             };
@@ -178,7 +190,13 @@ app["sys"] = new Vue({
             var biencode = {};
             captchaSys(app.sys.keysite);
             biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle");
-            biencode.empresa = getParameterByName('pgid');
+            if (!nulo(id)) {
+                biencode.empresa = id;
+            } else if (!nulo(getParameterByName('pgid'))) {
+                biencode.empresa = getParameterByName('pgid');
+            } else {
+                biencode.empresa = "";
+            }
             var data = {
                 "biencode": encrypt(JSON.stringify(biencode))
             };
@@ -192,7 +210,13 @@ app["sys"] = new Vue({
             var biencode = {};
             captchaSys(app.sys.keysite);
             biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle");
-            biencode.empresa = getParameterByName('pgid');
+             if (!nulo(id)) {
+                biencode.empresa = id;
+            } else if (!nulo(getParameterByName('pgid'))) {
+                biencode.empresa = getParameterByName('pgid');
+            } else {
+                biencode.empresa = "";
+            }
             var data = {
                 "biencode": encrypt(JSON.stringify(biencode))
             };
