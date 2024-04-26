@@ -195,6 +195,7 @@ function urlRead() {
     }
     if (app.sys.page === "promocao") {
         if (getParameterByName('pgid') !== null) {
+            app.sys.site(getParameterByName('pgid'));
             app.anunciante.pgid = getParameterByName('pgid');
             app.empresasanunciando.pgid = getParameterByName('pgid');
             app.paginasite.buscar();
@@ -212,6 +213,7 @@ function urlRead() {
     }
     if (app.sys.page === "portfolio") {
         if (getParameterByName('pgid') !== null) {
+            app.sys.site(getParameterByName('pgid'));
             app.anunciante.pgid = getParameterByName('pgid');
             app.empresasanunciando.pgid = getParameterByName('pgid');
             app.categoriaportfolio.buscar();
@@ -232,6 +234,7 @@ function urlRead() {
         $("#waiter").hide();
     }
     if (app.sys.page === "verproduto") {
+        app.sys.loja(getParameterByName('pgid'));
         app.ProdutosLoja.buscar(getParameterByName('pdid'));
     }
     if (app.sys.page === "anunciante") {
@@ -241,18 +244,7 @@ function urlRead() {
             $("#byBien").show();
             $("#menu-toggle").show();
 
-            setAuth(decrypt(app.sys.bien, "encodedstring"));
-            var biencode = {};
-            captchaSys(app.sys.keysite);
-            biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle");
-            biencode.empresa = getParameterByName('pgid');
-            var data = {
-                "biencode": encrypt(JSON.stringify(biencode))
-            };
-            var ws = "Bienestar/Sistema/Start/Anuncio";
-            var p = (post(ws, data));
-            var rs = decrypt(p);
-            app.sys.system = JSON.parse(rs);
+            app.sys.anuncio(getParameterByName('pgid'));
 
             app.configuracaosite.buscar(getParameterByName('pgid'));
             app.anunciante.buscar(getParameterByName('pgid'));
@@ -283,18 +275,7 @@ function urlRead() {
                 app.clientLogin.logado = true;
                 app.sidebarR.logado = true;
 
-                setAuth(decrypt(app.sys.bien, "encodedstring"));
-                var biencode = {};
-                captchaSys(app.sys.keysite);
-                biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle");
-                biencode.empresa = window.localStorage.getItem("IdLoginCliente");
-                var data = {
-                    "biencode": encrypt(JSON.stringify(biencode))
-                };
-                var ws = "Bienestar/Sistema/Start/Cliente";
-                var p = (post(ws, data));
-                var rs = decrypt(p);
-                app.sys.system = JSON.parse(rs);
+                app.sys.cliente(window.localStorage.getItem("IdLoginCliente"));
 
                 app.clientLogin.getLogin(window.localStorage.getItem("IdLoginCliente"));
                 app.usuariosite.buscar(null, window.localStorage.getItem("IdLoginCliente"));
@@ -324,6 +305,7 @@ function urlRead() {
         }
     }
     if (app.sys.page === "paginas") {
+        app.sys.site();
         if (getParameterByName('pg')) {
             app.paginasite.pg = getParameterByName('pg');
             app.paginasite.buscar();

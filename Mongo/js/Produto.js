@@ -180,7 +180,7 @@ app["Produto"] = new Vue({
             this.biencode.IdClasse = this.IdClasse;
             this.biencode.IdSubCategoriaProduto = this.IdSubCategoriaProduto;
             var fornec = "";
-            if (!nulo(this.IdFornecedor.length)) {
+            if (!nulo(this.IdFornecedor)) {
                 for (var i = 0; i <= this.IdFornecedor.length - 1; i++) {
                     fornec += this.IdFornecedor[i];
                     if (i < this.IdFornecedor.length - 1) {
@@ -192,7 +192,7 @@ app["Produto"] = new Vue({
             }
             this.biencode.IdFornecedor = fornec;
             var cotacao = "";
-            if (!nulo(this.IdFornecedor.length)) {
+            if (!nulo(this.IdFornecedor)) {
                 for (var i = 0; i <= this.IdFornecedor.length - 1; i++) {
                     cotacao += this.IdFornecedor[i] + "#" + document.getElementById("cot" + this.IdFornecedor[i]).value;
                     if (i < this.IdFornecedor.length - 1) {

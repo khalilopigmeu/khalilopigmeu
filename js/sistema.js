@@ -152,10 +152,8 @@ app["sys"] = new Vue({
             biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle");
             if (!nulo(id)) {
                 biencode.empresa = id;
-            } else if (!nulo(getParameterByName('pgid'))) {
-                biencode.empresa = getParameterByName('pgid');
             } else {
-                biencode.empresa = "";
+                biencode.empresa = app.sys.refid;
             }
             var data = {
                 "biencode": encrypt(JSON.stringify(biencode))
@@ -172,10 +170,8 @@ app["sys"] = new Vue({
             biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle");
             if (!nulo(id)) {
                 biencode.empresa = id;
-            } else if (!nulo(getParameterByName('pgid'))) {
-                biencode.empresa = getParameterByName('pgid');
             } else {
-                biencode.empresa = "";
+                biencode.empresa = app.sys.refid;
             }
             var data = {
                 "biencode": encrypt(JSON.stringify(biencode))
@@ -192,10 +188,8 @@ app["sys"] = new Vue({
             biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle");
             if (!nulo(id)) {
                 biencode.empresa = id;
-            } else if (!nulo(getParameterByName('pgid'))) {
-                biencode.empresa = getParameterByName('pgid');
             } else {
-                biencode.empresa = "";
+                biencode.empresa = app.sys.refid;
             }
             var data = {
                 "biencode": encrypt(JSON.stringify(biencode))
@@ -210,12 +204,10 @@ app["sys"] = new Vue({
             var biencode = {};
             captchaSys(app.sys.keysite);
             biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle");
-             if (!nulo(id)) {
+            if (!nulo(id)) {
                 biencode.empresa = id;
-            } else if (!nulo(getParameterByName('pgid'))) {
-                biencode.empresa = getParameterByName('pgid');
             } else {
-                biencode.empresa = "";
+                biencode.empresa = app.sys.refid;
             }
             var data = {
                 "biencode": encrypt(JSON.stringify(biencode))

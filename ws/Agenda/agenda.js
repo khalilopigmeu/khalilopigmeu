@@ -336,7 +336,6 @@ app.calendar = new Vue({
             if (nulo(app.Eventos)) {
                 this.eventosSrc = [];
             } else {
-                this.eventosSrc = app.Eventos.src;
                 app.calendar.eventosSrc = eval(app.Eventos.eventos);
                 if (app.Eventos.calendar !== null) {
                     app.Eventos.calendar.destroy();
