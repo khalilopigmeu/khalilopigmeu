@@ -107,14 +107,8 @@ app["sys"] = new Vue({
         progress: null,
     },
     created: function () {
-        var dm = window.location.hostname;
-        if (dm.includes("borealmystic")) {
-            this.refid = "";
-            this.reflog = "";
-        } else {
-            this.refid = "64dca6e7f4f70bda9ba100a9";
-            this.reflog = "613ea0cdb8f611d6e2029031";
-        }
+        this.refid = "64dca6e7f4f70bda9ba100a9";
+        this.reflog = "613ea0cdb8f611d6e2029031";
     },
     methods: {
         start: function () {
@@ -123,7 +117,6 @@ app["sys"] = new Vue({
                 if (!nulo(window.localStorage.getItem("IdLogin")) && !nulo(window.localStorage.getItem("RAVEC"))) {
                     this.acessar(window.localStorage.getItem("IdLogin"), window.localStorage.getItem("RAVEC"));
                 }
-
                 setAuth(decrypt(app.sys.bien, "encodedstring"));
                 var biencode = {};
                 captchaSys(app.sys.keysite);
