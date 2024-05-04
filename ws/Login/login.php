@@ -114,10 +114,10 @@
                             </fieldset>
                         </div>
                     </div>
-                    <div>
+                    <!--<div>
                         <h4>Você já está conectado, Clique aqui para ir para sua central de acesso.</h4><br>
                         <h4>Clique aqui para desconectar.</h4>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning" data-dismiss="modal">Fechar</button>

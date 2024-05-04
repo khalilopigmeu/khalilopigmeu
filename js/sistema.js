@@ -7,8 +7,9 @@ app["sys"] = new Vue({
         reflog: "613ea0cdb8f611d6e2029031",
         /*BIENESTAR CLUBE 
          bien: "eXZGM2l1SjZ5TjErbzRMS1RsbXkwbmpaNk9FVTBwTlIzRjBXcHJab1lGSmZUVXVwbGRhMUFCMmU5MUVXSWEwR3NjQS9JOUtpM2tNcko5b1hKd2F5U242RmtnRE1MMnhBcDdINXFKejNKZG5GZ0p2RVdHRk94ZytBT01NaVRDMzljejltb2Z1M1U3bHBuRXBzM0NvbTBGOWc0SDNUNU5mTUxnOHhqaVpGYjdERlcyM2h5cXVIK3ViS25CcGl6Qzhpd2xVamhOZW9TUjdRbG9HV2N1ekRiSlJLUWlWVzk4dHQ5NmtjcllnR0NMMklWcUgyb3RNTTc0TE12VU5QemRJNyM4ZjA4NzQ4YzlkNWM3NWEzYjU3YTFkNGZiZjE0NzRjNiM1MjRkMzg3MmI3NTA1NGZlYWFkODdiNTk5NzEyYzgzZQ==",
-         RTI EMPRESARIAL*/
-        bien: "OXJEUzgzT3VLZjVGREdZTWdmVk5EcXJSaENlb1JOTi9xL09ZMGw1cWdBYktwRitwQTdSUkMzUlFDeEpvY2J0Qm9qNko2eHhLSDU1TEJseTNRcmRDZ2FaMEhNQVFxVlJhbHR6RlE1L1BOdUdHYlpLRGMrbTBkb0NCdWNDNStvdk0wWUFURnR4V2x4WnF6MEMxTXJWYkkyUnF4SmZmRkdCUk1YZDF0K1dOWGhma25zdXFNcEtocng5NU9md01YWlJ1NjlvWlFFUkREUG14Mkh0R2FhdTkwclZmb2dzTk1VYVc2Mm0xQXRjblEwYkF1Z1VTR3JweUk5bnI0NjRuZ0tSYSNjY2Q3YmNmMjU2MGE5NzgzYTQ1ODkwZTJkMWIwOWZmMCMzOTU5N2NjYjRjZGU2YWE0NjkwOWQxYmJjNmZmYWNkMg==",
+         RTI EMPRESARIAL
+         bien: "OXJEUzgzT3VLZjVGREdZTWdmVk5EcXJSaENlb1JOTi9xL09ZMGw1cWdBYktwRitwQTdSUkMzUlFDeEpvY2J0Qm9qNko2eHhLSDU1TEJseTNRcmRDZ2FaMEhNQVFxVlJhbHR6RlE1L1BOdUdHYlpLRGMrbTBkb0NCdWNDNStvdk0wWUFURnR4V2x4WnF6MEMxTXJWYkkyUnF4SmZmRkdCUk1YZDF0K1dOWGhma25zdXFNcEtocng5NU9md01YWlJ1NjlvWlFFUkREUG14Mkh0R2FhdTkwclZmb2dzTk1VYVc2Mm0xQXRjblEwYkF1Z1VTR3JweUk5bnI0NjRuZ0tSYSNjY2Q3YmNmMjU2MGE5NzgzYTQ1ODkwZTJkMWIwOWZmMCMzOTU5N2NjYjRjZGU2YWE0NjkwOWQxYmJjNmZmYWNkMg==",*/
+        bien: null,
         page: "index",
         gapi: null,
         fblog: false,
@@ -44,6 +45,8 @@ app["sys"] = new Vue({
         tokenv3: null,
         onsys: false,
         system: null,
+        progress: null,
+
         dark: null,
         medium: null,
         light: null,
@@ -104,11 +107,19 @@ app["sys"] = new Vue({
         anuncionavbar: null,
         anunciotitulosfont: null,
         anuncioconteudofont: null,
-        progress: null,
     },
     created: function () {
         this.refid = "64dca6e7f4f70bda9ba100a9";
         this.reflog = "613ea0cdb8f611d6e2029031";
+        var labeleStyle = "";
+        if (!nulo(window.localStorage.getItem("labeledby"))) {
+            labeleStyle = window.localStorage.getItem("labeledby");
+        }
+        if (labeleStyle.includes("borealmystic")) {
+            this.bien = "MUcrSWgxamxEQ2NjVDFmQzdNOWZHY3FmUmx5bGJJMWQ2aUk1ZHFUNG1zRmZVckZyUW52Y2FZUFNnMUlaYTBrRzJDdGV4VEp3THN5aENoMnVBQnBNbm1HZTZoSlpXVHUwSkdzVjJoWE1yWHM1KzUvYkNBYk93SUxqd2FXdDFIZFVIemVWd25zV0VRMCs4dkhKajErVWZ1RktwR0VEcmxNQ05ZdFl6NFBmSzlEREx4SHE5TkFpZEpYd0ZOYi9YUVhNdDEwa0hUOWV5WStRWXdHNXdYQ2N3dFJTYmJUakljUGZCWVBGTWY0Snh2Zz0jYWJlOTc2NDE1NTZiMzA3MjU3MTg2OTRlOWM5ZjU4MmYjYjk4OWMxMWQzMDNiMzJhZWI5N2RiMDQ4NTY4NDA4NTk=";
+        } else {
+            this.bien = "OXJEUzgzT3VLZjVGREdZTWdmVk5EcXJSaENlb1JOTi9xL09ZMGw1cWdBYktwRitwQTdSUkMzUlFDeEpvY2J0Qm9qNko2eHhLSDU1TEJseTNRcmRDZ2FaMEhNQVFxVlJhbHR6RlE1L1BOdUdHYlpLRGMrbTBkb0NCdWNDNStvdk0wWUFURnR4V2x4WnF6MEMxTXJWYkkyUnF4SmZmRkdCUk1YZDF0K1dOWGhma25zdXFNcEtocng5NU9md01YWlJ1NjlvWlFFUkREUG14Mkh0R2FhdTkwclZmb2dzTk1VYVc2Mm0xQXRjblEwYkF1Z1VTR3JweUk5bnI0NjRuZ0tSYSNjY2Q3YmNmMjU2MGE5NzgzYTQ1ODkwZTJkMWIwOWZmMCMzOTU5N2NjYjRjZGU2YWE0NjkwOWQxYmJjNmZmYWNkMg==";
+        }
     },
     methods: {
         start: function () {
@@ -252,7 +263,11 @@ app["sys"] = new Vue({
         },
         keys: function () {
             var dm = window.location.hostname;
-            if (dm.includes("rtiempresarial")) {
+            var labeleStyle = "";
+            if (!nulo(window.localStorage.getItem("labeledby"))) {
+                labeleStyle = window.localStorage.getItem("labeledby");
+            }
+            if (dm.includes("rtiempresarial") || labeleStyle.includes("rtiempresarial")) {
                 sandBox(true);
                 this.appid = '1607193979399894';
                 this.chave = 'AIzaSyDlhrMh7AvBhRx8FfjSYfkmhDWhr4oeYzE';
@@ -262,7 +277,7 @@ app["sys"] = new Vue({
                 this.key_oauth = atob('R09DU1BYLXgzQWRWdTlMSWY3ZFllSl93cDhYa1A2eVRRcnM=');
                 this.keysite = atob("NkxmdWVzb2tBQUFBQUNKY3F2UXFWcEUwb2lJX2tFTWwydmhHdzU3Sg==");
             }
-            if (dm.includes("bienclube")) {
+            if (dm.includes("bienclube") || labeleStyle.includes("bienclube")) {
                 sandBox(false);
                 this.appid = '365287055582263';
                 this.chave = 'AIzaSyAfBuZgg6rX2SlQQwe2HTIG3jreQLZaltk';
@@ -272,7 +287,7 @@ app["sys"] = new Vue({
                 this.key_oauth = atob('R09DU1BYLVJvdm5FZFZnSzVsa3FBMDNIdGdkbmRDUXZxOHY=');
                 this.keysite = atob("NkxmdWVzb2tBQUFBQUNKY3F2UXFWcEUwb2lJX2tFTWwydmhHdzU3Sg==");
             }
-            if (dm.includes("borealmystic")) {
+            if (dm.includes("borealmystic") || labeleStyle.includes("borealmystic")) {
                 sandBox(false);
                 this.appid = '175998843045297';
                 this.chave = 'AIzaSyAL2E1pOH-1tCZdqkO4OkpmM8jHKWqGrfU';
@@ -861,7 +876,7 @@ app["sys"] = new Vue({
                 $("#modal").modal();
                 var dm = window.location.hostname;
                 if (dm.includes("rtiempresarial")) {
-                    $("#modal").avisoMsg("Obrigado por usar o Bienestar Clube, volte Sempre!");
+                    $("#modal").avisoMsg("Obrigado por usar o RTI Empresarial, volte Sempre!");
                 }
                 if (dm.includes("bienclube")) {
                     $("#modal").avisoMsg("Obrigado por usar o Bienestar Clube, volte Sempre!");
@@ -1027,7 +1042,11 @@ app["sys"] = new Vue({
             }
         },
         setDefault: function () {
-            if (urlSite.includes("borealmystic")) {
+            var labeleStyle = "";
+            if (!nulo(window.localStorage.getItem("labeledby"))) {
+                labeleStyle = window.localStorage.getItem("labeledby");
+            }
+            if (urlSite.includes("borealmystic") || labeleStyle.includes("borealmystic")) {
                 app.sys.navbarbg = "#333333";
                 app.sys.navbarfont = "inherit";
                 app.sys.navbarcolor = "#fff";
@@ -1036,11 +1055,11 @@ app["sys"] = new Vue({
                 app.sys.modalfont = "inherit";
                 app.sys.modalcolor = "#000000";
 
-                app.sys.fieldesetbg = "#ddd";
+                app.sys.fieldesetbg = "#b1b1b1";
                 app.sys.fieldsetfont = "inherit";
                 app.sys.fieldsetcolor = "#000000";
 
-                app.sys.tabbg = "#d5d5d5";
+                app.sys.tabbg = "#c7c7c7";
                 app.sys.tabfont = "inherit";
                 app.sys.tabcolor = "#fff";
 
@@ -1058,8 +1077,8 @@ app["sys"] = new Vue({
                 app.sys.tablefootfont = "inherit";
                 app.sys.tablefootcolor = "#fff";
 
-                app.sys.botoesbg = "#c67c2e";
-                app.sys.botoesout = "#ffcc80";
+                app.sys.botoesbg = "#2e62c6";
+                app.sys.botoesout = "#d58205";
                 app.sys.botoesoff = "#808080";
                 app.sys.botoesfont = "inherit";
                 app.sys.botoescolor = "#fff";
@@ -1125,7 +1144,17 @@ app["sys"] = new Vue({
             var css = ":root{";
             var itens = Object.keys(app.sys._data);
             for (var i = 0; i <= itens.length - 1; i++) {
-                if (itens[i] !== "src" || itens[i] !== "Host") {
+                if (itens[i] !== "src" || itens[i] !== "Host" || itens[i] !== "refid" || itens[i] !== "reflog"
+                        || itens[i] !== "bien" || itens[i] !== "page" || itens[i] !== "gapi" || itens[i] !== "fblog" ||
+                        itens[i] !== "fbsai" || itens[i] !== "gglog" || itens[i] !== "ggsai" || itens[i] !== "imgemp" ||
+                        itens[i] !== "imgurl" || itens[i] !== "socialName" || itens[i] !== "FB" || itens[i] !== "appid" ||
+                        itens[i] !== "googleapikey" || itens[i] !== "cliente_oauth" || itens[i] !== "chave" ||
+                        itens[i] !== "empresa" || itens[i] !== "login" || itens[i] !== "login_oauth" || itens[i] !== "key_oauth" ||
+                        itens[i] !== " keycodeSecurity" || itens[i] !== "urlSite" || itens[i] !== "sandbox" || itens[i] !== "ListaPage" ||
+                        itens[i] !== "currentPage" || itens[i] !== "itemsPerPage" || itens[i] !== "resultCount" || itens[i] !== "Paginador" ||
+                        itens[i] !== "steper" || itens[i] !== "count" || itens[i] !== "pallete" || itens[i] !== "emailmkt" ||
+                        itens[i] !== "acesso" || itens[i] !== "keysite" || itens[i] !== "tokenv3" || itens[i] !== "onsys" ||
+                        itens[i] !== "system: null" || itens[i] !== "progress") {
                     css += "--" + itens[i] + ": " + app.sys[itens[i]] + ";";
                 }
             }
