@@ -69,7 +69,7 @@ app["Eventos"] = new Vue({
     },
     methods: {
         populate: function () {
-            if (app.sys.system.hasOwnProperty(this.href)) {
+            if (!nulo(app.sys.system) && app.sys.system.hasOwnProperty(this.href)) {
                 this.src = app.sys.system[this.href];
                 app.sys.tabs(this.href);
                 app.Eventos.eventos = app.Eventos.src;

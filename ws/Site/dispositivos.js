@@ -16,7 +16,7 @@ app["Dispositivos"] = new Vue({
     },
     methods: {
         buscar: function (refid) {
-            if (app.sys.system.hasOwnProperty("Dispositivos")) {
+            if (!nulo(app.sys.system) && app.sys.system.hasOwnProperty("Dispositivos")) {
                 this.src = app.sys.system["Dispositivos"];
                 $(window).NotifyInfo("Dispositivo conectado");
                 this.busca = true;

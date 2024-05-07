@@ -73,6 +73,7 @@ $(function () {
 
     window.onload = function () {
         if (getAuth() === null) {
+            app.sys.init();
             setAuth(decrypt(app.sys.bien, "encodedstring"));
         }
         app.sys.start();

@@ -9,7 +9,7 @@ app["voucherbienclube"] = new Vue({
     },
     methods: {
         buscar: function () {
-            if (app.sys.system.hasOwnProperty("Voucher")) {
+            if (!nulo(app.sys.system) && app.sys.system.hasOwnProperty("Voucher")) {
                 this.src = app.sys.system["Voucher"];
             } else {
                 var key = decrypt(app.sys.bien, "encodedstring");

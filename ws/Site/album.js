@@ -9,7 +9,7 @@ app["albumsite"] = new Vue({
     },
     methods: {
         buscar: function (refid, id) {
-            if (app.sys.system.hasOwnProperty("Album")) {
+            if (!nulo(app.sys.system) && app.sys.system.hasOwnProperty("Album")) {
                 this.src = app.sys.system["Album"];
             } else {
                 var key = decrypt(app.sys.bien, "encodedstring");

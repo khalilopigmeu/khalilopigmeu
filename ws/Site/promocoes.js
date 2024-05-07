@@ -11,7 +11,7 @@ app["PromocaoSite"] = new Vue({
     methods: {
         buscaItens: function (refid) {
             this.href = "PromocaoItem";
-            if (app.sys.system.hasOwnProperty("PromocaoItem")) {
+            if (!nulo(app.sys.system) && app.sys.system.hasOwnProperty("PromocaoItem")) {
                 this.src = app.sys.system["PromocaoItem"];
                 this.Itemsrc = this.src;
             } else {
@@ -34,7 +34,7 @@ app["PromocaoSite"] = new Vue({
         },
         buscaPacotes: function (refid) {
             this.href = "Promocao";
-            if (app.sys.system.hasOwnProperty(this.href)) {
+            if (!nulo(app.sys.system) && app.sys.system.hasOwnProperty(this.href)) {
                 this.src = app.sys.system[this.href];
                 this.Pacotesrc = this.src;
             } else {

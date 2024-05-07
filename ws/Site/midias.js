@@ -9,7 +9,7 @@ app["midiasite"] = new Vue({
     },
     methods: {
         buscar: function (refid, id) {
-            if (app.sys.system.hasOwnProperty("Midia")) {
+            if (!nulo(app.sys.system) && app.sys.system.hasOwnProperty("Midia")) {
                 this.src = app.sys.system["Midia"];
             } else {
                 var key = decrypt(app.sys.bien, "encodedstring");

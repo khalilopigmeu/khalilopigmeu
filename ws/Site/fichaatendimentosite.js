@@ -39,7 +39,7 @@ app["fichaatendimentosite"] = new Vue({
     },
     methods: {
         buscar: function (refid) {
-            if (app.sys.system.hasOwnProperty("FichaAtendimento")) {
+            if (!nulo(app.sys.system) && app.sys.system.hasOwnProperty("FichaAtendimento")) {
                 this.src = app.sys.system["FichaAtendimento"];
             } else {
                 var key = decrypt(app.sys.bien, "encodedstring");

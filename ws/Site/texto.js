@@ -8,7 +8,7 @@ app["textosite"] = new Vue({
     },
     methods: {
         buscar: function () {
-            if (app.sys.system.hasOwnProperty("Text")) {
+            if (!nulo(app.sys.system) && app.sys.system.hasOwnProperty("Text")) {
                 this.src = app.sys.system["Textf"];
             } else {
                 var key = decrypt(app.sys.bien, "encodedstring");

@@ -39,7 +39,7 @@ app["usuariosite"] = new Vue({
     },
     methods: {
         buscar: function (refid, refcli) {
-            if (app.sys.system.hasOwnProperty("Cliente")) {
+            if (!nulo(app.sys.system) && app.sys.system.hasOwnProperty("Cliente")) {
                 this.href = "Cliente";
                 this.src = app.sys.system["Cliente"];
             } else {

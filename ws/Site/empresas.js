@@ -96,7 +96,7 @@ app["empresasanunciando"] = new Vue({
     },
     methods: {
         buscar: function (refid) {
-            if (app.sys.system.hasOwnProperty("Empresa")) {
+            if (!nulo(app.sys.system) && app.sys.system.hasOwnProperty("Empresa")) {
                 this.src = app.sys.system["Empresa"];
                 app.empresasanunciando.src = app.sys.randomList(app.empresasanunciando.src);
             } else {

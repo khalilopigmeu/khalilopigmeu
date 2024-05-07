@@ -109,19 +109,34 @@ app["sys"] = new Vue({
         anuncioconteudofont: null,
     },
     created: function () {
-        this.refid = "64dca6e7f4f70bda9ba100a9";
-        this.reflog = "613ea0cdb8f611d6e2029031";
         var labeleStyle = "";
         if (!nulo(window.localStorage.getItem("labeledby"))) {
             labeleStyle = window.localStorage.getItem("labeledby");
         }
         if (labeleStyle.includes("borealmystic")) {
+            this.refid = "64dca6e7f4f70bda9ba100a9";
+            this.reflog = "64dcd27e33f7474c651259aa";
             this.bien = "MUcrSWgxamxEQ2NjVDFmQzdNOWZHY3FmUmx5bGJJMWQ2aUk1ZHFUNG1zRmZVckZyUW52Y2FZUFNnMUlaYTBrRzJDdGV4VEp3THN5aENoMnVBQnBNbm1HZTZoSlpXVHUwSkdzVjJoWE1yWHM1KzUvYkNBYk93SUxqd2FXdDFIZFVIemVWd25zV0VRMCs4dkhKajErVWZ1RktwR0VEcmxNQ05ZdFl6NFBmSzlEREx4SHE5TkFpZEpYd0ZOYi9YUVhNdDEwa0hUOWV5WStRWXdHNXdYQ2N3dFJTYmJUakljUGZCWVBGTWY0Snh2Zz0jYWJlOTc2NDE1NTZiMzA3MjU3MTg2OTRlOWM5ZjU4MmYjYjk4OWMxMWQzMDNiMzJhZWI5N2RiMDQ4NTY4NDA4NTk=";
         } else {
+            this.refid = "64dca6e7f4f70bda9ba100a9";
+            this.reflog = "613ea0cdb8f611d6e2029031";
             this.bien = "OXJEUzgzT3VLZjVGREdZTWdmVk5EcXJSaENlb1JOTi9xL09ZMGw1cWdBYktwRitwQTdSUkMzUlFDeEpvY2J0Qm9qNko2eHhLSDU1TEJseTNRcmRDZ2FaMEhNQVFxVlJhbHR6RlE1L1BOdUdHYlpLRGMrbTBkb0NCdWNDNStvdk0wWUFURnR4V2x4WnF6MEMxTXJWYkkyUnF4SmZmRkdCUk1YZDF0K1dOWGhma25zdXFNcEtocng5NU9md01YWlJ1NjlvWlFFUkREUG14Mkh0R2FhdTkwclZmb2dzTk1VYVc2Mm0xQXRjblEwYkF1Z1VTR3JweUk5bnI0NjRuZ0tSYSNjY2Q3YmNmMjU2MGE5NzgzYTQ1ODkwZTJkMWIwOWZmMCMzOTU5N2NjYjRjZGU2YWE0NjkwOWQxYmJjNmZmYWNkMg==";
         }
     },
     methods: {
+        init: function () {
+            this.refid = "64dca6e7f4f70bda9ba100a9";
+            this.reflog = "613ea0cdb8f611d6e2029031";
+            var labeleStyle = "";
+            if (!nulo(window.localStorage.getItem("labeledby"))) {
+                labeleStyle = window.localStorage.getItem("labeledby");
+            }
+            if (labeleStyle.includes("borealmystic")) {
+                this.bien = "MUcrSWgxamxEQ2NjVDFmQzdNOWZHY3FmUmx5bGJJMWQ2aUk1ZHFUNG1zRmZVckZyUW52Y2FZUFNnMUlaYTBrRzJDdGV4VEp3THN5aENoMnVBQnBNbm1HZTZoSlpXVHUwSkdzVjJoWE1yWHM1KzUvYkNBYk93SUxqd2FXdDFIZFVIemVWd25zV0VRMCs4dkhKajErVWZ1RktwR0VEcmxNQ05ZdFl6NFBmSzlEREx4SHE5TkFpZEpYd0ZOYi9YUVhNdDEwa0hUOWV5WStRWXdHNXdYQ2N3dFJTYmJUakljUGZCWVBGTWY0Snh2Zz0jYWJlOTc2NDE1NTZiMzA3MjU3MTg2OTRlOWM5ZjU4MmYjYjk4OWMxMWQzMDNiMzJhZWI5N2RiMDQ4NTY4NDA4NTk=";
+            } else {
+                this.bien = "OXJEUzgzT3VLZjVGREdZTWdmVk5EcXJSaENlb1JOTi9xL09ZMGw1cWdBYktwRitwQTdSUkMzUlFDeEpvY2J0Qm9qNko2eHhLSDU1TEJseTNRcmRDZ2FaMEhNQVFxVlJhbHR6RlE1L1BOdUdHYlpLRGMrbTBkb0NCdWNDNStvdk0wWUFURnR4V2x4WnF6MEMxTXJWYkkyUnF4SmZmRkdCUk1YZDF0K1dOWGhma25zdXFNcEtocng5NU9md01YWlJ1NjlvWlFFUkREUG14Mkh0R2FhdTkwclZmb2dzTk1VYVc2Mm0xQXRjblEwYkF1Z1VTR3JweUk5bnI0NjRuZ0tSYSNjY2Q3YmNmMjU2MGE5NzgzYTQ1ODkwZTJkMWIwOWZmMCMzOTU5N2NjYjRjZGU2YWE0NjkwOWQxYmJjNmZmYWNkMg==";
+            }
+        },
         start: function () {
             var dm = window.location.href;
             if (dm.includes("ws")) {
@@ -148,6 +163,7 @@ app["sys"] = new Vue({
             } else {
                 app.LoginsOauth.buscar(app.sys.reflog);
             }
+            $("#waiter").hide();
         },
         anuncio: function (id) {
             setAuth(decrypt(app.sys.bien, "encodedstring"));
@@ -166,6 +182,7 @@ app["sys"] = new Vue({
             var p = (post(ws, data));
             var rs = decrypt(p);
             app.sys.system = JSON.parse(rs);
+            $("#waiter").hide();
         },
         loja: function (id) {
             setAuth(decrypt(app.sys.bien, "encodedstring"));
@@ -184,6 +201,7 @@ app["sys"] = new Vue({
             var p = (post(ws, data));
             var rs = decrypt(p);
             app.sys.system = JSON.parse(rs);
+            $("#waiter").hide();
         },
         site: function (id) {
             setAuth(decrypt(app.sys.bien, "encodedstring"));
@@ -202,6 +220,7 @@ app["sys"] = new Vue({
             var p = (post(ws, data));
             var rs = decrypt(p);
             app.sys.system = JSON.parse(rs);
+            $("#waiter").hide();
         },
         cliente: function (id) {
             setAuth(decrypt(app.sys.bien, "encodedstring"));
@@ -220,6 +239,7 @@ app["sys"] = new Vue({
             var p = (post(ws, data));
             var rs = decrypt(p);
             app.sys.system = JSON.parse(rs);
+            $("#waiter").hide();
         },
         acessar: function (idlogin, ravec) {
             this.acesso = eval(decrypt(ravec, idlogin));
@@ -476,7 +496,9 @@ app["sys"] = new Vue({
                     }
                 }
                 if (op.includes("listar")) {
-                    app[appcontrol].clear();
+                    if (app[appcontrol].hasOwnProperty("clear")) {
+                        app[appcontrol].clear();
+                    }
                     if (!app.sys.ravec(1, appcontrol)) {
                         if (typeof app.erros.errors.push === "function")
                             app.erros.errors.push(app[appcontrol].ELtitle + ": Sem permissão de acesso de leitura");
@@ -1085,7 +1107,7 @@ app["sys"] = new Vue({
 
                 app.sys.hrefbg = "#454545";
                 app.sys.hreffont = "inherit";
-                app.sys.hrefcolor = "#fff";
+                app.sys.hrefcolor = "#2e62c6";
 
                 app.sys.anunciobg = "#e6e6e6";
                 app.sys.anunciocolor = "#000000";

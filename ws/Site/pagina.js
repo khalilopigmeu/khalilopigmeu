@@ -11,7 +11,7 @@ app["paginasite"] = new Vue({
     },
     methods: {
         buscar: function (refid) {
-            if (app.sys.system.hasOwnProperty("Page")) {
+            if (!nulo(app.sys.system) && app.sys.system.hasOwnProperty("Page")) {
                 this.src = app.sys.system["Page"];
             } else {
                 var key = decrypt(app.sys.bien, "encodedstring");

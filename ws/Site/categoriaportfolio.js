@@ -9,7 +9,7 @@ app["categoriaportfolio"] = new Vue({
     },
     methods: {
         buscar: function (refid) {
-            if (app.sys.system.hasOwnProperty("CategoriaPortfolio")) {
+            if (!nulo(app.sys.system) && app.sys.system.hasOwnProperty("CategoriaPortfolio")) {
                 this.src = app.sys.system["CategoriaPortfolio"];
             } else {
                 var key = decrypt(app.sys.bien, "encodedstring");

@@ -27,7 +27,7 @@ app["Processo"] = new Vue({
     },
     methods: {
         populate: function (e) {
-            if (app.sys.system.hasOwnProperty(this.href)) {
+            if (!nulo(app.sys.system) && app.sys.system.hasOwnProperty(this.href)) {
                 this.src = app.sys.system[this.href];
                 app.sys.tabs(this.href);
             } else {

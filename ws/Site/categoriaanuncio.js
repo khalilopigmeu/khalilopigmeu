@@ -7,7 +7,7 @@ app["categoriaanuncioclube"] = new Vue({
     },
     methods: {
         buscar: function () {
-            if (app.sys.system.hasOwnProperty("CategoriaAnuncio")) {
+            if (!nulo(app.sys.system) && app.sys.system.hasOwnProperty("CategoriaAnuncio")) {
                 this.src = app.sys.system["CategoriaAnuncio"];
             } else {
                 var key = decrypt(app.sys.bien, "encodedstring");
