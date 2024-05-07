@@ -10,8 +10,10 @@ function authenticate() {
     auth = window.localStorage.getItem("auth");
     if (nulo(window.localStorage.getItem("labeledby"))) {
         labele = window.location.hostname;
+        labele = labele.replace("www","");
     } else {
         labele = window.localStorage.getItem("labeledby");
+        labele = labele.replace("www","");
     }
 }
 
