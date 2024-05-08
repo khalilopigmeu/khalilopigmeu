@@ -112,6 +112,9 @@ app["sys"] = new Vue({
         var labeleStyle = "";
         if (!nulo(window.localStorage.getItem("labeledby"))) {
             labeleStyle = window.localStorage.getItem("labeledby");
+        } else {
+            labeleStyle = window.location.hostname;
+            labeleStyle = labeleStyle.replace("www", "");
         }
         if (labeleStyle.includes("borealmystic")) {
             this.refid = "64dca6e7f4f70bda9ba100a9";
@@ -130,6 +133,9 @@ app["sys"] = new Vue({
             var labeleStyle = "";
             if (!nulo(window.localStorage.getItem("labeledby"))) {
                 labeleStyle = window.localStorage.getItem("labeledby");
+            } else {
+                labeleStyle = window.location.hostname;
+                labeleStyle = labeleStyle.replace("www", "");
             }
             if (labeleStyle.includes("borealmystic")) {
                 this.bien = "MUcrSWgxamxEQ2NjVDFmQzdNOWZHY3FmUmx5bGJJMWQ2aUk1ZHFUNG1zRmZVckZyUW52Y2FZUFNnMUlaYTBrRzJDdGV4VEp3THN5aENoMnVBQnBNbm1HZTZoSlpXVHUwSkdzVjJoWE1yWHM1KzUvYkNBYk93SUxqd2FXdDFIZFVIemVWd25zV0VRMCs4dkhKajErVWZ1RktwR0VEcmxNQ05ZdFl6NFBmSzlEREx4SHE5TkFpZEpYd0ZOYi9YUVhNdDEwa0hUOWV5WStRWXdHNXdYQ2N3dFJTYmJUakljUGZCWVBGTWY0Snh2Zz0jYWJlOTc2NDE1NTZiMzA3MjU3MTg2OTRlOWM5ZjU4MmYjYjk4OWMxMWQzMDNiMzJhZWI5N2RiMDQ4NTY4NDA4NTk=";
