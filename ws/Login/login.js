@@ -197,6 +197,8 @@ app["clientLogin"] = new Vue({
             app.sys.mascara();
         },
         cadastro: function (e) {
+            this.eula = false;
+            this.lgpd = false;
             app.sys.onsys = false;
             setAuth(decrypt(app.sys.bien, "encodedstring"));
             var biencode = {};

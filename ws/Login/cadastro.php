@@ -136,9 +136,26 @@
                                 <input type="hidden" v-model="id" name="id">
                                 <br>
                                 <div class='justify-content-center text-center m-1 p-1'>
-                                    <input type="checkbox" v-model="eula"> <a class='text-white' target="_blank" href="<?php echo $refUrl; ?>eula.php">Termos de Uso</a>
-                                    <br>
-                                    <input type="checkbox" v-model="lgpd"> <a class='text-white' target="_blank" href="<?php echo $refUrl; ?>lgpd.php">Política de privacidade</a>
+                                    <?php if (strpos($_SERVER['HTTP_HOST'], "bienclube") !== false) {
+                                        ?>
+                                        <input type="checkbox" v-model="eula"> <a class='text-white' target="_blank" href="<?php echo $refUrl; ?>eula_bienestar.pdf">Termos de Uso</a>
+                                        <br>
+                                        <input type="checkbox" v-model="lgpd"> <a class='text-white' target="_blank" href="<?php echo $refUrl; ?>lgpd_bienestar.php">Política de privacidade</a>
+                                        <?php
+                                    }
+                                    if (strpos($_SERVER['HTTP_HOST'], "rtiempresarial") !== false) {
+                                        ?>
+                                        <input type="checkbox" v-model="eula"> <a class='text-white' target="_blank" href="<?php echo $refUrl; ?>eula_bienestar.pdf">Termos de Uso</a>
+                                        <br>
+                                        <input type="checkbox" v-model="lgpd"> <a class='text-white' target="_blank" href="<?php echo $refUrl; ?>lgpd_bienestar.php">Política de privacidade</a>
+                                        <?php
+                                    }
+                                    if (strpos($_SERVER['HTTP_HOST'], "borealmystic") !== false) {
+                                        ?>
+                                        <input type="checkbox" v-model="eula"> <a class='text-white' target="_blank" href="<?php echo $refUrl; ?>eula_boreal.pdf">Termos de Uso</a>
+                                        <br>
+                                        <input type="checkbox" v-model="lgpd"> <a class='text-white' target="_blank" href="<?php echo $refUrl; ?>lgpd_boreal.php">Política de privacidade</a>
+                                    <?php } ?>
                                 </div>
                                 <hr>
                                 <input v-if='eula==true&&lgpd==true' class="btn btn-dark" type="submit" v-on:click="cadastro" value="Enviar"><br><br>
