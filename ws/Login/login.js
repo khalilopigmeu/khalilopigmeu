@@ -278,6 +278,7 @@ app["clientLogin"] = new Vue({
             biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             biencode.Modelo = this.Modelo;
             biencode.Empresa = this.Empresa;
+            biencode.Email = this.Email;
             biencode.Login = this.Login;
             biencode.Cod = window.atob("MDc3eEY=");
             biencode.Posicao = this.posicao;

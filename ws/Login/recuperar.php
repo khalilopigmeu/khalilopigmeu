@@ -11,11 +11,17 @@
                         <fieldset class="border rounded container-fluid border-dark my-3 py-3 w-90">
                             <legend class="border rounded text-center border-dark">Bem Vindo</legend>
                             <select class="form-control" v-model="Modelo">
-                                <option value="Cliente">Cliente</option>
+                                <option>Selecione o Modelo</option>
+                                <option value="Usuario">Cliente</option>
+                                <option value="Cliente">Anunciante</option>
                                 <option value="Empresa">Empresa</option>
                                 <option value="Vendedor">Vendedor</option>
-                                <option value="Revendedor">Revenda</option>
+                                <option value="Revenda">Revenda</option>
                             </select>
+                            <div v-if="Modelo=='Empresa'||Modelo=='Vendedor'||Modelo=='Revenda'">
+                                <label for="Empresa">Empresa:</label>
+                                <input  class="form-control" name="Empresa" placeholder="Empresa..."><br>
+                            </div>
                             <label for="Email">E-mail:</label>
                             <input class="form-control" name="Email" placeholder="E-mail..."><br>
                             <label for="Login">Login:</label>
