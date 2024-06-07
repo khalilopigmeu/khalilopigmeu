@@ -20,7 +20,29 @@
         </div>
     </div>
     <br>
-
+    <div class='col-5 mx-auto' v-if="Anunciante(pgid).Ativo==='true'">
+        <a v-if="Anunciante(pgid).Tipo==='1'" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'?pgid='+pgid+'&spy=pagina#anunciante'">
+            Clique para ver a página <i class="fas fa-angle-double-right"></i>
+        </a>
+        <a v-if="Anunciante(pgid).Tipo==='2'" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'?pgid='+pgid+'&spy=loja#anunciante'">
+            Clique para ver a loja <i class="fas fa-angle-double-right"></i>
+        </a>
+        <a v-if="Anunciante(pgid).Tipo==='3'" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'?pgid='+pgid+'&spy=pagina#anunciante'">
+            Clique para ver a página <i class="fas fa-angle-double-right"></i>
+        </a>
+        <a v-if="Anunciante(pgid).Tipo==='4'" target="_blank" class="btn btn-dark col-10 my-1 py-1" v-bind:href="getSite(pgid)">
+            Clique para ver o Site <i class="fas fa-angle-double-right"></i>
+        </a>
+        <a v-if="Anunciante(pgid).Tipo==='5'" target="_blank" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'https://wa.me/55'+cleanwap(itens.Celular)">
+            Clique para falar no Whatsapp <i class="fas fa-angle-double-right"></i>
+        </a>
+        <a v-if="Anunciante(pgid).Tipo==='6'" target="_blank" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'https://facebook.com/'+getFB(pgid)">
+            Clique para ir ao Facebook<i class="fas fa-angle-double-right"></i>
+        </a>
+        <a v-if="Anunciante(pgid).Tipo==='7'" target="_blank" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'https://instagram.com/'+getInsta(pgid)">
+            Clique para ir ao Instagram <i class="fas fa-angle-double-right"></i>
+        </a>
+    </div>
     <br>
     <div class="row justify-content-center text-center text-capitalize">
         <div class="row" v-if="Anunciante(pgid).endereco=='true'">

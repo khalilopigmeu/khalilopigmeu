@@ -288,6 +288,7 @@ app["clientLogin"] = new Vue({
             var p = (post(ws, data));
             var rs = decrypt(p);
             $(window).NotifySucesso(rs);
+            alert(rs);
         },
         loginEmp: function () {
             setAuth(decrypt(app.sys.bien, "encodedstring"));
