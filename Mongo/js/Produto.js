@@ -148,7 +148,9 @@ app["Produto"] = new Vue({
             for (var i = 0; i <= this.Cotacao.length - 1; i++) {
                 var id = this.Cotacao[i].split("#")[0];
                 var val = this.Cotacao[i].split("#")[1];
-                document.getElementById("cot" + id).value = val;
+                if (!nulo(document.getElementById("cot" + id))) {
+                    document.getElementById("cot" + id).value = val;
+                }
             }
             app.sys.mascara();
         },
