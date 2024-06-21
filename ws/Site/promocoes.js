@@ -10,45 +10,57 @@ app["PromocaoSite"] = new Vue({
     },
     methods: {
         buscaItens: function (refid) {
-            this.biencode = {};
-            captchaSys(app.sys.keysite);
-            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
-            if (!nulo(refid)) {
-                this.biencode.empresa = refid;
+            this.href = "PromocaoItem";
+            if (!nulo(app.sys.system) && app.sys.system.hasOwnProperty("PromocaoItem")) {
+                this.src = app.sys.system["PromocaoItem"];
+                this.Itemsrc = this.src;
             } else {
-                this.biencode.all = "";
+                this.biencode = {};
+                captchaSys(app.sys.keysite);
+                this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
+                if (!nulo(refid)) {
+                    this.biencode.empresa = refid;
+                } else {
+                    this.biencode.all = "";
+                }
+                this.Host = "Bienestar/Site/PromocaoItem/";
+                var key = decrypt(app.sys.bien, "encodedstring");
+                var data = {
+                    biencode: encrypt(JSON.stringify(this.biencode), key)
+                };
+                app.sys.crud("PromocaoSite", "listar", data);
+                this.Itemsrc = this.src;
             }
-            this.Host = "Bienestar/Site/PromocaoItem/";
-            var key = decrypt(app.sys.bien, "encodedstring");
-            var data = {
-                biencode: encrypt(JSON.stringify(this.biencode), key)
-            };
-            app.sys.crud("PromocaoSite", "listar", data);
-            this.Itemsrc = this.src;
         },
         buscaPacotes: function (refid) {
-            this.biencode = {};
-            captchaSys(app.sys.keysite);
-            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
-            if (!nulo(refid)) {
-                this.biencode.empresa = refid;
+            this.href = "Promocao";
+            if (!nulo(app.sys.system) && app.sys.system.hasOwnProperty(this.href)) {
+                this.src = app.sys.system[this.href];
+                this.Pacotesrc = this.src;
             } else {
-                this.biencode.all = "";
+                this.biencode = {};
+                captchaSys(app.sys.keysite);
+                this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
+                if (!nulo(refid)) {
+                    this.biencode.empresa = refid;
+                } else {
+                    this.biencode.all = "";
+                }
+                this.Host = "Bienestar/Site/Promocao/";
+                var key = decrypt(app.sys.bien, "encodedstring");
+                var data = {
+                    biencode: encrypt(JSON.stringify(this.biencode), key)
+                };
+                app.sys.crud("PromocaoSite", "listar", data);
+                this.Pacotesrc = this.src;
             }
-            this.Host = "Bienestar/Site/Promocao/";
-            var key = decrypt(app.sys.bien, "encodedstring");
-            var data = {
-                biencode: encrypt(JSON.stringify(this.biencode), key)
-            };
-            app.sys.crud("PromocaoSite", "listar", data);
-            this.Pacotesrc = this.src;
-        },
-        clear: function () {
-            this.src = null;
-        },
-        ravec: function (nivel) {
-            return true;
         }
+    },
+    clear: function () {
+        this.src = null;
+    },
+    ravec: function (nivel) {
+        return true;
     }
 });
         

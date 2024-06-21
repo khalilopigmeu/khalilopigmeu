@@ -4,23 +4,28 @@ app["ClasseProdutosSite"] = new Vue({
     data: {
         src: null,
         Host: "Bienestar/Produtos/ClasseProdutos/",
-        pgid: null
+        pgid: null,
+        href: "ClasseProdutos"
     },
     methods: {
         buscar: function (refid) {
-            var key = decrypt(app.sys.bien, "encodedstring");
-            this.biencode = {};
-            captchaSys(app.sys.keysite);
-            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
-            if (!nulo(refid)) {
-                this.biencode.empresa = refid;
+            if (!nulo(app.sys.system) && app.sys.system.hasOwnProperty("ClasseProdutos")) {
+                this.src = app.sys.system["ClasseProdutos"];
             } else {
-                this.biencode.all = "";
+                var key = decrypt(app.sys.bien, "encodedstring");
+                this.biencode = {};
+                captchaSys(app.sys.keysite);
+                this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
+                if (!nulo(refid)) {
+                    this.biencode.empresa = refid;
+                } else {
+                    this.biencode.all = "";
+                }
+                var data = {
+                    biencode: encrypt(JSON.stringify(this.biencode), key)
+                };
+                app.sys.crud("ClasseProdutosSite", "listar", data);
             }
-            var data = {
-                biencode: encrypt(JSON.stringify(this.biencode), key)
-            };
-            app.sys.crud("ClasseProdutosSite", "listar", data);
         },
         clear: function () {
             this.src = null;

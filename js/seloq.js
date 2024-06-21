@@ -52,16 +52,16 @@ $(function () {
     } else {
         urlSys = true;
     }
-    qrcode = new QRCode(document.getElementById("qrcode"), {
-        text: urlSite,
-        logo: "/img/sobre.png",
-        width: 85,
-        height: 85,
-        logoWidth: undefined,
-        logoHeight: undefined,
-        logoBackgroundColor: '#ffffff',
-        logoBackgroundTransparent: false
-    });
+    /*qrcode = new QRCode(document.getElementById("qrcode"), {
+     text: urlSite,
+     logo: "/img/sobre.png",
+     width: 85,
+     height: 85,
+     logoWidth: undefined,
+     logoHeight: undefined,
+     logoBackgroundColor: '#ffffff',
+     logoBackgroundTransparent: false
+     });*/
 
     window.onhashchange = function () {
         urlRead();
@@ -73,6 +73,7 @@ $(function () {
 
     window.onload = function () {
         if (getAuth() === null) {
+            app.sys.init();
             setAuth(decrypt(app.sys.bien, "encodedstring"));
         }
         app.sys.start();
@@ -195,6 +196,7 @@ function urlRead() {
     }
     if (app.sys.page === "promocao") {
         if (getParameterByName('pgid') !== null) {
+            app.sys.site(getParameterByName('pgid'));
             app.anunciante.pgid = getParameterByName('pgid');
             app.empresasanunciando.pgid = getParameterByName('pgid');
             app.paginasite.buscar();
@@ -212,6 +214,7 @@ function urlRead() {
     }
     if (app.sys.page === "portfolio") {
         if (getParameterByName('pgid') !== null) {
+            app.sys.site(getParameterByName('pgid'));
             app.anunciante.pgid = getParameterByName('pgid');
             app.empresasanunciando.pgid = getParameterByName('pgid');
             app.categoriaportfolio.buscar();
@@ -232,17 +235,18 @@ function urlRead() {
         $("#waiter").hide();
     }
     if (app.sys.page === "verproduto") {
+        app.sys.loja(getParameterByName('pgid'));
         app.ProdutosLoja.buscar(getParameterByName('pdid'));
     }
     if (app.sys.page === "anunciante") {
         if (getParameterByName('pgid') !== null) {
-            if (!nulo(getParameterByName('major'))) {
-                app.empresasanunciando.majority = parseBoolean(getParameterByName('major'));
-                app.empresasanunciando.ismajor = parseBoolean(getParameterByName('major'));
-            }
+
             $("#header").hide();
             $("#byBien").show();
             $("#menu-toggle").show();
+
+            app.sys.anuncio(getParameterByName('pgid'));
+
             app.configuracaosite.buscar(getParameterByName('pgid'));
             app.anunciante.buscar(getParameterByName('pgid'));
             app.PromocaoSite.buscaItens(getParameterByName('pgid'));
@@ -260,6 +264,7 @@ function urlRead() {
             app.empresasanunciando.pgid = getParameterByName('pgid');
             app.empresasanunciando.buscar(getParameterByName('pgid'));
             app.empresasanunciando.load();
+
             $("#menu-toggle-R i").removeClass("fa-bars").addClass("fa-shopping-bag");
             $("#menu-toggle-R").show();
             $("#menu-toggle-R .badge").show();
@@ -270,6 +275,9 @@ function urlRead() {
                 app.checkoutvenda.logado = true;
                 app.clientLogin.logado = true;
                 app.sidebarR.logado = true;
+
+                app.sys.cliente(window.localStorage.getItem("IdLoginCliente"));
+
                 app.clientLogin.getLogin(window.localStorage.getItem("IdLoginCliente"));
                 app.usuariosite.buscar(null, window.localStorage.getItem("IdLoginCliente"));
                 //app.eventossite.buscar(window.localStorage.getItem("IdLoginCliente"));
@@ -279,6 +287,7 @@ function urlRead() {
                 app.sidebarR.loja = false;
                 app.sidebarR.loja = true;
             }
+            app.sys.sytem = "";
         } else {
             $("#header").show();
             $("#byBien").hide();
@@ -297,6 +306,7 @@ function urlRead() {
         }
     }
     if (app.sys.page === "paginas") {
+        app.sys.site();
         if (getParameterByName('pg')) {
             app.paginasite.pg = getParameterByName('pg');
             app.paginasite.buscar();
@@ -311,7 +321,7 @@ function urlRead() {
         }
         $("#waiter").hide();
     }
-    qrcode.makeCode(urlSite);
+    //qrcode.makeCode(urlSite);
 }
 var widgetId1;
 var onloadCallback = function () {

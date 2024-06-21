@@ -5,22 +5,27 @@ app["anunciante"] = new Vue({
         src: null,
         Host: "Bienestar/Anuncio/Anunciante/",
         pgid: null,
+        href: "Anuncio"
     },
     methods: {
         buscar: function (refid) {
-            var key = decrypt(app.sys.bien, "encodedstring");
-            this.biencode = {};
-            captchaSys(app.sys.keysite);
-            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
-            if (!nulo(refid)) {
-                this.biencode.empresa = refid;
+            if (!nulo(app.sys.system) && app.sys.system.hasOwnProperty("Anuncio")) {
+                this.src = app.sys.system["Anuncio"];
             } else {
-                this.biencode.all = "";
+                var key = decrypt(app.sys.bien, "encodedstring");
+                this.biencode = {};
+                captchaSys(app.sys.keysite);
+                this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
+                if (!nulo(refid)) {
+                    this.biencode.empresa = refid;
+                } else {
+                    this.biencode.all = "";
+                }
+                var data = {
+                    biencode: encrypt(JSON.stringify(this.biencode), key)
+                };
+                app.sys.crud("anunciante", "listar", data);
             }
-            var data = {
-                biencode: encrypt(JSON.stringify(this.biencode), key)
-            };
-            app.sys.crud("anunciante", "listar", data);
         },
         clear: function () {
             this.src = null;

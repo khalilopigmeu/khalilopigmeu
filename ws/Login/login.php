@@ -32,9 +32,7 @@
                                             <div class="text-center justify-content-center my-4">
                                                 <button class="btn btn-dark text-white" v-on:click="loginEmp">Enviar</button>
                                                 <br><br>
-                                                <?php if (strpos($_SERVER['HTTP_HOST'], "rtiempresarial") !== false) { ?>
-                                                    <button class="btn btn-dark text-white" data-toggle="modal" data-target="#modalCliBienestar">Cadastrar</button> 
-                                                <?php } ?>
+                                                <button class="btn btn-dark text-white" data-toggle="modal" data-target="#modalCliBienestar">Cadastrar</button> 
                                                 <button class="btn btn-dark text-white" data-toggle="modal" data-target="#modalRecuperaSenha" onclick="app.GerenciamentoCliente.getRandomNumber();">Recuperar senha</button>
                                                 <br><br>
                                                 <button class="btn btn-dark" href="<?php echo $refUrl; ?>ws/Login/painel.php">Demonstração</button>
@@ -116,10 +114,10 @@
                             </fieldset>
                         </div>
                     </div>
-                    <div>
+                    <!--<div>
                         <h4>Você já está conectado, Clique aqui para ir para sua central de acesso.</h4><br>
                         <h4>Clique aqui para desconectar.</h4>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning" data-dismiss="modal">Fechar</button>

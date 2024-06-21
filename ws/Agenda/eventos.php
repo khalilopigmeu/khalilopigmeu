@@ -168,7 +168,7 @@ include $refUrl . "Mongo/FichaAtendimento.php";
 include $refUrl . "Mongo/Comissao.php";
 include $refUrl . "Mongo/LancamentoFinanceiro.php";
 include $refUrl . "Mongo/PedidoVenda.php";
-include $refUrl . "Mongo/AnuncioRapido.php";
+include $refUrl . "Mongo/ChamadaAnuncio.php";
 
 include $refUrl . "Mongo/Chamado.php";
 include $refUrl . "Mongo/Dicionario.php";
@@ -182,7 +182,7 @@ include $refUrl . "Mongo/PromocaoItem.php";
 include $refUrl . "Mongo/Promocao.php";
 include $refUrl . "Mongo/Smails.php";
 include $refUrl . "Mongo/Frete.php";
-include $refUrl . "Mongo/Customize.php";
+#include $refUrl . "Mongo/Customize.php";
 include $refUrl . "Mongo/MeioPagamento.php";
 include $refUrl . "Mongo/ConfigLoja.php";
 #include $refUrl . "Mongo/Processo.php";

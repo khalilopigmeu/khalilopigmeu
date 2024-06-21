@@ -56,7 +56,7 @@ function instanceCalendar(el, rs, evtModal) {
         slotDuration: '00:30:00',
         navLinks: true,
         events: rs,
-        select: function (info) {
+        /*select: function (info) {
             var allDay = info.allDay;
             app.Eventos.inicio = info.startStr;
             app.Eventos.fim = info.endStr;
@@ -67,14 +67,14 @@ function instanceCalendar(el, rs, evtModal) {
             }
             app.Eventos.evtDataCal = "cad";
             $(evtModal).modal();
-        },
+        },*/
         eventClick: function (info) {
             app.Eventos.evt = info.event;
             app.Eventos.autocomplete();
             app.Eventos.evtDataCal = "altexc";
             $(evtModal).modal();
         },
-        eventDrop: function (info) {
+       /* eventDrop: function (info) {
             app.Eventos.info = info;
             var d = info.delta.days;
             var ml = info.delta.milliseconds;
@@ -92,7 +92,7 @@ function instanceCalendar(el, rs, evtModal) {
             }
             app.Eventos.evtDataCal = "altexc";
             $(evtModal).modal();
-        },
+        },*/
         eventResize: function (info) {
             app.Eventos.info = info;
             var novaData = ResizeData(formatadata(calendar.formatIso(info.event.end)),

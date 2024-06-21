@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Red+Rose:wght@300..700&display=swap');
+
+h1 {
+    font-size: 4vw !important;
+}
+h2 {
+    font-size: 3.5vw !important;
+}
+h3 {
+    font-size: 3vw !important;
+}
+h4 {
+    font-size: 2.5vw !important;
+}
+h5 {
+    font-size: 2vw !important;
+}
+h6 {
+    font-size: 2vw !important;
+}
+p {
+    font-size: 1.5vw;
+}
+html,label {
+    font-size: 1.5vw;
+}
+body {
+    font-size: 1.5vw;
+}
+table {
+    font-size: 1.5vw;
+}
+td {
+    font-size: 1.5vw;
+}
+.btn,button{
+    font-size: 1.5vw;
+}
+
+#wrapper{
+    background: rgb(96,96,96);
+    background: linear-gradient(180deg, rgba(96,96,96,1) 0%, rgba(150,168,245,1) 100%);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    font-family: "Red Rose", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+.linkado{
+    color: #eee;
+}
+
+.list{
+    list-style: none;
+    list-style-position: outside;
+}

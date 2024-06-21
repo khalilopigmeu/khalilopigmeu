@@ -335,6 +335,26 @@ function nulo(el) {
     }
 }
 
+function mediana(numbers) {
+    const sorted = Array.from(numbers).sort((a, b) => a - b);
+    const middle = Math.floor(sorted.length / 2);
+
+    if (sorted.length % 2 === 0) {
+        return (sorted[middle - 1] + sorted[middle]) / 2;
+    }
+
+    return sorted[middle];
+}
+
+function media(numbers) {
+    const sorted = Array.from(numbers);
+    var total;
+    for (var i = 0; i <= sorted.length - 1; i++) {
+        total += sorted[i];
+    }
+    return total / sorted.length;
+}
+
 var ReCaptchaCallbackV3 = function () {
     grecaptcha.ready(function () {
         grecaptcha.execute(atob("NkxmdWVzb2tBQUFBQUNKY3F2UXFWcEUwb2lJX2tFTWwydmhHdzU3Sg=="), {action: 'submit'}).then(function (token) {
@@ -638,10 +658,14 @@ function validaData(data) {
 }
 
 function replaceAll(find, replace, str) {
-    if (!nulo(find) && !nulo(replace) && !nulo(str)) {
-        return str.replace(new RegExp(find, 'g'), replace);
-    } else {
+    if (nulo(find) || nulo(replace) || nulo(str)) {
         return str;
+    } else {
+        if (str.hasOwnProperty("replace")) {
+            return str.replace(new RegExp(find, 'g'), replace);
+        } else {
+            return str;
+        }
     }
 }
 

@@ -47,6 +47,7 @@ app["clientLogin"] = new Vue({
         src: null,
         logado: false,
         dadosLogin: null,
+        href: "Login",
     },
     created: function () {
         this.getRandomNumber();
@@ -71,18 +72,23 @@ app["clientLogin"] = new Vue({
             this.busca = true;
         },
         getLogin: function (refid) {
-            setAuth(decrypt(app.sys.bien, "encodedstring"));
-            var biencode = {};
-            captchaSys(app.sys.keysite);
-            biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle");
-            biencode.idcomprador = refid;
-            var data = {
-                "biencode": encrypt(JSON.stringify(biencode))
-            };
-            var ws = "Bienestar/Sistema/Login/listar";
-            var p = (post(ws, data));
-            var rs = decrypt(p);
-            app.clientLogin.dadosLogin = eval(rs);
+            if (app.sys.system.hasOwnProperty(this.href)) {
+                this.href = "Login";
+                app.clientLogin.dadosLogin = app.sys.system[this.href];
+            } else {
+                setAuth(decrypt(app.sys.bien, "encodedstring"));
+                var biencode = {};
+                captchaSys(app.sys.keysite);
+                biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle");
+                biencode.idcomprador = refid;
+                var data = {
+                    "biencode": encrypt(JSON.stringify(biencode))
+                };
+                var ws = "Bienestar/Sistema/Login/listar";
+                var p = (post(ws, data));
+                var rs = decrypt(p);
+                app.clientLogin.dadosLogin = eval(rs);
+            }
         },
         clear: function () {
 
@@ -191,6 +197,8 @@ app["clientLogin"] = new Vue({
             app.sys.mascara();
         },
         cadastro: function (e) {
+            this.eula = false;
+            this.lgpd = false;
             app.sys.onsys = false;
             setAuth(decrypt(app.sys.bien, "encodedstring"));
             var biencode = {};
@@ -270,6 +278,7 @@ app["clientLogin"] = new Vue({
             biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
             biencode.Modelo = this.Modelo;
             biencode.Empresa = this.Empresa;
+            biencode.Email = this.Email;
             biencode.Login = this.Login;
             biencode.Cod = window.atob("MDc3eEY=");
             biencode.Posicao = this.posicao;
@@ -280,6 +289,7 @@ app["clientLogin"] = new Vue({
             var p = (post(ws, data));
             var rs = decrypt(p);
             $(window).NotifySucesso(rs);
+            alert(rs);
         },
         loginEmp: function () {
             setAuth(decrypt(app.sys.bien, "encodedstring"));

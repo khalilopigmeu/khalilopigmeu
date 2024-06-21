@@ -27,6 +27,12 @@ app["Home"] = new Vue({
              var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
              this.diferenca = Math.round(Difference_In_Days);*/
        },
+       boreal:function(){
+         window.localStorage.setItem("labeledby","borealmystic.com.br");  
+       },
+       bienestar:function(){
+         window.localStorage.setItem("labeledby","bienclube.com.br");  
+       }
     }
 });
  

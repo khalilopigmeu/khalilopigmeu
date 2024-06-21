@@ -15,8 +15,5 @@
 </div>
 <script src="<?php echo $cdn; ?>ws/Site/categoriaanuncio.js"></script>
 <script src="<?php echo $cdn; ?>ws/Site/anuncio.js"></script>
-<script>
-app.categoriaanuncioclube.buscar();
-app.anunciobienclube.buscar();
-</script>
+
 <?php include"footer.php"; ?>

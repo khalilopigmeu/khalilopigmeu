@@ -13,19 +13,19 @@
                 </script>
                 <div class="row justify-content-center">
                     <form action="" method="post">
-                        <fieldset class="border rounded container-fluid border-dark my-3 py-3 w-90">
+                        <fieldset class="border row rounded container-fluid border-dark mx-auto w-90">
                             <legend class="border rounded text-center border-dark">Dados de cliente</legend>
-                            <fieldset>
+                            <fieldset class="col-12">
                                 <label>Tipo de cadastro:</label>
                                 <select class="form-control" v-model="optCad" name="optCad">
                                     <option selected>Selecione o tipo de cadastro</option>
-                                    <option value="usuario">Usuário</option>
+                                    <option value="usuario">Cliente</option>
                                     <option value="fisica">Anunciante</option>
                                     <option value="juridica">Empresa</option>
                                 </select><br>
                             </fieldset>
-                            <fieldset v-if="optCad==='juridica'" class="border rounded container-fluid border-dark">
-                                <legend class="border rounded text-center border-dark">Pessoa Jurídica</legend>
+                            <fieldset v-if="optCad==='juridica'" class="col-6 border rounded container-fluid border-dark">
+                                <legend class="border rounded text-center border-dark">Empresa</legend>
                                 <label for="NomeFantasia">Nome Fantasia:</label>
                                 <input type="text" v-model="NomeFantasia" name="Nome" class="form-control"><br>
                                 <label for="Cnpj">CNPJ:</label>
@@ -97,8 +97,9 @@
                                     <input type="text" v-model="DataNasc" name="DataNasc" class="data datepicker form-control"><br>
                                 </fieldset>
                             </fieldset>
-                            <fieldset  v-else class="border rounded container-fluid border-dark">
-                                <legend class="border rounded text-center border-dark">Pessoa Física</legend>
+                            <fieldset  v-else class="col-6 border rounded container-fluid border-dark">
+                                <legend v-if="optCad==='usuario'" class="border rounded text-center border-dark">Cliente</legend>
+                                <legend v-if="optCad==='fisica'" class="border rounded text-center border-dark">Anunciante</legend>
                                 <label for="Cpf">CPF:</label>
                                 <input type="text" class="cpf form-control" v-on:blur="app.sys.consultaCad('cliente',app.clientLogin.Cpf)" placeholder="xxx.xxx.xxx-xx" v-on:focus="mascara" v-model="Cpf" name="Cpf"><br>
                                 <label for="Rg">Rg:</label>
@@ -122,24 +123,44 @@
                                 <label for="Complemento">Complemento:</label>
                                 <input type="text" v-model="Complemento" name="Complemento" class="form-control" ><br>
                             </fieldset>
-                            <br>
-                            <label for="celular">Celular:</label>
-                            <input type="text" v-model="Celular" name="Celular" class="celular form-control" placeholder="(xx) xxxxx-xxxx" ><br>
-                            <label for="Email">Email:</label>
-                            <input type="email" placeholder="email@email.com"  class="form-control" v-on:blur="app.sys.consultaCad('login',app.clientLogin.Email)" v-model="Email" name="Email" required="required"><br>
-                            <label for="Login">Login:</label>
-                            <input type="text" v-model="Login" name="Login" class="loginc form-control" required="required"><br>
-                            <label for="Senha">Senha:</label>
-                            <input type="password" class="form-control" v-model="Senha" name="Senha" required="required"><br>
-                            <input type="hidden" v-model="id" name="id">
-                            <br>
-                            <div class='justify-content-center text-center m-1 p-1'>
-                                <input type="checkbox" v-model="eula"> <a class='text-white' target="_blank" href="<?php echo $refUrl; ?>eula.php">Termos de Uso</a>
+                            <fieldset class="col-6 border rounded container-fluid border-dark">
+                                <legend  class="border rounded text-center border-dark">Acesso</legend>
+                                <label for="celular">Celular:</label>
+                                <input type="text" v-model="Celular" name="Celular" class="celular form-control" placeholder="(xx) xxxxx-xxxx" ><br>
+                                <label for="Email">Email:</label>
+                                <input type="email" placeholder="email@email.com"  class="form-control" v-on:blur="app.sys.consultaCad('login',app.clientLogin.Email)" v-model="Email" name="Email" required="required"><br>
+                                <label for="Login">Login:</label>
+                                <input type="text" v-model="Login" name="Login" class="loginc form-control" required="required"><br>
+                                <label for="Senha">Senha:</label>
+                                <input type="password" class="form-control" v-model="Senha" name="Senha" required="required"><br>
+                                <input type="hidden" v-model="id" name="id">
                                 <br>
-                                <input type="checkbox" v-model="lgpd"> <a class='text-white' target="_blank" href="<?php echo $refUrl; ?>lgpd.php">Política de privacidade</a>
-                            </div>
-                            <hr>
-                            <input v-if='eula==true&&lgpd==true&&app.sys.onsys==true' class="btn btn-dark" type="submit" v-on:click="cadastro" value="Enviar"><br><br>
+                                <div class='justify-content-center text-center m-1 p-1'>
+                                    <?php if (strpos($_SERVER['HTTP_HOST'], "bienclube") !== false) {
+                                        ?>
+                                        <input type="checkbox" v-model="eula"> <a class='text-white' target="_blank" href="<?php echo $refUrl; ?>eula_bienestar.pdf">Termos de Uso</a>
+                                        <br>
+                                        <input type="checkbox" v-model="lgpd"> <a class='text-white' target="_blank" href="<?php echo $refUrl; ?>lgpd_bienestar.php">Política de privacidade</a>
+                                        <?php
+                                    }
+                                    if (strpos($_SERVER['HTTP_HOST'], "rtiempresarial") !== false) {
+                                        ?>
+                                        <input type="checkbox" v-model="eula"> <a class='text-white' target="_blank" href="<?php echo $refUrl; ?>eula_bienestar.pdf">Termos de Uso</a>
+                                        <br>
+                                        <input type="checkbox" v-model="lgpd"> <a class='text-white' target="_blank" href="<?php echo $refUrl; ?>lgpd_bienestar.php">Política de privacidade</a>
+                                        <?php
+                                    }
+                                    if (strpos($_SERVER['HTTP_HOST'], "borealmystic") !== false) {
+                                        ?>
+                                        <input type="checkbox" v-model="eula"> <a class='text-white' target="_blank" href="<?php echo $refUrl; ?>eula_boreal.pdf">Termos de Uso</a>
+                                        <br>
+                                        <input type="checkbox" v-model="lgpd"> <a class='text-white' target="_blank" href="<?php echo $refUrl; ?>lgpd_boreal.php">Política de privacidade</a>
+                                    <?php } ?>
+                                </div>
+                                <hr>
+                                <input v-if='eula==true&&lgpd==true' class="btn btn-dark" type="submit" v-on:click="cadastro" value="Enviar"><br><br>
+                            </fieldset>
+                            <br>
                         </fieldset>
                     </form>
                 </div>
