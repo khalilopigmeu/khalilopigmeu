@@ -37,18 +37,24 @@ app["Login"] = new Vue({
         Configuracaosrc: null,
         Revendasrc: null,
         Vendedorsrc: null,
+        optCad: null,
     },
     methods: {
         populate: function () {
-            this.biencode = {};
-            captchaSys(app.sys.keysite);
-            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
-            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-            var data = {
-                biencode: encrypt(JSON.stringify(this.biencode))
-            };
-            app.sys.crud(app.Login.href, "listar", data);
-            app.sys.tabs(this.href);
+            if (!nulo(app.sys.system) && app.sys.system.hasOwnProperty(this.href)) {
+                this.src = app.sys.system[this.href];
+                app.sys.tabs(this.href);
+            } else {
+                this.biencode = {};
+                captchaSys(app.sys.keysite);
+                this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
+                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+                var data = {
+                    biencode: encrypt(JSON.stringify(this.biencode))
+                };
+                app.sys.crud(app.Login.href, "listar", data);
+                app.sys.tabs(this.href);
+            }
         },
         clear: function () {
             this.IdRevenda = null;
@@ -89,7 +95,14 @@ app["Login"] = new Vue({
             app.erros.errors = {};
             this.biencode = {};
             captchaSys(app.sys.keysite);
-            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
+            if (this.optCad === "usuario") {
+                this.biencode.modelo = "Usuario";
+            } else if (this.optCad === "fisica") {
+                this.biencode.modelo = "Cliente";
+            } else if (this.optCad === "juridica") {
+                this.biencode.modelo = "Empresa";
+            }
+            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle");
             this.biencode.IdRevenda = this.IdRevenda;
             this.biencode.IdVendedor = this.IdVendedor;
             this.biencode.IdFunc = this.IdFunc;

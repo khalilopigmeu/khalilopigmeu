@@ -71,10 +71,11 @@ include $refUrl . "Mongo/template/head.php"
         <span class="btn" onclick="setModal('SubcategoriaProdutos', 'Produto')">Adicionar Subcategoria <i class="far fa-plus-square"></i></span><br>
     </div>
     <div class="tab-pane fade" id="nav-info" role="tabpanel" aria-labelledby="nav-evt-tab">
-        <label>Album:</label>
-        <select class="form-control" v-model="IdAlbum">
-            <option>Selecione o album</option>
-            <option v-for="el in app.sys.sorter(AlbumSrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.NomeAlbum}}</option>
+        <label>Pesquisar albuns:</label><input class="form-control" type="text" v-model="pesqAlbum"><br>
+        <label>Álbum:</label>
+        <select class="form-control" v-model="IdAlbum" placeholder="">
+            <option>Selecione um</option>
+            <option v-for="el in app.sys.sorter(app.sys.searchall(AlbumSrc,pesqAlbum),'DESC','id')" v-bind:value="el._id['$oid']">{{el.NomeAlbum}}</option>
         </select>
         <span class="btn" onclick="setModal('Album', 'Produto')">Adicionar Album <i class="far fa-plus-square"></i></span><br><br>
         <div class="row">
@@ -91,7 +92,7 @@ include $refUrl . "Mongo/template/head.php"
                 <label>Código de produto:</label>
                 <input class="form-control" v-model="CodProduto" placeholder=""><br>
                 <label>Nome:</label>
-                <input class="form-control" v-model="NomeProduto" placeholder="" required="required"><br>
+                <input class="form-control" v-model="NomeProduto" placeholder=""><br>
                 <label>Características:</label>
                 <textarea class="form-control" name="caracteristica" placeholder=""></textarea><br>
                 <label>Especificação:</label>

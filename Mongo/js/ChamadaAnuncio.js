@@ -1,7 +1,7 @@
 "use strict",
-//FingerData
-app["FingerData"] = new Vue({
-    el: '#FingerData',
+//ChamadoAnuncio
+app["ChamadaAnuncio"] = new Vue({
+    el: '#ChamadaAnuncio',
     data: {
         evtDataCal: "cad",
         src: null,
@@ -11,24 +11,18 @@ app["FingerData"] = new Vue({
         stepkey: 0,
         href: null,
         ELtitle: null,
-        Icon: '<i class="fas fa-list-ol"></i>',
+        Icon: '<i class="fab fa-cloudscale"></i>',
         pesqTbl: "",
-        Host: "Bienestar/Sistema/FingerData/",
+        Host: "Bienestar/Anuncio/ChamadaAnuncio/",
         paginate: [],
 
-        IdFuncionario: null,
-        E1: null,
-        E2: null,
-        E3: null,
-        E4: null,
-        E5: null,
-        D1: null,
-        D2: null,
-        D3: null,
-        D4: null,
-        D5: null,
+        Link: null,
+        Titulo: null,
+        Mensagem: null,
+        Background: null,
+        Acessos: null,
 
-        FuncionarioSrc: null,
+        Loginsrc: null,
     },
     methods: {
         populate: function () {
@@ -43,54 +37,37 @@ app["FingerData"] = new Vue({
                 var data = {
                     biencode: encrypt(JSON.stringify(this.biencode))
                 };
-                app.sys.crud(app.FingerData.href, "listar", data);
+                app.sys.crud(app.AnuncioRapido.href, "listar", data);
                 app.sys.tabs(this.href);
             }
         },
         clear: function () {
-            this.IdFuncionario = null;
-            this.D1 = null;
-            this.D2 = null;
-            this.D3 = null;
-            this.D4 = null;
-            this.D5 = null;
-            this.E1 = null;
-            this.E2 = null;
-            this.E3 = null;
-            this.E4 = null;
-            this.E5 = null;
+            this.id = null;
+            this.Link = null;
+            this.Titulo = null;
+            this.Mensagem = null;
+            this.Background = null;
+            CKEDITOR.instances['mensagemchamada'].setData("");
         },
         autocomplete: function () {
-            this.IdFuncionario = this.row[1];
-            this.D1 = this.row[2];
-            this.D2 = this.row[3];
-            this.D3 = this.row[4];
-            this.D4 = this.row[5];
-            this.D5 = this.row[6];
-            this.E1 = this.row[7];
-            this.E2 = this.row[8];
-            this.E3 = this.row[9];
-            this.E4 = this.row[10];
-            this.E5 = this.row[11];
             this.id = this.row[0];
+            this.Link = this.row[3];
+            this.Titulo = this.row[1];
+            this.Mensagem = this.row[2];
+            CKEDITOR.instances['mensagemchamada'].setData(unescapeHTML(this.Mensagem))
+            this.Background = this.row[4];
         },
         checkForm: function () {
             app.erros.errors = {};
             this.biencode = {};
             captchaSys(app.sys.keysite);
             this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
-            this.biencode.IdFuncionario = this.IdFuncionario;
-            this.biencode.D1 = this.D1;
-            this.biencode.D2 = this.D2;
-            this.biencode.D3 = this.D3;
-            this.biencode.D4 = this.D4;
-            this.biencode.D5 = this.D5;
-            this.biencode.E1 = this.E1;
-            this.biencode.E2 = this.E2;
-            this.biencode.E3 = this.E3;
-            this.biencode.E4 = this.E4;
-            this.biencode.E5 = this.E5;
             this.biencode.id = this.id;
+            this.biencode.Link = this.Link;
+            this.biencode.Titulo = this.Titulo;
+            this.Mensagem = CKEDITOR.instances['mensagemchamada'].getData();
+            this.biencode.Mensagem = this.Mensagem;
+            this.biencode.Background = this.Background;
             this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
         },
         cadastrar: function () {
@@ -106,6 +83,7 @@ app["FingerData"] = new Vue({
             app.sys.crud(this.href, "rel", null);
         },
         cad: function () {
+
             this.evtDataCal = "cad";
         },
         alt: function () {
@@ -117,16 +95,38 @@ app["FingerData"] = new Vue({
         exc: function () {
             this.evtDataCal = "exc";
         },
+        pesq: function (arr, pesq) {
+            let filteredList = arr.filter(field => app.ChamadoAnuncio.valida(field, pesq));
+            return filteredList;
+        },
+        valida: function (field, pesq) {
+            var keys = Object.keys(field);
+            var flag = false;
+            for (var i = 0; i <= keys.length - 1; i++) {
+                try {
+                    var p = field[keys[i]].toLowerCase().indexOf(pesq.toLowerCase());
+                    if (p >= 0) {
+                        flag = true;
+                    }
+                } catch (e) {
+
+                }
+            }
+            return flag;
+        },
         Criarpaginas: function () {
             app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
-            if (nulo(app.Funcionarios)) {
-                this.FuncionarioSrc = [];
+            if (nulo(app.Login)) {
+                this.Loginsrc = [];
             } else {
-                this.FuncionarioSrc = app.Funcionarios.src;
+                this.Loginsrc = app.Login.src;
             }
 
         },
     }
 });
+function update(picker) {
+    app.ChamadoAnuncio.Cor = picker.dataset.currentColor;
+}

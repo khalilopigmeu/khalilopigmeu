@@ -69,39 +69,46 @@ app["Eventos"] = new Vue({
     },
     methods: {
         populate: function () {
-            this.biencode = {};
-            captchaSys(app.sys.keysite);
-            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
-            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-            var d = new Date();
-            var m = d.getMonth() + 1;
-            var y = d.getFullYear();
-            this.biencode.inicio = y + "-" + m;
-            if (!nulo(app.CategoriaEventos.src) && app.CategoriaEventos.src.length > 0) {
-                this.biencode.grupo = "";
-                for (var i = 0; i <= app.CategoriaEventos.src.length - 1; i++) {
-                    this.biencode.grupo += app.CategoriaEventos.src[i]._id['$oid'];
-                    if (i < app.CategoriaEventos.src.length - 1) {
-                        this.biencode.grupo += ",";
+            if (!nulo(app.sys.system) && app.sys.system.hasOwnProperty(this.href)) {
+                this.src = app.sys.system[this.href];
+                app.sys.tabs(this.href);
+                app.Eventos.eventos = app.Eventos.src;
+                app.calendar.load();
+                this.itensporpagina = app.sys.itemsPerPage;
+            } else {
+                this.biencode = {};
+                captchaSys(app.sys.keysite);
+                this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
+                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+                var d = new Date();
+                var m = d.getMonth() + 1;
+                var y = d.getFullYear();
+                this.biencode.inicio = y + "-" + m;
+                if (!nulo(app.CategoriaEventos.src) && app.CategoriaEventos.src.length > 0) {
+                    this.biencode.grupo = "";
+                    for (var i = 0; i <= app.CategoriaEventos.src.length - 1; i++) {
+                        this.biencode.grupo += app.CategoriaEventos.src[i]._id['$oid'];
+                        if (i < app.CategoriaEventos.src.length - 1) {
+                            this.biencode.grupo += ",";
+                        }
                     }
                 }
+                if (app.calendar.iniciopesq !== null) {
+                    this.biencode.inicio = app.calendar.iniciopesq;
+                }
+                if (app.calendar.fimpesq !== null) {
+                    this.biencode.fim = app.calendar.fimpesq;
+                }
+                var data = {
+                    biencode: encrypt(JSON.stringify(this.biencode))
+                };
+                app.sys.crud(app.Eventos.href, "listar", data);
+                app.Eventos.eventos = app.Eventos.src;
+                app.Eventos.src = null;
+                app.calendar.load();
+                app.sys.tabs(this.href);
+                this.itensporpagina = app.sys.itemsPerPage;
             }
-            if (app.calendar.iniciopesq !== null) {
-                this.biencode.inicio = app.calendar.iniciopesq;
-            }
-            if (app.calendar.fimpesq !== null) {
-                this.biencode.fim = app.calendar.fimpesq;
-            }
-            console.log(this.biencode);
-            var data = {
-                biencode: encrypt(JSON.stringify(this.biencode))
-            };
-            app.sys.crud(app.Eventos.href, "listar", data);
-            app.Eventos.eventos = app.Eventos.src;
-            app.Eventos.src = null;
-            app.calendar.load();
-            app.sys.tabs(this.href);
-            this.itensporpagina = app.sys.itemsPerPage;
         },
         clear: function () {
             this.groupId = null;
@@ -128,41 +135,47 @@ app["Eventos"] = new Vue({
             this.OrdemProducao = [];
         },
         autocomplete: function () {
-            this.groupId = this.evt.groupId;
-            this.allDay = parseBoolean(this.evt.allDay);
-            this.start = calendar.formatIso(this.evt.start);
-            this.inicio = ISOdata(calendar.formatIso(this.start));
-            app.AnotacaoAgenda.datapesq = this.inicio;
-            this.horai = formatahora(calendar.formatIso(this.start));
-            if (!nulo(this.evt.end)) {
-                this.end = calendar.formatIso(this.evt.end);
-                this.fim = ISOdata(calendar.formatIso(this.end));
-                this.horaf = formatahora(calendar.formatIso(this.end));
+            app.Eventos.groupId = app.Eventos.evt.groupId;
+            app.Eventos.allDay = parseBoolean(app.Eventos.evt._def.allDay);
+            app.Eventos.start = calendar.formatIso(app.Eventos.evt.start);
+            app.Eventos.inicio = ISOdata(calendar.formatIso(app.Eventos.start));
+            app.AnotacaoAgenda.datapesq = app.Eventos.inicio;
+            app.Eventos.horai = formatahora(calendar.formatIso(app.Eventos.start));
+            if (!nulo(app.Eventos.evt.end)) {
+                app.Eventos.end = calendar.formatIso(app.Eventos.evt.end);
+                app.Eventos.fim = ISOdata(calendar.formatIso(app.Eventos.end));
+                app.Eventos.horaf = formatahora(calendar.formatIso(app.Eventos.end));
+            } else {
+                app.Eventos.end = calendar.formatIso(app.Eventos.evt.start);
+                app.Eventos.fim = ISOdata(calendar.formatIso(app.Eventos.start));
+                app.Eventos.horaf = formatahora(calendar.formatIso(app.Eventos.start));
             }
-            this.title = this.evt.title;
-            this.classNames = this.evt.classNames;
-            this.overlap = this.evt.overlap;
-            this.backgroundColor = this.evt.backgroundColor;
-            this.borderColor = this.evt.borderColor;
-            this.textColor = this.evt.textColor;
-            this.daysOfWeek = this.evt.daysOfWeek;
-            this.startTime = this.evt.startTime;
-            this.endTime = this.evt.endTime;
-            this.startRecur = this.evt.startRecur;
-            this.endRecur = this.evt.endRecur;
+            app.Eventos.title = app.Eventos.evt._def.title;
+            app.Eventos.classNames = app.Eventos.evt.classNames;
+            app.Eventos.overlap = app.Eventos.evt.overlap;
+            app.Eventos.backgroundColor = app.Eventos.evt.backgroundColor;
+            app.Eventos.borderColor = app.Eventos.evt.borderColor;
+            app.Eventos.textColor = app.Eventos.evt.textColor;
+            app.Eventos.daysOfWeek = app.Eventos.evt.daysOfWeek;
+            app.Eventos.startTime = app.Eventos.evt.startTime;
+            app.Eventos.endTime = app.Eventos.evt.endTime;
+            app.Eventos.startRecur = app.Eventos.evt.startRecur;
+            app.Eventos.endRecur = app.Eventos.evt.endRecur;
 
-            this.extendedProps = this.evt.extendedProps;
-            this.observacao = this.extendedProps.descricao;
-            CKEDITOR.instances['observacaoagenda'].setData(unescapeHTML(this.observacao))
+            app.Eventos.extendedProps = app.Eventos.evt.extendedProps;
+            
+            app.Eventos.observacao = app.Eventos.extendedProps.descricao;
+            CKEDITOR.instances['observacaoagenda'].setData(unescapeHTML(app.Eventos.observacao))
 
-            this.IdCliente = this.extendedProps.IdCliente;
-            this.FichaAtendimento = this.extendedProps.FichaAtendimento;
-            this.LancamentoFinanceiro = this.extendedProps.LancamentoFinanceiro;
-            this.PedidoDeVenda = this.extendedProps.PedidoDeVenda;
-            this.OrdemServico = this.extendedProps.OrdemServico;
-            this.OrdemProducao = this.extendedProps.OrdemProducao;
-            this.id = this.extendedProps._id.$oid;
+            app.Eventos.IdCliente = app.Eventos.extendedProps.IdCliente;
+            app.Eventos.FichaAtendimento = app.Eventos.extendedProps.FichaAtendimento;
+            app.Eventos.LancamentoFinanceiro = app.Eventos.extendedProps.LancamentoFinanceiro;
+            app.Eventos.PedidoDeVenda = app.Eventos.extendedProps.PedidoDeVenda;
+            app.Eventos.OrdemServico = app.Eventos.extendedProps.OrdemServico;
+            app.Eventos.OrdemProducao = app.Eventos.extendedProps.OrdemProducao;
+            app.Eventos.id = app.Eventos.extendedProps._id.$oid;
             app.sys.mascara();
+            
         },
         checkForm: function () {
             app.erros.errors = {};

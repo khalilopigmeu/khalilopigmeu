@@ -24,16 +24,21 @@ app["PlanoSaude"] = new Vue({
     },
     methods: {
         populate: function (e) {
-            this.biencode = {};
-            captchaSys(app.sys.keysite);
-            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
-            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-            this.biencode.data = app.AnotacaoAgenda.datapesq;
-            var data = {
-                biencode: encrypt(JSON.stringify(this.biencode))
-            };
-            app.sys.crud(app.PlanoSaude.href, "listar", data);
-            app.sys.tabs(this.href);
+            if (!nulo(app.sys.system) && app.sys.system.hasOwnProperty(this.href)) {
+                this.src = app.sys.system[this.href];
+                app.sys.tabs(this.href);
+            } else {
+                this.biencode = {};
+                captchaSys(app.sys.keysite);
+                this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
+                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+                this.biencode.data = app.AnotacaoAgenda.datapesq;
+                var data = {
+                    biencode: encrypt(JSON.stringify(this.biencode))
+                };
+                app.sys.crud(app.PlanoSaude.href, "listar", data);
+                app.sys.tabs(this.href);
+            }
         },
         clear: function () {
             this.Tipo = null;

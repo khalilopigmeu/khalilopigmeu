@@ -33,6 +33,13 @@ $tdvue = ["" . $page => ["app.sys.foreignKeyReplace(Funcionariosrc,'Nome',td.IdF
 
 include $refUrl . "Mongo/template/head.php"
 ?>
+<label>Tipo de login:</label>
+<select class="form-control" v-model="optCad" name="optCad">
+    <option selected>Selecione o tipo de cadastro</option>
+    <option value="usuario">Cliente</option>
+    <option value="fisica">Anunciante</option>
+    <option value="juridica">Empresa</option>
+</select><br>
 <label>Funcionário:</label>
 <select class="form-control" v-model="IdFunc" placeholder="Campo...">
     <option  v-if="Funcionariosrc!=null" v-for="el in app.sys.sorter(Funcionariosrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>

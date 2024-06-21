@@ -28,6 +28,9 @@ app["RootAccess"] = new Vue({
     },
     methods: {
         populate: function () {
+
+        },
+        listar: function () {
             this.Host = "Bienestar/Gestao/Empresa/";
             this.biencode = {};
             captchaSys(app.sys.keysite);

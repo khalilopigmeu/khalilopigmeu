@@ -27,18 +27,23 @@ app["Processo"] = new Vue({
     },
     methods: {
         populate: function (e) {
-            this.clear();
-            if (!this.ravec(1)) {
-                $(function () {
-                    $(window).NotifyRavec(this.ELtitle);
-                });
+            if (!nulo(app.sys.system) && app.sys.system.hasOwnProperty(this.href)) {
+                this.src = app.sys.system[this.href];
+                app.sys.tabs(this.href);
             } else {
-                e.preventDefault();
-                var data = {};
-                var ws = host("Bienestar", "Processp", "listar");
-                data[""] = encrypt();
-                var p = (post(ws, data));
-                this.src = decrypt(p);
+                this.clear();
+                if (!this.ravec(1)) {
+                    $(function () {
+                        $(window).NotifyRavec(this.ELtitle);
+                    });
+                } else {
+                    e.preventDefault();
+                    var data = {};
+                    var ws = host("Bienestar", "Processp", "listar");
+                    data[""] = encrypt();
+                    var p = (post(ws, data));
+                    this.src = decrypt(p);
+                }
             }
         },
         clear: function () {
@@ -95,7 +100,7 @@ app["Processo"] = new Vue({
             this.evtDataCal = "exc";
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
             if (nulo(app.Profissional)) {
@@ -108,7 +113,7 @@ app["Processo"] = new Vue({
             } else {
                 this.Produtosrc = app.Produto.src;
             }
-            
+
         }
     }
 });

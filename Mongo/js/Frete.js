@@ -28,29 +28,22 @@ app["Frete"] = new Vue({
         nVlValorDeclarado: null,
         sCdAvisoRecebimento: null,
     },
-    created: function () {
-        var biencode = {};
-        captchaSys(app.sys.keysite);
-        biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle");
-        var data = {
-            "biencode": encrypt(JSON.stringify(biencode))
-        };
-        var ws = "Bienestar/Loja/Frete/ListaCorreio";
-        var p = (post(ws, data));
-        var rs = decrypt(p);
-        console.log(rs);
-    },
     methods: {
         populate: function () {
-            this.biencode = {};
-            captchaSys(app.sys.keysite);
-            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
-            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-            var data = {
-                biencode: encrypt(JSON.stringify(this.biencode))
-            };
-            app.sys.crud(app.Frete.href, "listar", data);
-            app.sys.tabs(this.href);
+            if (!nulo(app.sys.system) && app.sys.system.hasOwnProperty(this.href)) {
+                this.src = app.sys.system[this.href];
+                app.sys.tabs(this.href);
+            } else {
+                this.biencode = {};
+                captchaSys(app.sys.keysite);
+                this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
+                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+                var data = {
+                    biencode: encrypt(JSON.stringify(this.biencode))
+                };
+                app.sys.crud(app.Frete.href, "listar", data);
+                app.sys.tabs(this.href);
+            }
         },
         clear: function () {
             this.nCdEmpresa = null;

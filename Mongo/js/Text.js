@@ -14,7 +14,7 @@ app["Text"] = new Vue({
         Icon: '<i class="fas fa-align-center"></i>',
         pesqTbl: "",
         Host: "Bienestar/Textos/Text/",
-        paginate:[],
+        paginate: [],
 
         DataPublicacao: null,
         DataPostagemText: null,
@@ -30,15 +30,20 @@ app["Text"] = new Vue({
     },
     methods: {
         populate: function () {
-            this.biencode = {};
-            this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
-            this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
-            this.biencode.acesso = window.localStorage.getItem("IdLogin");
-            var data = {
-                biencode: encrypt(JSON.stringify(this.biencode))
-            };
-            app.sys.crud(app.Text.href, "listar", data);
-            app.sys.tabs(this.href);
+            if (!nulo(app.sys.system) && app.sys.system.hasOwnProperty(this.href)) {
+                this.src = app.sys.system[this.href];
+                app.sys.tabs(this.href);
+            } else {
+                this.biencode = {};
+                this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
+                this.biencode.empresa = window.localStorage.getItem("IdEmpresa");
+                this.biencode.acesso = window.localStorage.getItem("IdLogin");
+                var data = {
+                    biencode: encrypt(JSON.stringify(this.biencode))
+                };
+                app.sys.crud(app.Text.href, "listar", data);
+                app.sys.tabs(this.href);
+            }
         },
         clear: function () {
             this.id = null;
@@ -111,7 +116,7 @@ app["Text"] = new Vue({
             this.evtDataCal = "exc";
         },
         Criarpaginas: function () {
-            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src,this.pesqTbl),'DESC','_id.$oid'), this.href, [this.href, "paginate"]);
+            app.sys.paginate(app.sys.sorter(app.sys.searchall(this.src, this.pesqTbl), 'DESC', '_id.$oid'), this.href, [this.href, "paginate"]);
         },
         load: function () {
             if (nulo(app.CategoriaText)) {
@@ -124,7 +129,7 @@ app["Text"] = new Vue({
             } else {
                 this.AlbumSrc = app.Album.src;
             }
-            
+
         }
     }
 });
