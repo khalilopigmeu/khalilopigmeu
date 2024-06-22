@@ -81,11 +81,11 @@ include $refUrl . "Mongo/template/head.php"
         <div class="row">
             <div class="col-4">
                 <div v-if="!nulo(IdAlbum)">
-                    <img v-if="app.sys.searchall(app.Midia.src,IdAlbum)[0].Tipo==1" v-bind:src="app.sys.searchall(app.Midia.src,IdAlbum)[0].UrlMidia" class="img-fluid img-thumbnail">
-                    <audio v-if="app.sys.searchall(app.Midia.src,IdAlbum)[0].Tipo==2" controls><source v-bind:src="app.sys.searchall(app.Midia.src,IdAlbum)[0].UrlMidia"></audio>
-                    <video v-if="app.sys.searchall(app.Midia.src,IdAlbum)[0].Tipo==3" controls><source v-bind:src="app.sys.searchall(app.Midia.src,IdAlbum)[0].UrlMidia"></video>
-                    <a href v-if="app.sys.searchall(app.Midia.src,IdAlbum)[0].Tipo==4" v-bind:src="app.sys.searchall(app.Midia.src,IdAlbum)[0].UrlMidia" target="_blank">Mídia</a>
-                    <a href v-if="app.sys.searchall(app.Midia.src,IdAlbum)[0].Tipo==5" v-bind:src="app.sys.searchall(app.Midia.src,IdAlbum)[0].UrlMidia" target="_blank">Mídia</a>
+                    <img v-if="app.sys.searchall(app.Midia.src,IdAlbum).length>0 && app.sys.searchall(app.Midia.src,IdAlbum)[0].Tipo==1" v-bind:src="app.sys.searchall(app.Midia.src,IdAlbum)[0].UrlMidia" class="img-fluid img-thumbnail">
+                    <audio v-if="app.sys.searchall(app.Midia.src,IdAlbum).length>0 && app.sys.searchall(app.Midia.src,IdAlbum)[0].Tipo==2" controls><source v-bind:src="app.sys.searchall(app.Midia.src,IdAlbum)[0].UrlMidia"></audio>
+                    <video v-if="app.sys.searchall(app.Midia.src,IdAlbum).length>0 && app.sys.searchall(app.Midia.src,IdAlbum)[0].Tipo==3" controls><source v-bind:src="app.sys.searchall(app.Midia.src,IdAlbum)[0].UrlMidia"></video>
+                    <a href v-if="app.sys.searchall(app.Midia.src,IdAlbum).length>0 && app.sys.searchall(app.Midia.src,IdAlbum)[0].Tipo==4" v-bind:src="app.sys.searchall(app.Midia.src,IdAlbum)[0].UrlMidia" target="_blank">Mídia</a>
+                    <a href v-if="app.sys.searchall(app.Midia.src,IdAlbum).length>0 && app.sys.searchall(app.Midia.src,IdAlbum)[0].Tipo==5" v-bind:src="app.sys.searchall(app.Midia.src,IdAlbum)[0].UrlMidia" target="_blank">Mídia</a>
                 </div>
             </div>
             <div class="col-8">

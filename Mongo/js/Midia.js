@@ -87,6 +87,7 @@ app["Midia"] = new Vue({
             this.biencode.Categorias = this.Categorias;
             this.biencode.IdProduto = this.IdProduto;
             this.biencode.Ativo = this.Ativo;
+            this.biencode.importar = this.importar;
             this.biencode.id = this.id;
             this.biencode.IdEmpresa = window.localStorage.getItem("IdEmpresa");
         },
