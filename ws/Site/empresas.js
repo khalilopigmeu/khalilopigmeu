@@ -660,9 +660,9 @@ app["empresasanunciando"] = new Vue({
                 return "R$" + preco;
             }
         },
-        orderProdutos: function (order) {
+        orderProdutos: function () {
             var pesq = null;
-            switch (order) {
+            switch (this.order) {
                 case "RN":
                     pesq = app.sys.sorter(app.empresasanunciando.produtos, "ASC", "NomeProduto");
                     app.sys.paginate(pesq, 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
@@ -744,137 +744,138 @@ app["empresasanunciando"] = new Vue({
             app.sys.paginate(app.sys.sorter(app.sys.searchall(app.empresasanunciando.produtos, app.empresasanunciando.produtopesq), "DESC", "QtdMin"), 'AnuncianteLoja', ["empresasanunciando", "PaginasLoja"]);
         },
         load: function () {
-            app.sidebar.newmenu = [];
-            app.empresasanunciando.addSpy("<i class='fas fa-bullhorn'></i> Anúncio", "all");
-            if (nulo(app.anunciante)) {
-                this.anunciosSrc = [];
-            } else {
-                this.anunciosSrc = app.anunciante.src;
-                app.empresasanunciando.addSpy("<i class='far fa-building'></i> Sobre", "associado");
-                app.empresasanunciando.addSpy("<i class='fas fa-map-marker-alt'></i> Localização", "mapa");
-            }
-            if (nulo(app.FamiliaProdutosSite)) {
-                this.familiaprodutos = [];
-            } else {
-                this.familiaprodutos = app.FamiliaProdutosSite.src;
-            }
-            if (nulo(app.ClasseProdutosSite)) {
-                this.classeprodutos = [];
-            } else {
-                this.classeprodutos = app.ClasseProdutosSite.src;
-            }
-            if (nulo(app.CategoriaProdutosSite)) {
-                this.categoriaprodutos = [];
-            } else {
-                this.categoriaprodutos = app.CategoriaProdutosSite.src;
-            }
-            if (nulo(app.SubcategoriaProdutosSite)) {
-                this.subcategoriaprodutos = [];
-            } else {
-                this.subcategoriaprodutos = app.SubcategoriaProdutosSite.src;
-            }
-            if (nulo(app.ProdutosSite)) {
-                this.produtos = [];
-            } else {
-                this.produtos = app.ProdutosSite.src;
-                app.empresasanunciando.addSpy("<i class='fas fa-store'></i> Loja", "loja");
-            }
-            if (nulo(app.listacomprasite)) {
-                this.listaCompra = [];
-            } else {
-                this.listaCompra = app.listacomprasite.src;
-                if (!nulo(getParameterByName("lista"))) {
-                    var lista = eval(app.sys.searchByID(this.listaCompra, getParameterByName("lista"))[0].Produtos);
-                    for (var j = 0; j <= lista.length - 1; j++) {
-                        app.empresasanunciando.ListaProdutos.push(app.sys.searchByID( app.ProdutosSite.src, lista[j].produto)[0]);
-                    }
-                }
-            }
-            if (nulo(app.ProdutosSite)) {
-                this.Pacotesrc = [];
-            } else {
-                this.Pacotesrc = app.PromocaoSite.Pacotesrc;
-                app.empresasanunciando.addSpy("<i class='fas fa-boxes'></i> Pacotes", "combos");
-            }
-            if (nulo(app.ProdutosSite)) {
-                this.Itemsrc = [];
-            } else {
-                this.Itemsrc = app.PromocaoSite.Itemsrc;
-                app.empresasanunciando.addSpy("<i class='fas fa-percent'></i> Promoções", "promocao");
-                for (var i = 0; i <= this.Itemsrc.length - 1; i++) {
-                    var search = this.Itemsrc[i];
-                    if (!nulo(search.Procedimento) || search.Procedimento !== "null") {
-                        var valor = app.sys.searchByID(this.procedimento, search.Procedimento);
-                        if (valor.length > 0) {
-                            var idpromo = valor[0]._id['$oid'];
-                            if (this.promoprocedimento.length > 0) {
-                                if (!this.promoprocedimento.includes(idpromo)) {
-                                    this.promoprocedimento.push(idpromo);
-                                }
-                            }
-                        }
-                    }
-                    if (!nulo(search.Consulta) || search.Consulta !== "null") {
-                        var valor = app.sys.searchByID(this.consulta, search.Consulta);
-                        if (valor.length > 0) {
-                            var idpromo = valor[0]._id['$oid'];
-                            if (this.promoconsulta.length > 0) {
-                                if (!this.promoconsulta.includes(idpromo)) {
-                                    this.promoconsulta.push(idpromo);
-                                }
-                            }
-                        }
-                    }
-                    if (!nulo(search.Produto) || search.Produto !== "null") {
-                        var valor = app.sys.searchByID(this.produtos, search.Produto);
-                        if (valor.length > 0) {
-                            var idpromo = valor[0]._id['$oid'];
-                            if (this.promoprodutos.length > 0) {
-                                if (!this.promoprodutos.includes(idpromo)) {
-                                    this.promoprodutos.push(idpromo);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            if (nulo(app.paginasite)) {
-                this.paginas = [];
-            } else {
-                this.paginas = app.paginasite.src;
-                app.empresasanunciando.addSpy("<i class='fas fa-globe'></i> Páginas", "pagina");
-            }
-            if (nulo(app.consultasite)) {
-                this.consulta = [];
-            } else {
-                this.consulta = app.consultasite.src;
-            }
-            if (nulo(app.procedimentosite)) {
-                this.procedimento = [];
-            } else {
-                this.procedimento = app.procedimentosite.src;
-            }
-
-            if (getParameterByName('spy') !== null) {
-                this.espiar(getParameterByName('spy'));
-            }
-            this.Criarpaginas();
-            if (nulo(window.localStorage.ismajor) || window.localStorage.ismajor === false) {
-                if (app.empresasanunciando.Config(app.empresasanunciando.pgid).majority === 'true' || app.empresasanunciando.ismajor !== true) {
-                    modalConfirm("empresasanunciando", "majority", "Esta é uma área com conteúdo para Maiores de 18 anos, esteja ciente caso deseje continuar.");
-                    app.empresasanunciando.ismajor = true;
-                    window.localStorage.ismajor = true;
+            if (!nulo(getParameterByName("pgid"))) {
+                app.sidebar.newmenu = [];
+                app.empresasanunciando.addSpy("<i class='fas fa-bullhorn'></i> Anúncio", "all");
+                if (nulo(app.anunciante)) {
+                    this.anunciosSrc = [];
                 } else {
-                    app.empresasanunciando.ismajor = false;
+                    this.anunciosSrc = app.anunciante.src;
+                    app.empresasanunciando.addSpy("<i class='far fa-building'></i> Sobre", "associado");
+                    app.empresasanunciando.addSpy("<i class='fas fa-map-marker-alt'></i> Localização", "mapa");
                 }
-            }
-            $("#waiter").hide();
-            if (!nulo(getParameterByName("pdid"))) {
-                console.log(getParameterByName("pdid"));
-                this.buscaProduto(getParameterByName("pdid"));
-                $(function () {
-                    $("#AboutProduto").modal();
-                });
+                if (nulo(app.FamiliaProdutosSite)) {
+                    this.familiaprodutos = [];
+                } else {
+                    this.familiaprodutos = app.FamiliaProdutosSite.src;
+                }
+                if (nulo(app.ClasseProdutosSite)) {
+                    this.classeprodutos = [];
+                } else {
+                    this.classeprodutos = app.ClasseProdutosSite.src;
+                }
+                if (nulo(app.CategoriaProdutosSite)) {
+                    this.categoriaprodutos = [];
+                } else {
+                    this.categoriaprodutos = app.CategoriaProdutosSite.src;
+                }
+                if (nulo(app.SubcategoriaProdutosSite)) {
+                    this.subcategoriaprodutos = [];
+                } else {
+                    this.subcategoriaprodutos = app.SubcategoriaProdutosSite.src;
+                }
+                if (nulo(app.ProdutosSite)) {
+                    this.produtos = [];
+                } else {
+                    this.produtos = app.ProdutosSite.src;
+                    app.empresasanunciando.addSpy("<i class='fas fa-store'></i> Loja", "loja");
+                }
+                if (nulo(app.listacomprasite)) {
+                    this.listaCompra = [];
+                } else {
+                    this.listaCompra = app.listacomprasite.src;
+                    if (!nulo(getParameterByName("lista"))) {
+                        var lista = eval(app.sys.searchByID(this.listaCompra, getParameterByName("lista"))[0].Produtos);
+                        for (var j = 0; j <= lista.length - 1; j++) {
+                            app.empresasanunciando.ListaProdutos.push(app.sys.searchByID(app.ProdutosSite.src, lista[j].produto)[0]);
+                        }
+                    }
+                }
+                if (nulo(app.ProdutosSite)) {
+                    this.Pacotesrc = [];
+                } else {
+                    this.Pacotesrc = app.PromocaoSite.Pacotesrc;
+                    app.empresasanunciando.addSpy("<i class='fas fa-boxes'></i> Pacotes", "combos");
+                }
+                if (nulo(app.ProdutosSite)) {
+                    this.Itemsrc = [];
+                } else {
+                    this.Itemsrc = app.PromocaoSite.Itemsrc;
+                    app.empresasanunciando.addSpy("<i class='fas fa-percent'></i> Promoções", "promocao");
+                    for (var i = 0; i <= this.Itemsrc.length - 1; i++) {
+                        var search = this.Itemsrc[i];
+                        if (!nulo(search.Procedimento) || search.Procedimento !== "null") {
+                            var valor = app.sys.searchByID(this.procedimento, search.Procedimento);
+                            if (valor.length > 0) {
+                                var idpromo = valor[0]._id['$oid'];
+                                if (this.promoprocedimento.length > 0) {
+                                    if (!this.promoprocedimento.includes(idpromo)) {
+                                        this.promoprocedimento.push(idpromo);
+                                    }
+                                }
+                            }
+                        }
+                        if (!nulo(search.Consulta) || search.Consulta !== "null") {
+                            var valor = app.sys.searchByID(this.consulta, search.Consulta);
+                            if (valor.length > 0) {
+                                var idpromo = valor[0]._id['$oid'];
+                                if (this.promoconsulta.length > 0) {
+                                    if (!this.promoconsulta.includes(idpromo)) {
+                                        this.promoconsulta.push(idpromo);
+                                    }
+                                }
+                            }
+                        }
+                        if (!nulo(search.Produto) || search.Produto !== "null") {
+                            var valor = app.sys.searchByID(this.produtos, search.Produto);
+                            if (valor.length > 0) {
+                                var idpromo = valor[0]._id['$oid'];
+                                if (this.promoprodutos.length > 0) {
+                                    if (!this.promoprodutos.includes(idpromo)) {
+                                        this.promoprodutos.push(idpromo);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if (nulo(app.paginasite)) {
+                    this.paginas = [];
+                } else {
+                    this.paginas = app.paginasite.src;
+                    app.empresasanunciando.addSpy("<i class='fas fa-globe'></i> Páginas", "pagina");
+                }
+                if (nulo(app.consultasite)) {
+                    this.consulta = [];
+                } else {
+                    this.consulta = app.consultasite.src;
+                }
+                if (nulo(app.procedimentosite)) {
+                    this.procedimento = [];
+                } else {
+                    this.procedimento = app.procedimentosite.src;
+                }
+
+                if (getParameterByName('spy') !== null) {
+                    this.espiar(getParameterByName('spy'));
+                }
+                this.Criarpaginas();
+                if (nulo(window.localStorage.ismajor) || window.localStorage.ismajor === false) {
+                    if (app.empresasanunciando.Config(app.empresasanunciando.pgid).majority === 'true' || app.empresasanunciando.ismajor !== true) {
+                        modalConfirm("empresasanunciando", "majority", "Esta é uma área com conteúdo para Maiores de 18 anos, esteja ciente caso deseje continuar.");
+                        app.empresasanunciando.ismajor = true;
+                        window.localStorage.ismajor = true;
+                    } else {
+                        app.empresasanunciando.ismajor = false;
+                    }
+                }
+                $("#waiter").hide();
+                if (!nulo(getParameterByName("pdid"))) {
+                    this.buscaProduto(getParameterByName("pdid"));
+                    $(function () {
+                        $("#AboutProduto").modal();
+                    });
+                }
             }
         },
         catalogoProdutos: function (opt) {

@@ -1,7 +1,7 @@
 app["sidebar"] = new Vue({
-    el: '#sidebar',
+    el: '#header',
     data: {
-        fblog: null,
+        fblog: false,
         imgurl: null,
         imgemp: null,
         socialName: null,

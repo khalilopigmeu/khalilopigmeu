@@ -239,8 +239,6 @@ function urlRead() {
         app.ProdutosLoja.buscar(getParameterByName('pdid'));
     }
     if (app.sys.page === "listacompra") {
-
-        $("#header").hide();
         $("#byBien").show();
         $("#menu-toggle").show();
 
@@ -273,8 +271,6 @@ function urlRead() {
     }
     if (app.sys.page === "anunciante") {
         if (getParameterByName('pgid') !== null) {
-
-            $("#header").hide();
             $("#byBien").show();
             $("#menu-toggle").show();
 

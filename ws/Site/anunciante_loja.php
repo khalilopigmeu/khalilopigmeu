@@ -1,14 +1,17 @@
 <?php $pageName = "AnuncianteLoja"; ?>
 <section v-if="app.sys.page==='listacompra'">
-    <div class="row">
+    <div class="row table-responsive">
         <table class="table table-striped table-bordered">
             <thead class="thead-dark text-white text-center">
                 <tr>
                     <th>Produto</th>
                     <th>Nome</th>
                     <th>Preço</th>
-                    <th>Resumo</th>
                     <th>Especificacao</th>
+                    <th>Resumo</th>
+                    <th>Características</th>
+                    <th>Dimensao</th>
+                    <th>Peso</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,8 +22,11 @@
                     </td>
                     <td>{{td.NomeProduto}}</td>
                     <td><h5 v-html="HasPromo(td._id['$oid'],td.Preco)"></h5></td>
-                    <td>{{td.Resumo}}</td>
-                    <td>{{td.EspecificacaoProduto}}</td>
+                    <td v-html="td.EspecificacaoProduto"></td>
+                    <td v-html="td.ResumoProduto"></td>
+                    <td v-html="td.Caracteristicas"></td>
+                    <td v-html="td.DimensaoProduto"></td>
+                    <td v-html="td.Peso"></td>
                 </tr>
             </tbody>
             <tfoot class="thead-dark text-white text-center">
@@ -28,8 +34,11 @@
                     <th>Produto</th>
                     <th>Nome</th>
                     <th>Preço</th>
-                    <th>Resumo</th>
                     <th>Especificacao</th>
+                    <th>Resumo</th>
+                    <th>Características</th>
+                    <th>Dimensao</th>
+                    <th>Peso</th>
                 </tr>
             </tfoot>
         </table>
@@ -42,25 +51,23 @@
         <div class="col-12 text-center justify-content-center">
             <div class="row text-center justify-content-center">
                 <fieldset class="col-10 mx-auto border rounded p-1 m-1 container-fluid border-dark anunciobox">
-                    <div v-if="urlSite.includes('rti')" class="row justify-content-center mb-1 text-center">
-                        <div class="col-10 row justify-content-center text-center">
-                            <div class="col-3"><input v-on:click="orderProdutos('RN')" v-model="order" name='order' value="RN" type="radio"><span> Aleatório</span></div>
-                            <div class="col-3"><input v-on:click="orderProdutos('DS')" v-model="order" name='order' value="DS" type="radio"><span> Disponíveis</span></div>
-                            <div class="col-3"><input v-on:click="orderProdutos('EN')" v-model="order" name='order' value="EN" type="radio"><span> Encomendas</span></div>
-                            <div class="col-3"><input v-on:click="orderProdutos('AZ')" v-model="order" name='order' value="AZ" type="radio"><span> A-Z</span></div>
-                            <div class="col-3"><input v-on:click="orderProdutos('ZA')" v-model="order" name='order' value="ZA" type="radio"><span> Z-A</span></div>
-                            <div class="col-3"><input v-on:click="orderProdutos('UP')" v-model="order" name='order' value="UP" type="radio"><span> Maior Preço</span></div>
-                            <div class="col-3"><input v-on:click="orderProdutos('DW')" name='order' name="order" value="DW" type="radio"><span> Menor Preço</span></div>
-                        </div>
-                    </div>
-                    <br>
                     <div class="row justify-content-center text-center">
-                        <input class="form-control mb-2 mx-auto col-8" type="text" v-model="produtopesq" v-on:keypress="pesquisaprodutos"  v-on:change="pesquisaprodutos" v-on:blur="pesquisaprodutos" class="form-control col-10 p-1 m-1" placeholder="Pesquise" aria-label="Pesquise" aria-describedby="basic-addon1">
-                        <div class="col-8 mx-auto row  text-center justify-content-center">
+                        <div class="col-3 justify-content-center text-center">
+                            <select class="form-control" v-on:change="orderProdutos()" v-model="order">
+                                <option value="RN">Aleatório</option>
+                                <option value="DS">Disponíveis</option>
+                                <option value="EN">Encomendas</option>
+                                <option value="AZ">A-Z</option>
+                                <option value="ZA">Z-A</option>
+                                <option value="UP">Maior Preço</option>
+                                <option value="DW">Menor Preço</option>
+                            </select>
+                        </div>
+                        <input class="form-control col-8" type="text" v-model="produtopesq" v-on:keypress="pesquisaprodutos"  v-on:change="pesquisaprodutos" v-on:blur="pesquisaprodutos" class="form-control col-10 p-1 m-1" placeholder="Pesquise" aria-label="Pesquise" aria-describedby="basic-addon1">
+                        <div class="col-8 mx-auto row mt-3 text-center justify-content-center">
                             <span class='btn m-1 p-1' v-on:click="app.empresasanunciando.formato='lista'"><i class="fas fa-list"></i> Lista</span>
                             <span class='btn m-1 p-1' v-on:click="app.empresasanunciando.formato='coluna'"><i class="fas fa-columns"></i> Colunas</span>
                         </div>
-                        <br>
                         <div class="col-8 mx-auto row  text-center justify-content-center">    
                             <span class='btn m-1 p-1' v-on:click="app.empresasanunciando.filtrarCatalogo(null)"><i class="fas fa-book"></i> Todos os produtos</span>
                             <span class='btn m-1 p-1' v-on:click="app.empresasanunciando.filtrarCatalogo(1)"><i class="fas fa-book"></i> Estoque</span>
