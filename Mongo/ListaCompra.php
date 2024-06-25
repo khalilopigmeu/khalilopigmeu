@@ -14,11 +14,12 @@ include $refUrl . "Mongo/template/head.php"
 <select class="form-control" v-model="Cliente" placeholder="Campo..." >
     <option v-for="el in app.sys.sorter(app.sys.searchall(Clientesrc,pesqCliente),'DESC','id')" v-bind:value="el._id['$oid']">{{el.Nome}}</option>
 </select>
+<br>
 <span class="btn" data-dismiss="modal" onclick="setModal('Cliente', 'Eventos')">Adicionar Cliente <i class="far fa-plus-square"></i></span><br>
 <br>
 <hr>
 <div class="row">
-    <table class="table table-striped table-bordered" id="tbl<?php echo $page; ?>">
+    <table class="table table-striped table-bordered">
         <thead class="thead-dark text-white text-center">
             <tr>
                 <th>Produto</th>
@@ -31,8 +32,8 @@ include $refUrl . "Mongo/template/head.php"
         <tbody>
             <tr v-for="(td,i) in listaProdutos" class="text-center justify-content-center">
                 <td>{{app.sys.searchByID(produtos,td.produto)[0].NomeProduto}}</td>
-                <td>R$ {{parseFloat(app.sys.searchByID(produtos,td.produto)[0].Preco.replace(",",".")).toFixed(2)}}</td>
-                <td><input class="form-control" v-on:change="updateLista(i)" minlength="0" v-model="lineRow[i]" type="number" v-bind:value="td.qtd"></td>
+                <td>R$ {{app.sys.searchByID(produtos,td.produto)[0].Preco}}</td>
+                <td><input class="form-control" v-on:change="updateLista(i)" minlength="0" v-model="lineRow[i]" type="number"></td>
                 <td>R$ {{Total(app.sys.searchByID(produtos,td.produto)[0].Preco,td.qtd)}}</td>
                 <td><button class="btn btn-dark" v-on:click="removerItem(i)"><i class="far fa-times-circle"></i> remover item</button></td>
             </tr>
@@ -47,92 +48,108 @@ include $refUrl . "Mongo/template/head.php"
             </tr>
         </tfoot>
     </table>
-    <nav class="navbar bg-m navbar-light res col-md-12 col-lg-3 col-xl-3 col-12" id="navbarProdutos">
-        <div class="container-fluid justify-content-center w-100">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsivePro" aria-controls="navbarResponsivePro" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="res navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarResponsivePro">
-                <h3 class="text-white m-1 p-1"><i class="fas fa-angle-double-left"></i> Famílias <i class="fas fa-angle-double-right"></i></h3>
-                <ul v-for="itens in autoList(familiaprodutos,'familia')" class="navbar-nav justify-content-center text-center flex-column">
-                    <li class="nav-item">
-                        <span class="nav-link"><input type="checkbox" v-model="familiaselect" v-bind:value="itens._id['$oid']"> {{itens.TipoFamilia}} <i class="fas fa-angle-double-right"></i></span></li>
-                    </li>
-                </ul>
-                <hr class="border bg-light">
-                <h3 class="text-white m-1 p-1"><i class="fas fa-angle-double-left"></i> Classes <i class="fas fa-angle-double-right"></i></h3>
-                <ul v-for="itens in app.sys.searchinArray(autoList(classeprodutos,'classe'),familiaselect,'IdFamilia')" class="navbar-nav justify-content-center text-center flex-column">
-                    <li class="nav-item">
-                        <span class="nav-link"><input type="checkbox"  v-model="classeselect"  v-bind:value="itens._id['$oid']"> {{itens.TipoClasse}} <i class="fas fa-angle-double-right"></i></span></li>
-                    </li>
-                </ul>
-                <hr class="border bg-light">
-                <h3 class="text-white m-1 p-1"><i class="fas fa-angle-double-left"></i> Categorias <i class="fas fa-angle-double-right"></i></h3>
-                <ul v-for="itens in app.sys.searchinArray(autoList(categoriaprodutos,'categoria'),classeselect,'IdClasse')" class="navbar-nav justify-content-center text-center flex-column">
-                    <li class="nav-item">
-                        <span class="nav-link"><input type="checkbox" v-model="categoriaselect"  v-bind:value="itens._id['$oid']" > {{itens.TipoCategoria}} <i class="fas fa-angle-double-right"></i></span></li>
-                    </li>
-                </ul>
-                <hr class="border bg-light">
-                <h3 class="text-white m-1 p-1"><i class="fas fa-angle-double-left"></i> Subcategorias <i class="fas fa-angle-double-right"></i></h3>
-                <ul v-for="itens in app.sys.searchinArray(autoList(subcategoriaprodutos,'subcategoria'),categoriaselect,'IdCategoria')" class="navbar-nav justify-content-center text-center flex-column">
-                    <li class="nav-item">
-                        <span class="nav-link"><input type="checkbox" v-model="subcategoriaselect"  v-bind:value="itens._id['$oid']" > {{itens.TipoSubCategoria}} <i class="fas fa-angle-double-right"></i></span></li>
-                    </li>
-                </ul>
+    <hr>
+    <div class="row"  v-if="produtos!==null && produtos.length>0">
+        <div class="col-12 text-center justify-content-center">
+            <div class="row text-center justify-content-center">
+                <fieldset class="col-10 mx-auto border rounded p-1 m-1 container-fluid border-dark anunciobox">
+                    <div v-if="urlSite.includes('rti')" class="row justify-content-center mb-1 text-center">
+                        <div class="col-10 row justify-content-center text-center">
+                            <div class="col-3"><input v-on:click="orderProdutos('RN')" v-model="order" name='order' value="RN" type="radio"><span> Aleatório</span></div>
+                            <div class="col-3"><input v-on:click="orderProdutos('DS')" v-model="order" name='order' value="DS" type="radio"><span> Disponíveis</span></div>
+                            <div class="col-3"><input v-on:click="orderProdutos('EN')" v-model="order" name='order' value="EN" type="radio"><span> Encomendas</span></div>
+                            <div class="col-3"><input v-on:click="orderProdutos('AZ')" v-model="order" name='order' value="AZ" type="radio"><span> A-Z</span></div>
+                            <div class="col-3"><input v-on:click="orderProdutos('ZA')" v-model="order" name='order' value="ZA" type="radio"><span> Z-A</span></div>
+                            <div class="col-3"><input v-on:click="orderProdutos('UP')" v-model="order" name='order' value="UP" type="radio"><span> Maior Preço</span></div>
+                            <div class="col-3"><input v-on:click="orderProdutos('DW')" name='order' name="order" value="DW" type="radio"><span> Menor Preço</span></div>
+                        </div>
+                    </div>
+                </fieldset>
             </div>
-        </div>
-    </nav>
-    <div class="col-md-12 mx-auto col-lg-8 col-xl-8 col-12 text-center justify-content-center">
-        <div class="row text-center justify-content-center">
-            <input type="text" v-model="produtoselect" v-on:change="app.sys.setPage(0,'<?php echo $pageName; ?>')" class="form-control col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12" placeholder="Pesquise" aria-label="Pesquise" aria-describedby="basic-addon1">
-            <label class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">Itens por página:</label>
-            <input type="text" class="form-control col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12"
-                   v-on:change="changeItensCount('<?php echo $pageName; ?>')" v-model="itensporpagina">
-        </div>
-        <div class="row text-center justify-content-center m-2 p-2">
-            <div v-for="itens in app.sys.itensOnPage" class="border border-dark rounded mb-3 col-11">
-                <div class="row">
-                    <div class="col-6 text-center justify-content-center">
-                        <div id="carouselProdutos" class="carousel slide h-100 d-flex align-content-center flex-wrap " data-ride="carousel">
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img class="d-block w-75 img-thumbnail mx-auto" src="../../img/logobien.png" alt="First slide">
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-5 text-left justify-content-start">
+                    <span class="spanCli m-1 p-1"> Categorias </span>
+                    <ul v-if="!nulo(familiaprodutos)"  class="list-group text-left">
+                        <li v-for="itens,index in autoList(familiaprodutos,'familia')" v-on:mouseover="popin('chkfamilia',index)" v-on:touchstart="popin('chkfamilia',index)"
+                            v-on:mouseleave="popout('chkfamilia',index)" v-on:touchend="popout('chkfamilia',index)" class="list-group-item d-inline-block text-truncate"   data-toggle="popover" data-placement="bottom" v-bind:data-content="itens.TipoFamilia">
+                            <span>
+                                <input type="checkbox" class="chkfamilia" v-on:change="pesquisaFamilia" v-model="familiaselect" v-bind:value="itens._id['$oid']">
+                                {{itens.TipoFamilia}}
+                            </span>
+                        </li>
+                    </ul>
+                    <hr class="border bg-light">
+                    <span class="spanCli m-1 p-1"> Subcategorias </span>
+                    <ul v-if="!nulo(classeprodutos)" class="list-group text-left">
+                        <li  v-for="itens,index in app.sys.searchinArray(autoList(classeprodutos,'classe'),familiaselect,'IdFamilia')"  v-on:mouseover="popin('chkclasse',index)" v-on:touchstart="popin('chkclasse',index)"
+                             v-on:mouseleave="popout('chkclasse',index)" v-on:touchend="popout('chkclasse',index)"  class="list-group-item d-inline-block text-truncate"   data-toggle="popover" data-placement="bottom" v-bind:data-content="itens.TipoClasse">
+                            <span>
+                                <input class="chkclasse" type="checkbox" v-on:change="pesquisaClasse" v-model="classeselect"  v-bind:value="itens._id['$oid']"> 
+                                {{itens.TipoClasse}}
+                            </span>
+                        </li>
+                    </ul>
+                    <hr class="border bg-light">
+                    <span class="spanCli m-1 p-1"> Variedades </span>
+                    <ul v-if="!nulo(categoriaprodutos)" class="list-group text-left">
+                        <li  v-for="itens,index in app.sys.searchinArray(autoList(categoriaprodutos,'categoria'),classeselect,'IdClasse')" v-on:mouseover="popin('chkcategoria',index)" v-on:touchstart="popin('chkcategoria',index)"
+                             v-on:mouseleave="popout('chkcategoria',index)" v-on:touchend="popout('chkcategoria',index)"  class="list-group-item d-inline-block text-truncate"   data-toggle="popover" data-placement="bottom" v-bind:data-content="itens.TipoCategoria">
+                            <span>
+                                <input class="chkcategoria" type="checkbox" v-on:change="pesquisaCategoria" v-model="categoriaselect"  v-bind:value="itens._id['$oid']" > 
+                                {{itens.TipoCategoria}}
+                            </span>
+                        </li>
+                    </ul>
+                    <hr class="border bg-light">
+                    <span class="spanCli m-1 p-1"> Opções </span>
+                    <ul v-if="!nulo(subcategoriaprodutos)" class="list-group text-left">
+                        <li  v-for="itens,index in app.sys.searchinArray(autoList(subcategoriaprodutos,'subcategoria'),categoriaselect,'IdCategoria')"  v-on:mouseover="popin('chksubcategoria',index)" v-on:touchstart="popin('chksubcategoria',index)"
+                             v-on:mouseleave="popout('chksubcategoria',index)" v-on:touchend="popout('chksubcategoria',index)" class="list-group-item d-inline-block text-truncate"   data-toggle="popover" data-placement="bottom" v-bind:data-content="itens.TipoSubCategoria">
+                            <span>
+                                <input class="chksubcategoria" type="checkbox" v-on:change="pesquisaSubCategoria" v-model="subcategoriaselect"  v-bind:value="itens._id['$oid']" > 
+                                {{itens.TipoSubCategoria}}
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-9 col-md-8 col-sm-7">
+                    <div v-if="formato=='coluna'"  class="row justify-content-center text-center">
+                        <div v-for="itens in PaginasLoja" class="col-lg-3 col-md-5 col-sm-11 p-1 m-1 border rounded border-dark produto">
+                            <div class="product__item" >
+                                <div v-if="itens.QtdMin==1">
+                                    <div class="product__item__pic set-bg"  v-bind:style="'background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">
+                                    </div>
                                 </div>
-                                <div class="carousel-item">
-                                    <img class="d-block w-75 img-thumbnail mx-auto" src="../../img/logobien.png" alt="Second slide">
+                                <div v-else>
+                                    <!--<div class="product__item__pic set-bg"  v-bind:style="'filter: grayscale(100%); background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">-->
+                                    <div class="product__item__pic set-bg"  v-bind:style="'background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">
+                                    </div>
                                 </div>
-                                <div class="carousel-item">
-                                    <img class="d-block w-75 img-thumbnail mx-auto" src="../../img/logobien.png" alt="Third slide">
+                                <hr>
+                                <div class="product__item__text">
+                                    <h6>{{itens.NomeProduto}}</h6>
+                                    <h5 v-html="HasPromo(itens._id['$oid'],itens.Preco)"></h5>
+                                    <div v-html="itens.EspecificacaoProduto"></div>
+                                    <div v-if="itens.QtdMin==1" class="badge badge-success">
+                                        Disponível em estoque!
+                                    </div>
+                                    <div v-else class="badge badge-warning">
+                                        Apenas por encomenda! <br> tempo de espera de 7 a 10 dias úteis;<br>
+                                        Preço em exibição tem como base a última compra<br> o preço final poderá sofrer acréscimo ou decréscimo.
+                                    </div>
+                                    <p class="mt-2 seemore" v-on:click="addTblLista(itens)">Adicionar a lista</p>
                                 </div>
                             </div>
-                            <a class="carousel-control-prev" href="#carouselProdutos" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselProdutos" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class='p-2'>
-                            <h4 class='display'> {{itens.NomeProduto}}</h4>
-                            <p v-html='itens.ResumoProduto'></p>
-                            <span>Preço: R${{parseFloat(itens.Preco.replace(",",".")).toFixed(2)}}</span><br>
-                            <button class='mx-auto btn btn-dark' v-on:click="lista(itens._id['$oid'])"><i class="fas fa-plus"></i> adicionar</button><br>
-                        </div>
-                    </div>
-                </div> 
+                    <?php
+                    $pageName = "ListaCompra";
+                    include $refUrl . "Mongo/template/pagination.php";
+                    $pageName = "ListadeCompra";
+                    ?>
+                </div>
             </div>
         </div>
-        <?php include $refUrl . "Mongo/template/pagination.php" ?>
     </div>
 </div>
-<script>
-    $(function () {
-        
-    });
-</script>
 <?php include $refUrl . "Mongo/template/foot.php" ?>
