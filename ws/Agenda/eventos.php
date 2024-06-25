@@ -184,6 +184,7 @@ include $refUrl . "Mongo/Smails.php";
 include $refUrl . "Mongo/Frete.php";
 #include $refUrl . "Mongo/Customize.php";
 include $refUrl . "Mongo/MeioPagamento.php";
+include $refUrl . "Mongo/ListaCompra.php";
 include $refUrl . "Mongo/ConfigLoja.php";
 #include $refUrl . "Mongo/Processo.php";
 #include $refUrl . "Mongo/Projetos.php";

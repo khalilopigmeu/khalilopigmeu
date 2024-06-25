@@ -1,5 +1,5 @@
 app["sidebar"] = new Vue({
-    el: '#sidebar-wrapper',
+    el: '#sidebar',
     data: {
         fblog: null,
         imgurl: null,

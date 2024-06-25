@@ -1,5 +1,5 @@
 <?php $pageName = "AnuncianteSite"; ?>
-<div id="empresasanunciando" v-if="app.sys.page==='anunciante'||app.sys.page==='videos'||app.sys.page==='promocoes'" class="text-center justify-content-center">
+<div id="empresasanunciando" v-if="app.sys.page==='anunciante'||app.sys.page==='videos'||app.sys.page==='promocoes'||app.sys.page==='listacompra'" class="text-center justify-content-center">
     <div v-if="pgid===null" class="row text-center justify-content-center">
         <div class="col-10 input-group mb-3 row">
             <select class="fa text-white bg-d input-group-text col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12" id="basic-addon1">
@@ -93,6 +93,7 @@
             <?php include "anunciante_paginas.php" ?>
             <?php include "anunciante_promocoes.php" ?>
             <?php include "anunciante_loja.php" ?>
+            <?php include "anunciante_listacompra.php" ?>
             <?php include "exportpdf.php" ?>
             <div v-if="Anunciante(pgid).Tipo==='4'" id="toOpen" v-bind:data-url="getSite(pgid)">
                 {{cast()}}

@@ -27,18 +27,18 @@ $(function () {
     }
     };
     on('click', '.mobile-nav-toggle', function (e) {
-        select('#navbar').classList.toggle('navbar-mobile');
+        select('.navbar').classList.toggle('navbar-mobile');
         this.classList.toggle('bi-list');
         this.classList.toggle('bi-x');
     });
     on('click', '.navbar .dropdown > a', function (e) {
-        if (select('#navbar').classList.contains('navbar-mobile')) {
+        if (select('.navbar').classList.contains('navbar-mobile')) {
             e.preventDefault();
             this.nextElementSibling.classList.toggle('dropdown-active');
         }
     }, true);
     on('click', '.navbar .nav-link', function (e) {
-        let navbar = select('#navbar');
+        let navbar = select('.navbar');
         if (navbar.classList.contains('navbar-mobile')) {
             navbar.classList.remove('navbar-mobile');
             let navbarToggle = select('.mobile-nav-toggle');
@@ -238,6 +238,39 @@ function urlRead() {
         app.sys.loja(getParameterByName('pgid'));
         app.ProdutosLoja.buscar(getParameterByName('pdid'));
     }
+    if (app.sys.page === "listacompra") {
+
+        $("#header").hide();
+        $("#byBien").show();
+        $("#menu-toggle").show();
+
+        app.sys.anuncio(getParameterByName('pgid'));
+
+        app.configuracaosite.buscar(getParameterByName('pgid'));
+        app.anunciante.buscar(getParameterByName('pgid'));
+        app.PromocaoSite.buscaItens(getParameterByName('pgid'));
+        app.PromocaoSite.buscaPacotes(getParameterByName('pgid'));
+        app.paginasite.buscar(getParameterByName('pgid'));
+        app.FamiliaProdutosSite.buscar(getParameterByName('pgid'));
+        app.ClasseProdutosSite.buscar(getParameterByName('pgid'));
+        app.CategoriaProdutosSite.buscar(getParameterByName('pgid'));
+        app.SubcategoriaProdutosSite.buscar(getParameterByName('pgid'));
+        app.ProdutosSite.buscar(getParameterByName('pgid'));
+        app.albumsite.buscar(getParameterByName('pgid'));
+        app.midiasite.buscar(getParameterByName('pgid'));
+        app.consultasite.buscar(getParameterByName('pgid'));
+        app.procedimentosite.buscar(getParameterByName('pgid'));
+        app.empresasanunciando.pgid = getParameterByName('pgid');
+        app.empresasanunciando.buscar(getParameterByName('pgid'));
+        app.listacomprasite.buscar(null, getParameterByName('pgid'));
+        app.empresasanunciando.load();
+
+        $("#menu-toggle-R i").removeClass("fa-bars").addClass("fa-shopping-bag");
+        $("#menu-toggle-R").show();
+        $("#menu-toggle-R .badge").show();
+        app.sidebarR.loja = true;
+        app.sys.setColorSite();
+    }
     if (app.sys.page === "anunciante") {
         if (getParameterByName('pgid') !== null) {
 
@@ -263,6 +296,7 @@ function urlRead() {
             app.procedimentosite.buscar(getParameterByName('pgid'));
             app.empresasanunciando.pgid = getParameterByName('pgid');
             app.empresasanunciando.buscar(getParameterByName('pgid'));
+            //app.listacomprasite.buscar(null, getParameterByName('pgid'));
             app.empresasanunciando.load();
 
             $("#menu-toggle-R i").removeClass("fa-bars").addClass("fa-shopping-bag");

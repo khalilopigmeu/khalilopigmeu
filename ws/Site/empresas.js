@@ -50,6 +50,8 @@ app["empresasanunciando"] = new Vue({
 
         PaginasAnunciante: [],
         PaginasLoja: [],
+        listaCompra: [],
+        ListaProdutos: [],
         flagProd: false,
 
         min: 1,
@@ -743,8 +745,6 @@ app["empresasanunciando"] = new Vue({
         },
         load: function () {
             app.sidebar.newmenu = [];
-            app.empresasanunciando.addSpy("<i class='fas fa-arrow-left'</i> Voltar", "anunciante");
-            app.empresasanunciando.addSpy("<i class='far fa-user-circle'></i> Login", "login");
             app.empresasanunciando.addSpy("<i class='fas fa-bullhorn'></i> Anúncio", "all");
             if (nulo(app.anunciante)) {
                 this.anunciosSrc = [];
@@ -778,6 +778,17 @@ app["empresasanunciando"] = new Vue({
             } else {
                 this.produtos = app.ProdutosSite.src;
                 app.empresasanunciando.addSpy("<i class='fas fa-store'></i> Loja", "loja");
+            }
+            if (nulo(app.listacomprasite)) {
+                this.listaCompra = [];
+            } else {
+                this.listaCompra = app.listacomprasite.src;
+                if (!nulo(getParameterByName("lista"))) {
+                    var lista = eval(app.sys.searchByID(this.listaCompra, getParameterByName("lista"))[0].Produtos);
+                    for (var j = 0; j <= lista.length - 1; j++) {
+                        app.empresasanunciando.ListaProdutos.push(app.sys.searchByID( app.ProdutosSite.src, lista[j].produto)[0]);
+                    }
+                }
             }
             if (nulo(app.ProdutosSite)) {
                 this.Pacotesrc = [];
