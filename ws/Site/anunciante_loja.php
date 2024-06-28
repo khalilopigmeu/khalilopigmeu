@@ -1,29 +1,73 @@
 <?php $pageName = "AnuncianteLoja"; ?>
+<section v-if="app.sys.page==='listacompra'">
+    <div class="row table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark text-white text-center">
+                <tr>
+                    <th>Produto</th>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Especificacao</th>
+                    <th>Resumo</th>
+                    <th>Características</th>
+                    <th>Dimensao</th>
+                    <th>Peso</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(td,i) in ListaProdutos" class="text-center justify-content-center">
+                    <td>
+                        <div class="product__item__pic set-bg"  v-bind:style="'background-image: url('+encodeURI(Midias(td.IdAlbum)[0].UrlMidia)+')'">
+                        </div>
+                    </td>
+                    <td>{{td.NomeProduto}}</td>
+                    <td><h5 v-html="HasPromo(td._id['$oid'],td.Preco)"></h5></td>
+                    <td v-html="td.EspecificacaoProduto"></td>
+                    <td v-html="td.ResumoProduto"></td>
+                    <td v-html="td.Caracteristicas"></td>
+                    <td v-html="td.DimensaoProduto"></td>
+                    <td v-html="td.Peso"></td>
+                </tr>
+            </tbody>
+            <tfoot class="thead-dark text-white text-center">
+                <tr>
+                    <th>Produto</th>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Especificacao</th>
+                    <th>Resumo</th>
+                    <th>Características</th>
+                    <th>Dimensao</th>
+                    <th>Peso</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <hr>
+</section>
 <section v-if="(spy==='loja' || spy==='all') &&(Anunciante(pgid).Tipo==='2' || Anunciante(pgid).Tipo==='3')">
     <h2 class="spanCli m-2 p-2" v-if="produtos!==null && produtos.length>0">Conheça nossos produtos:</h2>
     <div class="row"  v-if="produtos!==null && produtos.length>0">
         <div class="col-12 text-center justify-content-center">
             <div class="row text-center justify-content-center">
                 <fieldset class="col-10 mx-auto border rounded p-1 m-1 container-fluid border-dark anunciobox">
-                    <div v-if="urlSite.includes('rti')" class="row justify-content-center mb-1 text-center">
-                        <div class="col-10 row justify-content-center text-center">
-                            <div class="col-3"><input v-on:click="orderProdutos('RN')" v-model="order" name='order' value="RN" type="radio"><span> Aleatório</span></div>
-                            <div class="col-3"><input v-on:click="orderProdutos('DS')" v-model="order" name='order' value="DS" type="radio"><span> Disponíveis</span></div>
-                            <div class="col-3"><input v-on:click="orderProdutos('EN')" v-model="order" name='order' value="EN" type="radio"><span> Encomendas</span></div>
-                            <div class="col-3"><input v-on:click="orderProdutos('AZ')" v-model="order" name='order' value="AZ" type="radio"><span> A-Z</span></div>
-                            <div class="col-3"><input v-on:click="orderProdutos('ZA')" v-model="order" name='order' value="ZA" type="radio"><span> Z-A</span></div>
-                            <div class="col-3"><input v-on:click="orderProdutos('UP')" v-model="order" name='order' value="UP" type="radio"><span> Maior Preço</span></div>
-                            <div class="col-3"><input v-on:click="orderProdutos('DW')" name='order' name="order" value="DW" type="radio"><span> Menor Preço</span></div>
-                        </div>
-                    </div>
-                    <br>
                     <div class="row justify-content-center text-center">
-                        <input class="form-control mb-2 mx-auto col-8" type="text" v-model="produtopesq" v-on:keypress="pesquisaprodutos"  v-on:change="pesquisaprodutos" v-on:blur="pesquisaprodutos" class="form-control col-10 p-1 m-1" placeholder="Pesquise" aria-label="Pesquise" aria-describedby="basic-addon1">
-                        <div class="col-8 mx-auto row  text-center justify-content-center">
+                        <div class="col-3 justify-content-center text-center">
+                            <select class="form-control" v-on:change="orderProdutos()" v-model="order">
+                                <option value="RN">Aleatório</option>
+                                <option value="DS">Disponíveis</option>
+                                <option value="EN">Encomendas</option>
+                                <option value="AZ">A-Z</option>
+                                <option value="ZA">Z-A</option>
+                                <option value="UP">Maior Preço</option>
+                                <option value="DW">Menor Preço</option>
+                            </select>
+                        </div>
+                        <input class="form-control col-8" type="text" v-model="produtopesq" v-on:keypress="pesquisaprodutos"  v-on:change="pesquisaprodutos" v-on:blur="pesquisaprodutos" class="form-control col-10 p-1 m-1" placeholder="Pesquise" aria-label="Pesquise" aria-describedby="basic-addon1">
+                        <div class="col-8 mx-auto row mt-3 text-center justify-content-center">
                             <span class='btn m-1 p-1' v-on:click="app.empresasanunciando.formato='lista'"><i class="fas fa-list"></i> Lista</span>
                             <span class='btn m-1 p-1' v-on:click="app.empresasanunciando.formato='coluna'"><i class="fas fa-columns"></i> Colunas</span>
                         </div>
-                        <br>
                         <div class="col-8 mx-auto row  text-center justify-content-center">    
                             <span class='btn m-1 p-1' v-on:click="app.empresasanunciando.filtrarCatalogo(null)"><i class="fas fa-book"></i> Todos os produtos</span>
                             <span class='btn m-1 p-1' v-on:click="app.empresasanunciando.filtrarCatalogo(1)"><i class="fas fa-book"></i> Estoque</span>
@@ -97,7 +141,7 @@
                                 </div>
                                 <div class="product__item__text col-lg-7 col-md-12 col-sm-12"  data-toggle="modal" data-target="#AboutProduto" v-on:click="buscaProduto(itens._id['$oid'])">
                                     <h6>{{itens.NomeProduto}}</h6>
-                                    <h5 v-if="itens.QtdMin==1" v-html="HasPromo(itens._id['$oid'],itens.Preco)"></h5>
+                                    <h5 v-html="HasPromo(itens._id['$oid'],itens.Preco)"></h5>
                                     <div v-html="itens.EspecificacaoProduto"></div>
                                     <div v-if="itens.QtdMin==1" class="badge badge-success">
                                         Disponível em estoque!
@@ -108,7 +152,6 @@
                                     </div>
                                     <p class="mt-2 seemore">Clique para ver mais</p>
                                 </div>
-                                <div v-on:click="share(itens)" class="mt-2 col-10 mx-auto seemore">Compartilhar <i class="fas fa-share-square"></i></div>
                             </div>
                         </div>
                     </div>
@@ -120,14 +163,13 @@
                                     </div>
                                 </div>
                                 <div v-else>
-                                    <!--<div class="product__item__pic set-bg"  v-bind:style="'filter: grayscale(100%); background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">-->
                                     <div class="product__item__pic set-bg"  v-bind:style="'background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="product__item__text">
                                     <h6>{{itens.NomeProduto}}</h6>
-                                    <h5 v-if="itens.QtdMin==1" v-html="HasPromo(itens._id['$oid'],itens.Preco)"></h5>
+                                    <h5 v-html="HasPromo(itens._id['$oid'],itens.Preco)"></h5>
                                     <div v-html="itens.EspecificacaoProduto"></div>
                                     <div v-if="itens.QtdMin==1" class="badge badge-success">
                                         Disponível em estoque!
@@ -140,7 +182,6 @@
                                 </div>
                             </div>
                             <br>
-                            <p v-on:click="share(itens)" class="mt-2 seemore">Compartilhar <i class="fas fa-share-square"></i></p>
                         </div>
                     </div>
                 </div>
@@ -205,7 +246,7 @@
                                 <div class="col-lg-6 col-md-6">
                                     <div class="product__details__text">
                                         <h3>{{selectProduto.NomeProduto}}</h3>
-                                        <div class="product__details__price" v-if="selectProduto.QtdMin==1" v-html="HasPromo(selectProduto._id['$oid'],selectProduto.Preco)"></div>
+                                        <div class="product__details__price" v-html="HasPromo(selectProduto._id['$oid'],selectProduto.Preco)"></div>
                                         <div class="product__details__quantity">
                                             <div class="quantity" v-bind:data-id="selectProduto._id['$oid']">
                                                 <div class="pro-qty" v-bind:data-id="selectProduto._id['$oid']">
@@ -285,7 +326,7 @@
                                         </div>
                                         <div v-on:click="buscaProduto(itens._id['$oid'])" >
                                             <h6>{{itens.NomeProduto}}</h6>
-                                            <h5 v-if="itens.QtdMin==1" v-html="HasPromo(itens._id['$oid'],itens.Preco)"></h5>
+                                            <h5 v-html="HasPromo(itens._id['$oid'],itens.Preco)"></h5>
                                             <div v-if="itens.QtdMin==1">
                                                 <span class="badge badge-success" >Disponível em estoque!</span>
                                             </div>

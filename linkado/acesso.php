@@ -49,9 +49,14 @@
                     <label for="Senha">Senha:</label>
                     <input class="form-control" type="password" v-model="Senha" placeholder="Senha..."><br>
                     <input type="hidden" v-model="id"><br>
-                    <button class="btn btn-dark text-white" v-on:click="cadastrar">Enviar</button>
-                    <!--<button class="btn btn-dark text-white" v-on:click="alterar">Alterar</button>
-                    <button class="btn btn-dark text-white" v-on:click="excluir">Excluir</button>-->
+                    <div v-if='nulo(window.localStorage.getItem("Linkado"))' >
+                        <button class="btn btn-dark text-white" v-on:click="cadastrar">Enviar</button>
+                    </div>
+                    <div v-if='!nulo(window.localStorage.getItem("Linkado"))' >
+                        <button class="btn btn-dark text-white" v-on:click="alterar">Alterar</button>
+                        <button class="btn btn-dark text-white" v-on:click="excluir">Excluir</button>
+                    </div>
+                    <br><br>
                     <br>
                 </fieldset>
             </div>

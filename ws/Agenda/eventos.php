@@ -184,6 +184,7 @@ include $refUrl . "Mongo/Smails.php";
 include $refUrl . "Mongo/Frete.php";
 #include $refUrl . "Mongo/Customize.php";
 include $refUrl . "Mongo/MeioPagamento.php";
+include $refUrl . "Mongo/ListaCompra.php";
 include $refUrl . "Mongo/ConfigLoja.php";
 #include $refUrl . "Mongo/Processo.php";
 #include $refUrl . "Mongo/Projetos.php";
@@ -265,10 +266,9 @@ $(function () {
         customConfig: 'https://cdn.pongongo.com.br/js/configEditor.js'
     });
 
-    app.SocialMedia.fblog = true;
     app.sidebar.fblog = true;
-    app.SocialMedia.empresa = window.localStorage.getItem("Empresa");
-    app.SocialMedia.login = window.localStorage.getItem("Nome");
+    app.sidebar.empresa = window.localStorage.getItem("Empresa");
+    app.sidebar.login = window.localStorage.getItem("Nome");
 });
 window.onload = function () {
     app.calendar.load();

@@ -4,9 +4,10 @@ $refUrl = "";
 $cdn = "";
 $stepMenu = 0;
 if (strpos($_SERVER['HTTP_HOST'] . "/" . $_SERVER['REQUEST_URI'], "linkado") !== false) {
-    $cdn = "https://cdn.pongongo.com.br/";
+    // $cdn = "https://cdn.pongongo.com.br/";
+    $cdn = "/";
 } else {
-    $cdn = "../";
+    $cdn = "/";
 }
 ?>
 <html lang="pt-br">
@@ -23,14 +24,16 @@ if (strpos($_SERVER['HTTP_HOST'] . "/" . $_SERVER['REQUEST_URI'], "linkado") !==
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
         <link href="https://cdn.jsdelivr.net/npm/swiper@11.0.5/swiper-bundle.min.css" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="<?php echo $cdn; ?>js/seloq.js"></script>
-        <script src="<?php echo $cdn; ?>js/fns.js"></script>
-        <script src="<?php echo $cdn; ?>js/ws.js"></script>
+        <!--vuejs-->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+        <!--vuejs-->
+        <script src="https://cdn.pongongo.com.br/js/fns.js"></script>
+        <script src="https://cdn.pongongo.com.br/js/ws.js"></script>
+        <script src="https://cdn.pongongo.com.br/js/sistema.js"></script>
+        <script src="https://cdn.pongongo.com.br/js/erros.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
         <script  type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/aes.js"></script>  
         <script  type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/pbkdf2.js"></script>  
-        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
-        <script src="js/start.js"></script>
         <link href="css/linkado.css" rel="stylesheet">
     </head>
     <body>

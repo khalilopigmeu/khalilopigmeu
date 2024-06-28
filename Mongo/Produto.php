@@ -71,20 +71,21 @@ include $refUrl . "Mongo/template/head.php"
         <span class="btn" onclick="setModal('SubcategoriaProdutos', 'Produto')">Adicionar Subcategoria <i class="far fa-plus-square"></i></span><br>
     </div>
     <div class="tab-pane fade" id="nav-info" role="tabpanel" aria-labelledby="nav-evt-tab">
-        <label>Album:</label>
-        <select class="form-control" v-model="IdAlbum">
-            <option>Selecione o album</option>
-            <option v-for="el in app.sys.sorter(AlbumSrc,'DESC','id')" v-bind:value="el._id['$oid']">{{el.NomeAlbum}}</option>
+        <label>Pesquisar albuns:</label><input class="form-control" type="text" v-model="pesqAlbum"><br>
+        <label>Álbum:</label>
+        <select class="form-control" v-model="IdAlbum" placeholder="">
+            <option>Selecione um</option>
+            <option v-for="el in app.sys.sorter(app.sys.searchall(AlbumSrc,pesqAlbum),'DESC','id')" v-bind:value="el._id['$oid']">{{el.NomeAlbum}}</option>
         </select>
         <span class="btn" onclick="setModal('Album', 'Produto')">Adicionar Album <i class="far fa-plus-square"></i></span><br><br>
         <div class="row">
             <div class="col-4">
                 <div v-if="!nulo(IdAlbum)">
-                    <img v-if="app.sys.searchall(app.Midia.src,IdAlbum)[0].Tipo==1" v-bind:src="app.sys.searchall(app.Midia.src,IdAlbum)[0].UrlMidia" class="img-fluid img-thumbnail">
-                    <audio v-if="app.sys.searchall(app.Midia.src,IdAlbum)[0].Tipo==2" controls><source v-bind:src="app.sys.searchall(app.Midia.src,IdAlbum)[0].UrlMidia"></audio>
-                    <video v-if="app.sys.searchall(app.Midia.src,IdAlbum)[0].Tipo==3" controls><source v-bind:src="app.sys.searchall(app.Midia.src,IdAlbum)[0].UrlMidia"></video>
-                    <a href v-if="app.sys.searchall(app.Midia.src,IdAlbum)[0].Tipo==4" v-bind:src="app.sys.searchall(app.Midia.src,IdAlbum)[0].UrlMidia" target="_blank">Mídia</a>
-                    <a href v-if="app.sys.searchall(app.Midia.src,IdAlbum)[0].Tipo==5" v-bind:src="app.sys.searchall(app.Midia.src,IdAlbum)[0].UrlMidia" target="_blank">Mídia</a>
+                    <img v-if="app.sys.searchall(app.Midia.src,IdAlbum).length>0 && app.sys.searchall(app.Midia.src,IdAlbum)[0].Tipo==1" v-bind:src="app.sys.searchall(app.Midia.src,IdAlbum)[0].UrlMidia" class="img-fluid img-thumbnail">
+                    <audio v-if="app.sys.searchall(app.Midia.src,IdAlbum).length>0 && app.sys.searchall(app.Midia.src,IdAlbum)[0].Tipo==2" controls><source v-bind:src="app.sys.searchall(app.Midia.src,IdAlbum)[0].UrlMidia"></audio>
+                    <video v-if="app.sys.searchall(app.Midia.src,IdAlbum).length>0 && app.sys.searchall(app.Midia.src,IdAlbum)[0].Tipo==3" controls><source v-bind:src="app.sys.searchall(app.Midia.src,IdAlbum)[0].UrlMidia"></video>
+                    <a href v-if="app.sys.searchall(app.Midia.src,IdAlbum).length>0 && app.sys.searchall(app.Midia.src,IdAlbum)[0].Tipo==4" v-bind:src="app.sys.searchall(app.Midia.src,IdAlbum)[0].UrlMidia" target="_blank">Mídia</a>
+                    <a href v-if="app.sys.searchall(app.Midia.src,IdAlbum).length>0 && app.sys.searchall(app.Midia.src,IdAlbum)[0].Tipo==5" v-bind:src="app.sys.searchall(app.Midia.src,IdAlbum)[0].UrlMidia" target="_blank">Mídia</a>
                 </div>
             </div>
             <div class="col-8">

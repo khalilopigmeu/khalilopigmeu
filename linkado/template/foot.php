@@ -1,8 +1,8 @@
 <br>
 <div class="d-flex align-items-end flex-column py-2">
-    <button class="btn btn-dark py-2 toTbl"  v-if="evtDataCal=='cad' && app.sys.ravec(2,'<?php echo $page; ?>')"  v-on:click="cadastrar"><i class="far fa-plus-square"></i> Cadastrar</button><br>
-    <button class="btn btn-dark py-2 toTbl"  v-if="(evtDataCal=='alt' || evtDataCal=='altexc') && app.sys.ravec(3,'<?php echo $page; ?>')" v-on:click="alterar"><i class="far fa-edit"></i> Alterar</button><br>
-    <button class="btn btn-dark py-2 toTbl"  v-if="(evtDataCal=='exc' || evtDataCal=='altexc') && app.sys.ravec(4,'<?php echo $page; ?>')" v-on:click="excluir"><i class="far fa-trash-alt"></i> Excluir</button>
+    <button class="btn btn-dark py-2 toTbl"  v-if="evtDataCal=='cad'"  v-on:click="cadastrar"><i class="far fa-plus-square"></i> Cadastrar</button><br>
+    <button class="btn btn-dark py-2 toTbl"  v-if="(evtDataCal=='alt' || evtDataCal=='altexc')" v-on:click="alterar"><i class="far fa-edit"></i> Alterar</button><br>
+    <button class="btn btn-dark py-2 toTbl"  v-if="(evtDataCal=='exc' || evtDataCal=='altexc')" v-on:click="excluir"><i class="far fa-trash-alt"></i> Excluir</button>
 </div>
 </fieldset>
 </form>
@@ -15,7 +15,7 @@
 </div>
 </div>
 </div>
-<script src='<?php echo $cdn . "Mongo/js/" . $page . ".js"; ?>'></script>
+<script src='<?php echo "js/" . $page . ".js"; ?>'></script>
 <script>
     $(function () {
         $("#<?php echo $page; ?> .itensCount").on('change', function () {

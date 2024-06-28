@@ -26,7 +26,7 @@ app["listacomprasite"] = new Vue({
         href: "ListaCompra"
     },
     methods: {
-        buscar: function (refid) {
+        buscar: function (refid, emp) {
             if (!nulo(app.sys.system) && app.sys.system.hasOwnProperty("ListaCompra")) {
                 this.src = app.sys.system["ListaCompra"];
             } else {
@@ -36,6 +36,8 @@ app["listacomprasite"] = new Vue({
                 this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
                 if (!nulo(refid)) {
                     this.biencode.cliente = refid;
+                } else if (!nulo(emp)) {
+                    this.biencode.empresa = emp;
                 } else {
                     this.biencode.all = "";
                 }

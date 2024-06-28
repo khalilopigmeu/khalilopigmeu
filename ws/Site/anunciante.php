@@ -1,5 +1,5 @@
 <?php $pageName = "AnuncianteSite"; ?>
-<div id="empresasanunciando" v-if="app.sys.page==='anunciante'||app.sys.page==='videos'||app.sys.page==='promocoes'" class="text-center justify-content-center">
+<div id="empresasanunciando" v-if="app.sys.page==='anunciante'||app.sys.page==='videos'||app.sys.page==='promocoes'||app.sys.page==='listacompra'" class="text-center justify-content-center">
     <div v-if="pgid===null" class="row text-center justify-content-center">
         <div class="col-10 input-group mb-3 row">
             <select class="fa text-white bg-d input-group-text col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12" id="basic-addon1">
@@ -67,7 +67,7 @@
                             Clique para ver a loja <i class="fas fa-angle-double-right"></i>
                         </a>
                         <a v-if="Anunciante(itens._id['$oid']).Tipo==='3'" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'?pgid='+itens._id['$oid']+'#anunciante'">
-                            Clique para ver a página <i class="fas fa-angle-double-right"></i>
+                            Clique para ver o conteúdo <i class="fas fa-angle-double-right"></i>
                         </a>
                         <a v-if="Anunciante(itens._id['$oid']).Tipo==='4'" target="_blank" class="btn btn-dark col-10 my-1 py-1" v-bind:href="getSite(itens._id['$oid'])">
                             Clique para ver o Site <i class="fas fa-angle-double-right"></i>
@@ -93,6 +93,7 @@
             <?php include "anunciante_paginas.php" ?>
             <?php include "anunciante_promocoes.php" ?>
             <?php include "anunciante_loja.php" ?>
+            <?php include "anunciante_listacompra.php" ?>
             <?php include "exportpdf.php" ?>
             <div v-if="Anunciante(pgid).Tipo==='4'" id="toOpen" v-bind:data-url="getSite(pgid)">
                 {{cast()}}

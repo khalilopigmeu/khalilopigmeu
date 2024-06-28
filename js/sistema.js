@@ -834,10 +834,10 @@ app["sys"] = new Vue({
             this.fblog = true;
             this.fbcad = false;
             this.fbsai = true;
-            if (typeof app.navbar !== "undefined") {
-                app.navbar.fblog = true;
-                app.navbar.fbcad = false;
-                app.navbar.fbsai = true;
+            if (typeof app.sidebar !== "undefined") {
+                app.sidebar.fblog = true;
+                app.sidebar.fbcad = false;
+                app.sidebar.fbsai = true;
             }
             if (typeof app.sidebarR !== "undefined") {
                 app.sidebarR.fblog = true;

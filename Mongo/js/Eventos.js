@@ -99,7 +99,6 @@ app["Eventos"] = new Vue({
                 if (app.calendar.fimpesq !== null) {
                     this.biencode.fim = app.calendar.fimpesq;
                 }
-                console.log(this.biencode);
                 var data = {
                     biencode: encrypt(JSON.stringify(this.biencode))
                 };
@@ -136,7 +135,7 @@ app["Eventos"] = new Vue({
             this.OrdemProducao = [];
         },
         autocomplete: function () {
-            app.Eventos.groupId = app.Eventos.evt._def.groupId;
+            app.Eventos.groupId = app.Eventos.evt.groupId;
             app.Eventos.allDay = parseBoolean(app.Eventos.evt._def.allDay);
             app.Eventos.start = calendar.formatIso(app.Eventos.evt.start);
             app.Eventos.inicio = ISOdata(calendar.formatIso(app.Eventos.start));
@@ -164,6 +163,7 @@ app["Eventos"] = new Vue({
             app.Eventos.endRecur = app.Eventos.evt.endRecur;
 
             app.Eventos.extendedProps = app.Eventos.evt.extendedProps;
+            
             app.Eventos.observacao = app.Eventos.extendedProps.descricao;
             CKEDITOR.instances['observacaoagenda'].setData(unescapeHTML(app.Eventos.observacao))
 

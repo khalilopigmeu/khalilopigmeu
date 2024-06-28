@@ -78,5 +78,4 @@
 <?php include_once 'acesso.php'; ?>
 <?php include_once 'links.php'; ?>
 <?php include_once 'tags.php'; ?>
-<?php include_once 'lista.php'; ?>
 <?php include_once 'footer.php'; ?>
