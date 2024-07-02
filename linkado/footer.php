@@ -57,6 +57,7 @@
 <script src="https://cdn.pongongo.com.br/jsapi/currency.min.js"></script>
 <script src="js/start.js"></script>
 <script src="js/lista.js"></script>
+<script src="js/tagLista.js"></script>
 <!--QRCodes-->
 <script src='https://cdn.pongongo.com.br/jsapi/easy.qrcode.min.js'></script>
 <!--Notify-->
@@ -64,5 +65,9 @@
 <!--Google OAuth2-->
 <script async defer src="https://apis.google.com/js/api.js"></script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@^3"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@next/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@1.2.1"></script>
 </body>
 </html>

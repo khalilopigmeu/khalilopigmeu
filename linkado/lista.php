@@ -1,4 +1,4 @@
-<?php include_once 'header.php'; ?>
+<?php include 'header.php'; ?>
 <div id="lista">
     <div class="row text-center justify-content-center">
         <div v-if="!nulo(src)" class="col-8 mx-auto">
@@ -36,4 +36,4 @@
         </div>
     </div>
 </div>
-<?php include_once 'footer.php'; ?>
+<?php include 'footer.php'; ?>

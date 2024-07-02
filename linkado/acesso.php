@@ -12,8 +12,9 @@
                     <input class="form-control" v-model="Login" placeholder="E-mail/Celular..."><br>
                     <label for="Senha">Senha:</label>
                     <input class="form-control" type="password" v-model="Senha" placeholder="Senha..."><br>
-                    <button class="btn btn-dark text-white" v-on:click="login">Enviar</button>
                     <br>
+                    <button class="btn btn-dark text-white" v-on:click="login">Enviar</button>
+                    <br><br>
                 </fieldset>
             </div>
             <div class="modal-footer">

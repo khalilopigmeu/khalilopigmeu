@@ -29,6 +29,9 @@ function LinkRead() {
         setAuth(decrypt(app.sys.bien, "encodedstring"));
     }
     authenticate();
+    if (window.location.href.includes("tagLista")) {
+        app.tagLista.populate();
+    }
     if (window.location.href.includes("lista")) {
         app.lista.populate();
     } else {
@@ -74,6 +77,7 @@ function LinkRead() {
             app.Linka.con = true;
             app.Login.autocomplete();
             app.links.populate();
+            app.tags.populate();
         }
     }
 }
