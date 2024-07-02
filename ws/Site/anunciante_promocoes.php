@@ -1,4 +1,4 @@
-<section v-if="(spy==='promocao' || spy==='all')">
+<section v-if="((spy==='promocao' || spy==='all')) && (!nulo(Itemsrc)&&Itemsrc.length>0)">
     <h2 class="spanCli m-2 p-2">Conheça nossas promoções:</h2> 
     <div class="row justify-content-center text-center">
         <div v-for="item in Itemsrc" class='bg-light m-2 p-2 rounded border col-4'>
@@ -20,7 +20,7 @@
         </div>
     </div>
 </section>
-<section v-if="(spy==='combos' || spy==='all')">
+<section v-if="(spy==='combos' || spy==='all') && (!nulo(Pacotesrc)&&Pacotesrc.length>0)">
     <h2 class="spanCli m-2 p-2">Conheça nossos combos:</h2>
     <label>Modalidade:</label>
     <select class='rounded' v-model="modalidadeServico">

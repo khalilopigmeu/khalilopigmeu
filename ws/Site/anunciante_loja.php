@@ -45,9 +45,9 @@
     </div>
     <hr>
 </section>
-<section v-if="(spy==='loja' || spy==='all') &&(Anunciante(pgid).Tipo==='2' || Anunciante(pgid).Tipo==='3')">
-    <h2 class="spanCli m-2 p-2" v-if="produtos!==null && produtos.length>0">Conheça nossos produtos:</h2>
-    <div class="row"  v-if="produtos!==null && produtos.length>0">
+<section v-if="((spy==='loja' || spy==='all') &&(Anunciante(pgid).Tipo==='2' || Anunciante(pgid).Tipo==='3'))&&!nulo(produtos)">
+    <h2 class="spanCli m-2 p-2">Conheça nossos produtos:</h2>
+    <div class="row"  v-if="">
         <div class="col-12 text-center justify-content-center">
             <div class="row text-center justify-content-center">
                 <fieldset class="col-10 mx-auto border rounded p-1 m-1 container-fluid border-dark anunciobox">

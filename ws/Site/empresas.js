@@ -35,6 +35,9 @@ app["empresasanunciando"] = new Vue({
         promoprojetos: [],
         promoconsultas: [],
         promoprocedimento: [],
+        textosite: [],
+        categoriatextosite: [],
+        selectedtext: null,
         anunciosSrc: null,
         Itemsrc: null,
         Pacotesrc: null,
@@ -778,7 +781,9 @@ app["empresasanunciando"] = new Vue({
                     this.produtos = [];
                 } else {
                     this.produtos = app.ProdutosSite.src;
-                    app.empresasanunciando.addSpy("<i class='fas fa-store'></i> Loja", "loja");
+                    if (this.Anunciante(getParameterByName("pgid")).Tipo === '2' || this.Anunciante(getParameterByName("pgid")).Tipo === '3') {
+                        app.empresasanunciando.addSpy("<i class='fas fa-store'></i> Loja", "loja");
+                    }
                 }
                 if (nulo(app.listacomprasite)) {
                     this.listaCompra = [];
@@ -795,13 +800,17 @@ app["empresasanunciando"] = new Vue({
                     this.Pacotesrc = [];
                 } else {
                     this.Pacotesrc = app.PromocaoSite.Pacotesrc;
-                    app.empresasanunciando.addSpy("<i class='fas fa-boxes'></i> Pacotes", "combos");
+                    if (this.Anunciante(getParameterByName("pgid")).Tipo === '2' || this.Anunciante(getParameterByName("pgid")).Tipo === '3') {
+                        app.empresasanunciando.addSpy("<i class='fas fa-boxes'></i> Pacotes", "combos");
+                    }
                 }
                 if (nulo(app.ProdutosSite)) {
                     this.Itemsrc = [];
                 } else {
                     this.Itemsrc = app.PromocaoSite.Itemsrc;
-                    app.empresasanunciando.addSpy("<i class='fas fa-percent'></i> Promoções", "promocao");
+                    if (this.Anunciante(getParameterByName("pgid")).Tipo === '2' || this.Anunciante(getParameterByName("pgid")).Tipo === '3') {
+                        app.empresasanunciando.addSpy("<i class='fas fa-percent'></i> Promoções", "promocao");
+                    }
                     for (var i = 0; i <= this.Itemsrc.length - 1; i++) {
                         var search = this.Itemsrc[i];
                         if (!nulo(search.Procedimento) || search.Procedimento !== "null") {
@@ -843,7 +852,19 @@ app["empresasanunciando"] = new Vue({
                     this.paginas = [];
                 } else {
                     this.paginas = app.paginasite.src;
-                    app.empresasanunciando.addSpy("<i class='fas fa-globe'></i> Páginas", "pagina");
+                    if (this.Anunciante(getParameterByName("pgid")).Tipo === '1' || this.Anunciante(getParameterByName("pgid")).Tipo === '3') {
+                        app.empresasanunciando.addSpy("<i class='fas fa-globe'></i> Páginas", "pagina");
+                    }
+                }
+                if (nulo(app.textosite)) {
+                    this.textosite = [];
+                } else {
+                    this.textosite = app.textosite.src;
+                }
+                if (nulo(app.categoriatextosite)) {
+                    this.categoriatextosite = [];
+                } else {
+                    this.categoriatextosite = app.categoriatextosite.src;
                 }
                 if (nulo(app.consultasite)) {
                     this.consulta = [];
@@ -876,6 +897,8 @@ app["empresasanunciando"] = new Vue({
                         $("#AboutProduto").modal();
                     });
                 }
+            } else {
+                this.Criarpaginas();
             }
         },
         catalogoProdutos: function (opt) {
@@ -983,6 +1006,9 @@ app["empresasanunciando"] = new Vue({
                 text: "Preço especial: " + this.HasPromo(item._id['$oid'], item.Preco) + "\n \n" + item.EspecificacaoProduto.replace(/<[^>]*>?/gm, '').replace(/&quot;/g, "") + "\n",
                 url: sharer[0] + "&pdid=" + item._id['$oid'] + "#" + sharer[1]
             });
+        },
+        selectext: function (id) {
+            this.seletedtext = id;
         }
     },
 });

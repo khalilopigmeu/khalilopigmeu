@@ -350,7 +350,7 @@ function media(numbers) {
     const sorted = Array.from(numbers);
     var total;
     for (var i = 0; i <= sorted.length - 1; i++) {
-        total += sorted[i];
+        total += parseFloat(sorted[i]);
     }
     return total / sorted.length;
 }
@@ -898,10 +898,7 @@ function formatadata(info) {
     if (info.includes("T")) {
         info = info.split("T")[0];
     }
-    var d = info.split("-")[2];
-    var m = info.split("-")[1];
-    var a = info.split("-")[0];
-    return d + "/" + m + "/" + a;
+    return info.split('-').reverse().join('/');
 }
 
 function ISOdata(info) {

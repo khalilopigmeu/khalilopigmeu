@@ -67,7 +67,7 @@
                             Clique para ver a loja <i class="fas fa-angle-double-right"></i>
                         </a>
                         <a v-if="Anunciante(itens._id['$oid']).Tipo==='3'" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'?pgid='+itens._id['$oid']+'#anunciante'">
-                            Clique para ver a página <i class="fas fa-angle-double-right"></i>
+                            Clique para ver o conteúdo <i class="fas fa-angle-double-right"></i>
                         </a>
                         <a v-if="Anunciante(itens._id['$oid']).Tipo==='4'" target="_blank" class="btn btn-dark col-10 my-1 py-1" v-bind:href="getSite(itens._id['$oid'])">
                             Clique para ver o Site <i class="fas fa-angle-double-right"></i>
@@ -89,11 +89,11 @@
     </div>
     <div v-else>
         <div v-if="ismajor==false || ismajor==true && majority==true">
-            <?php include "anunciante_associado.php" ?>
             <?php include "anunciante_paginas.php" ?>
-            <?php include "anunciante_promocoes.php" ?>
+            <?php include "anunciante_textos.php" ?>
             <?php include "anunciante_loja.php" ?>
-            <?php include "anunciante_listacompra.php" ?>
+            <?php include "anunciante_promocoes.php" ?>
+            <?php include "anunciante_associado.php" ?>
             <?php include "exportpdf.php" ?>
             <div v-if="Anunciante(pgid).Tipo==='4'" id="toOpen" v-bind:data-url="getSite(pgid)">
                 {{cast()}}
@@ -141,6 +141,10 @@
 </div>
 <div id="midiasite" v-if="app.sys.page==='midia'" class="border rounded glory m-3 p-3 shadow-lg borda-x">
 </div>
+<div id="textosite" v-if="app.sys.page==='texto'" class="border rounded glory m-3 p-3 shadow-lg borda-x">
+</div>
+<div id="categoriatextosite" v-if="app.sys.page==='categoriatexto'" class="border rounded glory m-3 p-3 shadow-lg borda-x">
+</div>
 <script>
     window.onload = function () {
         app.empresasanunciando.load();
@@ -168,3 +172,5 @@
 <script src="<?php echo $cdn; ?>ws/Site/midias.js"></script>
 <script src="<?php echo $cdn; ?>ws/Site/consulta.js"></script>
 <script src="<?php echo $cdn; ?>ws/Site/procedimento.js"></script>
+<script src="<?php echo $cdn; ?>ws/Site/texto.js"></script>
+<script src="<?php echo $cdn; ?>ws/Site/categoriatexto.js"></script>

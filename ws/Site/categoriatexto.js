@@ -16,7 +16,6 @@ app["categoriatextosite"] = new Vue({
                 captchaSys(app.sys.keysite);
                 this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
                 this.biencode.empresa = app.sys.refid;
-                this.biencode.nome = getParameterByName("cod");
                 var data = {
                     biencode: encrypt(JSON.stringify(this.biencode), key)
                 };

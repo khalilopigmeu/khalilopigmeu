@@ -258,6 +258,8 @@ function urlRead() {
         app.midiasite.buscar(getParameterByName('pgid'));
         app.consultasite.buscar(getParameterByName('pgid'));
         app.procedimentosite.buscar(getParameterByName('pgid'));
+        app.textosite.buscar(getParameterByName('pgid'));
+        app.categoriatextosite.buscar(getParameterByName('pgid'));
         app.empresasanunciando.pgid = getParameterByName('pgid');
         app.empresasanunciando.buscar(getParameterByName('pgid'));
         app.listacomprasite.buscar(null, getParameterByName('pgid'));
@@ -290,9 +292,10 @@ function urlRead() {
             app.midiasite.buscar(getParameterByName('pgid'));
             app.consultasite.buscar(getParameterByName('pgid'));
             app.procedimentosite.buscar(getParameterByName('pgid'));
+            app.textosite.buscar(getParameterByName('pgid'));
+            app.categoriatextosite.buscar(getParameterByName('pgid'));
             app.empresasanunciando.pgid = getParameterByName('pgid');
             app.empresasanunciando.buscar(getParameterByName('pgid'));
-            //app.listacomprasite.buscar(null, getParameterByName('pgid'));
             app.empresasanunciando.load();
 
             $("#menu-toggle-R i").removeClass("fa-bars").addClass("fa-shopping-bag");
