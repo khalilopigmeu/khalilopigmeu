@@ -27,6 +27,7 @@ app["tags"] = new Vue({
             } else {
                 this.biencode = {};
                 this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
+<<<<<<< HEAD
                 if (!nulo(id)) {
                     this.biencode.id = id;
                 }
@@ -34,6 +35,13 @@ app["tags"] = new Vue({
                     biencode: encrypt(JSON.stringify(this.biencode))
                 };
                 var ws = app.tags.Host + "listar";
+=======
+                this.biencode.id = eval(window.localStorage.getItem("Linkado"))[0]._id["$oid"];
+                var data = {
+                    biencode: encrypt(JSON.stringify(this.biencode))
+                };
+                var ws = app.Cadastro.Host + "listar";
+>>>>>>> e497ba9ed3adbbfe540f42e0b4a31053358f4823
                 var p = post(ws, data);
                 app.tags.src = eval(decrypt(p));
                 if (typeof app.tags.Criarpaginas === "function") {

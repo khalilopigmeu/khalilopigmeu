@@ -855,6 +855,7 @@ app["empresasanunciando"] = new Vue({
                     if (this.Anunciante(getParameterByName("pgid")).Tipo === '1' || this.Anunciante(getParameterByName("pgid")).Tipo === '3') {
                         app.empresasanunciando.addSpy("<i class='fas fa-globe'></i> Páginas", "pagina");
                     }
+<<<<<<< HEAD
                 }
                 if (nulo(app.textosite)) {
                     this.textosite = [];
@@ -865,6 +866,8 @@ app["empresasanunciando"] = new Vue({
                     this.categoriatextosite = [];
                 } else {
                     this.categoriatextosite = app.categoriatextosite.src;
+=======
+>>>>>>> e497ba9ed3adbbfe540f42e0b4a31053358f4823
                 }
                 if (nulo(app.consultasite)) {
                     this.consulta = [];
