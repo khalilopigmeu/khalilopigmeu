@@ -350,7 +350,9 @@ function media(numbers) {
     const sorted = Array.from(numbers);
     var total;
     for (var i = 0; i <= sorted.length - 1; i++) {
-        total += parseFloat(sorted[i]);
+        if (!isNaN(parseFloat(sorted[i]))) {
+            total += parseFloat(sorted[i]);
+        }
     }
     return total / sorted.length;
 }

@@ -15,6 +15,7 @@ app["tags"] = new Vue({
         pesqTbl: "",
         Host: "Linkado/Tags/",
         paginate: [],
+
         IdTags: null,
         Segmento: null,
         Dados: []
@@ -27,7 +28,6 @@ app["tags"] = new Vue({
             } else {
                 this.biencode = {};
                 this.biencode.tokenCaptcha = window.localStorage.getItem("tokenGoogle")
-<<<<<<< HEAD
                 if (!nulo(id)) {
                     this.biencode.id = id;
                 }
@@ -35,13 +35,6 @@ app["tags"] = new Vue({
                     biencode: encrypt(JSON.stringify(this.biencode))
                 };
                 var ws = app.tags.Host + "listar";
-=======
-                this.biencode.id = eval(window.localStorage.getItem("Linkado"))[0]._id["$oid"];
-                var data = {
-                    biencode: encrypt(JSON.stringify(this.biencode))
-                };
-                var ws = app.Cadastro.Host + "listar";
->>>>>>> e497ba9ed3adbbfe540f42e0b4a31053358f4823
                 var p = post(ws, data);
                 app.tags.src = eval(decrypt(p));
                 if (typeof app.tags.Criarpaginas === "function") {
@@ -73,22 +66,20 @@ app["tags"] = new Vue({
             this.biencode.IdTag = this.IdTags;
             for (var i = 0; i <= document.getElementsByName("data[]").length - 1; i++) {
                 if (i === 0) {
-                    app.tags.Dados = "";
+                    app.tags.Dados = [];
                 }
-                var itens = {};
-                itens.data = document.getElementsByName("data[]")[i].value;
-                itens.visualizacao = document.getElementsByName("visualizacao[]")[i].value;
-                itens.likes_mediana = mediana(document.getElementsByName("likes[]")[i].value.split(";"));
-                itens.likes_media = media(document.getElementsByName("likes[]")[i].value.split(";"));
-                itens.comentario_mediana = mediana(document.getElementsByName("comentarios[]")[i].value.split(";"));
-                itens.comentario_media = media(document.getElementsByName("comentarios[]")[i].value.split(";"));
-                itens.vistas_mediana = mediana(document.getElementsByName("vistas[]")[i].value.split(";"));
-                itens.vistas_media = media(document.getElementsByName("vistas[]")[i].value.split(";"));
-                app.tags.Dados += JSON.stringify(itens);
-                if (i < document.getElementsByName("data[]").length - 1) {
-                    app.tags.Dados += ";";
-                }
+                app.tags.Dados.push({
+                    "data": document.getElementsByName("data[]")[i].value,
+                    "visualizacao": document.getElementsByName("visualizacao[]")[i].value,
+                    "likes-mediana": this.mediana(document.getElementsByName("likes[]")[i].value.split(";")),
+                    "likes-media": this.media(document.getElementsByName("likes[]")[i].value.split(";")),
+                    "comentario-mediana": this.mediana(document.getElementsByName("comentarios[]")[i].value.split(";")),
+                    "comentario-media": this.media(document.getElementsByName("comentarios[]")[i].value.split(";")),
+                    "vistas-mediana": this.mediana(document.getElementsByName("vistas[]")[i].value.split(";")),
+                    "vistas-media": this.media(document.getElementsByName("vistas[]")[i].value.split(";"))
+                });
             }
+            //this.biencode.Dados = JSON.stringify(this.Dados);
             this.biencode.Dados = this.Dados;
             this.biencode.id = this.id;
             this.biencode.IdUsuario = eval(window.localStorage.getItem("Linkado"))[0]._id["$oid"];
@@ -167,6 +158,23 @@ app["tags"] = new Vue({
             $("#TagDados label:last").remove();
             $("#TagDados label:last").remove();
             $("#TagDados label:last").remove();
+        },
+        mediana: function (numbers) {
+            const sorted = Array.from(numbers).sort((a, b) => a - b);
+            const middle = Math.floor(sorted.length / 2);
+            if (sorted.length % 2 === 0) {
+                return (sorted[middle - 1] + sorted[middle]) / 2;
+            }
+
+            return sorted[middle];
+        },
+        media: function (numbers) {
+            const sorted = Array.from(numbers);
+            var total;
+            for (var i = 0; i <= sorted.length - 1; i++) {
+                total += sorted[i];
+            }
+            return total / sorted.length;
         }
     }
 });

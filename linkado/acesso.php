@@ -6,15 +6,13 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <fieldset class="border rounded container-fluid border-dark">
+                <fieldset class="border p-1 rounded container-fluid border-dark">
                     <legend class="border rounded text-center border-dark">Bem Vindo</legend>
                     <label for="Login">Login:</label>
                     <input class="form-control" v-model="Login" placeholder="E-mail/Celular..."><br>
                     <label for="Senha">Senha:</label>
                     <input class="form-control" type="password" v-model="Senha" placeholder="Senha..."><br>
-                    <br>
                     <button class="btn btn-dark text-white" v-on:click="login">Enviar</button>
-                    <br><br>
                 </fieldset>
             </div>
             <div class="modal-footer">

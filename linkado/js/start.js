@@ -2,11 +2,7 @@
 var urlSite = window.location.href;
 var cdn;
 var swiper;
-const options = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 0
-};
+
 $(function () {
 
     window.onhashchange = function () {
