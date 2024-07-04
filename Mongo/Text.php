@@ -1,7 +1,7 @@
 <?php
 $pgtitle = "Textos";
 $page = "Text";
-$td = ["" . $page => ["Id", "Categoria", "Álbum","Título","Resumo","Texto","Anúncio","Data de Publicação","Data de postagem"]];
+$td = ["" . $page => ["Id", "Categoria", "Álbum", "Título", "Resumo", "Texto", "Anúncio", "Data de Publicação", "Data de postagem"]];
 $tdvue = ["" . $page => [
         "app.sys.foreignKeyReplace(CategoriaTextSrc,'Nome',td.IdCategoriaText)",
         "app.sys.foreignKeyReplace(AlbumSrc,'NomeAlbum',td.IdAlbum)",
@@ -35,16 +35,16 @@ include $refUrl . "Mongo/template/head.php"
 <label>Resumo:</label>
 <textarea class="form-control" v-model="Resumo" name="resumotexto" placeholder="Título..." ></textarea><br>
 <br>
+<label>Texto Antecipado:</label>
+<textarea class="form-control" v-model="TPredata" name="chamadatexto" placeholder="Título..." ></textarea><br>
+<br>
 <label>Texto:</label>
 <textarea class="form-control" v-model="Text" name="conteudotexto" placeholder="Título..." ></textarea><br>
 <br>
 <label>Data de Publicação:</label>
-<input class="form-control" v-model="DataPublicacao" placeholder="Campo..."><br>
+<input class="form-control" type="data" v-model="DataPublicacao" placeholder="Campo..."><br>
 <br>
 <label>Data de Postagem:</label>
-<input class="form-control" v-model="DataPostagemText" placeholder="Campo..."><br>
 <br>
-<label>Texto Antecipado:</label>
-<textarea class="form-control" v-model="TPredata" name="chamadatexto" placeholder="Título..." ></textarea><br>
-<br>
+<input class="form-control" type="data" v-model="DataPostagemText" placeholder="Campo..."><br>
 <?php include $refUrl . "Mongo/template/foot.php" ?>
