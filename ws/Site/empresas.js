@@ -1008,13 +1008,13 @@ app["empresasanunciando"] = new Vue({
             });
         },
         selectext: function (id) {
-           this.selectedtext = id;
+            this.selectedtext = id;
         },
-        texto:function(){
-            //app.sys.searchByID(this.selectedtext)[0].DataPublicacao;
-            //app.sys.searchByID(this.selectedtext)[0].Resumo;
-            //app.sys.searchByID(this.selectedtext)[0].TPredata;
-            app.sys.searchByID(this.selectedtext)[0].Text;
+        texto: function () {
+            //app.sys.searchByID(app.textosite.src,this.selectedtext)[0].DataPublicacao;
+            //app.sys.searchByID(app.textosite.src,this.selectedtext)[0].Resumo;
+            //app.sys.searchByID(app.textosite.src,this.selectedtext)[0].TPredata;
+            app.sys.searchByID(app.textosite.src, this.selectedtext)[0].Text
         }
     },
 });
