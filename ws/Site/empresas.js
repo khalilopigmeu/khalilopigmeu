@@ -1014,7 +1014,7 @@ app["empresasanunciando"] = new Vue({
             //app.sys.searchByID(app.textosite.src,this.selectedtext)[0].DataPublicacao;
             //app.sys.searchByID(app.textosite.src,this.selectedtext)[0].Resumo;
             //app.sys.searchByID(app.textosite.src,this.selectedtext)[0].TPredata;
-            app.sys.searchByID(app.textosite.src, this.selectedtext)[0].Text
+            return app.sys.searchByID(app.textosite.src, this.selectedtext)[0].Text
         }
     },
 });
