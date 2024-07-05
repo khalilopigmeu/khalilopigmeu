@@ -18,7 +18,7 @@
                                 <div v-if="!nulo(textosite)">
                                     <ul class="list-group list-group-flush" v-if="!nulo(itens)" id="liststyle">
                                         <li class="list-group-item" v-for="text in app.sys.search(textosite,itens._id['$oid'],'IdCategoriaText')">
-                                            <span v-on:click="selectext(text._id['$oid'])">{{text.Titulo}}</span>
+                                            <button v-on:click="selectext(text._id['$oid'])">{{text.Titulo}}</button>
                                         </li>
                                     </ul>
                                 </div>
@@ -29,6 +29,7 @@
             </div>
             <div class="col-8">
                 <h4>Conteúdo:</h4>
+                <article v-if="!nulo(selectedtext)" v-html="texto()"></article>
             </div>
         </div>
     </div>

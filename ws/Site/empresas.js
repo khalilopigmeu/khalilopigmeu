@@ -1009,6 +1009,12 @@ app["empresasanunciando"] = new Vue({
         },
         selectext: function (id) {
            this.selectedtext = id;
+        },
+        texto:function(){
+            //app.sys.searchByID(selectedtext)[0].DataPublicacao;
+            //app.sys.searchByID(selectedtext)[0].Resumo;
+            //app.sys.searchByID(selectedtext)[0].TPredata;
+            app.sys.searchByID(selectedtext)[0].Text;
         }
     },
 });
