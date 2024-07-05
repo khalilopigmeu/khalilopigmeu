@@ -1008,7 +1008,7 @@ app["empresasanunciando"] = new Vue({
             });
         },
         selectext: function (id) {
-            this.seletedtext = id;
+           this.selectedtext = id;
         }
     },
 });

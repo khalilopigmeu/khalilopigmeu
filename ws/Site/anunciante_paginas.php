@@ -1,4 +1,4 @@
-<section v-if="((spy==='pagina' || spy==='all') && (Anunciante(pgid).Tipo==='1' || Anunciante(pgid).Tipo==='3'))&& (!nulo(paginas)&&paginas.length>0)">
+<section v-if="((spy==='pagina' || spy==='all') && (Anunciante(pgid).Tipo==='1' || Anunciante(pgid).Tipo==='3')) && (!nulo(paginas)&&paginas.length>0)">
     <h2 class="spanCli m-2 p-2" v-if="paginas!==null">Conheça nosso conteúdo:</h2>
     <div class="accordion" id="accordionPaginas">
         <div v-for="(itens,i) in paginas" class="card">
