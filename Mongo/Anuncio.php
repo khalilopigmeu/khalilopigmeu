@@ -16,15 +16,16 @@ include $refUrl . "Mongo/template/head.php"
 <select class="form-control" v-model="Tipo">
     <option value="0">Selecione o modelo de anúncio</option>  
     <option value="1">Página</option>  
-    <option value="2">Loja</option>  
-    <option value="3">Personalizado</option> 
-    <option value="4">Redirecionamento para Site</option>  
-    <option value="5">Redirecionamento para Whatsapp</option>  
-    <option value="6">Redirecionamento para Facebook</option>  
-    <option value="7">Redirecionamento para Instagram</option>  
-    <option value="8">Redirecionamento para Youtube</option>  
-    <option value="9">Redirecionamento para TikTok</option>  
-    <option value="10">Redirecionamento para Kawai</option>  
+    <option value="2">Blog</option>  
+    <option value="3">Loja</option>  
+    <option value="4">Personalizado</option> 
+    <option value="5">Redirecionamento para Site</option>  
+    <option value="9">Redirecionamento para Whatsapp</option>  
+    <option value="7">Redirecionamento para Facebook</option>  
+    <option value="8">Redirecionamento para Instagram</option>  
+    <option value="9">Redirecionamento para Youtube</option>  
+    <option value="10">Redirecionamento para TikTok</option>  
+    <option value="11">Redirecionamento para Kawai</option>  
 </select>
 <br>
 <label>Módulos:</label>

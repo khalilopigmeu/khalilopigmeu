@@ -60,25 +60,28 @@
                     Cupom <i class="fas fa-ticket-alt"></i>
                     </a>-->
                     <div class='col-12' v-if="Anunciante(itens._id['$oid']).Ativo==='true'">
-                        <a v-if="Anunciante(itens._id['$oid']).Tipo==='1'" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'?pgid='+itens._id['$oid']+'#anunciante'">
+                        <a v-if="Anunciante(itens._id['$oid']).Tipo==='1'" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'?pgid='+itens._id['$oid']+'&spy=pagina#anunciante'">
                             Clique para ver a página <i class="fas fa-angle-double-right"></i>
                         </a>
-                        <a v-if="Anunciante(itens._id['$oid']).Tipo==='2'" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'?pgid='+itens._id['$oid']+'#loja'">
+                        <a v-if="Anunciante(itens._id['$oid']).Tipo==='2'" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'?pgid='+itens._id['$oid']+'&spy=blog#anunciante'">
+                            Clique para ver o editorial <i class="fas fa-angle-double-right"></i>
+                        </a>
+                        <a v-if="Anunciante(itens._id['$oid']).Tipo==='3'" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'?pgid='+itens._id['$oid']+'&spy=loja#anunciante'">
                             Clique para ver a loja <i class="fas fa-angle-double-right"></i>
                         </a>
-                        <a v-if="Anunciante(itens._id['$oid']).Tipo==='3'" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'?pgid='+itens._id['$oid']+'#anunciante'">
+                        <a v-if="Anunciante(itens._id['$oid']).Tipo==='4'" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'?pgid='+itens._id['$oid']+'&spy=all#anunciante'">
                             Clique para ver o conteúdo <i class="fas fa-angle-double-right"></i>
                         </a>
-                        <a v-if="Anunciante(itens._id['$oid']).Tipo==='4'" target="_blank" class="btn btn-dark col-10 my-1 py-1" v-bind:href="getSite(itens._id['$oid'])">
+                        <a v-if="Anunciante(itens._id['$oid']).Tipo==='5'" target="_blank" class="btn btn-dark col-10 my-1 py-1" v-bind:href="getSite(itens._id['$oid'])">
                             Clique para ver o Site <i class="fas fa-angle-double-right"></i>
                         </a>
-                        <a v-if="Anunciante(itens._id['$oid']).Tipo==='5'" target="_blank" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'https://wa.me/55'+cleanwap(itens.Celular)">
+                        <a v-if="Anunciante(itens._id['$oid']).Tipo==='6'" target="_blank" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'https://wa.me/55'+cleanwap(itens.Celular)">
                             Clique para falar no Whatsapp <i class="fas fa-angle-double-right"></i>
                         </a>
-                        <a v-if="Anunciante(itens._id['$oid']).Tipo==='6'" target="_blank" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'https://facebook.com/'+getFB(itens._id['$oid'])">
+                        <a v-if="Anunciante(itens._id['$oid']).Tipo==='7'" target="_blank" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'https://facebook.com/'+getFB(itens._id['$oid'])">
                             Clique para ir ao Facebook<i class="fas fa-angle-double-right"></i>
                         </a>
-                        <a v-if="Anunciante(itens._id['$oid']).Tipo==='7'" target="_blank" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'https://instagram.com/'+getInsta(itens._id['$oid'])">
+                        <a v-if="Anunciante(itens._id['$oid']).Tipo==='8'" target="_blank" class="btn btn-dark col-10 my-1 py-1" v-bind:href="'https://instagram.com/'+getInsta(itens._id['$oid'])">
                             Clique para ir ao Instagram <i class="fas fa-angle-double-right"></i>
                         </a>
                     </div>
@@ -95,16 +98,16 @@
             <?php include "anunciante_promocoes.php" ?>
             <?php include "anunciante_associado.php" ?>
             <?php include "exportpdf.php" ?>
-            <div v-if="Anunciante(pgid).Tipo==='4'" id="toOpen" v-bind:data-url="getSite(pgid)">
+            <div v-if="Anunciante(pgid).Tipo==='5'" id="toOpen" v-bind:data-url="getSite(pgid)">
                 {{cast()}}
             </div>
-            <div v-if="Anunciante(pgid).Tipo==='5'" id="toOpen" v-bind:data-url="'https://wa.me/55'+cleanwap(EmpresaSelecionada(pgid).Celular)">
+            <div v-if="Anunciante(pgid).Tipo==='6'" id="toOpen" v-bind:data-url="'https://wa.me/55'+cleanwap(EmpresaSelecionada(pgid).Celular)">
                 {{cast()}}
             </div>
-            <div v-if="Anunciante(pgid).Tipo==='6'" id="toOpen" v-bind:data-url="'https://facebook.com/'+getFB(pgid)">
+            <div v-if="Anunciante(pgid).Tipo==='7'" id="toOpen" v-bind:data-url="'https://facebook.com/'+getFB(pgid)">
                 {{cast()}}
             </div>
-            <div v-if="Anunciante(pgid).Tipo==='7'"  id="toOpen" v-bind:data-url="'https://instagram.com/'+getInsta(pgid)">
+            <div v-if="Anunciante(pgid).Tipo==='8'"  id="toOpen" v-bind:data-url="'https://instagram.com/'+getInsta(pgid)">
                 {{cast()}}
             </div>
         </div>

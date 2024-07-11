@@ -1,7 +1,7 @@
-<section v-if="((spy==='blog' || spy==='all') && (Anunciante(pgid).Tipo==='1' || Anunciante(pgid).Tipo==='3')) && (categoriatextosite.length>0 && textosite.length>0)">
+<section v-if="((spy==='blog' || spy==='all') && (Anunciante(pgid).Tipo==='2' || Anunciante(pgid).Tipo==='4')) && (categoriatextosite.length>0 && textosite.length>0)">
     <h2 class="spanCli m-2 p-2">Conheça nosso editorial:</h2>
     <div class="container-fluid">
-        <div class="row text-center justify-content-center pt-2">
+        <div class="row text-center justify-content-center p-1 bg-white rounded border">
             <div v-if="!nulo(categoriatextosite)" class="col-4">
                 <h3>Temas:</h3>
                 <div class="accordion" id="accordionTextos">
@@ -27,9 +27,12 @@
                     </div>
                 </div>
             </div>
-            <div class="col-8">
+            <div class="col-8 text-left">
                 <h4>Conteúdo:</h4>
-                <article v-if="!nulo(selectedtext)" v-html="texto()"></article>
+                <article v-if="!nulo(selectedtext)">
+                    <div v-html="texto()"></div>
+                    <button class="btn mx-auto" v-if="lermais===false" v-on:click="vermais(selectedtext)">Saber mais</button>
+                </article>
             </div>
         </div>
     </div>

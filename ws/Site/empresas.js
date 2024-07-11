@@ -97,7 +97,8 @@ app["empresasanunciando"] = new Vue({
         printpdf: false,
         TipoCatalogo: 1,
         print: 0,
-        href: "Empresa"
+        href: "Empresa",
+        lermais: false
     },
     methods: {
         buscar: function (refid) {
@@ -781,7 +782,7 @@ app["empresasanunciando"] = new Vue({
                     this.produtos = [];
                 } else {
                     this.produtos = app.ProdutosSite.src;
-                    if (this.Anunciante(getParameterByName("pgid")).Tipo === '2' || this.Anunciante(getParameterByName("pgid")).Tipo === '3') {
+                    if (this.produtos.length > 0 && (this.Anunciante(getParameterByName("pgid")).Tipo === '3' || this.Anunciante(getParameterByName("pgid")).Tipo === '4')) {
                         app.empresasanunciando.addSpy("<i class='fas fa-store'></i> Loja", "loja");
                     }
                 }
@@ -800,7 +801,7 @@ app["empresasanunciando"] = new Vue({
                     this.Pacotesrc = [];
                 } else {
                     this.Pacotesrc = app.PromocaoSite.Pacotesrc;
-                    if (this.Anunciante(getParameterByName("pgid")).Tipo === '2' || this.Anunciante(getParameterByName("pgid")).Tipo === '3') {
+                    if (this.Pacotesrc.length > 0 && (this.Anunciante(getParameterByName("pgid")).Tipo === '3' || this.Anunciante(getParameterByName("pgid")).Tipo === '4')) {
                         app.empresasanunciando.addSpy("<i class='fas fa-boxes'></i> Pacotes", "combos");
                     }
                 }
@@ -808,7 +809,7 @@ app["empresasanunciando"] = new Vue({
                     this.Itemsrc = [];
                 } else {
                     this.Itemsrc = app.PromocaoSite.Itemsrc;
-                    if (this.Anunciante(getParameterByName("pgid")).Tipo === '2' || this.Anunciante(getParameterByName("pgid")).Tipo === '3') {
+                    if (this.Itemsrc.length > 0 && (this.Anunciante(getParameterByName("pgid")).Tipo === '3' || this.Anunciante(getParameterByName("pgid")).Tipo === '4')) {
                         app.empresasanunciando.addSpy("<i class='fas fa-percent'></i> Promoções", "promocao");
                     }
                     for (var i = 0; i <= this.Itemsrc.length - 1; i++) {
@@ -852,7 +853,7 @@ app["empresasanunciando"] = new Vue({
                     this.paginas = [];
                 } else {
                     this.paginas = app.paginasite.src;
-                    if (this.Anunciante(getParameterByName("pgid")).Tipo === '1' || this.Anunciante(getParameterByName("pgid")).Tipo === '3') {
+                    if (this.paginas.length > 0 && (this.Anunciante(getParameterByName("pgid")).Tipo === '1' || this.Anunciante(getParameterByName("pgid")).Tipo === '4')) {
                         app.empresasanunciando.addSpy("<i class='fas fa-globe'></i> Páginas", "pagina");
                     }
                 }
@@ -860,6 +861,9 @@ app["empresasanunciando"] = new Vue({
                     this.textosite = [];
                 } else {
                     this.textosite = app.textosite.src;
+                    if (this.textosite.length > 0 && (this.Anunciante(getParameterByName("pgid")).Tipo === '2' || this.Anunciante(getParameterByName("pgid")).Tipo === '4')) {
+                        app.empresasanunciando.addSpy("<i class='fas fa-globe'></i> Editorial", "blog");
+                    }
                 }
                 if (nulo(app.categoriatextosite)) {
                     this.categoriatextosite = [];
@@ -1011,10 +1015,19 @@ app["empresasanunciando"] = new Vue({
             this.selectedtext = id;
         },
         texto: function () {
-            //app.sys.searchByID(app.textosite.src,this.selectedtext)[0].DataPublicacao;
-            //app.sys.searchByID(app.textosite.src,this.selectedtext)[0].Resumo;
-            //app.sys.searchByID(app.textosite.src,this.selectedtext)[0].TPredata;
-            return app.sys.searchByID(app.textosite.src, this.selectedtext)[0].Text
+            var el = app.sys.searchByID(app.textosite.src, this.selectedtext)[0];
+            if (DataMaior(el.DataPublicacao, dataAtualFormatada())) {
+                return el.TPredata;
+            } else {
+                if (this.lermais === true) {
+                    return el.Text;
+                } else {
+                    return el.Resumo;
+                }
+            }
+        },
+        vermais: function (id) {
+            this.lermais = true;
         }
     },
 });

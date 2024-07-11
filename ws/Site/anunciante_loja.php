@@ -45,7 +45,7 @@
     </div>
     <hr>
 </section>
-<section v-if="((spy==='loja' || spy==='all') &&(Anunciante(pgid).Tipo==='2' || Anunciante(pgid).Tipo==='3'))&&!nulo(produtos)">
+<section v-if="((spy==='loja' || spy==='all') &&(Anunciante(pgid).Tipo==='3' || Anunciante(pgid).Tipo==='4'))&&!nulo(produtos)">
     <h2 class="spanCli m-2 p-2">Conheça nossos produtos:</h2>
     <div class="row"  v-if="">
         <div class="col-12 text-center justify-content-center">
