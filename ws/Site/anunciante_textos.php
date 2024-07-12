@@ -37,3 +37,43 @@
         </div>
     </div>
 </section>
+<section v-if="((spy==='blog' || spy==='all') &&(Anunciante(pgid).Tipo==='3' || Anunciante(pgid).Tipo==='4'))&&!nulo(produtos)">
+    <h2 class="spanCli m-2 p-2">Conheça nossos produtos:</h2>
+    <div class="row">
+        <div class="col-7 mx-auto text-center justify-content-center">
+            <div class="swiper" id="swiperblog">
+                <div class="swiper-wrapper">
+                    <div v-for="itens in app.empresasanunciando.catalogoProdutos(TipoCatalogo)" class="swiper-slide rounded produto">
+                        <div class="product__item" data-toggle="modal" data-target="#AboutProduto" v-on:click="buscaProduto(itens._id['$oid'])">
+                            <div v-if="itens.QtdMin==1">
+                                <div class="product__item__pic set-bg"  v-bind:style="'background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">
+                                </div>
+                            </div>
+                            <div v-else>
+                                <div class="product__item__pic set-bg"  v-bind:style="'background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia)+')'">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="product__item__text">
+                                <h6>{{itens.NomeProduto}}</h6>
+                                <h5 v-html="HasPromo(itens._id['$oid'],itens.Preco)"></h5>
+                                <div v-html="itens.EspecificacaoProduto"></div>
+                                <div v-if="itens.QtdMin==1" class="badge badge-success">
+                                    Disponível em estoque!
+                                </div>
+                                <div v-else class="badge badge-warning">
+                                    Apenas por encomenda! <br> tempo de espera de 7 a 10 dias úteis;<br>
+                                    Preço em exibição tem como base a última compra<br> o preço final poderá sofrer acréscimo ou decréscimo.
+                                </div>
+                                <p class="mt-2 seemore">Clique para ver mais</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="swiper-button-next"></div>
+            <div id="swiper-button-prev"></div>
+        </div>
+    </div>
+    {{swiper()}}
+</section>

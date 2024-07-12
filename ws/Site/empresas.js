@@ -1028,6 +1028,31 @@ app["empresasanunciando"] = new Vue({
         },
         vermais: function (id) {
             this.lermais = true;
+        },
+        swiper: function () {
+            $(function () {
+                return new Swiper('#swiperblog', {
+                    direction: 'horizontal',
+                    loop: true,
+                    autoplay: {
+                        delay: 3500,
+                    },
+
+                    effect: 'fade',
+                    fadeEffect: {
+                        crossFade: true
+                    },
+
+                    mousewheel: true,
+                    keyboard: {
+                        enabled: true,
+                    },
+                    navigation: {
+                        nextEl: '#swiper-button-next',
+                        prevEl: '#swiper-button-prev',
+                    },
+                });
+            })
         }
     },
 });

@@ -8,7 +8,7 @@
             <div class="modal-body h-100">
                 <div class="swiper swipe my-auto" v-if="printpdf==true">
                     <div class="swiper-wrapper">
-                        <div v-for="itens in app.empresasanunciando.catalogoProdutos(TipoCatalogo)" class="swiper-slide border rounded border-dark produto">
+                        <div v-for="itens in app.empresasanunciando.catalogoProdutos(TipoCatalogo)" class="swiper-slide rounded produto">
                             <div class="product__item row h-100">
                                 <div class="col-lg-4 col-md-12 col-sm-12 my-auto" v-if="itens.QtdMin==1">
                                     <div class="product__item__pic set-bg"  v-bind:style="'background-image: url('+encodeURI(Midias(itens.IdAlbum)[0].UrlMidia).replace('https://cdn.pongongo.com.br','')+')'">

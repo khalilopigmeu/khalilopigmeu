@@ -675,3 +675,6 @@ form{
     box-sizing: content-box;
 }
 
+.swiper-wrapper {
+    height: auto !important;
+}
