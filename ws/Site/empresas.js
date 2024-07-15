@@ -863,6 +863,13 @@ app["empresasanunciando"] = new Vue({
                     this.textosite = app.textosite.src;
                     if (this.textosite.length > 0 && (this.Anunciante(getParameterByName("pgid")).Tipo === '2' || this.Anunciante(getParameterByName("pgid")).Tipo === '4')) {
                         app.empresasanunciando.addSpy("<i class='fas fa-globe'></i> Editorial", "blog");
+                        if (!nulo(getParameterByName("materia"))) {
+                            var id = getParameterByName("materia");
+                            this.lermais = true;
+                            $("#accordionTextos .list-group-item span").removeClass("selectedText");
+                            $("#accordionTextos .list-group-item span[data-id='" + id + "']").addClass("selectedText");
+                            this.selectedtext = id;
+                        }
                     }
                 }
                 if (nulo(app.categoriatextosite)) {
@@ -1011,8 +1018,20 @@ app["empresasanunciando"] = new Vue({
                 url: sharer[0] + "&pdid=" + item._id['$oid'] + "#" + sharer[1]
             });
         },
+        shareText(text) {
+            var item = app.sys.searchByID(app.textosite.src, text)[0];
+            var sharer = window.location.href.split("#");
+            navigator.share({
+                title: item.Titulo,
+                text: "Veja esse conteúdo especial: " + item.Resumo,
+                url: sharer[0] + "&materia=" + item._id['$oid'] + "#" + sharer[1]
+            });
+        },
         selectext: function (id) {
+            $("#accordionTextos .list-group-item span").removeClass("selectedText");
+            $("#accordionTextos .list-group-item span[data-id='" + id + "']").addClass("selectedText");
             this.selectedtext = id;
+
         },
         texto: function () {
             var el = app.sys.searchByID(app.textosite.src, this.selectedtext)[0];
@@ -1028,6 +1047,17 @@ app["empresasanunciando"] = new Vue({
         },
         vermais: function (id) {
             this.lermais = true;
+        },
+        TextUrl: function (text, opt) {
+            var item = app.sys.searchByID(app.textosite.src, text)[0];
+            var sharer = window.location.href.split("#");
+            var url = "";
+            if (opt === false) {
+                url = sharer[0] + "&materia=" + item._id['$oid'] + "#" + sharer[1];
+            } else {
+                url = encodeURI(sharer[0] + "&materia=" + item._id['$oid'] + "&src=sdkpreparse'#" + sharer[1]);
+            }
+            return url;
         },
         swiper: function () {
             $(function () {

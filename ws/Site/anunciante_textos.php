@@ -5,20 +5,20 @@
             <div v-if="!nulo(categoriatextosite)" class="col-4">
                 <h3>Temas:</h3>
                 <div class="accordion" id="accordionTextos">
-                    <div v-for="itens in categoriatextosite" class="card">
+                    <div v-for="(itens,i) in categoriatextosite" class="card">
                         <div class="card-header" v-bind:id="'head'+i">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" v-bind:data-target="'#tcollapse'+i" aria-expanded="true" v-bind:aria-controls="'tcollapse'+i">
+                            <h4 class="mb-0">
+                                <span class="text-left headText" data-toggle="collapse" v-bind:data-target="'#tcollapse'+i" aria-expanded="false" v-bind:aria-controls="'tcollapse'+i">
                                     {{itens.Nome}} 
-                                </button>
-                            </h2>
+                                </span>
+                            </h4>
                         </div>
                         <div v-bind:id="'tcollapse'+i" class="collapse" v-bind:aria-labelledby="'head'+i" data-parent="#accordionTextos">
                             <div class="card-body">
                                 <div v-if="!nulo(textosite)">
                                     <ul class="list-group list-group-flush" v-if="!nulo(itens)" id="liststyle">
-                                        <li class="list-group-item" v-for="text in app.sys.search(textosite,itens._id['$oid'],'IdCategoriaText')">
-                                            <button v-on:click="selectext(text._id['$oid'])">{{text.Titulo}}</button>
+                                        <li class="list-group-item" v-for="text in app.sys.sorter(app.sys.search(textosite,itens._id['$oid'],'IdCategoriaText'),'ASC','DataPublicacao')">
+                                            <span class="unselectedText" v-bind:data-id="text._id['$oid']" v-on:click="selectext(text._id['$oid'])">{{text.Titulo}}</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -31,6 +31,12 @@
                 <h4>Conteúdo:</h4>
                 <article v-if="!nulo(selectedtext)">
                     <div v-html="texto()"></div>
+                    <br>
+                    <button class='btn button' v-on:click='shareText(selectedtext)' >Compartilhar <i class="fas fa-share"></i></button>
+                    <div class="fb-share-button" v-bind:data-href="TextUrl(selectedtext,false)" data-layout="button" data-size="small">
+                        <a target="_blank" v-bind:href="'https://www.facebook.com/sharer/sharer.php?u='+TextUrl(selectedtext,true)" class="fb-xfbml-parse-ignore">Compartilhar</a>
+                    </div>
+                    <br>
                     <button class="btn mx-auto" v-if="lermais===false" v-on:click="vermais(selectedtext)">Saber mais</button>
                 </article>
             </div>
