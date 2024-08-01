@@ -3,6 +3,13 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Acme&family=Aladin&family=Allura&family=Audiowide&family=Cinzel+Decorative&family=Cookie&family=Courgette&family=Delius+Swash+Caps&family=Dosis&family=Ephesis&family=Gruppo&family=Kaushan+Script&family=Lobster&family=Macondo&family=Medula+One&family=My+Soul&family=Nova+Mono&family=Oleo+Script&family=Paprika&family=Prata&family=Quintessential&family=Racing+Sans+One&family=Rum+Raisin&family=Saira+Extra+Condensed&family=Sriracha&family=Tilt+Neon&family=WindSong&display=swap');
 
+@font-face {
+    font-family: 'ringbearermedium';
+    src: url('css/fonts/ringm___-webfont.woff2') format('woff2'),
+        url('css/fonts/ringm___-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
 h1 {
     font-size: 4vw !important;
@@ -52,7 +59,7 @@ button:disabled,.btn:disabled{
 }
 
 a:disabled,a.btn:disabled{
-    color: var(--botoesoff) !important;
+    background: var(--botoesoff) !important;
 }
 
 /*a:visited,a.btn:visited{
@@ -66,10 +73,9 @@ button:disabled,.btn:disabled{
 
 button:hover,.btn:hover{
     background: var(--botoesout) !important;
-    color: var(--botoesbg) !important;
 }
 a:hover,a.btn:hover{
-    color: var(--botoesbg) !important;
+    color: var(--botoesout) !important;
 }
 
 .btn.btn-warning {

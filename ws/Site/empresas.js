@@ -1045,6 +1045,10 @@ app["empresasanunciando"] = new Vue({
                 }
             }
         },
+        title: function () {
+            var el = app.sys.searchByID(app.textosite.src, this.selectedtext)[0];
+            return el.Titulo;
+        },
         vermais: function (id) {
             this.lermais = true;
         },

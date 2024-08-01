@@ -262,7 +262,7 @@ app["Configuracao"] = new Vue({
             var css = ":root{";
             for (var i = 0; i <= Object.keys(app.Configuracao._data).length - 1; i++) {
                 if (Object.keys(app.Configuracao._data)[i].includes("C_")) {
-                    css += "--" + replaceAll("C_", "", Object.keys(app.Configuracao._data)[i]) + ":" + app.Configuracao[Object.keys(app.Configuracao._data)[i]] + ";";
+                    css += "--"+Object.keys(app.Configuracao._data)[i].replace(/C_/g, "") + ":" + app.Configuracao[Object.keys(app.Configuracao._data)[i]] + ";";
                 }
             }
             css += "}";

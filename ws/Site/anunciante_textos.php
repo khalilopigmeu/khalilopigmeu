@@ -2,7 +2,7 @@
     <h2 class="spanCli m-2 p-2">Conheça nosso editorial:</h2>
     <div class="container-fluid">
         <div class="row text-center justify-content-center p-1 bg-white rounded border">
-            <div v-if="!nulo(categoriatextosite)" class="col-4">
+            <div v-if="!nulo(categoriatextosite)" class="col-sm-12 col-lg-4">
                 <h3>Temas:</h3>
                 <div class="accordion" id="accordionTextos">
                     <div v-for="(itens,i) in categoriatextosite" class="card">
@@ -27,17 +27,20 @@
                     </div>
                 </div>
             </div>
-            <div class="col-8 text-left">
+            <div class="col-sm-12 col-lg-8 text-left">
                 <h4>Conteúdo:</h4>
                 <article v-if="!nulo(selectedtext)">
+                    <h5 v-html="title()"></h5>
                     <div v-html="texto()"></div>
+                    <br>
+                    <button class="btn mx-auto" v-if="lermais===false" v-on:click="vermais(selectedtext)">Saber mais</button>
+                    <br>
+                    <hr>
                     <br>
                     <button class='btn button' v-on:click='shareText(selectedtext)' >Compartilhar <i class="fas fa-share"></i></button>
                     <div class="fb-share-button" v-bind:data-href="TextUrl(selectedtext,false)" data-layout="button" data-size="small">
                         <a target="_blank" v-bind:href="'https://www.facebook.com/sharer/sharer.php?u='+TextUrl(selectedtext,true)" class="fb-xfbml-parse-ignore">Compartilhar</a>
                     </div>
-                    <br>
-                    <button class="btn mx-auto" v-if="lermais===false" v-on:click="vermais(selectedtext)">Saber mais</button>
                 </article>
             </div>
         </div>

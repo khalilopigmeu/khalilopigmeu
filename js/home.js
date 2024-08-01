@@ -12,7 +12,7 @@ app["Home"] = new Vue({
         chamadas: [],
         chamadashome: [],
         pghome: null,
-        home:false,
+        home: false,
         src: null,
     },
     methods: {
@@ -26,13 +26,15 @@ app["Home"] = new Vue({
              var Difference_In_Time = this.date2.getTime() - this.date1.getTime();
              var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
              this.diferenca = Math.round(Difference_In_Days);*/
-       },
-       boreal:function(){
-         window.localStorage.setItem("labeledby","borealmystic.com.br");  
-       },
-       bienestar:function(){
-         window.localStorage.setItem("labeledby","bienclube.com.br");  
-       }
+        },
+        boreal: function () {
+            window.localStorage.setItem("labeledby", "borealmystic.com.br");
+            window.location.reload();
+        },
+        bienestar: function () {
+            window.localStorage.setItem("labeledby", "bienclube.com.br");
+            window.location.reload();
+        }
     }
 });
  
