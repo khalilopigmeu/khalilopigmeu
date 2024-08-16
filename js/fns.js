@@ -348,7 +348,7 @@ function mediana(numbers) {
 
 function media(numbers) {
     const sorted = Array.from(numbers);
-    var total;
+    var total=0;
     for (var i = 0; i <= sorted.length - 1; i++) {
         if (!isNaN(parseFloat(sorted[i]))) {
             total += parseFloat(sorted[i]);
