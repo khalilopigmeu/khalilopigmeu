@@ -47,6 +47,7 @@ app["configuracaosite"] = new Vue({
         },
         id: function () {
             if (app.configuracaosite.src.length > 0) {
+                app.sys.setColorSystem();
                 if (app.configuracaosite.src[0].Facebook) {
                     app.empresasanunciando.fb = app.configuracaosite.src[0].Facebook.replace("@", "");
                 }
@@ -59,7 +60,6 @@ app["configuracaosite"] = new Vue({
                 if (app.configuracaosite.src[0].LogoURL) {
                     app.empresasanunciando.logo = app.configuracaosite.src[0].LogoURL;
                 }
-                app.sys.setColorSystem();
             }
         },
         url: function () {

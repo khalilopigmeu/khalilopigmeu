@@ -37,7 +37,6 @@ app["LoginsOauth"] = new Vue({
                     setAuth(decrypt(app.sys.bien, "encodedstring"));
                     window.localStorage.setItem("IdLogin", id);
                 }
-                app.sys.setColorSystem();
             } else {
                 biencode = {};
                 captchaSys(app.sys.keysite);
