@@ -151,7 +151,7 @@ function urlRead() {
     app.anunciante.pgid = null;
     app.paginasite.pg = null;
     urlSite = window.location.href;
-    app.sys.setDefault();
+    app.sys.setColorSystem();
     if (urlSite.includes("access_token")) {
         var acs = urlSite.substr(urlSite.indexOf("access_token") + 13, urlSite.lastIndexOf("token_type") - 54);
         window.localStorage.setItem("access_token", acs);
