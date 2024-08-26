@@ -249,7 +249,6 @@ app["sys"] = new Vue({
         },
         acessar: function (idlogin, ravec) {
             this.acesso = eval(decrypt(ravec, idlogin));
-            app.sys.setColorSystem();
         },
         ravecmenu: function (href, nivel) {
             if (typeof app[href] !== "undefined" && app[href] !== null) {

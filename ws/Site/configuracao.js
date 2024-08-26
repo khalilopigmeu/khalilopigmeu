@@ -59,6 +59,7 @@ app["configuracaosite"] = new Vue({
                 if (app.configuracaosite.src[0].LogoURL) {
                     app.empresasanunciando.logo = app.configuracaosite.src[0].LogoURL;
                 }
+                app.sys.setColorSystem();
             }
         },
         url: function () {

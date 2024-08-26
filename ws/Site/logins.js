@@ -29,8 +29,8 @@ app["LoginsOauth"] = new Vue({
                     } else {
                         setAuth(auth);
                     }
-                    app.configuracaosite.buscar(app.LoginsOauth.src[0].IdEmpresa);
                     window.localStorage.setItem("RAVEC", app.LoginsOauth.src[0].RAVEC);
+                    app.configuracaosite.buscar(app.LoginsOauth.src[0].IdEmpresa);
                     window.localStorage.setItem("IdLogin", app.LoginsOauth.src[0]._id["$oid"]);
                     app.sys.acessar(window.localStorage.getItem("IdLogin"), window.localStorage.getItem("RAVEC"));
                 } else {
