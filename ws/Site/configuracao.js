@@ -25,7 +25,7 @@ app["configuracaosite"] = new Vue({
                     biencode: encrypt(JSON.stringify(this.biencode), key)
                 };
                 //app.sys.crud("configuracaosite", "listar", data);
-                app.sys.crud("configuracaosite", "variavel", data, "listar", app.configuracaosite.id, app.sys.setColorSystem());
+                app.sys.crud("configuracaosite", "variavel", data, "listar", app.configuracaosite.id);
             }
         },
         buscaurl: function () {
