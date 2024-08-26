@@ -15,7 +15,7 @@ app["tagLista"] = new Vue({
         Host: "Linkado/Tags/",
         paginate: [],
         bars: [],
-        pesquisa:"",
+        pesquisa: "",
         chart: null
     },
     methods: {
@@ -37,29 +37,37 @@ app["tagLista"] = new Vue({
             app.tagLista.src = eval(decrypt(p));
         },
         dados: function (i) {
-            if(!nulo(this.chart)){
+            if (!nulo(this.chart)) {
                 this.chart.destroy();
                 this.bars = [];
             }
-            var chartColors = ['rgb(255, 99, 132)', 'rgb(255, 99, 132)', 'rgb(255, 159, 64)',
+            var chartColors = ['rgb(255, 99, 132)',  'rgb(255, 159, 64)',
                 'rgb(255, 205, 86)', 'rgb(75, 192, 192)', 'rgb(54, 162, 235)',
-                'rgb(153, 102, 255)', 'rgb(231,233,237)'];
-            var labels = Object.keys(JSON.parse(this.src[i].Dados[0]));
-            var titulos = ["Data", "Visualizações", "Mediana de Likes", "Média de Likes", "Mediana de Comentários", "Média de Comentários", "Mediana de Interações", "Média de Interações"];
+                'rgb(153, 102, 255)', 'rgb(156,233,123)'];
+            var labels = ["visualizacao", "medianalike", "medialike", "medianacoment", "mediacoment", "medianavisu", "mediavisu"];
+            var titulos = ["Visualizações", "Mediana de Likes", "Média de Likes", "Mediana de Comentários", "Média de Comentários", "Mediana de Interações", "Média de Interações"];
             var ds = [];
-            for (var j = 0; j <= this.src[i].Dados.length - 1; j++) {
-                for (var z = 1; z <= labels.length - 1; z++) {
-                    if (j === 0) {
-                        ds[labels[z]] = [];
-                    }
-                    var item = JSON.parse(this.src[i].Dados[j])[labels[z]];
-                    if (nulo(item)) {
-                        item = 0;
-                    }
-                    ds[labels[z]][j] = {x:JSON.parse(this.src[i].Dados[j])[labels[0]].split('-').reverse().join('/'),y: parseFloat(item)};
+            var itens = app.sys.searchByID(this.src, i)[0];
+            for (var j = 0; j <= itens.Dados.length - 1; j++) {
+                if (j === 0) {
+                    ds[labels[0]] = [];
+                    ds[labels[1]] = [];
+                    ds[labels[2]] = [];
+                    ds[labels[3]] = [];
+                    ds[labels[4]] = [];
+                    ds[labels[5]] = [];
+                    ds[labels[6]] = [];
                 }
+                var item = JSON.parse(itens.Dados[j]);
+                ds[labels[0]][j] = {x: item["data"].split('-').reverse().join('/'), y: item["visualizacao"]};
+                ds[labels[1]][j] = {x: item["data"].split('-').reverse().join('/'), y: mediana(item["likes"].split(","))};
+                ds[labels[2]][j] = {x: item["data"].split('-').reverse().join('/'), y: media(item["likes"].split(","))};
+                ds[labels[3]][j] = {x: item["data"].split('-').reverse().join('/'), y: mediana(item["comentario"].split(","))};
+                ds[labels[4]][j] = {x: item["data"].split('-').reverse().join('/'), y: media(item["comentario"].split(","))};
+                ds[labels[5]][j] = {x: item["data"].split('-').reverse().join('/'), y: mediana(item["vistas"].split(","))};
+                ds[labels[6]][j] = {x: item["data"].split('-').reverse().join('/'), y: media(item["vistas"].split(","))};
             }
-            for (var x = 1; x <= labels.length - 1; x++) {
+            for (var x = 0; x <= labels.length-1; x++) {
                 this.bars.push({borderColor: chartColors[x], backgroundColor: chartColors[x],
                     data: ds[labels[x]],
                     label: titulos[x],

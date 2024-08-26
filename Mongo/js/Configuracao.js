@@ -209,13 +209,17 @@ app["Configuracao"] = new Vue({
             app.sys.setColorSystem();
         },
         createOpts: function () {
-            if (this.RootColors.length > 10) {
-                document.getElementsByTagName("style")[0].textContent = app.Configuracao.RootColors.replace("'", "");
-                var css = app.Configuracao.RootColors.replace(":root{", "").replace("}", "").split(";");
-                for (var i = 0; i <= css.length - 1; i++) {
-                    var key = css[i].split(":")[0].replace("--", "");
-                    var pair = css[i].split(":")[1];
-                    app.Configuracao["C_" + key] = pair;
+            if (!nulo(this.RootColors)) {
+                if (this.RootColors.length > 10) {
+                    document.getElementsByTagName("style")[0].textContent = app.Configuracao.RootColors.replace("'", "");
+                    var css = app.Configuracao.RootColors.replace(":root{", "").replace("}", "").split(";");
+                    for (var i = 0; i <= css.length - 1; i++) {
+                        var key = css[i].split(":")[0].replace("--", "");
+                        var pair = css[i].split(":")[1];
+                        app.Configuracao["C_" + key] = pair;
+                    }
+                } else {
+                    this.setDefault();
                 }
             } else {
                 this.setDefault();
@@ -224,36 +228,37 @@ app["Configuracao"] = new Vue({
                 if (Object.keys(app.Configuracao._data)[i].includes("C_")) {
                     if (Object.keys(app.Configuracao._data)[i].includes("font")) {
                         $("#formcustomize").append("<label>" + replaceAll("C_", "", Object.keys(app.Configuracao._data)[i]) + ":</label><select class='form-control' name='" + Object.keys(app.Configuracao._data)[i] + "'>"
-                                + "<option style='font-family: Acme !important ' Acme !important '>Bienestar Clube</option>"
-                                + "<option style='font-family: Aladin !important ' Aladin !important '>Bienestar Clube</option>"
-                                + "<option style='font-family: Allura !important ' Allura !important '>Bienestar Clube</option>"
-                                + "<option style='font-family: Audiowide !important ' Audiowide !important '>Bienestar Clube</option>"
-                                + "<option style='font-family: Cinzel Decorative !important ' Cinzel Decorative !important '>Bienestar Clube</option>"
-                                + "<option style='font-family: Cookie !important ' Cookie !important '>Bienestar Clube</option>"
-                                + "<option style='font-family: Courgette !important ' Courgette !important '>Bienestar Clube</option>"
-                                + "<option style='font-family: Delius Swash Caps !important ' Delius Swash Caps !important '>Bienestar Clube</option>"
-                                + "<option style='font-family: Dosis !important ' Dosis !important '>Bienestar Clube</option>"
-                                + "<option style='font-family: Ephesis !important ' Ephesis !important '>Bienestar Clube</option>"
-                                + "<option style='font-family: Gruppo !important ' Gruppo !important '>Bienestar Clube</option>"
-                                + "<option style='font-family: Kaushan Script !important ' Kaushan Script !important '>Bienestar Clube</option>"
-                                + "<option style='font-family: Lobster !important ' Lobster !important '>Bienestar Clube</option>"
-                                + "<option style='font-family: Macondo !important ' Macondo !important '>Bienestar Clube</option>"
-                                + "<option style='font-family: Medula One !important ' Medula One !important '>Bienestar Clube</option>"
-                                + "<option style='font-family: My Soul !important ' My Soul !important '>Bienestar Clube</option>"
-                                + "<option style='font-family: Nova Mono !important ' Nova Mono !important '>Bienestar Clube</option>"
-                                + "<option style='font-family: Oleo Script !important ' Oleo Script !important '>Bienestar Clube</option>"
-                                + "<option style='font-family: Paprika !important ' Paprika !important '>Bienestar Clube</option>"
-                                + "<option style='font-family: Prata !important ' Prata !important '>Bienestar Clube</option>"
-                                + "<option style='font-family: Quintessential !important ' Quintessential !important '>Bienestar Clube</option>"
-                                + "<option style='font-family: Racing Sans One !important ' Racing Sans One !important '>Bienestar Clube</option>"
-                                + "<option style='font-family: Rum Raisin !important ' Rum Raisin !important '>Bienestar Clube</option>"
-                                + "<option style='font-family: Saira Extra Condensed !important ' Saira Extra Condensed !important '>Bienestar Clube</option>"
-                                + "<option style='font-family: Sriracha !important ' Sriracha !important '>Bienestar Clube</option>"
-                                + "<option style='font-family: Tilt Neon !important ' Tilt Neon !important '>Bienestar Clube</option>"
-                                + "<option style='font-family: WindSong !important ' WindSong !important '>Bienestar Clube</option>"
+                                + "<option style='font-family: Acme !important '>" + window.localStorage.getItem("Empresa") + " - Acme</option>"
+                                + "<option style='font-family: Aladin !important '>" + window.localStorage.getItem("Empresa") + " - Aladin</option>"
+                                + "<option style='font-family: Allura !important '>" + window.localStorage.getItem("Empresa") + " - Alura</option>"
+                                + "<option style='font-family: Audiowide !important '>" + window.localStorage.getItem("Empresa") + " - Audiowide</option>"
+                                + "<option style='font-family: Cinzel Decorative !important'>" + window.localStorage.getItem("Empresa") + " - Cinzel decorative</option>"
+                                + "<option style='font-family: Cookie !important '>" + window.localStorage.getItem("Empresa") + " - Cookie</option>"
+                                + "<option style='font-family: Courgette !important '>" + window.localStorage.getItem("Empresa") + " - Courgette</option>"
+                                + "<option style='font-family: Delius Swash Caps !important '>" + window.localStorage.getItem("Empresa") + " - Delius Swash Caps</option>"
+                                + "<option style='font-family: Dosis !important '>" + window.localStorage.getItem("Empresa") + " - Dosis</option>"
+                                + "<option style='font-family: Ephesis !important '>" + window.localStorage.getItem("Empresa") + " - Ephesis</option>"
+                                + "<option style='font-family: Gruppo !important '>" + window.localStorage.getItem("Empresa") + " - Gruppo</option>"
+                                + "<option style='font-family: Kaushan Script !important '>" + window.localStorage.getItem("Empresa") + " - Kaushan Script</option>"
+                                + "<option style='font-family: Lobster !important '>" + window.localStorage.getItem("Empresa") + " - Lobster</option>"
+                                + "<option style='font-family: Macondo !important '>" + window.localStorage.getItem("Empresa") + " - Macondo</option>"
+                                + "<option style='font-family: Medula One !important '>" + window.localStorage.getItem("Empresa") + " - Medula One</option>"
+                                + "<option style='font-family: My Soul !important '>" + window.localStorage.getItem("Empresa") + " - My Soul</option>"
+                                + "<option style='font-family: Nova Mono !important '>" + window.localStorage.getItem("Empresa") + " - Nova Mono</option>"
+                                + "<option style='font-family: Oleo Script !important '>" + window.localStorage.getItem("Empresa") + " - Oleo Script</option>"
+                                + "<option style='font-family: Paprika !important '>" + window.localStorage.getItem("Empresa") + " - Paprika</option>"
+                                + "<option style='font-family: Prata !important '>" + window.localStorage.getItem("Empresa") + " - Prata</option>"
+                                + "<option style='font-family: Quintessential !important '>" + window.localStorage.getItem("Empresa") + " - Quintessential</option>"
+                                + "<option style='font-family: Racing Sans One !important '>" + window.localStorage.getItem("Empresa") + " - Racing Sans One</option>"
+                                + "<option style='font-family: Rum Raisin !important '>" + window.localStorage.getItem("Empresa") + " - Rum Raisin</option>"
+                                + "<option style='font-family: Saira Extra Condensed !important '>" + window.localStorage.getItem("Empresa") + " - Saira Extra Condensed</option>"
+                                + "<option style='font-family: Sriracha !important '>" + window.localStorage.getItem("Empresa") + " - Sriracha</option>"
+                                + "<option style='font-family: Tilt Neon !important '>" + window.localStorage.getItem("Empresa") + " - Tilt Neon</option>"
+                                + "<option style='font-family: WindSong !important '>" + window.localStorage.getItem("Empresa") + " - WindSong</option>"
                                 + "</select>");
                     } else {
-                        $("#formcustomize").append("<label>" + replaceAll("C_", "", Object.keys(app.Configuracao._data)[i]) + ":</label><input class='form-control' value='" + app.Configuracao[Object.keys(app.Configuracao._data)[i]] + "' type='color' name='" + Object.keys(app.Configuracao._data)[i] + "'><br>");
+                        //$("#formcustomize").append("<label>" + replaceAll("C_", "", Object.keys(app.Configuracao._data)[i]) + ":</label><input class='form-control' value='" + app.Configuracao[Object.keys(app.Configuracao._data)[i]] + "' type='color' name='" + Object.keys(app.Configuracao._data)[i] + "'><br>");
+                        $("#formcustomize").append("<label>" + replaceAll("C_", "", Object.keys(app.Configuracao._data)[i]) + ":</label><textarea class='form-control slcolor' style='background:" + app.Configuracao[Object.keys(app.Configuracao._data)[i]] + "' name='" + Object.keys(app.Configuracao._data)[i] + "'>" + app.Configuracao[Object.keys(app.Configuracao._data)[i]] + "</textarea><br>");
                     }
                 }
             }
@@ -262,7 +267,7 @@ app["Configuracao"] = new Vue({
             var css = ":root{";
             for (var i = 0; i <= Object.keys(app.Configuracao._data).length - 1; i++) {
                 if (Object.keys(app.Configuracao._data)[i].includes("C_")) {
-                    css += "--"+Object.keys(app.Configuracao._data)[i].replace(/C_/g, "") + ":" + app.Configuracao[Object.keys(app.Configuracao._data)[i]] + ";";
+                    css += "--" + Object.keys(app.Configuracao._data)[i].replace(/C_/g, "") + ":" + app.Configuracao[Object.keys(app.Configuracao._data)[i]] + ";";
                 }
             }
             css += "}";
@@ -371,7 +376,7 @@ app["Configuracao"] = new Vue({
 });
 
 $(function () {
-    $("body").on("change", "#formcustomize input,#formcustomize select", function () {
+    $("body").on("change", "#formcustomize input,#formcustomize textarea,#formcustomize select", function () {
         app.Configuracao[$(this).prop("name")] = $(this).val();
     });
 });

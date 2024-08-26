@@ -2,22 +2,20 @@
     <h2 class="spanCli m-2 p-2">Conheça nosso editorial:</h2>
     <div class="container-fluid">
         <div class="row text-center justify-content-center p-1 bg-white rounded border">
-            <div v-if="!nulo(categoriatextosite)" class="col-sm-12 col-lg-4">
-                <h3>Temas:</h3>
+            <div v-if="!nulo(categoriatextosite)" class="col-sm-12 col-lg-3">
+                <h6 class="titles">Categorias:</h6>
                 <div class="accordion" id="accordionTextos">
                     <div v-for="(itens,i) in categoriatextosite" class="card">
                         <div class="card-header" v-bind:id="'head'+i">
-                            <h4 class="mb-0">
-                                <span class="text-left headText" data-toggle="collapse" v-bind:data-target="'#tcollapse'+i" aria-expanded="false" v-bind:aria-controls="'tcollapse'+i">
-                                    {{itens.Nome}} 
-                                </span>
-                            </h4>
+                            <span class=" titles text-left headText text-break" data-toggle="collapse" v-bind:data-target="'#tcollapse'+i" aria-expanded="false" v-bind:aria-controls="'tcollapse'+i">
+                                {{itens.Nome}} 
+                            </span>
                         </div>
                         <div v-bind:id="'tcollapse'+i" class="collapse" v-bind:aria-labelledby="'head'+i" data-parent="#accordionTextos">
                             <div class="card-body">
                                 <div v-if="!nulo(textosite)">
                                     <ul class="list-group list-group-flush" v-if="!nulo(itens)" id="liststyle">
-                                        <li class="list-group-item" v-for="text in app.sys.sorter(app.sys.search(textosite,itens._id['$oid'],'IdCategoriaText'),'ASC','DataPublicacao')">
+                                        <li class="list-group-item titles" v-for="text in app.sys.sorter(app.sys.search(textosite,itens._id['$oid'],'IdCategoriaText'),'ASC','DataPublicacao')">
                                             <span class="unselectedText" v-bind:data-id="text._id['$oid']" v-on:click="selectext(text._id['$oid'])">{{text.Titulo}}</span>
                                         </li>
                                     </ul>
@@ -27,10 +25,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 col-lg-8 text-left">
-                <h4>Conteúdo:</h4>
+            <div class="col-sm-12 col-lg-9 text-left">
                 <article v-if="!nulo(selectedtext)">
-                    <h5 v-html="title()"></h5>
+                    <h5 class="titles" v-html="title()"></h5>
                     <div v-html="texto()"></div>
                     <br>
                     <button class="btn mx-auto" v-if="lermais===false" v-on:click="vermais(selectedtext)">Saber mais</button>

@@ -18,11 +18,11 @@ include "template/head.php"
     <input class="form-control" type="date" name='data[]' placeholder="Data de análise..."><br>
     <label>Visualizações:</label>
     <input class="form-control" name='visualizacao[]' placeholder="Visualizações..."><br>
-    <label>Primeiros Likes:</label>
+    <label>Primeiros 9 Likes:</label>
     <input class="form-control" name='likes[]' placeholder="Separar por ;"><br>
-    <label>Primeiros comentários:</label>
+    <label>Primeiros 9 comentários:</label>
     <input class="form-control" name='comentarios[]' placeholder="Separar por ;"><br>
-    <label>Primeiras visualizações:</label>
+    <label>Primeiras 9 interações:</label>
     <input class="form-control" name='vistas[]' placeholder="Separar por ;"><br>
 </fieldset>
 <button v-on:click='addDados'>Adicionar Dados</button>

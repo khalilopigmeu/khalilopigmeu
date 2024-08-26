@@ -9,7 +9,7 @@
     <div class="row text-center justify-content-center pt-2">
         <div v-if="!nulo(src)" class="col-4">
             <ul class="list-group list-group-flush" id="liststyle">
-                <li class="list-group-item" v-for="(item,i) in app.sys.sorter(app.sys.searchall(src,pesquisa),'ASC','IdTag')"  v-on:click="dados(i)">
+                <li class="list-group-item" v-for="(item) in app.sys.sorter(app.sys.searchall(src,pesquisa),'ASC','IdTag')"  v-on:click="dados(item._id['$oid'])">
                     {{item.IdTag}}
                 </li>
             </ul>

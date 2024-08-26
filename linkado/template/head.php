@@ -22,7 +22,7 @@
                             <!--<div class="col-sm-2 my-3 ml-2 btn btn-dark toForm" v-if="row!=null && ravec(5)" v-on:click="rel"><i class="far fa-newspaper"></i> Relatório</div>-->
                         </div>  
                         <div class="row justify-content-center my-2 py-2">
-                            <label>Pesquisa: </label><input class="ml-2" type="text" v-model="pesqTbl"><br>
+                            <label>Pesquisa: </label><input class="ml-2" type="text" v-model="pesqTbl"  v-on:change="Criarpaginas()"><br>
                             <select type="text" class='itensCount'>
                                 <option value="5">Selecione a qtd.</option>
                                 <option value="10">10</option>

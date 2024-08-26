@@ -685,20 +685,6 @@ form{
     height: auto !important;
 }
 
-#accordionTextos .headText:after{
-    content: "\27A4" !important;
+.titles{
+    font-family: courgette,cursive;
 }
-#accordionTextos .headText[aria-expanded="false"]:after{
-    content: "\27A4" !important;
-}
-#accordionTextos .headText[aria-expanded="true"]:after{
-    content: "\1F817" !important;
-}
-.unselectedText:after{
-    content: "\27A4";
-}
-.selectedText:after{
-    content: "\00BB" !important;
-}
-
-

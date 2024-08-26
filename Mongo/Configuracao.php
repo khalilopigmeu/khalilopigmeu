@@ -77,3 +77,20 @@ include $refUrl . "Mongo/template/head.php"
     </div>
 </div>
 <?php include $refUrl . "Mongo/template/foot.php" ?>
+<div class="modal fade" role="dialog" aria-labelledby="" aria-hidden="true" id="colors">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Selecione a cor</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="color" name="cores"><br>
+                <button type="button" class="btn btn-success savecolor" data-dismiss="modal">Salvar</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>

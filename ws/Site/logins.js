@@ -36,6 +36,7 @@ app["LoginsOauth"] = new Vue({
                     setAuth(decrypt(app.sys.bien, "encodedstring"));
                     window.localStorage.setItem("IdLogin", id);
                 }
+                app.sys.setColorSystem();
             } else {
                 biencode = {};
                 captchaSys(app.sys.keysite);
@@ -44,12 +45,14 @@ app["LoginsOauth"] = new Vue({
                     biencode: encrypt(JSON.stringify(biencode), key)
                 };
                 app.sys.crud("LoginsOauth", "listar", data);
+                app.sys.setColorSystem();
             }
             if (nulo(flag)) {
                 var dm = window.location.hostname;
                 if (dm.includes("ws/")) {
                     app.sys.ravecUpdate();
                 } else {
+                    app.sys.setColorSystem();
                     urlRead();
                 }
             }

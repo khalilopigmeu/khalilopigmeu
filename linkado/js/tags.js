@@ -54,9 +54,21 @@ app["tags"] = new Vue({
         },
         autocomplete: function () {
             this.Dados = this.row[3];
-            this.DescricaoTags = this.row[2];
-            this.NomeTags = this.row[1];
+            this.Segmento = this.row[2];
+            this.IdTags = this.row[1];
             this.id = this.row[0];
+            var arr = eval(this.Dados);
+            for (var i = 0; i <= arr.length - 1; i++) {
+                var item = JSON.parse(arr);
+                if (i > 0) {
+                    this.addDados();
+                }
+                document.getElementsByName("data[]")[i].value = item.data;
+                document.getElementsByName("visualizacao[]")[i].value = item.visualizacao;
+                document.getElementsByName("likes[]")[i].value = item.likes;
+                document.getElementsByName("comentarios[]")[i].value = item.comentario;
+                document.getElementsByName("vistas[]")[i].value = item.vistas;
+            }
         },
         checkForm: function () {
             app.erros.errors = {};
@@ -66,20 +78,19 @@ app["tags"] = new Vue({
             this.biencode.IdTag = this.IdTags;
             for (var i = 0; i <= document.getElementsByName("data[]").length - 1; i++) {
                 if (i === 0) {
-                    app.tags.Dados = [];
+                    app.tags.Dados = "";
                 }
-                app.tags.Dados.push({
-                    "data": document.getElementsByName("data[]")[i].value,
-                    "visualizacao": document.getElementsByName("visualizacao[]")[i].value,
-                    "likes-mediana": this.mediana(document.getElementsByName("likes[]")[i].value.split(";")),
-                    "likes-media": this.media(document.getElementsByName("likes[]")[i].value.split(";")),
-                    "comentario-mediana": this.mediana(document.getElementsByName("comentarios[]")[i].value.split(";")),
-                    "comentario-media": this.media(document.getElementsByName("comentarios[]")[i].value.split(";")),
-                    "vistas-mediana": this.mediana(document.getElementsByName("vistas[]")[i].value.split(";")),
-                    "vistas-media": this.media(document.getElementsByName("vistas[]")[i].value.split(";"))
-                });
+                app.tags.Dados += "{" +
+                        "\"data\":\"" + document.getElementsByName("data[]")[i].value + "\"," +
+                        "\"visualizacao\":\"" + document.getElementsByName("visualizacao[]")[i].value + "\"," +
+                        "\"likes\":\"" + document.getElementsByName("likes[]")[i].value + "\"," +
+                        "\"comentario\":\"" + document.getElementsByName("comentarios[]")[i].value + "\"," +
+                        "\"vistas\":\"" + document.getElementsByName("vistas[]")[i].value + "\""+
+                        "}";
+                if (i < document.getElementsByName("data[]").length - 1) {
+                    app.tags.Dados += ";";
+                }
             }
-            //this.biencode.Dados = JSON.stringify(this.Dados);
             this.biencode.Dados = this.Dados;
             this.biencode.id = this.id;
             this.biencode.IdUsuario = eval(window.localStorage.getItem("Linkado"))[0]._id["$oid"];
@@ -140,11 +151,11 @@ app["tags"] = new Vue({
                     '<input class="form-control" type="date" name="data[]" placeholder="Data de análise...">' +
                     '<label>Visualizações:</label>' +
                     '<input class="form-control" name="visualizacao[]" placeholder="Visualizações...">' +
-                    '<label>Primeiros Likes:</label>' +
+                    '<label>Primeiros 9 Likes:</label>' +
                     '<input class="form-control" name="likes[]" placeholder="Separar por ;">' +
-                    '<label>Primeiros comentários:</label>' +
+                    '<label>Primeiros 9 comentários:</label>' +
                     '<input class="form-control" name="comentarios[]" placeholder="Separar por ;">' +
-                    '<label>Primeiras visualizações:</label>' +
+                    '<label>Primeiras 9 interações:</label>' +
                     '<input class="form-control" name="vistas[]" placeholder="Separar por ;">');
         },
         removerDados: function () {
@@ -158,23 +169,6 @@ app["tags"] = new Vue({
             $("#TagDados label:last").remove();
             $("#TagDados label:last").remove();
             $("#TagDados label:last").remove();
-        },
-        mediana: function (numbers) {
-            const sorted = Array.from(numbers).sort((a, b) => a - b);
-            const middle = Math.floor(sorted.length / 2);
-            if (sorted.length % 2 === 0) {
-                return (sorted[middle - 1] + sorted[middle]) / 2;
-            }
-
-            return sorted[middle];
-        },
-        media: function (numbers) {
-            const sorted = Array.from(numbers);
-            var total;
-            for (var i = 0; i <= sorted.length - 1; i++) {
-                total += sorted[i];
-            }
-            return total / sorted.length;
         }
     }
 });
