@@ -186,8 +186,8 @@ app["Customizar"] = new Vue({
             }
         },
         setColorSystem: function () {
-            if (nulo(app.Configuracao)) {
-                if (nulo(app.Configuracao.src)) {
+            if (!nulo(app.Configuracao)) {
+                if (!nulo(app.Configuracao.src)) {
                     if (app.Configuracao.src[0].RootColors) {
                         document.getElementsByTagName("style")[0].textContent = app.Configuracao.src[0].RootColors.replace("'", "");
                     } else {
