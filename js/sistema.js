@@ -1219,6 +1219,20 @@ app["sys"] = new Vue({
                 } else {
                     this.setDefault();
                 }
+            } else if (!nulo(app.configuracaosite)) {
+                if (!nulo(app.configuracaosite.src)) {
+                    if (app.configuracaosite.src[0]) {
+                        if (app.configuracaosite.src[0].RootColors) {
+                            document.getElementsByTagName("style")[0].textContent = app.configuracaosite.src[0].RootColors.replace("'", "");
+                        } else {
+                            this.setDefault();
+                        }
+                    } else {
+                        this.setDefault();
+                    }
+                } else {
+                    this.setDefault();
+                }
             } else {
                 this.setDefault();
             }
