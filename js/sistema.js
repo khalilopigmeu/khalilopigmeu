@@ -1074,7 +1074,7 @@ app["sys"] = new Vue({
             if (!nulo(window.localStorage.getItem("labeledby"))) {
                 labeleStyle = window.localStorage.getItem("labeledby");
             }
-            if (urlSite.includes("borealmystic") || labeleStyle.includes("borealmystic")) {
+            if (this.urlSite.includes("borealmystic") || labeleStyle.includes("borealmystic")) {
                 app.sys.navbarbg = "#333333";
                 app.sys.navbarfont = "inherit";
                 app.sys.navbarcolor = "#fff";
