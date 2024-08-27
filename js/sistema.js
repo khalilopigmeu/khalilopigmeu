@@ -311,7 +311,7 @@ app["sys"] = new Vue({
                 this.googleapikey = 'Ww8izv4t2LvrZMAV2OC8RKz0';
                 this.login_oauth = '335814088949-4s5kvvptcpr76t2l23pkk7ptkfkmlapo.apps.googleusercontent.com';
                 this.key_oauth = atob('R09DU1BYLVJvdm5FZFZnSzVsa3FBMDNIdGdkbmRDUXZxOHY=');
-                this.keysite = atob("NkxmdWVzb2tBQUFBQUNKY3F2UXFWcEUwb2lJX2tFTWwydmhHdzU3Sg==");
+                this.keysite = atob("NkxjZGVzb2tBQUFBQUVDbjdDdS11RmNZblViMktpTEVwVkQ5RWw3Zg==");
             }
             if (dm.includes("borealmystic") || labeleStyle.includes("borealmystic")) {
                 sandBox(false);
@@ -321,7 +321,7 @@ app["sys"] = new Vue({
                 this.googleapikey = 'Ww8izv4t2LvrZMAV2OC8RKz0';
                 this.login_oauth = '1037020366638-h57ishvlsjfjv4rltepcdp62b431hur3.apps.googleusercontent.com';
                 this.key_oauth = atob('R09DU1BYLTZNVG9tc29fSlhnZjZTTC1TX3dFbG1tWklLQXo=');
-                this.keysite = atob("NkxmdWVzb2tBQUFBQUNKY3F2UXFWcEUwb2lJX2tFTWwydmhHdzU3Sg==");
+                this.keysite = atob("NkxlNWU4b2tBQUFBQUplM1g4QmVmZ3RraG9KQ1MwN0ZLV2RNenhzcg==");
             }
         },
         sorter: function (arr, model, field) {

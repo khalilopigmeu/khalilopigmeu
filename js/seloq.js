@@ -47,7 +47,7 @@ $(function () {
         }
     }, true);
 
-    if (window.location.href.includes("bienclube")) {
+    if (window.location.href.includes("bienclube")||window.location.href.includes("boreal")) {
         urlSys = false;
     } else {
         urlSys = true;

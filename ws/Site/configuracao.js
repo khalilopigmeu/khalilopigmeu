@@ -47,7 +47,6 @@ app["configuracaosite"] = new Vue({
         },
         id: function () {
             if (app.configuracaosite.src.length > 0) {
-                app.sys.setColorSystem();
                 if (app.configuracaosite.src[0].Facebook) {
                     app.empresasanunciando.fb = app.configuracaosite.src[0].Facebook.replace("@", "");
                 }
