@@ -47,17 +47,19 @@ app["configuracaosite"] = new Vue({
         },
         id: function () {
             if (app.configuracaosite.src.length > 0) {
-                if (app.configuracaosite.src[0].Facebook) {
-                    app.empresasanunciando.fb = app.configuracaosite.src[0].Facebook.replace("@", "");
-                }
-                if (app.configuracaosite.src[0].Instagram) {
-                    app.empresasanunciando.insta = app.configuracaosite.src[0].Instagram.replace("@", "");
-                }
-                if (app.configuracaosite.src[0].Site) {
-                    app.empresasanunciando.site = app.configuracaosite.src[0].Site;
-                }
-                if (app.configuracaosite.src[0].LogoURL) {
-                    app.empresasanunciando.logo = app.configuracaosite.src[0].LogoURL;
+                if (!nulo(app.empresasanunciando)) {
+                    if (app.configuracaosite.src[0].Facebook) {
+                        app.empresasanunciando.fb = app.configuracaosite.src[0].Facebook.replace("@", "");
+                    }
+                    if (app.configuracaosite.src[0].Instagram) {
+                        app.empresasanunciando.insta = app.configuracaosite.src[0].Instagram.replace("@", "");
+                    }
+                    if (app.configuracaosite.src[0].Site) {
+                        app.empresasanunciando.site = app.configuracaosite.src[0].Site;
+                    }
+                    if (app.configuracaosite.src[0].LogoURL) {
+                        app.empresasanunciando.logo = app.configuracaosite.src[0].LogoURL;
+                    }
                 }
             }
         },
