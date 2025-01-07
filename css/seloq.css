@@ -688,3 +688,24 @@ form{
 .titles{
     font-family: courgette,cursive;
 }
+
+#empresasanunciando .row .border{
+   border-radius: 5px;
+}
+
+#empresasanunciando .row .border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    border-radius: 5px;
+    background: var(--navbarbg) !important;
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}

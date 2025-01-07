@@ -33,9 +33,10 @@
                                                 <button class="btn btn-dark text-white" v-on:click="loginEmp">Enviar</button>
                                                 <br><br>
                                                 <button class="btn btn-dark text-white" data-toggle="modal" data-target="#modalCliBienestar">Cadastrar</button> 
-                                                <button class="btn btn-dark text-white" data-toggle="modal" data-target="#modalRecuperaSenha" onclick="app.GerenciamentoCliente.getRandomNumber();">Recuperar senha</button>
+                                                
+                                                <!--<button class="btn btn-dark text-white" data-toggle="modal" data-target="#modalRecuperaSenha" onclick="app.GerenciamentoCliente.getRandomNumber();">Recuperar senha</button>
                                                 <br><br>
-                                                <button class="btn btn-dark" href="<?php echo $refUrl; ?>ws/Login/painel.php">Demonstração</button>
+                                                <button class="btn btn-dark" href="<?php// echo $refUrl; ?>ws/Login/painel.php">Demonstração</button>-->
                                             </div>
                                         </fieldset>
 
@@ -47,8 +48,8 @@
                                             <select class="form-control" v-model="Modelo">
                                                 <option value="Cliente">Selecione o tipo de login</option>
                                                 <option value="Empresa">Empresa</option>
-                                                <option value="Vendedor">Vendedor</option>
-                                                <option value="Revendedor">Revenda</option>
+                                              <!--  <option value="Vendedor">Vendedor</option>
+                                                <option value="Revendedor">Revenda</option>-->
                                             </select>
                                             <br>
                                             <label for="Empresa">Empresa/Nome:</label>
@@ -63,15 +64,15 @@
                                                 <?php if (strpos($_SERVER['HTTP_HOST'], "rtiempresarial") !== false) { ?>
                                                     <button class="btn btn-dark text-white" data-toggle="modal" data-target="#modalCliBienestar">Cadastrar</button> 
                                                 <?php } ?>
-                                                <button class="btn btn-dark text-white" data-toggle="modal" data-target="#modalRecuperaSenha" onclick="app.GerenciamentoCliente.getRandomNumber();">Recuperar senha</button>
-                                                <br><br>
+                                               <!-- <button class="btn btn-dark text-white" data-toggle="modal" data-target="#modalRecuperaSenha" onclick="app.GerenciamentoCliente.getRandomNumber();">Recuperar senha</button>
+                                                <br><br>-->
                                             </div>
                                         </fieldset>
                                     </div>
                                 </div>
                             </form>
                         </div>
-                        <div class="row justify-content-center mt-2">
+                        <!--<div class="row justify-content-center mt-2">
                             <fieldset class="border rounded container-fluid border-dark justify-content-center">
                                 <legend class="border rounded text-center border-dark">Acesso por dispositivo</legend>
                                 <button class="btn btn-dark text-white" v-on:click="conectarFB()">Acessar com Facebook</button><br><br>
@@ -112,7 +113,7 @@
                                     </div>
                                 </div>
                             </fieldset>
-                        </div>
+                        </div>-->
                     </div>
                     <!--<div>
                         <h4>Você já está conectado, Clique aqui para ir para sua central de acesso.</h4><br>

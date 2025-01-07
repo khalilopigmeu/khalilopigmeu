@@ -19,7 +19,7 @@
                                 <label>Tipo de cadastro:</label>
                                 <select class="form-control" v-model="optCad" name="optCad">
                                     <option selected>Selecione o tipo de cadastro</option>
-                                    <option value="usuario">Cliente</option>
+                                    <!--<option value="usuario">Cliente</option>-->
                                     <option value="fisica">Anunciante</option>
                                     <option value="juridica">Empresa</option>
                                 </select><br>
@@ -129,10 +129,10 @@
                                 <input type="text" v-model="Celular" name="Celular" class="celular form-control" placeholder="(xx) xxxxx-xxxx" ><br>
                                 <label for="Email">Email:</label>
                                 <input type="email" placeholder="email@email.com"  class="form-control" v-on:blur="app.sys.consultaCad('login',app.clientLogin.Email)" v-model="Email" name="Email" required="required"><br>
-                                <label for="Login">Login:</label>
+                                <!--<label for="Login">Login:</label>
                                 <input type="text" v-model="Login" name="Login" class="loginc form-control" required="required"><br>
                                 <label for="Senha">Senha:</label>
-                                <input type="password" class="form-control" v-model="Senha" name="Senha" required="required"><br>
+                                <input type="password" class="form-control" v-model="Senha" name="Senha" required="required"><br>-->
                                 <input type="hidden" v-model="id" name="id">
                                 <br>
                                 <div class='justify-content-center text-center m-1 p-1'>
